@@ -1,0 +1,1087 @@
+! ----------------------------------------------------
+!   beyond_zork-870412-r01-z5.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 6d6bb48e4ecb2fb87763e3f7d22ed0eb
+CodeArea 0xe8cc 0x2b0d0
+StringArea 0x2b0d0 0x2c96c
+FalseEnd 0x107dc 1
+FalseEnd 0x10b70 1
+
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 4 attrib4   ! obj97
+Attribute 5 attrib5   ! obj97 obj292_pterodactyl
+Attribute 6 attrib6   ! obj97
+Attribute 7 attrib7   ! obj97
+Attribute 8 attrib8   ! obj97
+Attribute 9 attrib9   ! obj97
+Attribute 10 attrib10  ! obj97
+Attribute 11 attrib11  ! obj97
+Attribute 12 attrib12  ! obj97
+Attribute 13 attrib13  ! obj97
+Attribute 14 attrib14  ! obj97 obj267_lantern obj292_pterodactyl
+Attribute 15 attrib15  ! obj81_her obj89_little_lady obj97 obj118_old_woman obj260_minx
+Attribute 16 attrib16  ! obj28_your_foot obj71_pack obj97 obj160_amulet obj302_coronet
+Attribute 17 attrib17  ! obj6_netting obj27_cluster_of_road_signs obj35_bottle obj36_unicorn obj51_grandfather_clock obj53_picture_of_a_hand obj66_jewel_box obj84_mirror obj91_mirror obj97 obj106_mirror obj117_mirror obj119_dial obj126_megalith obj128_discipline_crab obj157_giant_onion obj161_snow obj167_picture_of_an_ear obj173_schooner obj185_picture_of_a_nose obj200_ash obj227_scarecrow obj237_picture_of_an_eye obj252_mirror obj269_mirror obj270_scarecrow obj272_picture_of_a_mouth obj281_skeleton obj282_mirror obj292_pterodactyl obj299_patch_of_weeds obj306_scarecrow obj309_burlap_sack obj328_mold
+Attribute 18 attrib18  ! obj97 obj156_stall
+Attribute 19 attrib19  ! obj35_bottle obj51_grandfather_clock obj97 obj156_stall obj330_crystal_jar
+Attribute 20 attrib20  ! obj17_door obj97 obj136_door obj165_door obj184_door obj193_door obj194_weapon_shop_door obj195_shop_door obj228_front_door obj287_cellar_door obj311_opening obj319_opening
+Attribute 21 attrib21  ! obj6_netting obj22_glyph obj28_your_foot obj29_sign obj37_stallion obj76_monument obj80_your_head obj97 obj107_wall obj128_discipline_crab obj132_hurdy_gurdy obj138_black_stallion obj157_giant_onion obj161_snow obj187_corner obj200_ash obj227_scarecrow obj268_luminous_sphere obj270_scarecrow obj281_skeleton obj292_pterodactyl obj299_patch_of_weeds obj303_arch obj306_scarecrow
+Attribute 22 attrib22  ! obj12_your_hand obj25_Southeastern_Forest obj33_yourself obj62_Southern_Forest obj80_your_head obj92_Southwest_Forest obj97 obj104_it obj107_wall obj125_Eastern_Forest obj147_Forest obj172_Western_Forest obj201_Northeast_Forest obj207_your_eyes obj234_Northern_Forest obj247_your_mouth obj265_Northwest_Forest obj268_luminous_sphere obj300_ceiling
+Attribute 23 attrib23  ! obj97 obj243_Froon obj280_tiny_silver_wand obj328_mold
+Attribute 24 attrib24  ! obj26_phase_blade obj27_cluster_of_road_signs obj36_unicorn obj51_grandfather_clock obj53_picture_of_a_hand obj66_jewel_box obj84_mirror obj91_mirror obj97 obj106_mirror obj117_mirror obj119_dial obj126_megalith obj161_snow obj167_picture_of_an_ear obj173_schooner obj185_picture_of_a_nose obj200_ash obj227_scarecrow obj237_picture_of_an_eye obj252_mirror obj269_mirror obj270_scarecrow obj272_picture_of_a_mouth obj281_skeleton obj282_mirror obj292_pterodactyl obj306_scarecrow obj309_burlap_sack obj328_mold obj356_that
+Attribute 25 attrib25  ! obj3_steps obj97 obj110_thunderclouds obj149_corbies obj188_hunters obj271_fields obj297_throng obj339_foothills
+Attribute 26 attrib26  ! obj36_unicorn obj85_oak_tree obj97 obj104_it obj160_amulet obj200_ash obj217_arrow obj222_ur_grue obj231_orator obj277_innkeeper obj290_old_salt obj303_arch obj311_opening obj319_opening obj357_hourglass
+Attribute 27 attrib27  ! obj77_yourself obj97 obj122_Magick_Shoppe obj321_King_Zilbo_Hotel obj326_Froon
+Attribute 28 attrib28  ! obj45_kitchen obj68_Guild_Hall obj74_Accardi_by_the_Sea obj83_Thriff obj97 obj101_village obj113_dais obj115_generic_shop obj122_Magick_Shoppe obj127_water obj142_wharf obj143_jungle obj171_hill obj257_loading_dock obj271_fields obj301_farm_house obj308_canyon obj321_King_Zilbo_Hotel obj326_Froon obj332_weapon_shop obj339_foothills
+Attribute 29 attrib29  ! obj97 obj267_lantern
+Attribute 30 attrib30  ! obj18_The_Broken_Lantern obj23_Wine_Cellar_9 obj38_No_Frills_Inn obj39_Wine_Cellar_5 obj61_Wine_Cellar_1 obj90_Wine_Cellar_11 obj97 obj108_Magick_Shoppe obj121_Wine_Cellar_10 obj129_Wine_Cellar_8 obj134_Weapon_Shop obj140_Wine_Cellar_4 obj148_Lobby obj153_Wine_Cellar_0 obj159_Cavern_10 obj192_Cavern_11 obj213_Wine_Cellar_7 obj230_Cavern_9 obj232_Wine_Cellar_3 obj235_Cavern_8 obj238_Cavern_7 obj240_Cavern_6 obj241_Farm_House obj242_Cavern_5 obj248_Cavern_4 obj249_Cavern_3 obj251_Cavern_2 obj258_Cavern_1 obj263_Cavern_0 obj286_Shop obj310_Wine_Cellar_6 obj317_Lobby obj320_Wine_Cellar_2 obj358_Lair
+Attribute 31 attrib31  ! obj1_Wasteland obj4_Jungle_5 obj5_Ruins_2 obj8_Forest_10 obj9_Ruins_1 obj10_Level_3B obj14_Shore_Road_1 obj16_Alley_7 obj18_The_Broken_Lantern obj19_Level_2D obj20_Under_SW_Gondola obj25_Southeastern_Forest obj31_Jungle_4 obj32_Forest_9 obj38_No_Frills_Inn obj43_West_End_of_Bridge obj44_Plaza obj47_Forest_7 obj49_Outside_Pub obj50_Rock_Wall obj52_Level_2B obj54_South_Ford obj56_Shore_Road_2 obj58_Alley_4 obj59_Forest_5 obj62_Southern_Forest obj64_Level_1D obj69_Jungle_3 obj70_Over_Jungle obj73_Port_B obj75_Forest_3 obj87_Forest_1 obj92_Southwest_Forest obj94_Level_1B obj95_Beach obj97 obj99_Jungle_2 obj100_The_Room obj102_Shore_Road_3 obj105_Alley_5 obj108_Magick_Shoppe obj109_Mountain_Trail obj112_Peak obj116_Forest_13 obj123_Wharf obj124_Edge_of_Ruins obj125_Eastern_Forest obj131_Jungle_1 obj133_Flying obj134_Weapon_Shop obj139_Cove obj141_Alley_2 obj144_North_of_Gurth obj147_Forest obj148_Lobby obj151_Alley_10 obj152_Jungle_0 obj153_Wine_Cellar_0 obj154_Hilltop obj158_Edge_of_Storms obj162_Outside_Guild_Hall obj163_Confluence obj164_Gurth_B obj168_Stables obj170_The_Other_Room obj172_Western_Forest obj174_Under_NW_Tower obj175_Alley_3 obj176_Level_3A obj179_Shore_Road_4 obj181_Dais obj182_Level_3C obj183_Bridge obj196_Forest_12 obj197_Moor_6 obj201_Northeast_Forest obj202_SW_Gondola_Support obj204_Moor_5 obj205_Intersection obj208_Moor_4 obj210_Moor_3 obj211_Mizniaport obj212_Moor_2 obj214_East_End_of_Bridge obj215_Alley_0 obj218_Moor_1 obj219_Level_2A obj220_NW_Gondola_Support obj223_Shore_Road_5 obj224_Thriff obj225_Forest_8 obj229_Level_2C obj234_Northern_Forest obj236_Forest_6 obj241_Farm_House obj243_Froon obj245_Forest_Edge obj246_Forest_4 obj254_Jungle_9 obj255_North_Ford obj259_Forest_2 obj261_Alley_1 obj262_Level_1A obj264_Alley_8 obj265_Northwest_Forest obj266_Forest_15 obj273_Forest_0 obj275_Base_of_Tower obj276_Level_1C obj278_Death obj286_Shop obj288_SE_Gondola_Support obj289_Forest_11 obj291_South_Cavern obj293_Jungle_8 obj298_Under_SE_Gondola obj305_Alley_9 obj312_Jungle_7 obj313_Loading_Platform obj314_Frotzen obj315_Farmyard obj317_Lobby obj323_Southwest_of_Moor obj325_Gurth_A obj327_Kitchen obj329_Jungle_11 obj331_Accardi_by_the_Sea obj333_Alley_11 obj334_Jungle_10 obj336_Jungle_6 obj337_Alley_6 obj338_Gurth_C obj340_Level_3D obj341_Rock_Wall obj343_Mountain_Pasture obj344_Moor_s_Edge obj347_Forest_14 obj348_Outskirts obj349_Ruins_5 obj351_North_Shore obj354_Round_Chamber obj355_Ruins_4 obj359_Ruins_3
+Attribute 32 attrib32  ! obj7_this_game obj12_your_hand obj24_that_function_key obj28_your_foot obj33_yourself obj42_that obj63_that obj65_that_direction obj77_yourself obj80_your_head obj81_her obj97 obj104_it obj120_your_clothes obj199_that_direction obj206_him obj207_your_eyes obj239_them obj247_your_mouth obj253_that obj256_myself obj284_that obj307_nothing obj326_Froon obj352_that obj356_that
+Attribute 33 attrib33  ! obj3_steps obj6_netting obj7_this_game obj12_your_hand obj13_spring obj17_door obj24_that_function_key obj27_cluster_of_road_signs obj28_your_foot obj29_sign obj35_bottle obj36_unicorn obj41_parchment_scroll obj42_that obj45_kitchen obj46_warning_nymph obj48_flower_beds obj51_grandfather_clock obj53_picture_of_a_hand obj63_that obj65_that_direction obj68_Guild_Hall obj74_Accardi_by_the_Sea obj77_yourself obj80_your_head obj82_stairway obj83_Thriff obj85_oak_tree obj86_sea obj96_sky obj97 obj98 obj101_village obj103_tornado obj104_it obj107_wall obj110_thunderclouds obj111_sun obj113_dais obj114_trench obj115_generic_shop obj119_dial obj120_your_clothes obj122_Magick_Shoppe obj127_water obj136_door obj142_wharf obj143_jungle obj145_lout obj146_band_of_travelers obj149_corbies obj150_support_tower obj156_stall obj160_amulet obj161_snow obj165_door obj166_waterfall obj167_picture_of_an_ear obj171_hill obj180_tower obj184_door obj185_picture_of_a_nose obj186_wall_of_rock obj187_corner obj189_sound obj190_dornbeast obj193_door obj194_weapon_shop_door obj195_shop_door obj198_bridge obj199_that_direction obj200_ash obj207_your_eyes obj217_arrow obj221_window obj226_plaza obj228_front_door obj233_stack_of_barrels obj237_picture_of_an_eye obj247_your_mouth obj253_that obj256_myself obj257_loading_dock obj271_fields obj272_picture_of_a_mouth obj279_tavern obj283_ground obj284_that obj287_cellar_door obj292_pterodactyl obj294_weed obj297_throng obj299_patch_of_weeds obj300_ceiling obj301_farm_house obj307_nothing obj308_canyon obj311_opening obj316_monkey_grinder obj319_opening obj321_King_Zilbo_Hotel obj324_stable obj326_Froon obj332_weapon_shop obj339_foothills obj345_wall_of_rock obj346_gondola obj352_that obj353_prince obj356_that
+Attribute 34 attrib34  ! obj28_your_foot obj71_pack obj97
+Attribute 35 attrib35  ! obj6_netting obj13_spring obj72_saddle obj97 obj177_gondola obj292_pterodactyl obj303_arch
+Attribute 36 attrib36  ! obj22_glyph obj29_sign obj41_parchment_scroll obj88_glyph obj97 obj130_chest obj155_scroll obj268_luminous_sphere obj318_curled_up_scroll
+Attribute 37 attrib37  ! obj17_door obj35_bottle obj66_jewel_box obj97 obj130_chest obj132_hurdy_gurdy obj136_door obj156_stall obj165_door obj184_door obj193_door obj194_weapon_shop_door obj195_shop_door obj203_wine_bottle obj228_front_door obj287_cellar_door obj309_burlap_sack obj311_opening obj319_opening obj330_crystal_jar
+Attribute 38 attrib38  ! obj2_man obj21_discipline_crab obj33_yourself obj36_unicorn obj37_stallion obj46_warning_nymph obj67_discipline_crab obj78_hunter obj81_her obj89_little_lady obj93_shape obj97 obj118_old_woman obj128_discipline_crab obj135_shape obj137_knight obj138_black_stallion obj145_lout obj146_band_of_travelers obj149_corbies obj188_hunters obj190_dornbeast obj206_him obj209_shape obj222_ur_grue obj231_orator obj260_minx obj274_Mayor obj277_innkeeper obj285_crowd obj290_old_salt obj292_pterodactyl obj297_throng obj316_monkey_grinder obj353_prince
+Attribute 39 attrib39  ! obj13_spring obj35_bottle obj51_grandfather_clock obj66_jewel_box obj71_pack obj85_oak_tree obj86_sea obj97 obj114_trench obj127_water obj130_chest obj156_stall obj177_gondola obj203_wine_bottle obj221_window obj299_patch_of_weeds obj303_arch obj309_burlap_sack obj330_crystal_jar obj357_hourglass
+Attribute 40 attrib40  ! obj11_key obj15_staff obj26_phase_blade obj30_match obj40_key obj41_parchment_scroll obj57_wand obj71_pack obj72_saddle obj97 obj130_chest obj132_hurdy_gurdy obj155_scroll obj160_amulet obj178_coconut obj203_wine_bottle obj216_tiny_crown obj217_arrow obj244_jackknife obj260_minx obj267_lantern obj268_luminous_sphere obj280_tiny_silver_wand obj294_weed obj302_coronet obj304_rood obj318_curled_up_scroll obj322_sword obj330_crystal_jar obj335_stave obj342_key obj357_hourglass
+Attribute 41 attrib41  ! obj12_your_hand obj97
+Attribute 42 attrib42  ! obj12_your_hand obj15_staff obj97 obj244_jackknife obj322_sword
+Attribute 43 attrib43  ! obj13_spring obj71_pack obj85_oak_tree obj86_sea obj97 obj114_trench obj127_water obj177_gondola obj193_door obj221_window obj267_lantern obj299_patch_of_weeds obj303_arch
+Attribute 44 attrib44  ! obj12_your_hand obj26_phase_blade obj97 obj244_jackknife
+Attribute 45 attrib45  ! obj21_discipline_crab obj67_discipline_crab obj93_shape obj97 obj128_discipline_crab obj135_shape obj149_corbies obj190_dornbeast obj209_shape obj222_ur_grue obj316_monkey_grinder
+Attribute 46 attrib46  ! obj2_man obj33_yourself obj36_unicorn obj78_hunter obj81_her obj89_little_lady obj97 obj118_old_woman obj137_knight obj145_lout obj146_band_of_travelers obj149_corbies obj188_hunters obj190_dornbeast obj206_him obj231_orator obj260_minx obj274_Mayor obj277_innkeeper obj285_crowd obj290_old_salt obj292_pterodactyl obj297_throng obj316_monkey_grinder obj353_prince
+Attribute 47 attrib47  ! obj1_Wasteland obj4_Jungle_5 obj5_Ruins_2 obj8_Forest_10 obj9_Ruins_1 obj10_Level_3B obj14_Shore_Road_1 obj16_Alley_7 obj18_The_Broken_Lantern obj19_Level_2D obj20_Under_SW_Gondola obj23_Wine_Cellar_9 obj25_Southeastern_Forest obj31_Jungle_4 obj32_Forest_9 obj38_No_Frills_Inn obj39_Wine_Cellar_5 obj43_West_End_of_Bridge obj44_Plaza obj47_Forest_7 obj49_Outside_Pub obj50_Rock_Wall obj52_Level_2B obj54_South_Ford obj55_Stack obj56_Shore_Road_2 obj58_Alley_4 obj59_Forest_5 obj61_Wine_Cellar_1 obj62_Southern_Forest obj64_Level_1D obj69_Jungle_3 obj70_Over_Jungle obj73_Port_B obj75_Forest_3 obj87_Forest_1 obj90_Wine_Cellar_11 obj92_Southwest_Forest obj94_Level_1B obj95_Beach obj97 obj99_Jungle_2 obj100_The_Room obj102_Shore_Road_3 obj105_Alley_5 obj108_Magick_Shoppe obj109_Mountain_Trail obj112_Peak obj116_Forest_13 obj121_Wine_Cellar_10 obj123_Wharf obj124_Edge_of_Ruins obj125_Eastern_Forest obj129_Wine_Cellar_8 obj131_Jungle_1 obj133_Flying obj134_Weapon_Shop obj139_Cove obj140_Wine_Cellar_4 obj141_Alley_2 obj144_North_of_Gurth obj147_Forest obj148_Lobby obj151_Alley_10 obj152_Jungle_0 obj153_Wine_Cellar_0 obj154_Hilltop obj158_Edge_of_Storms obj159_Cavern_10 obj162_Outside_Guild_Hall obj163_Confluence obj164_Gurth_B obj168_Stables obj170_The_Other_Room obj172_Western_Forest obj174_Under_NW_Tower obj175_Alley_3 obj176_Level_3A obj179_Shore_Road_4 obj181_Dais obj182_Level_3C obj183_Bridge obj192_Cavern_11 obj196_Forest_12 obj197_Moor_6 obj201_Northeast_Forest obj202_SW_Gondola_Support obj204_Moor_5 obj205_Intersection obj208_Moor_4 obj210_Moor_3 obj211_Mizniaport obj212_Moor_2 obj213_Wine_Cellar_7 obj214_East_End_of_Bridge obj215_Alley_0 obj218_Moor_1 obj219_Level_2A obj220_NW_Gondola_Support obj223_Shore_Road_5 obj224_Thriff obj225_Forest_8 obj229_Level_2C obj230_Cavern_9 obj232_Wine_Cellar_3 obj234_Northern_Forest obj235_Cavern_8 obj236_Forest_6 obj238_Cavern_7 obj240_Cavern_6 obj241_Farm_House obj242_Cavern_5 obj243_Froon obj245_Forest_Edge obj246_Forest_4 obj248_Cavern_4 obj249_Cavern_3 obj250_NE_Cavern obj251_Cavern_2 obj254_Jungle_9 obj255_North_Ford obj258_Cavern_1 obj259_Forest_2 obj261_Alley_1 obj262_Level_1A obj263_Cavern_0 obj264_Alley_8 obj265_Northwest_Forest obj266_Forest_15 obj273_Forest_0 obj275_Base_of_Tower obj276_Level_1C obj278_Death obj286_Shop obj288_SE_Gondola_Support obj289_Forest_11 obj291_South_Cavern obj293_Jungle_8 obj298_Under_SE_Gondola obj305_Alley_9 obj310_Wine_Cellar_6 obj312_Jungle_7 obj313_Loading_Platform obj314_Frotzen obj315_Farmyard obj317_Lobby obj320_Wine_Cellar_2 obj323_Southwest_of_Moor obj325_Gurth_A obj327_Kitchen obj329_Jungle_11 obj331_Accardi_by_the_Sea obj333_Alley_11 obj334_Jungle_10 obj336_Jungle_6 obj337_Alley_6 obj338_Gurth_C obj340_Level_3D obj341_Rock_Wall obj343_Mountain_Pasture obj344_Moor_s_Edge obj347_Forest_14 obj348_Outskirts obj349_Ruins_5 obj351_North_Shore obj354_Round_Chamber obj355_Ruins_4 obj358_Lair obj359_Ruins_3
+
+! ----------------------------- Properties -----------------------------
+
+Property 13 prop13:?
+Property 14 prop14:?
+Property 15 prop15:?
+Property 16 prop16:string
+Property 17 prop17:?
+Property 18 prop18:?
+Property 19 prop19:?
+Property 20 prop20:?
+Property 21 prop21:?
+Property 22 prop22:?
+Property 23 prop23:?
+Property 24 prop24:?
+Property 25 prop25:?
+Property 26 prop26:?
+Property 27 prop27:?
+Property 28 prop28:?
+Property 29 prop29:?
+Property 30 prop30:?
+Property 31 prop31:?
+Property 32 prop32:?
+Property 33 prop33:?
+Property 34 prop34:?
+Property 35 prop35:?
+Property 36 prop36:?
+Property 37 prop37:?
+Property 38 prop38:thing
+Property 39 prop39:?
+Property 40 prop40:?
+Property 41 prop41:?
+Property 42 prop42:string
+Property 43 prop43:string
+Property 44 prop44:?
+Property 45 prop45:?
+Property 46 prop46:?
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:dictwords
+Property 51 prop51:dictwords
+Property 52 out_to:exit
+Property 53 in_to:exit
+Property 54 d_to:exit
+Property 55 u_to:exit
+Property 56 northwest_to:exit
+Property 57 w_to:exit
+Property 58 southwest_to:exit
+Property 59 s_to:exit
+Property 60 se_to:exit
+Property 61 e_to:exit
+Property 62 ne_to:exit
+Property 63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Wasteland
+Object 2 obj2_man
+Object 3 obj3_steps
+Object 4 obj4_Jungle_5
+Object 5 obj5_Ruins_2
+Object 6 obj6_netting
+Object 7 obj7_this_game
+Object 8 obj8_Forest_10
+Object 9 obj9_Ruins_1
+Object 10 obj10_Level_3B
+Object 11 obj11_key
+Object 12 obj12_your_hand
+Object 13 obj13_spring
+Object 14 obj14_Shore_Road_1
+Object 15 obj15_staff
+Object 16 obj16_Alley_7
+Object 17 obj17_door
+Object 18 obj18_The_Broken_Lantern
+Object 19 obj19_Level_2D
+Object 20 obj20_Under_SW_Gondola
+Object 21 obj21_discipline_crab
+Object 22 obj22_glyph
+Object 23 obj23_Wine_Cellar_9
+Object 24 obj24_that_function_key
+Object 25 obj25_Southeastern_Forest
+Object 26 obj26_phase_blade
+Object 27 obj27_cluster_of_road_signs
+Object 28 obj28_your_foot
+Object 29 obj29_sign
+Object 30 obj30_match
+Object 31 obj31_Jungle_4
+Object 32 obj32_Forest_9
+Object 33 obj33_yourself
+Object 34 obj34
+Object 35 obj35_bottle
+Object 36 obj36_unicorn
+Object 37 obj37_stallion
+Object 38 obj38_No_Frills_Inn
+Object 39 obj39_Wine_Cellar_5
+Object 40 obj40_key
+Object 41 obj41_parchment_scroll
+Object 42 obj42_that
+Object 43 obj43_West_End_of_Bridge
+Object 44 obj44_Plaza
+Object 45 obj45_kitchen
+Object 46 obj46_warning_nymph
+Object 47 obj47_Forest_7
+Object 48 obj48_flower_beds
+Object 49 obj49_Outside_Pub
+Object 50 obj50_Rock_Wall
+Object 51 obj51_grandfather_clock
+Object 52 obj52_Level_2B
+Object 53 obj53_picture_of_a_hand
+Object 54 obj54_South_Ford
+Object 55 obj55_Stack
+Object 56 obj56_Shore_Road_2
+Object 57 obj57_wand
+Object 58 obj58_Alley_4
+Object 59 obj59_Forest_5
+Object 60 obj60_direction
+Object 61 obj61_Wine_Cellar_1
+Object 62 obj62_Southern_Forest
+Object 63 obj63_that
+Object 64 obj64_Level_1D
+Object 65 obj65_that_direction
+Object 66 obj66_jewel_box
+Object 67 obj67_discipline_crab
+Object 68 obj68_Guild_Hall
+Object 69 obj69_Jungle_3
+Object 70 obj70_Over_Jungle
+Object 71 obj71_pack
+Object 72 obj72_saddle
+Object 73 obj73_Port_B
+Object 74 obj74_Accardi_by_the_Sea
+Object 75 obj75_Forest_3
+Object 76 obj76_monument
+Object 77 obj77_yourself
+Object 78 obj78_hunter
+Object 79 obj79
+Object 80 obj80_your_head
+Object 81 obj81_her
+Object 82 obj82_stairway
+Object 83 obj83_Thriff
+Object 84 obj84_mirror
+Object 85 obj85_oak_tree
+Object 86 obj86_sea
+Object 87 obj87_Forest_1
+Object 88 obj88_glyph
+Object 89 obj89_little_lady
+Object 90 obj90_Wine_Cellar_11
+Object 91 obj91_mirror
+Object 92 obj92_Southwest_Forest
+Object 93 obj93_shape
+Object 94 obj94_Level_1B
+Object 95 obj95_Beach
+Object 96 obj96_sky
+Object 97 obj97
+Object 98 obj98
+Object 99 obj99_Jungle_2
+Object 100 obj100_The_Room
+Object 101 obj101_village
+Object 102 obj102_Shore_Road_3
+Object 103 obj103_tornado
+Object 104 obj104_it
+Object 105 obj105_Alley_5
+Object 106 obj106_mirror
+Object 107 obj107_wall
+Object 108 obj108_Magick_Shoppe
+Object 109 obj109_Mountain_Trail
+Object 110 obj110_thunderclouds
+Object 111 obj111_sun
+Object 112 obj112_Peak
+Object 113 obj113_dais
+Object 114 obj114_trench
+Object 115 obj115_generic_shop
+Object 116 obj116_Forest_13
+Object 117 obj117_mirror
+Object 118 obj118_old_woman
+Object 119 obj119_dial
+Object 120 obj120_your_clothes
+Object 121 obj121_Wine_Cellar_10
+Object 122 obj122_Magick_Shoppe
+Object 123 obj123_Wharf
+Object 124 obj124_Edge_of_Ruins
+Object 125 obj125_Eastern_Forest
+Object 126 obj126_megalith
+Object 127 obj127_water
+Object 128 obj128_discipline_crab
+Object 129 obj129_Wine_Cellar_8
+Object 130 obj130_chest
+Object 131 obj131_Jungle_1
+Object 132 obj132_hurdy_gurdy
+Object 133 obj133_Flying
+Object 134 obj134_Weapon_Shop
+Object 135 obj135_shape
+Object 136 obj136_door
+Object 137 obj137_knight
+Object 138 obj138_black_stallion
+Object 139 obj139_Cove
+Object 140 obj140_Wine_Cellar_4
+Object 141 obj141_Alley_2
+Object 142 obj142_wharf
+Object 143 obj143_jungle
+Object 144 obj144_North_of_Gurth
+Object 145 obj145_lout
+Object 146 obj146_band_of_travelers
+Object 147 obj147_Forest
+Object 148 obj148_Lobby
+Object 149 obj149_corbies
+Object 150 obj150_support_tower
+Object 151 obj151_Alley_10
+Object 152 obj152_Jungle_0
+Object 153 obj153_Wine_Cellar_0
+Object 154 obj154_Hilltop
+Object 155 obj155_scroll
+Object 156 obj156_stall
+Object 157 obj157_giant_onion
+Object 158 obj158_Edge_of_Storms
+Object 159 obj159_Cavern_10
+Object 160 obj160_amulet
+Object 161 obj161_snow
+Object 162 obj162_Outside_Guild_Hall
+Object 163 obj163_Confluence
+Object 164 obj164_Gurth_B
+Object 165 obj165_door
+Object 166 obj166_waterfall
+Object 167 obj167_picture_of_an_ear
+Object 168 obj168_Stables
+Object 169 obj169
+Object 170 obj170_The_Other_Room
+Object 171 obj171_hill
+Object 172 obj172_Western_Forest
+Object 173 obj173_schooner
+Object 174 obj174_Under_NW_Tower
+Object 175 obj175_Alley_3
+Object 176 obj176_Level_3A
+Object 177 obj177_gondola
+Object 178 obj178_coconut
+Object 179 obj179_Shore_Road_4
+Object 180 obj180_tower
+Object 181 obj181_Dais
+Object 182 obj182_Level_3C
+Object 183 obj183_Bridge
+Object 184 obj184_door
+Object 185 obj185_picture_of_a_nose
+Object 186 obj186_wall_of_rock
+Object 187 obj187_corner
+Object 188 obj188_hunters
+Object 189 obj189_sound
+Object 190 obj190_dornbeast
+Object 191 obj191_room
+Object 192 obj192_Cavern_11
+Object 193 obj193_door
+Object 194 obj194_weapon_shop_door
+Object 195 obj195_shop_door
+Object 196 obj196_Forest_12
+Object 197 obj197_Moor_6
+Object 198 obj198_bridge
+Object 199 obj199_that_direction
+Object 200 obj200_ash
+Object 201 obj201_Northeast_Forest
+Object 202 obj202_SW_Gondola_Support
+Object 203 obj203_wine_bottle
+Object 204 obj204_Moor_5
+Object 205 obj205_Intersection
+Object 206 obj206_him
+Object 207 obj207_your_eyes
+Object 208 obj208_Moor_4
+Object 209 obj209_shape
+Object 210 obj210_Moor_3
+Object 211 obj211_Mizniaport
+Object 212 obj212_Moor_2
+Object 213 obj213_Wine_Cellar_7
+Object 214 obj214_East_End_of_Bridge
+Object 215 obj215_Alley_0
+Object 216 obj216_tiny_crown
+Object 217 obj217_arrow
+Object 218 obj218_Moor_1
+Object 219 obj219_Level_2A
+Object 220 obj220_NW_Gondola_Support
+Object 221 obj221_window
+Object 222 obj222_ur_grue
+Object 223 obj223_Shore_Road_5
+Object 224 obj224_Thriff
+Object 225 obj225_Forest_8
+Object 226 obj226_plaza
+Object 227 obj227_scarecrow
+Object 228 obj228_front_door
+Object 229 obj229_Level_2C
+Object 230 obj230_Cavern_9
+Object 231 obj231_orator
+Object 232 obj232_Wine_Cellar_3
+Object 233 obj233_stack_of_barrels
+Object 234 obj234_Northern_Forest
+Object 235 obj235_Cavern_8
+Object 236 obj236_Forest_6
+Object 237 obj237_picture_of_an_eye
+Object 238 obj238_Cavern_7
+Object 239 obj239_them
+Object 240 obj240_Cavern_6
+Object 241 obj241_Farm_House
+Object 242 obj242_Cavern_5
+Object 243 obj243_Froon
+Object 244 obj244_jackknife
+Object 245 obj245_Forest_Edge
+Object 246 obj246_Forest_4
+Object 247 obj247_your_mouth
+Object 248 obj248_Cavern_4
+Object 249 obj249_Cavern_3
+Object 250 obj250_NE_Cavern
+Object 251 obj251_Cavern_2
+Object 252 obj252_mirror
+Object 253 obj253_that
+Object 254 obj254_Jungle_9
+Object 255 obj255_North_Ford
+Object 256 obj256_myself
+Object 257 obj257_loading_dock
+Object 258 obj258_Cavern_1
+Object 259 obj259_Forest_2
+Object 260 obj260_minx
+Object 261 obj261_Alley_1
+Object 262 obj262_Level_1A
+Object 263 obj263_Cavern_0
+Object 264 obj264_Alley_8
+Object 265 obj265_Northwest_Forest
+Object 266 obj266_Forest_15
+Object 267 obj267_lantern
+Object 268 obj268_luminous_sphere
+Object 269 obj269_mirror
+Object 270 obj270_scarecrow
+Object 271 obj271_fields
+Object 272 obj272_picture_of_a_mouth
+Object 273 obj273_Forest_0
+Object 274 obj274_Mayor
+Object 275 obj275_Base_of_Tower
+Object 276 obj276_Level_1C
+Object 277 obj277_innkeeper
+Object 278 obj278_Death
+Object 279 obj279_tavern
+Object 280 obj280_tiny_silver_wand
+Object 281 obj281_skeleton
+Object 282 obj282_mirror
+Object 283 obj283_ground
+Object 284 obj284_that
+Object 285 obj285_crowd
+Object 286 obj286_Shop
+Object 287 obj287_cellar_door
+Object 288 obj288_SE_Gondola_Support
+Object 289 obj289_Forest_11
+Object 290 obj290_old_salt
+Object 291 obj291_South_Cavern
+Object 292 obj292_pterodactyl
+Object 293 obj293_Jungle_8
+Object 294 obj294_weed
+Object 295 obj295_number
+Object 296 obj296_floor
+Object 297 obj297_throng
+Object 298 obj298_Under_SE_Gondola
+Object 299 obj299_patch_of_weeds
+Object 300 obj300_ceiling
+Object 301 obj301_farm_house
+Object 302 obj302_coronet
+Object 303 obj303_arch
+Object 304 obj304_rood
+Object 305 obj305_Alley_9
+Object 306 obj306_scarecrow
+Object 307 obj307_nothing
+Object 308 obj308_canyon
+Object 309 obj309_burlap_sack
+Object 310 obj310_Wine_Cellar_6
+Object 311 obj311_opening
+Object 312 obj312_Jungle_7
+Object 313 obj313_Loading_Platform
+Object 314 obj314_Frotzen
+Object 315 obj315_Farmyard
+Object 316 obj316_monkey_grinder
+Object 317 obj317_Lobby
+Object 318 obj318_curled_up_scroll
+Object 319 obj319_opening
+Object 320 obj320_Wine_Cellar_2
+Object 321 obj321_King_Zilbo_Hotel
+Object 322 obj322_sword
+Object 323 obj323_Southwest_of_Moor
+Object 324 obj324_stable
+Object 325 obj325_Gurth_A
+Object 326 obj326_Froon
+Object 327 obj327_Kitchen
+Object 328 obj328_mold
+Object 329 obj329_Jungle_11
+Object 330 obj330_crystal_jar
+Object 331 obj331_Accardi_by_the_Sea
+Object 332 obj332_weapon_shop
+Object 333 obj333_Alley_11
+Object 334 obj334_Jungle_10
+Object 335 obj335_stave
+Object 336 obj336_Jungle_6
+Object 337 obj337_Alley_6
+Object 338 obj338_Gurth_C
+Object 339 obj339_foothills
+Object 340 obj340_Level_3D
+Object 341 obj341_Rock_Wall
+Object 342 obj342_key
+Object 343 obj343_Mountain_Pasture
+Object 344 obj344_Moor_s_Edge
+Object 345 obj345_wall_of_rock
+Object 346 obj346_gondola
+Object 347 obj347_Forest_14
+Object 348 obj348_Outskirts
+Object 349 obj349_Ruins_5
+Object 350 obj350
+Object 351 obj351_North_Shore
+Object 352 obj352_that
+Object 353 obj353_prince
+Object 354 obj354_Round_Chamber
+Object 355 obj355_Ruins_4
+Object 356 obj356_that
+Object 357 obj357_hourglass
+Object 358 obj358_Lair
+Object 359 obj359_Ruins_3
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbose'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superbrie'
+Action 3 Action3  ! 'mode'
+Action 4 Action4  ! 'priority' 'upon'/'onto'/'on'/'aboard' attrib47
+Action 5 Action5  ! 'priority' 'off' attrib47
+Action 6 Action6  ! 'zoom' attrib47
+Action 7 Action7  ! 'zoom' 'within'/'into'/'inside'/'in'/'between' attrib47
+Action 8 Action8  ! 'zoom' 'outside'/'out' attrib47
+Action 9 Action9  ! 'settings'
+Action 10 Action10 ! 'refresh'
+Action 11 Action11 ! 'i//'/'inventory'
+Action 12 Action12 ! 'diagnose'/'stat'/'stats'/'status'
+Action 13 Action13 ! 'monitor'
+Action 14 Action14 ! 'auto'/'automatic'
+Action 15 Action15 ! 'q//'/'quit'
+Action 16 Action16 ! 'restart'
+Action 17 Action17 ! 'save'
+Action 18 Action18 ! 'aid'/'help' object
+Action 19 Action19 ! 'restore'
+Action 20 Action20 ! 'undo'
+Action 21 Action21 ! 'score'
+Action 22 Action22 ! 't//'/'time'
+Action 23 Action23 ! 'script'
+Action 24 Action24 ! 'unscript'
+Action 25 Action25 ! 'version'
+Action 26 Action26 ! '$ver'/'$verif' object
+Action 27 Action27 ! 'notify'
+Action 28 Action28 ! '#record'
+Action 29 Action29 ! '#unrecor'
+Action 30 Action30 ! '#random' object
+Action 31 Action31 ! '#command'
+Action 32 Action32 ! 'answer' attrib46
+Action 33 Action33 ! 'ask' 'about' attrib46
+Action 34 Action34 ! 'ask' 'for' object
+Action 35 Action35 ! 'ask' attrib46 'about' object
+Action 36 Action36 ! 'ask' attrib46 'for' object
+Action 37 Action37 ! 'request' object 'from' attrib46
+Action 38 Action38 ! 'exchange'/'trade' object(held,carried,have) 'for' object
+Action 39 Action39 ! 'rub' 'outside'/'out' object 'with'/'using' attrib44(held,carried,have)
+Action 40 Action40 ! 'go' 'beyond'/'behind' object
+Action 41 Action41 ! 'go' 'from' object
+Action 42 Action42 ! 'bite' object
+Action 43 Action43 ! 'inflate' object
+Action 44 Action44 ! 'detonate'/'explode' object
+Action 45 Action45 ! 'close'/'shut'/'slam' 'off' object(held,carried,in_room,on_ground)
+Action 46 Action46 ! 'burn'/'char'/'combust'/'cremate'/'ignite'/'incinerat'/'kindle'/'scorch' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 47 Action47 ! 'buy' object 'with'/'using' object(held,carried,have)
+Action 48 Action48 ! 'buy' object 'from' object
+Action 49 Action49 ! 'brush'/'clean'/'polish'/'sweep'/'wipe' 'off' object
+Action 50 Action50 ! 'brush'/'clean'/'polish'/'sweep'/'wipe' 'off' object(held,carried,have) 'over'/'across' object
+Action 51 Action51 ! 'climb' 'up'/'u//' attrib47(in_room,on_ground)
+Action 52 Action52 ! 'climb' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 53 Action53 ! 'climb' 'down'/'d//' attrib47(in_room,on_ground)
+Action 54 Action54 ! 'climb' 'over'/'across' attrib47(in_room,on_ground)
+Action 55 Action55 ! 'climb' 'thru'/'through' object(in_room,on_ground)
+Action 56 Action56 ! 'climb' 'within'/'into'/'inside'/'in'/'between' attrib47(in_room,on_ground)
+Action 57 Action57 ! 'climb' 'outside'/'out' attrib47
+Action 58 Action58 ! 'close'/'shut'/'slam' attrib43(held,carried,in_room,on_ground)
+Action 59 Action59 ! 'count'/'tally' object
+Action 60 Action60 ! 'go' 'over'/'across' object
+Action 61 Action61 ! 'fell' object 'with'/'using' attrib42(held,carried,take,have)
+Action 62 Action62 ! 'rip'/'tear' 'down'/'d//' object 'with'/'using' attrib41(held,carried,take,have)
+Action 63 Action63 ! 'remove' attrib40(in_room,on_ground,many) 'within'/'into'/'inside'/'in'/'between' object
+Action 64 Action64 ! 'kick' 'down'/'d//' object
+Action 65 Action65 ! 'dig'/'excavate' 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground) 'with'/'using' attrib41(held,carried,have)
+Action 66 Action66 ! 'dig'/'excavate' 'with'/'using' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 67 Action67 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' object(held,carried,in_room,on_ground)
+Action 68 Action68 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' 'from' object(held,carried)
+Action 69 Action69 ! 'drop'/'dump' object(held,many,have)
+Action 70 Action70 ! 'conceal' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 71 Action71 ! 'lean' object(held,carried,have) 'near'/'against' object
+Action 72 Action72 ! 'consume'/'devour'/'eat'/'gobble'/'ingest'/'nibble'/'swallow' object(held,carried,in_room,on_ground)
+Action 73 Action73 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'x//' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 74 Action74 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'x//' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 75 Action75 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'x//' 'for' object
+Action 76 Action76 ! 'observe'/'watch' object(held,carried,in_room,on_ground) 'with'/'using' object
+Action 77 Action77 ! 'observe'/'watch' attrib47(held,carried,in_room,on_ground)
+Action 78 Action78 ! 'fill' attrib39(held,carried,in_room,on_ground) 'at' object
+Action 79 Action79 ! 'pat'/'pet' object
+Action 80 Action80 ! 'rub' object(held,carried,have) 'together' object
+Action 81 Action81 ! 'probe' object 'with'/'using' object(held,carried,have)
+Action 82 Action82 ! 'erase' object 'with'/'using' attrib41(held,carried,have)
+Action 83 Action83 ! 'fly' 'over'/'across' object
+Action 84 Action84 ! 'fly' 'up'/'u//' attrib47
+Action 85 Action85 ! 'fly' 'down'/'d//' attrib47
+Action 86 Action86 ! 'bank' 'towards'/'toward'/'to' object
+Action 87 Action87 ! 'land'
+Action 88 Action88 ! 'land' 'upon'/'onto'/'on'/'aboard' object
+Action 89 Action89 ! 'retract' object
+Action 90 Action90 ! 'fold'/'wrap' object(held,carried,have) 'around'/'along' object(in_room,on_ground)
+Action 91 Action91 ! 'fold'/'wrap' 'up'/'u//' object(in_room,on_ground) 'within'/'into'/'inside'/'in'/'between' object(held,carried,have)
+Action 92 Action92 ! 'flip'/'rotate'/'turn' 'down'/'d//' object
+Action 93 Action93 ! 'extend'/'unflatten'/'unfold'/'unroll' object(held,carried,have)
+Action 94 Action94 ! 'untangle' object
+Action 95 Action95 ! 'chase'/'follow'/'pursue' object
+Action 96 Action96 ! 'suspend' object
+Action 97 Action97 ! 'suspend' object(held,carried,have) 'from' object
+Action 98 Action98 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer'/'present' object(held,carried,take,have) 'towards'/'toward'/'to' attrib38(in_room,on_ground)
+Action 99 Action99 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer'/'present' attrib38(in_room,on_ground) object(held,carried,take,have)
+Action 100 Action100 ! 'sell' object(held,carried,have) 'towards'/'toward'/'to' attrib38(in_room,on_ground)
+Action 101 Action101 ! 'sell' attrib38(in_room,on_ground) object(held,carried,take,have)
+Action 102 Action102 ! 'display'/'show' object(held,carried,take,have) 'towards'/'toward'/'to' attrib38(in_room,on_ground)
+Action 103 Action103 ! 'display'/'show' attrib38 object(held,carried,take,have)
+Action 104 Action104 ! 'feed' attrib38(in_room,on_ground) object(held,carried,have)
+Action 105 Action105 ! 'feed' object(held,carried,have) 'towards'/'toward'/'to' attrib38(in_room,on_ground)
+Action 106 Action106 ! 'listen' 'for' object(held,carried,in_room,on_ground)
+Action 107 Action107 ! 'greet'/'greetings'/'hello'/'hi'/'salute' attrib47
+Action 108 Action108 ! 'bye'/'farewell'/'goodbye' attrib47
+Action 109 Action109 ! 'hint'/'hints'
+Action 110 Action110 ! 'conceal' object(held,carried,have) 'beyond'/'behind' object(in_room,on_ground)
+Action 111 Action111 ! 'conceal' object(held,carried,have) 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 112 Action112 ! 'hide' 'beyond'/'behind' object
+Action 113 Action113 ! 'get' 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 114 Action114 ! 'block'/'cover'/'shield' 'over'/'across' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 115 Action115 ! 'deflate' object
+Action 116 Action116 ! 'dive' 'over'/'across' object
+Action 117 Action117 ! 'go' 'upon'/'onto'/'on'/'aboard' object
+Action 118 Action118 ! 'bounce' 'around'/'along' attrib47(held,carried,have)
+Action 119 Action119 ! 'kick' 'around'/'along' object
+Action 120 Action120 ! 'hit'/'punch'/'slap'/'strike'/'swat'/'whack' 'at' object(in_room,on_ground) 'with'/'using' attrib44(held,carried,have)
+Action 121 Action121 ! 'hit'/'punch'/'slap'/'strike'/'swat'/'whack' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 122 Action122 ! 'battle'/'combat' object(in_room,on_ground) 'with'/'using' attrib44(held,carried,have)
+Action 123 Action123 ! 'kiss'/'smooch' attrib46(in_room,on_ground)
+Action 124 Action124 ! 'knock'/'pound'/'rap' 'upon'/'onto'/'on'/'aboard' object
+Action 125 Action125 ! 'leave' attrib47
+Action 126 Action126 ! 'nap'/'rest'/'sleep'/'snooze' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 127 Action127 ! 'lock' object(in_room,on_ground) 'with'/'using' attrib41(held,have)
+Action 128 Action128 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'around'/'along' attrib47
+Action 129 Action129 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'down'/'d//' attrib47
+Action 130 Action130 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'up'/'u//' attrib47
+Action 131 Action131 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' object(held,carried,in_room,on_ground)
+Action 132 Action132 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'thru'/'through' object 'at' object
+Action 133 Action133 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'underneat'/'under'/'beneath'/'below' object
+Action 134 Action134 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'beyond'/'behind' object
+Action 135 Action135 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 136 Action136 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'outside'/'out' attrib47
+Action 137 Action137 ! 'adjust' object(held,carried)
+Action 138 Action138 ! 'force'/'wedge' 'up'/'u//' object 'with'/'using' object(held,carried,have)
+Action 139 Action139 ! 'nudge'/'press'/'push'/'shove'/'stick'/'thrust' 'down'/'d//' object(in_room,on_ground)
+Action 140 Action140 ! 'make' 'up'/'u//' object
+Action 141 Action141 ! 'slide' object
+Action 142 Action142 ! 'nudge'/'press'/'push'/'shove'/'stick'/'thrust' 'up'/'u//' object(in_room,on_ground)
+Action 143 Action143 ! 'slide' object 'towards'/'toward'/'to' object
+Action 144 Action144 ! 'nudge'/'press'/'push'/'shove'/'stick'/'thrust' object(in_room,on_ground) 'up'/'u//' object
+Action 145 Action145 ! 'nudge'/'press'/'push'/'shove'/'stick'/'thrust' object(in_room,on_ground) 'down'/'d//' object
+Action 146 Action146 ! 'lean' 'upon'/'onto'/'on'/'aboard' object
+Action 147 Action147 ! 'prop' 'up'/'u//' object
+Action 148 Action148 ! 'hold' 'apart' object(in_room,on_ground)
+Action 149 Action149 ! 'disassemb'/'open'/'unseal' 'up'/'u//' attrib37(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 150 Action150 ! 'detach'/'disconnec'/'disengage'/'unattach'/'unplug' object 'from' object(in_room,on_ground)
+Action 151 Action151 ! 'bribe'/'entice'/'pay'/'renumerat' attrib46 'with'/'using' object(held,carried)
+Action 152 Action152 ! 'pick' object 'with'/'using' attrib41(held,carried,have)
+Action 153 Action153 ! 'cavort'/'fiddle'/'play'/'toy' 'with'/'using' object
+Action 154 Action154 ! 'point' 'outside'/'out' object 'towards'/'toward'/'to' attrib38
+Action 155 Action155 ! 'point' 'at' object 'with'/'using' object
+Action 156 Action156 ! 'wave' object(held,carried,have) 'around'/'along' object(in_room,on_ground)
+Action 157 Action157 ! 'ring' attrib47
+Action 158 Action158 ! 'light' 'up'/'u//' object(in_room,on_ground) 'with'/'using' attrib41(held,carried,have)
+Action 159 Action159 ! 'light' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 160 Action160 ! 'burst'/'pop' object 'with'/'using' attrib41(held,carried,have)
+Action 161 Action161 ! 'pour'/'spill'/'sprinkle' 'outside'/'out' object(held,carried,have)
+Action 162 Action162 ! 'clear'/'empty' 'outside'/'out' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object
+Action 163 Action163 ! 'shake' 'outside'/'out' object 'from' object(held,carried,have)
+Action 164 Action164 ! 'clear'/'empty' 'off' object(held,carried)
+Action 165 Action165 ! 'attach'/'connect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 166 Action166 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 167 Action167 ! 'don'/'wear' object
+Action 168 Action168 ! 'force'/'wedge' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object
+Action 169 Action169 ! 'reattach'/'reconnect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 170 Action170 ! 'defile'/'hump'/'molest'/'rape'/'ravish' attrib38
+Action 171 Action171 ! 'feel' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 172 Action172 ! 'flip'/'rotate'/'turn' 'thru'/'through' object
+Action 173 Action173 ! 'browse'/'leaf'/'read'/'skim' attrib36(held,carried,in_room,on_ground) 'towards'/'toward'/'to' attrib46
+Action 174 Action174 ! 'free'/'release' object(held,carried,in_room,on_ground) 'from' attrib41
+Action 175 Action175 ! 'unfasten'/'unhook'/'untie' object
+Action 176 Action176 ! 'screw'/'tighten' 'within'/'into'/'inside'/'in'/'between' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 177 Action177 ! 'screw'/'tighten' 'down'/'d//' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 178 Action178 ! 'unscrew' object(held,carried,in_room,on_ground) 'with'/'using' attrib42(held,carried,take,have)
+Action 179 Action179 ! 'unscrew' object(held,carried,in_room,on_ground) 'outside'/'out' object
+Action 180 Action180 ! 'fix' 'up'/'u//' object 'with'/'using' attrib41(held,carried,have)
+Action 181 Action181 ! 'replace' object
+Action 182 Action182 ! 'ride' 'upon'/'onto'/'on'/'aboard' object
+Action 183 Action183 ! 'bow'/'genuflect'/'grovel'/'kneel' 'before' attrib46
+Action 184 Action184 ! 'maybe'/'proclaim'/'say'/'speak'/'talk'/'utter' attrib47
+Action 185 Action185 ! 'advise'/'inform'/'tell' attrib46(in_room)
+Action 186 Action186 ! 'howl'/'scream'/'shout'/'yell' 'towards'/'toward'/'to' object
+Action 187 Action187 ! 'name' object(held,carried,in_room,on_ground) object
+Action 188 Action188 ! 'frisk'/'ransack'/'rummage'/'search'/'sift' 'thru'/'through' object
+Action 189 Action189 ! 'jostle'/'rattle' object 'with'/'using' attrib41(held,carried,have)
+Action 190 Action190 ! 'crouch'/'settle'/'sit'/'squat' 'at' object
+Action 191 Action191 ! 'nap'/'rest'/'sleep'/'snooze'
+Action 192 Action192 ! 'inhale'/'smell'/'sniff'/'whiff' attrib47
+Action 193 Action193 ! 'flip'/'rotate'/'turn' 'back' attrib47
+Action 194 Action194 ! 'crumple'/'crush'/'squash'/'squeeze'/'squish' object
+Action 195 Action195 ! 'rise'/'stand' 'up'/'u//' attrib47
+Action 196 Action196 ! 'duck'
+Action 197 Action197 ! 'bathe'/'swim'/'wade' 'over'/'across' object
+Action 198 Action198 ! 'bathe'/'swim'/'wade' 'underneat'/'under'/'beneath'/'below' object
+Action 199 Action199 ! 'wave' object(held,carried,have)
+Action 200 Action200 ! 'remove' attrib40 'with'/'using' object(held,carried,have)
+Action 201 Action201 ! 'remove' attrib34(held,carried)
+Action 202 Action202 ! 'hold' object(held,carried,have) 'over'/'across' object
+Action 203 Action203 ! 'return' 'towards'/'toward'/'to' object
+Action 204 Action204 ! 'get' object(in_room,on_ground) object
+Action 205 Action205 ! 'get' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 206 Action206 ! 'lick'/'taste' object
+Action 207 Action207 ! 'advise'/'inform'/'tell' attrib46(in_room) 'about' object
+Action 208 Action208 ! 'thank'/'thanks'
+Action 209 Action209 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'over'/'across' object
+Action 210 Action210 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(in_room,on_ground) object(held,carried,many,have)
+Action 211 Action211 ! 'fasten'/'secure'/'tie' object 'towards'/'toward'/'to' object
+Action 212 Action212 ! 'fasten'/'secure'/'tie' 'up'/'u//' attrib46(in_room,on_ground) 'with'/'using' attrib41(held,carried,in_room,on_ground,have)
+Action 213 Action213 ! 'flip'/'rotate'/'turn' object 'with'/'using' attrib41(held,carried,take,have)
+Action 214 Action214 ! 'flip'/'rotate'/'turn' 'towards'/'toward'/'to' object
+Action 215 Action215 ! 'start' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 216 Action216 ! 'crank' attrib47
+Action 217 Action217 ! 'unlock' object(in_room,on_ground) 'with'/'using' attrib42(held,carried,take,have)
+Action 218 Action218 ! 'employ'/'exploit'/'operate'/'use' object
+Action 219 Action219 ! 'loiter'/'wait'/'z//'
+Action 220 Action220 ! 'loiter'/'wait'/'z//' 'for' object
+Action 221 Action221 ! 'awake'/'awaken'/'rouse'/'wake' 'up'/'u//' attrib47
+Action 222 Action222 ! 'go' object
+Action 223 Action223 ! 'wave' 'towards'/'toward'/'to' attrib46
+Action 224 Action224 ! 'what'/'what^s'/'whats' 'about' object
+Action 225 Action225 ! 'where'/'where^s'/'wheres' object
+Action 226 Action226 ! 'who'/'who^s'/'whos' object
+Action 227 Action227 ! 'wind' 'up'/'u//' object
+Action 228 Action228 ! 'melt' object(held,carried,have)
+Action 229 Action229 ! 'dress' attrib47
+Action 230 Action230 ! 'disrobe'/'strip'/'undress' attrib47
+Action 231 Action231 ! 'weild' object(held,carried,have)
+Action 232 Action232 ! 'itch' object
+Action 233 Action233 ! 'scrape'/'scratch' object(held,carried,have) 'near'/'against' object
+Action 234 Action234 ! 'lurk' 'around'/'along' attrib47
+Action 235 Action235 ! 'bok'/'smee'/'yabba'
+Action 236 Action236 ! 'draw'/'inscribe'/'trace'/'write' object 'within'/'into'/'inside'/'in'/'between' object
+Action 237 Action237 ! 'zap' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 238 Action238 ! 'fire'/'flame'/'shoot' 'off' object(held,carried,have) 'at' object(in_room,on_ground)
+Action 239 Action239 ! 'fire'/'flame'/'shoot' 'at' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 240 Action240 ! 'aimfiz'/'blorb'/'blorple'/'caskly'/'cleesh'/'espnis'/'exex'/'filfre'/'frotz'/'fweep'/'gaspar'/'girgol'/'gnusto'/'golmac'/'gondar'/'guncho'/'izyuk'/'jindak'/'krebf'/'kulkad'/'lesoch'/'liskon'/'malyon'/'meef'/'melbor'/'nitfol'/'ozmoo'/'pulver'/'rezrov'/'snavig'/'swanzo'/'throck'/'tinsot'/'unmake'/'vardik'/'vaxum'/'vezza'/'yomin'/'yonk'/'zifmia' object(held,carried,in_room,on_ground)
+Action 241 Action241 ! '$rune'
+Action 242 Action242 ! 'define' object
+Action 243 Action243 ! '$c' object
+Action 244 Action244 ! '$draw'
+Action 245 Action245 ! '$maze'
+Action 246 Action246 ! '$debug'
+Action 247 Action247 ! '$vt'
+Action 248 Action248 ! '$cheat' object
+Action 249 Action249 ! '$mod' object
+Action 250 Action250 ! '$fedit' attrib47
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0xe078 routine57464:?
+
+! ------------------------------- Words --------------------------------
+
+Word $cheat $cheat
+Word $debug $debug
+Word $fedit $fedit
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word accardi- accardi-
+Word affirmati affirmati
+Word atmospher atmospher
+Word automatic automatic
+Word backwards backwards
+Word billboard billboard
+Word carefully carefully
+Word clockwise clockwise
+Word clutchcak clutchcak
+Word cocksucke cocksucke
+Word collapsin collapsin
+Word concealed concealed
+Word confiscat confiscat
+Word countercl countercl
+Word crocodile crocodile
+Word curled-u curled-u
+Word direction direction
+Word disassemb disassemb
+Word disciplin disciplin
+Word disconnec disconnec
+Word disembark disembark
+Word disengage disengage
+Word dislocate dislocate
+Word dornbeast dornbeast
+Word dornbrook dornbrook
+Word enchanter enchanter
+Word everythin everythin
+Word extinguis extinguis
+Word farmhouse farmhouse
+Word flourishe flourishe
+Word foothills foothills
+Word gathering gathering
+Word genuflect genuflect
+Word goddamned goddamned
+Word grandfath grandfath
+Word greetings greetings
+Word grubswill grubswill
+Word hourglass hourglass
+Word humongous humongous
+Word hurdy-gu hurdy-gu
+Word incinerat incinerat
+Word innkeeper innkeeper
+Word interroga interroga
+Word inventory inventory
+Word jackknife jackknife
+Word miniature miniature
+Word moonshine moonshine
+Word munchkins munchkins
+Word northeast northeast
+Word northwest northwest
+Word one-room one-room
+Word paintings paintings
+Word parchment parchment
+Word positivel positivel
+Word prince's prince's
+Word protagoni protagoni
+Word pterodact pterodact
+Word reconnect reconnect
+Word renumerat renumerat
+Word scarecrow scarecrow
+Word seventeen seventeen
+Word sharpened sharpened
+Word shrinking shrinking
+Word snowflake snowflake
+Word southeast southeast
+Word southwest southwest
+Word spensewee spensewee
+Word superbrie superbrie
+Word themselve themselve
+Word thundercl thundercl
+Word travelers travelers
+Word triangula triangula
+Word underneat underneat
+Word unflatten unflatten
+Word unicorn' unicorn'
+Word ur-grues ur-grues
+Word watchtowe watchtowe
+Word waterfall waterfall
+Word zorkquest zorkquest
+

@@ -1,0 +1,1859 @@
+! ----------------------------------------------------
+!   sorcerer-840106-r85-z3.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 1cb6f9a00a3de7541971012149ba733e
+CodeArea 0x5f4e 0x16789
+StringArea 0x1678a 0x1a7e8
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 3 attrib3   ! obj160_Tree_Branch
+Attribute 4 attrib4   ! obj96_aqua_vial obj124_indigo_vial obj135_amber_vial obj176_ochre_vial obj183_orange_vial
+Attribute 5 attrib5   ! obj26_shimmering_scroll obj28_smelly_scroll obj55_parchment_scroll obj72_glittering_scroll obj89_ordinary_scroll obj133_soiled_scroll obj165_moldy_scroll obj179_dusty_scroll obj196_shiny_scroll
+Attribute 6 attrib6   ! obj5_Hall_of_Eternal_Pain obj6_Chamber_of_Living_Death obj8_Mammoth_Cavern obj10_Grue_Lair obj30_Slanted_Room obj32_Top_of_Chute obj33_Coal_Mine obj34_Coal_Mine obj35_Coal_Mine obj37_Shaft_Top obj38_Shaft_Bottom obj42_Dial_Room obj49_Coal_Bin_Room obj50_Sooty_Room obj59_Inside_the_Glass_Maze obj60_Outside_Glass_Arch obj62_Entrance_Hall obj65_Stone_Hut obj67_End_of_Highway obj70_Casino obj76_Arcade obj78_Roller_Coaster obj81_Flume obj82_Haunted_House obj83_West_End_of_Midway obj84_East_End_of_Midway obj86_Park_Entrance obj93_Barracks obj94_Armory obj102_Hall_of_Carvings obj103_Winding_Tunnel obj106_Tree_Room obj107_Elbow_Room obj108_Bare_Passage obj109_Edge_of_Chasm obj110_Crater obj111_Edge_of_Crater obj112_Bend obj114_Store obj115_Outside_Store obj119_Toll_Gate obj120_Highway obj121_Pit_of_Bones obj122_Dungeon obj126_Torture_Chamber obj137_Hidden_Cave obj152_Slimy_Room obj172_Cellar obj177_Store_Room obj181_Library obj186_Lobby obj188_Chamber_of_the_Circle obj189_Hallway obj191_Hallway obj193_Apprentice_Quarters obj194_Servants__Quarters obj197_Helistar_s_Quarters obj198_Frobar_s_Quarters obj209_Belboz_s_Quarters obj211_Your_Quarters obj231_Belboz_s_Hideout
+Attribute 7 attrib7   ! obj25_golmac_spell obj27_vardik_spell obj54_swanzo_spell obj71_malyon_spell obj88_yonk_spell obj132_fweep_spell obj164_aimfiz_spell obj178_meef_spell obj195_gaspar_spell obj213_vezza_spell obj214_pulver_spell obj215_izyuk_spell obj216_yomin_spell obj217_rezrov_spell obj218_frotz_spell obj219_gnusto_spell
+Attribute 8 attrib8   ! obj241_stairs
+Attribute 9 attrib9   ! obj1_white_wooden_door obj2_shiny_silver_door obj3_black_marble_door obj7_diabolic_machinery obj11_mass_of_wriggling_vines obj22_beach obj23_lagoon obj25_golmac_spell obj27_vardik_spell obj40_combination_dial obj41_heavy_door obj44_you obj46_coal_bin obj51_lumps_of_coal obj54_swanzo_spell obj56_brick_structure obj57_soot obj63_fireplace obj64_chimney obj66_stone_hovel obj68_glass_maze obj71_malyon_spell obj73_hopping_bunny obj74_rubber_ball obj77_car obj79_log_boat obj80_flume obj87_amusement_park obj88_yonk_spell obj98_flagpole obj101_image_of_a_dragon obj104_zorkmid_coin obj117_toll_booth obj118_toll_gate obj125_torture_devices obj129_wooden_drawbridge obj130_moat obj132_fweep_spell obj136_pile_of_bat_guano obj138_waterfall obj139_ocean obj140_fort obj144_undergrowth obj145_river_bed obj146_river_bank obj147_river obj149_plague_of_locusts obj150_meadow obj151_moss_and_lichens obj153_group_of_unseen_creatures obj156_signpost obj159_boa_constrictor obj161_hellhound obj163_gnarled_tree obj164_aimfiz_spell obj166_white_button obj167_purple_button obj168_red_button obj169_gray_button obj170_black_button obj178_meef_spell obj180_copy_of_Encyclopedia_Frobozzica obj187_tenets_of_the_Guild obj195_gaspar_spell obj199_morgia_plant obj201_wall_hanging obj206_desk_drawer obj207_darkwood_desk obj213_vezza_spell obj214_pulver_spell obj215_izyuk_spell obj216_yomin_spell obj217_rezrov_spell obj218_frotz_spell obj219_gnusto_spell obj221_Jeearr obj225_cave obj226_castle obj227_blighted_forest obj228_opening obj229_doorway obj238_protagonist obj239_your_hand obj241_stairs obj242_ceiling obj243_wall obj245_road obj249_it
+Attribute 10 attrib10  ! obj17_spenseweeds obj43_your_younger_self obj44_you obj45_your_older_self obj51_lumps_of_coal obj57_soot obj95_aqua_potion obj123_indigo_potion obj134_amber_potion obj144_undergrowth obj151_moss_and_lichens obj175_ochre_potion obj182_orange_potion obj187_tenets_of_the_Guild obj212_sleep obj221_Jeearr obj223_Frobar obj224_Helistar obj232_Belboz obj234_water obj236_yourself obj237_yourself obj239_your_hand obj241_stairs obj247_dust_and_debris obj248_something obj249_it
+Attribute 11 attrib11  ! obj5_Hall_of_Eternal_Pain obj6_Chamber_of_Living_Death obj12_Mouth_of_River obj18_Lagoon_Floor obj19_Surface_of_Lagoon obj20_Ocean_Shore obj21_Ocean_Shore obj24_Lagoon_Shore obj29_kerosene_lamp obj42_Dial_Room obj49_Coal_Bin_Room obj58_Hollow obj59_Inside_the_Glass_Maze obj76_Arcade obj78_Roller_Coaster obj81_Flume obj83_West_End_of_Midway obj84_East_End_of_Midway obj92_Gun_Emplacement obj99_Parade_Ground obj100_Fort_Entrance obj106_Tree_Room obj127_Turret obj128_Ruins obj131_Drawbridge obj141_Top_of_Falls obj142_Stagnant_Pool obj143_River_Bed obj148_River_Bank obj154_Snake_Pit obj155_Mine_Field obj157_Meadow obj158_Forest_Edge obj160_Tree_Branch obj162_Twisted_Forest obj186_Lobby obj189_Hallway obj191_Hallway obj254
+Attribute 12 attrib12  ! obj48_upper_coal_chute obj54_swanzo_spell obj87_amusement_park obj89_ordinary_scroll obj95_aqua_potion obj96_aqua_vial obj101_image_of_a_dragon obj123_indigo_potion obj124_indigo_vial obj134_amber_potion obj135_amber_vial obj139_ocean obj144_undergrowth obj164_aimfiz_spell obj175_ochre_potion obj176_ochre_vial obj182_orange_potion obj183_orange_vial obj184_issue_of_Popular_Enchanting obj202_infotater obj215_izyuk_spell obj222_author obj229_doorway obj249_it obj254
+Attribute 13 attrib13  ! obj26_shimmering_scroll obj28_smelly_scroll obj55_parchment_scroll obj72_glittering_scroll obj89_ordinary_scroll obj133_soiled_scroll obj165_moldy_scroll obj179_dusty_scroll obj196_shiny_scroll obj254
+Attribute 14 attrib14  ! obj16_wooden_crate obj29_kerosene_lamp obj43_your_younger_self obj45_your_older_self obj63_fireplace obj75_hawker obj77_car obj79_log_boat obj91_cannon obj96_aqua_vial obj124_indigo_vial obj135_amber_vial obj171_sturdy_trunk obj176_ochre_vial obj183_orange_vial obj185_receptacle obj205_tiny_box obj206_desk_drawer obj207_darkwood_desk obj210_bed obj254
+Attribute 15 attrib15  ! obj29_kerosene_lamp obj43_your_younger_self obj45_your_older_self obj63_fireplace obj75_hawker obj77_car obj79_log_boat obj91_cannon obj207_darkwood_desk obj210_bed obj220_spell_book obj254
+Attribute 16 attrib16  ! obj55_parchment_scroll obj74_rubber_ball obj90_pile_of_identical_scrolls obj97_flag_of_Quendor obj104_zorkmid_coin obj133_soiled_scroll obj135_amber_vial obj136_pile_of_bat_guano obj171_sturdy_trunk obj180_copy_of_Encyclopedia_Frobozzica obj199_morgia_plant obj201_wall_hanging obj208_parrot obj254
+Attribute 17 attrib17  ! obj207_darkwood_desk obj210_bed obj254
+Attribute 18 attrib18  ! obj220_spell_book obj236_yourself obj237_yourself obj239_your_hand obj242_ceiling obj243_wall obj249_it obj254
+Attribute 19 attrib19  ! obj90_pile_of_identical_scrolls obj238_protagonist obj254
+Attribute 20 attrib20  ! obj254
+Attribute 21 attrib21  ! obj15_grue_suit obj204_magic_amulet obj254
+Attribute 22 attrib22  ! obj13_can_of_grue_repellent obj16_wooden_crate obj26_shimmering_scroll obj28_smelly_scroll obj41_heavy_door obj55_parchment_scroll obj61_statue obj72_glittering_scroll obj89_ordinary_scroll obj96_aqua_vial obj124_indigo_vial obj133_soiled_scroll obj135_amber_vial obj156_signpost obj165_moldy_scroll obj173_calendar obj174_depleted_matchbook obj176_ochre_vial obj179_dusty_scroll obj180_copy_of_Encyclopedia_Frobozzica obj183_orange_vial obj184_issue_of_Popular_Enchanting obj187_tenets_of_the_Guild obj192_scribbled_note obj196_shiny_scroll obj202_infotater obj203_journal obj205_tiny_box obj220_spell_book
+Attribute 23 attrib23  ! obj4_diamond_studded_knife obj13_can_of_grue_repellent obj14_brass_lantern obj15_grue_suit obj16_wooden_crate obj26_shimmering_scroll obj28_smelly_scroll obj36_beam_of_wood obj39_rope obj55_parchment_scroll obj72_glittering_scroll obj74_rubber_ball obj89_ordinary_scroll obj96_aqua_vial obj97_flag_of_Quendor obj104_zorkmid_coin obj113_floor_waxer obj124_indigo_vial obj133_soiled_scroll obj135_amber_vial obj136_pile_of_bat_guano obj165_moldy_scroll obj173_calendar obj174_depleted_matchbook obj176_ochre_vial obj179_dusty_scroll obj183_orange_vial obj184_issue_of_Popular_Enchanting obj192_scribbled_note obj196_shiny_scroll obj200_small_key obj202_infotater obj203_journal obj204_magic_amulet obj205_tiny_box obj220_spell_book
+Attribute 24 attrib24  ! obj1_white_wooden_door obj2_shiny_silver_door obj3_black_marble_door obj41_heavy_door obj118_toll_gate obj190_heavy_wooden_door
+Attribute 25 attrib25  ! obj14_brass_lantern
+Attribute 26 attrib26  ! obj200_small_key obj239_your_hand
+Attribute 27 attrib27  ! obj16_wooden_crate obj26_shimmering_scroll obj28_smelly_scroll obj29_kerosene_lamp obj43_your_younger_self obj45_your_older_self obj55_parchment_scroll obj63_fireplace obj72_glittering_scroll obj75_hawker obj77_car obj79_log_boat obj89_ordinary_scroll obj91_cannon obj96_aqua_vial obj124_indigo_vial obj133_soiled_scroll obj135_amber_vial obj165_moldy_scroll obj171_sturdy_trunk obj176_ochre_vial obj179_dusty_scroll obj183_orange_vial obj185_receptacle obj196_shiny_scroll obj205_tiny_box obj206_desk_drawer obj207_darkwood_desk obj210_bed obj220_spell_book
+Attribute 28 attrib28  ! obj5_Hall_of_Eternal_Pain obj6_Chamber_of_Living_Death obj8_Mammoth_Cavern obj10_Grue_Lair obj12_Mouth_of_River obj20_Ocean_Shore obj21_Ocean_Shore obj24_Lagoon_Shore obj30_Slanted_Room obj32_Top_of_Chute obj33_Coal_Mine obj34_Coal_Mine obj35_Coal_Mine obj37_Shaft_Top obj38_Shaft_Bottom obj42_Dial_Room obj49_Coal_Bin_Room obj50_Sooty_Room obj58_Hollow obj59_Inside_the_Glass_Maze obj60_Outside_Glass_Arch obj62_Entrance_Hall obj65_Stone_Hut obj67_End_of_Highway obj70_Casino obj76_Arcade obj78_Roller_Coaster obj81_Flume obj82_Haunted_House obj83_West_End_of_Midway obj84_East_End_of_Midway obj86_Park_Entrance obj92_Gun_Emplacement obj93_Barracks obj94_Armory obj99_Parade_Ground obj100_Fort_Entrance obj102_Hall_of_Carvings obj103_Winding_Tunnel obj106_Tree_Room obj107_Elbow_Room obj108_Bare_Passage obj109_Edge_of_Chasm obj110_Crater obj111_Edge_of_Crater obj112_Bend obj114_Store obj115_Outside_Store obj119_Toll_Gate obj120_Highway obj121_Pit_of_Bones obj122_Dungeon obj126_Torture_Chamber obj127_Turret obj128_Ruins obj131_Drawbridge obj137_Hidden_Cave obj141_Top_of_Falls obj142_Stagnant_Pool obj143_River_Bed obj148_River_Bank obj152_Slimy_Room obj154_Snake_Pit obj155_Mine_Field obj157_Meadow obj158_Forest_Edge obj162_Twisted_Forest obj172_Cellar obj177_Store_Room obj181_Library obj186_Lobby obj188_Chamber_of_the_Circle obj189_Hallway obj191_Hallway obj193_Apprentice_Quarters obj194_Servants__Quarters obj197_Helistar_s_Quarters obj198_Frobar_s_Quarters obj209_Belboz_s_Quarters obj211_Your_Quarters obj231_Belboz_s_Hideout obj254
+Attribute 29 attrib29  ! obj77_car obj79_log_boat obj210_bed
+Attribute 30 attrib30  ! obj4_diamond_studded_knife
+Attribute 31 attrib31  ! obj31_troglodyte obj43_your_younger_self obj45_your_older_self obj75_hawker obj85_gnome obj116_gnome obj221_Jeearr obj222_author obj223_Frobar obj224_Helistar obj232_Belboz obj236_yourself obj237_yourself
+
+! ----------------------------- Properties -----------------------------
+
+Property 6 prop6:?
+Property 7 prop7:string
+Property 8 prop8:?
+Property 9 prop9:thing
+Property 10 prop10:?
+Property 11 prop11:?
+Property 12 prop12:?
+Property 13 prop13:?
+Property 14 prop14:string
+Property 15 prop15:string
+Property 16 prop16:?
+Property 17 prop17:?
+Property 18 prop18:thing
+Property 19 prop19:dictwords
+Property 20 out_to:exit
+Property 21 in_to:exit
+Property 22 d_to:exit
+Property 23 u_to:exit
+Property 24 northw_to:exit
+Property 25 w_to:exit
+Property 26 southw_to:exit
+Property 27 s_to:exit
+Property 28 se_to:exit
+Property 29 e_to:exit
+Property 30 ne_to:exit
+Property 31 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_white_wooden_door
+Object 2 obj2_shiny_silver_door
+Object 3 obj3_black_marble_door
+Object 4 obj4_diamond_studded_knife
+Object 5 obj5_Hall_of_Eternal_Pain
+Object 6 obj6_Chamber_of_Living_Death
+Object 7 obj7_diabolic_machinery
+Object 8 obj8_Mammoth_Cavern
+Object 9 obj9_pack_of_mutated_grues
+Object 10 obj10_Grue_Lair
+Object 11 obj11_mass_of_wriggling_vines
+Object 12 obj12_Mouth_of_River
+Object 13 obj13_can_of_grue_repellent
+Object 14 obj14_brass_lantern
+Object 15 obj15_grue_suit
+Object 16 obj16_wooden_crate
+Object 17 obj17_spenseweeds
+Object 18 obj18_Lagoon_Floor
+Object 19 obj19_Surface_of_Lagoon
+Object 20 obj20_Ocean_Shore
+Object 21 obj21_Ocean_Shore
+Object 22 obj22_beach
+Object 23 obj23_lagoon
+Object 24 obj24_Lagoon_Shore
+Object 25 obj25_golmac_spell
+Object 26 obj26_shimmering_scroll
+Object 27 obj27_vardik_spell
+Object 28 obj28_smelly_scroll
+Object 29 obj29_kerosene_lamp
+Object 30 obj30_Slanted_Room
+Object 31 obj31_troglodyte
+Object 32 obj32_Top_of_Chute
+Object 33 obj33_Coal_Mine
+Object 34 obj34_Coal_Mine
+Object 35 obj35_Coal_Mine
+Object 36 obj36_beam_of_wood
+Object 37 obj37_Shaft_Top
+Object 38 obj38_Shaft_Bottom
+Object 39 obj39_rope
+Object 40 obj40_combination_dial
+Object 41 obj41_heavy_door
+Object 42 obj42_Dial_Room
+Object 43 obj43_your_younger_self
+Object 44 obj44_you
+Object 45 obj45_your_older_self
+Object 46 obj46_coal_bin
+Object 47 obj47_lower_coal_chute
+Object 48 obj48_upper_coal_chute
+Object 49 obj49_Coal_Bin_Room
+Object 50 obj50_Sooty_Room
+Object 51 obj51_lumps_of_coal
+Object 52 obj52_splattered_body
+Object 53 obj53_ferocious_dorn_beast
+Object 54 obj54_swanzo_spell
+Object 55 obj55_parchment_scroll
+Object 56 obj56_brick_structure
+Object 57 obj57_soot
+Object 58 obj58_Hollow
+Object 59 obj59_Inside_the_Glass_Maze
+Object 60 obj60_Outside_Glass_Arch
+Object 61 obj61_statue
+Object 62 obj62_Entrance_Hall
+Object 63 obj63_fireplace
+Object 64 obj64_chimney
+Object 65 obj65_Stone_Hut
+Object 66 obj66_stone_hovel
+Object 67 obj67_End_of_Highway
+Object 68 obj68_glass_maze
+Object 69 obj69_strange_machine
+Object 70 obj70_Casino
+Object 71 obj71_malyon_spell
+Object 72 obj72_glittering_scroll
+Object 73 obj73_hopping_bunny
+Object 74 obj74_rubber_ball
+Object 75 obj75_hawker
+Object 76 obj76_Arcade
+Object 77 obj77_car
+Object 78 obj78_Roller_Coaster
+Object 79 obj79_log_boat
+Object 80 obj80_flume
+Object 81 obj81_Flume
+Object 82 obj82_Haunted_House
+Object 83 obj83_West_End_of_Midway
+Object 84 obj84_East_End_of_Midway
+Object 85 obj85_gnome
+Object 86 obj86_Park_Entrance
+Object 87 obj87_amusement_park
+Object 88 obj88_yonk_spell
+Object 89 obj89_ordinary_scroll
+Object 90 obj90_pile_of_identical_scrolls
+Object 91 obj91_cannon
+Object 92 obj92_Gun_Emplacement
+Object 93 obj93_Barracks
+Object 94 obj94_Armory
+Object 95 obj95_aqua_potion
+Object 96 obj96_aqua_vial
+Object 97 obj97_flag_of_Quendor
+Object 98 obj98_flagpole
+Object 99 obj99_Parade_Ground
+Object 100 obj100_Fort_Entrance
+Object 101 obj101_image_of_a_dragon
+Object 102 obj102_Hall_of_Carvings
+Object 103 obj103_Winding_Tunnel
+Object 104 obj104_zorkmid_coin
+Object 105 obj105_zorkmid_tree
+Object 106 obj106_Tree_Room
+Object 107 obj107_Elbow_Room
+Object 108 obj108_Bare_Passage
+Object 109 obj109_Edge_of_Chasm
+Object 110 obj110_Crater
+Object 111 obj111_Edge_of_Crater
+Object 112 obj112_Bend
+Object 113 obj113_floor_waxer
+Object 114 obj114_Store
+Object 115 obj115_Outside_Store
+Object 116 obj116_gnome
+Object 117 obj117_toll_booth
+Object 118 obj118_toll_gate
+Object 119 obj119_Toll_Gate
+Object 120 obj120_Highway
+Object 121 obj121_Pit_of_Bones
+Object 122 obj122_Dungeon
+Object 123 obj123_indigo_potion
+Object 124 obj124_indigo_vial
+Object 125 obj125_torture_devices
+Object 126 obj126_Torture_Chamber
+Object 127 obj127_Turret
+Object 128 obj128_Ruins
+Object 129 obj129_wooden_drawbridge
+Object 130 obj130_moat
+Object 131 obj131_Drawbridge
+Object 132 obj132_fweep_spell
+Object 133 obj133_soiled_scroll
+Object 134 obj134_amber_potion
+Object 135 obj135_amber_vial
+Object 136 obj136_pile_of_bat_guano
+Object 137 obj137_Hidden_Cave
+Object 138 obj138_waterfall
+Object 139 obj139_ocean
+Object 140 obj140_fort
+Object 141 obj141_Top_of_Falls
+Object 142 obj142_Stagnant_Pool
+Object 143 obj143_River_Bed
+Object 144 obj144_undergrowth
+Object 145 obj145_river_bed
+Object 146 obj146_river_bank
+Object 147 obj147_river
+Object 148 obj148_River_Bank
+Object 149 obj149_plague_of_locusts
+Object 150 obj150_meadow
+Object 151 obj151_moss_and_lichens
+Object 152 obj152_Slimy_Room
+Object 153 obj153_group_of_unseen_creatures
+Object 154 obj154_Snake_Pit
+Object 155 obj155_Mine_Field
+Object 156 obj156_signpost
+Object 157 obj157_Meadow
+Object 158 obj158_Forest_Edge
+Object 159 obj159_boa_constrictor
+Object 160 obj160_Tree_Branch
+Object 161 obj161_hellhound
+Object 162 obj162_Twisted_Forest
+Object 163 obj163_gnarled_tree
+Object 164 obj164_aimfiz_spell
+Object 165 obj165_moldy_scroll
+Object 166 obj166_white_button
+Object 167 obj167_purple_button
+Object 168 obj168_red_button
+Object 169 obj169_gray_button
+Object 170 obj170_black_button
+Object 171 obj171_sturdy_trunk
+Object 172 obj172_Cellar
+Object 173 obj173_calendar
+Object 174 obj174_depleted_matchbook
+Object 175 obj175_ochre_potion
+Object 176 obj176_ochre_vial
+Object 177 obj177_Store_Room
+Object 178 obj178_meef_spell
+Object 179 obj179_dusty_scroll
+Object 180 obj180_copy_of_Encyclopedia_Frobozzica
+Object 181 obj181_Library
+Object 182 obj182_orange_potion
+Object 183 obj183_orange_vial
+Object 184 obj184_issue_of_Popular_Enchanting
+Object 185 obj185_receptacle
+Object 186 obj186_Lobby
+Object 187 obj187_tenets_of_the_Guild
+Object 188 obj188_Chamber_of_the_Circle
+Object 189 obj189_Hallway
+Object 190 obj190_heavy_wooden_door
+Object 191 obj191_Hallway
+Object 192 obj192_scribbled_note
+Object 193 obj193_Apprentice_Quarters
+Object 194 obj194_Servants__Quarters
+Object 195 obj195_gaspar_spell
+Object 196 obj196_shiny_scroll
+Object 197 obj197_Helistar_s_Quarters
+Object 198 obj198_Frobar_s_Quarters
+Object 199 obj199_morgia_plant
+Object 200 obj200_small_key
+Object 201 obj201_wall_hanging
+Object 202 obj202_infotater
+Object 203 obj203_journal
+Object 204 obj204_magic_amulet
+Object 205 obj205_tiny_box
+Object 206 obj206_desk_drawer
+Object 207 obj207_darkwood_desk
+Object 208 obj208_parrot
+Object 209 obj209_Belboz_s_Quarters
+Object 210 obj210_bed
+Object 211 obj211_Your_Quarters
+Object 212 obj212_sleep
+Object 213 obj213_vezza_spell
+Object 214 obj214_pulver_spell
+Object 215 obj215_izyuk_spell
+Object 216 obj216_yomin_spell
+Object 217 obj217_rezrov_spell
+Object 218 obj218_frotz_spell
+Object 219 obj219_gnusto_spell
+Object 220 obj220_spell_book
+Object 221 obj221_Jeearr
+Object 222 obj222_author
+Object 223 obj223_Frobar
+Object 224 obj224_Helistar
+Object 225 obj225_cave
+Object 226 obj226_castle
+Object 227 obj227_blighted_forest
+Object 228 obj228_opening
+Object 229 obj229_doorway
+Object 230 obj230_room
+Object 231 obj231_Belboz_s_Hideout
+Object 232 obj232_Belboz
+Object 233 obj233_sky
+Object 234 obj234_water
+Object 235 obj235_lurking_grue
+Object 236 obj236_yourself
+Object 237 obj237_yourself
+Object 238 obj238_protagonist
+Object 239 obj239_your_hand
+Object 240 obj240
+Object 241 obj241_stairs
+Object 242 obj242_ceiling
+Object 243 obj243_wall
+Object 244 obj244_passage
+Object 245 obj245_road
+Object 246 obj246_ground
+Object 247 obj247_dust_and_debris
+Object 248 obj248_something
+Object 249 obj249_it
+Object 250 obj250_pseudo
+Object 251 obj251_number
+Object 252 obj252
+Object 253 obj253
+Object 254 obj254
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbos'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superb'
+Action 3 Action3  ! 'diagno'
+Action 4 Action4  ! 'i//'/'invent'
+Action 5 Action5  ! 'q//'/'quit'
+Action 6 Action6  ! 'restar'
+Action 7 Action7  ! 'restor'
+Action 8 Action8  ! 'save'
+Action 9 Action9  ! 'score'
+Action 10 Action10 ! 'script'
+Action 11 Action11 ! 'unscri'
+Action 12 Action12 ! 'versio'
+Action 13 Action13 ! '$ta'
+Action 14 Action14 ! '$de'
+Action 15 Action15 ! '$ve'
+Action 16 Action16 ! '$be'
+Action 17 Action17 ! '$co'
+Action 18 Action18 ! '$sc'
+Action 19 Action19 ! 'again'/'g//'
+Action 20 Action20 ! 'answer'/'reply'/'respon'
+Action 21 Action21 ! 'answer'/'reply'/'respon' object
+Action 22 Action22 ! 'apply' object(held,many,have) 'to' object
+Action 23 Action23 ! 'ask'/'interr'/'query'/'questi'/'quiz' attrib31 'for' object
+Action 24 Action24 ! 'ask'/'interr'/'query'/'questi'/'quiz' attrib31 'about' object
+Action 25 Action25 ! 'assaul'/'attack'/'fight'/'hit'/'hurt'/'injure' attrib31(in_room,on_ground) 'with'/'using' attrib30(held,carried,have)
+Action 26 Action26 ! 'avoid' object
+Action 27 Action27 ! 'back'
+Action 28 Action28 ! 'bite' object
+Action 29 Action29 ! 'blow' 'up'/'u//' object
+Action 30 Action30 ! 'blow' 'out' object
+Action 31 Action31 ! 'board'/'embark'/'ride' attrib29(in_room,on_ground)
+Action 32 Action32 ! 'burn'/'combus'/'ignite'/'inflam'/'kindle' 'down'/'d//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 33 Action33 ! 'climb'/'scale' object(in_room,on_ground)
+Action 34 Action34 ! 'climb'/'scale' 'onto'/'on' attrib29(in_room,on_ground)
+Action 35 Action35 ! 'climb'/'scale' 'up'/'u//' attrib28(in_room,on_ground)
+Action 36 Action36 ! 'climb'/'scale' 'down'/'d//' attrib28(in_room,on_ground)
+Action 37 Action37 ! 'climb'/'scale' 'over' object(in_room,on_ground)
+Action 38 Action38 ! 'lie'/'reclin'/'repose' 'onto'/'on' attrib29
+Action 39 Action39 ! 'close'/'shut' attrib27(held,carried,in_room,on_ground)
+Action 40 Action40 ! 'combin' object
+Action 41 Action41 ! 'count'/'tally' object
+Action 42 Action42 ! 'cross'/'ford'/'traver' object
+Action 43 Action43 ! 'cleave'/'cut'/'gash'/'lacera'/'pierce'/'sever'/'slash'/'slice'/'split' 'thru'/'throug' object 'with'/'using' attrib30(held,carried)
+Action 44 Action44 ! 'curse'/'damn'/'fuck'/'shit' attrib31
+Action 45 Action45 ! 'deflat' object
+Action 46 Action46 ! 'annihi'/'break'/'crack'/'damage'/'demoli'/'destro'/'smash'/'wreck' 'down'/'d//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,take)
+Action 47 Action47 ! 'dig'/'excava' 'into'/'inside'/'in' object(in_room,on_ground) 'with'/'using' attrib26(held,carried,have)
+Action 48 Action48 ! 'debark'/'disemb' attrib29(in_room,on_ground)
+Action 49 Action49 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' object(held,carried,in_room,on_ground)
+Action 50 Action50 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' 'from' object(held,carried)
+Action 51 Action51 ! 'drop'/'dump'/'releas' object(held,many,have)
+Action 52 Action52 ! 'consum'/'devour'/'eat'/'gobble'/'ingest'/'nibble'/'taste' object(held,carried,in_room,on_ground,many)
+Action 53 Action53 ! 'enter'
+Action 54 Action54 ! 'enter' object
+Action 55 Action55 ! 'depart'/'exit'/'withdr' object
+Action 56 Action56 ! 'escape'/'flee' 'from' object
+Action 57 Action57 ! 'check'/'descri'/'examin'/'inspec'/'observ'/'study'/'survey' object(held,carried,in_room,on_ground)
+Action 58 Action58 ! 'check'/'descri'/'examin'/'inspec'/'observ'/'study'/'survey' 'onto'/'on' object(held,carried,in_room,on_ground)
+Action 59 Action59 ! 'banish'/'begone'/'drive'/'exorci' 'away' attrib31
+Action 60 Action60 ! 'fill' attrib27(held,carried,in_room,on_ground) 'at' object
+Action 61 Action61 ! 'find'/'see'/'seek' object
+Action 62 Action62 ! 'fly' object
+Action 63 Action63 ! 'chase'/'come'/'follow'/'pursue' object
+Action 64 Action64 ! 'forget'/'unknow'/'unlear'/'unmemo' object
+Action 65 Action65 ! 'bestow'/'donate'/'feed'/'give'/'hand'/'offer'/'presen' object(held,many,have) 'to' attrib31(on_ground)
+Action 66 Action66 ! 'bestow'/'donate'/'feed'/'give'/'hand'/'offer'/'presen' attrib31(on_ground) object(held,many,have)
+Action 67 Action67 ! 'greeti'/'hello'/'hi'/'saluta' object
+Action 68 Action68 ! 'concea'/'enscon'/'hide'/'secret'/'stash' object(held,have) 'from' object
+Action 69 Action69 ! 'bound'/'dive'/'hurdle'/'jump'/'leap'/'vault' 'off' object
+Action 70 Action70 ! 'kick' object
+Action 71 Action71 ! 'dispat'/'kill'/'murder'/'scrag'/'slay'/'stab'/'vanqui' attrib31(in_room,on_ground) 'with'/'using' attrib30(held,carried,have)
+Action 72 Action72 ! 'kiss'/'smooch' attrib31(in_room,on_ground)
+Action 73 Action73 ! 'knock'/'rap' 'onto'/'on' object
+Action 74 Action74 ! 'land'
+Action 75 Action75 ! 'launch' attrib29
+Action 76 Action76 ! 'lean' 'onto'/'on' object(held,have)
+Action 77 Action77 ! 'leave'
+Action 78 Action78 ! 'light' attrib25(held,carried,in_room,on_ground)
+Action 79 Action79 ! 'harken'/'listen' 'for' object
+Action 80 Action80 ! 'lock' object(in_room,on_ground) 'with'/'using' attrib26(held,carried,in_room,on_ground,take)
+Action 81 Action81 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'around'/'along' attrib28
+Action 82 Action82 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'down'/'d//' attrib28
+Action 83 Action83 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'undern'/'under'/'beneat'/'below' object
+Action 84 Action84 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'behind' object
+Action 85 Action85 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'at' object(held,carried,in_room,on_ground,take) 'thru'/'throug' object
+Action 86 Action86 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' 'up'/'u//' object 'into'/'inside'/'in' object
+Action 87 Action87 ! 'gaze'/'l//'/'look'/'ogle'/'stare'/'watch' object
+Action 88 Action88 ! 'lower' object
+Action 89 Action89 ! 'lower' object 'down'/'d//' object
+Action 90 Action90 ! 'dissol'/'liquif'/'melt'/'thaw' object 'with'/'using' object(held,carried,in_room,on_ground)
+Action 91 Action91 ! 'disloc'/'displa'/'move'/'shift' object(in_room,on_ground)
+Action 92 Action92 ! 'pay' object object
+Action 93 Action93 ! 'pay' object 'to' object
+Action 94 Action94 ! 'play' object
+Action 95 Action95 ! 'mumble'/'sigh'
+Action 96 Action96 ! 'grease'/'lubric'/'oil' object 'with'/'using' object(held,carried)
+Action 97 Action97 ! 'open' attrib24(held,carried,in_room,on_ground) 'with'/'using' attrib26(held,carried,in_room,on_ground,have)
+Action 98 Action98 ! 'pick' object 'with'/'using' object
+Action 99 Action99 ! 'pick' 'up'/'u//' attrib23(on_ground,many)
+Action 100 Action100 ! 'clog'/'fix'/'glue'/'occlud'/'patch'/'plug'/'repair' object 'with'/'using' object
+Action 101 Action101 ! 'gestur'/'point' 'to' object
+Action 102 Action102 ! 'pour'/'spill'/'sprink' object(held,carried) 'from' object
+Action 103 Action103 ! 'pray'
+Action 104 Action104 ! 'pump' 'up'/'u//' object 'with'/'using' object
+Action 105 Action105 ! 'nudge'/'press'/'push'/'thrust' 'onto'/'on' object(in_room,on_ground,many)
+Action 106 Action106 ! 'nudge'/'press'/'push'/'thrust' object(in_room,on_ground) 'to' object
+Action 107 Action107 ! 'nudge'/'press'/'push'/'thrust' object 'undern'/'under'/'beneat'/'below' object
+Action 108 Action108 ! 'insert'/'lay'/'place'/'put'/'stuff' object(held,many,have) 'across' object
+Action 109 Action109 ! 'insert'/'lay'/'place'/'put'/'stuff' 'onto'/'on' object(carried,in_room,on_ground,many)
+Action 110 Action110 ! 'insert'/'lay'/'place'/'put'/'stuff' object(held,many,have) 'behind' object
+Action 111 Action111 ! 'elevat'/'hoist'/'lift'/'raise' 'up'/'u//' object
+Action 112 Action112 ! 'defile'/'molest'/'rape'/'ravish' attrib31
+Action 113 Action113 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 114 Action114 ! 'doff'/'remove'/'shed' attrib21(have)
+Action 115 Action115 ! 'repent'
+Action 116 Action116 ! 'call'/'procla'/'say'/'talk'/'utter' 'to' attrib31(in_room)
+Action 117 Action117 ! 'call'/'procla'/'say'/'talk'/'utter'
+Action 118 Action118 ! 'frisk'/'ransac'/'rummag'/'search' 'into'/'inside'/'in' object
+Action 119 Action119 ! 'send' 'for' object
+Action 120 Action120 ! 'jostle'/'rattle'/'shake' object
+Action 121 Action121 ! 'hone'/'sharpe' object 'with'/'using' attrib26(have)
+Action 122 Action122 ! 'discha'/'fire'/'shoot' object
+Action 123 Action123 ! 'show' object 'to' object
+Action 124 Action124 ! 'show' object object
+Action 125 Action125 ! 'rest'/'sit'/'squat' 'at' object
+Action 126 Action126 ! 'sleep'
+Action 127 Action127 ! 'cavort'/'gambol'/'hop'/'skip'
+Action 128 Action128 ! 'smell'/'sniff'/'whiff' object
+Action 129 Action129 ! 'gyrate'/'rotate'/'spin'/'whirl' object
+Action 130 Action130 ! 'spray' object 'onto'/'on' object
+Action 131 Action131 ! 'spray' object 'with'/'using' object
+Action 132 Action132 ! 'squeez' object
+Action 133 Action133 ! 'rise'/'stand' 'up'/'u//' attrib28
+Action 134 Action134 ! 'rise'/'stand' 'onto'/'on' object
+Action 135 Action135 ! 'strike' attrib31(in_room,on_ground)
+Action 136 Action136 ! 'bathe'/'swim'/'wade' 'into'/'inside'/'in' object
+Action 137 Action137 ! 'swing' attrib30(held,carried,have) 'at' attrib31(in_room,on_ground)
+Action 138 Action138 ! 'thank'/'thanks'
+Action 139 Action139 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,have) 'thru'/'throug' object(in_room,on_ground)
+Action 140 Action140 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,have) 'over' object
+Action 141 Action141 ! 'attach'/'fasten'/'secure'/'tie' object 'to' object
+Action 142 Action142 ! 'attach'/'fasten'/'secure'/'tie' 'up'/'u//' attrib31(in_room,on_ground) 'with'/'using' attrib26(held,carried,in_room,on_ground,have)
+Action 143 Action143 ! 't//'/'time'
+Action 144 Action144 ! 'tortur' object
+Action 145 Action145 ! 'feel'/'pat'/'pet'/'rub'/'touch' object 'with'/'using' object
+Action 146 Action146 ! 'flip'/'set'/'turn' object 'with'/'using' attrib26(have)
+Action 147 Action147 ! 'unlock' object(in_room,on_ground) 'with'/'using' attrib26(have)
+Action 148 Action148 ! 'free'/'unatta'/'unfast'/'unhook'/'untie' object(held,carried,in_room,on_ground) 'from' object
+Action 149 Action149 ! 'wait'/'z//'
+Action 150 Action150 ! 'wait'/'z//' 'for' object
+Action 151 Action151 ! 'awake'/'rouse'/'startl'/'surpri'/'wake' 'up'/'u//' attrib28
+Action 152 Action152 ! 'advanc'/'go'/'hike'/'procee'/'run'/'step'/'tramp'/'trudge'/'walk' 'around'/'along' object
+Action 153 Action153 ! 'advanc'/'go'/'hike'/'procee'/'run'/'step'/'tramp'/'trudge'/'walk' object
+Action 154 Action154 ! 'advanc'/'go'/'hike'/'procee'/'run'/'step'/'tramp'/'trudge'/'walk' 'to' object
+Action 155 Action155 ! 'beckon'/'brandi'/'motion'/'wave' object(held,carried)
+Action 156 Action156 ! 'beckon'/'brandi'/'motion'/'wave' object(held,carried) 'at' object
+Action 157 Action157 ! 'polish'/'shine'/'wax' object 'with'/'using' object
+Action 158 Action158 ! 'what'/'whats' object
+Action 159 Action159 ! 'where'/'wheres' object
+Action 160 Action160 ! 'who'/'whos' object
+Action 161 Action161 ! 'wind' 'up'/'u//' object
+Action 162 Action162 ! 'howl'/'scream'/'shout'/'yell'
+Action 163 Action163 ! 'cast'/'incant'/'invoke' object 'at' object
+Action 164 Action164 ! 'know'/'learn'/'memori' object(held,carried,many)
+Action 165 Action165 ! 'spells'
+Action 166 Action166 ! 'aimfiz' 'onto'/'on' object
+Action 167 Action167 ! 'aimfiz' object 'to' object
+Action 168 Action168 ! 'frotz' 'onto'/'on' object
+Action 169 Action169 ! 'fweep' 'onto'/'on' object
+Action 170 Action170 ! 'gaspar' 'onto'/'on' object
+Action 171 Action171 ! 'gnusto' 'onto'/'on' object
+Action 172 Action172 ! 'golmac' 'onto'/'on' object
+Action 173 Action173 ! 'izyuk' 'onto'/'on' object
+Action 174 Action174 ! 'meef' 'onto'/'on' object
+Action 175 Action175 ! 'malyon' 'onto'/'on' object
+Action 176 Action176 ! 'pulver' 'onto'/'on' object
+Action 177 Action177 ! 'rezrov' 'onto'/'on' object
+Action 178 Action178 ! 'swanzo' 'onto'/'on' object
+Action 179 Action179 ! 'vardik' 'onto'/'on' object
+Action 180 Action180 ! 'vezza' 'onto'/'on' object
+Action 181 Action181 ! 'yomin' 'onto'/'on' object
+Action 182 Action182 ! 'yonk' 'onto'/'on' object
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x5f4e routine24398:?
+Routine 0x5f68 routine24424:?
+Routine 0x5f78 routine24440:?
+Routine 0x5fc6 routine24518:?
+Routine 0x6054 routine24660:?
+Routine 0x6366 routine25446:?
+Routine 0x6370 routine25456:?
+Routine 0x63e0 routine25568:?
+Routine 0x6534 routine25908:?
+Routine 0x65a2 routine26018:?
+Routine 0x65bc routine26044:?
+Routine 0x65f6 routine26102:?
+Routine 0x660c routine26124:?
+Routine 0x6622 routine26146:?
+Routine 0x6636 routine26166:?
+Routine 0x6676 routine26230:?
+Routine 0x66d8 routine26328:?
+Routine 0x6a02 routine27138:?
+Routine 0x6a28 routine27176:?
+Routine 0x6bf0 routine27632:?
+Routine 0x6c7a routine27770:?
+Routine 0x6d72 routine28018:?
+Routine 0x6d92 routine28050:?
+Routine 0x6da8 routine28072:?
+Routine 0x6de4 routine28132:?
+Routine 0x6e22 routine28194:?
+Routine 0x6fce routine28622:?
+Routine 0x6ff2 routine28658:?
+Routine 0x704e routine28750:?
+Routine 0x7068 routine28776:?
+Routine 0x70de routine28894:?
+Routine 0x710a routine28938:?
+Routine 0x712c routine28972:?
+Routine 0x7190 routine29072:?
+Routine 0x71b2 routine29106:?
+Routine 0x71d8 routine29144:?
+Routine 0x71e4 routine29156:?
+Routine 0x7248 routine29256:?
+Routine 0x72aa routine29354:?
+Routine 0x72f8 routine29432:?
+Routine 0x7442 routine29762:?
+Routine 0x7462 routine29794:?
+Routine 0x761c routine30236:?
+Routine 0x76ec routine30444:?
+Routine 0x774a routine30538:?
+Routine 0x77ba routine30650:?
+Routine 0x7872 routine30834:?
+Routine 0x78a6 routine30886:?
+Routine 0x7912 routine30994:?
+Routine 0x7930 routine31024:?
+Routine 0x794c routine31052:?
+Routine 0x7a34 routine31284:?
+Routine 0x7abe routine31422:?
+Routine 0x7ae6 routine31462:?
+Routine 0x7afe routine31486:?
+Routine 0x7b68 routine31592:?
+Routine 0x7b90 routine31632:?
+Routine 0x7bb8 routine31672:?
+Routine 0x7c06 Action0Sub:?
+Routine 0x7c1c Action1Sub:?
+Routine 0x7c32 Action2Sub:?
+Routine 0x7c4c Action3Sub:?
+Routine 0x7ce6 Action4Sub:?
+Routine 0x7d10 Action5Sub:?
+Routine 0x7d54 Action6Sub:?
+Routine 0x7d98 routine32152:?
+Routine 0x7dd4 routine32212:?
+Routine 0x7dec Action7Sub:?
+Routine 0x7e02 Action8Sub:?
+Routine 0x7e12 Action9Sub:?
+Routine 0x7e8c Action10Sub:?
+Routine 0x7eac Action11Sub:?
+Routine 0x7ece Action12Sub:?
+Routine 0x7f8a Action14Sub:?
+Routine 0x7fb0 Action15Sub:?
+Routine 0x7ff2 Action16Sub:?
+Routine 0x801c Action17Sub:?
+Routine 0x8028 Action18Sub:?
+Routine 0x8036 Action19Sub:?
+Routine 0x80e6 Action151Sub:?
+Routine 0x8110 Action20Sub:?
+Routine 0x8132 Action24Sub:?
+Routine 0x8176 Action23Sub:?
+Routine 0x81ae Action25Sub:?
+Routine 0x81b8 Action26Sub:?
+Routine 0x81cc Action27Sub:?
+Routine 0x81d4 Action28Sub:?
+Routine 0x81de PreAction31Sub:?
+Routine 0x8224 Action31Sub:?
+Routine 0x824a Action32Sub:?
+Routine 0x827a Action87Sub:?
+Routine 0x82d8 Action36Sub:?
+Routine 0x82ea Action33Sub:?
+Routine 0x82fc Action34Sub:?
+Routine 0x8320 Action37Sub:?
+Routine 0x832c Action35Sub:?
+Routine 0x833e Action39Sub:?
+Routine 0x83e4 Action40Sub:?
+Routine 0x8426 routine33830:?
+Routine 0x8458 Action41Sub:?
+Routine 0x8468 Action42Sub:?
+Routine 0x8476 Action44Sub:?
+Routine 0x8488 Action43Sub:?
+Routine 0x8524 Action45Sub:?
+Routine 0x852e Action47Sub:?
+Routine 0x853e Action48Sub:?
+Routine 0x8562 Action49Sub:?
+Routine 0x8572 Action50Sub:?
+Routine 0x85be routine34238:?
+Routine 0x85ce Action51Sub:?
+Routine 0x862a Action52Sub:?
+Routine 0x864c Action53Sub:?
+Routine 0x8668 Action56Sub:?
+Routine 0x8682 Action57Sub:?
+Routine 0x8708 Action55Sub:?
+Routine 0x871c Action59Sub:?
+Routine 0x872e Action60Sub:?
+Routine 0x87ba Action61Sub:?
+Routine 0x88a4 routine34980:?
+Routine 0x88b6 Action62Sub:?
+Routine 0x88fa Action63Sub:?
+Routine 0x891e Action64Sub:?
+Routine 0x8944 PreAction65Sub:?
+Routine 0x8990 Action65Sub:?
+Routine 0x89d4 Action67Sub:?
+Routine 0x8a34 Action68Sub:?
+Routine 0x8a96 Action29Sub:?
+Routine 0x8aa8 routine35496:?
+Routine 0x8ad6 Action70Sub:?
+Routine 0x8ae0 Action71Sub:?
+Routine 0x8aea routine35562:?
+Routine 0x8bf4 Action73Sub:?
+Routine 0x8c1c Action72Sub:?
+Routine 0x8c30 Action30Sub:?
+Routine 0x8c9e Action78Sub:?
+Routine 0x8ce8 Action74Sub:?
+Routine 0x8d0c Action75Sub:?
+Routine 0x8d30 Action76Sub:?
+Routine 0x8d46 Action69Sub:?
+Routine 0x8da8 Action77Sub:?
+Routine 0x8db0 Action38Sub:?
+Routine 0x8db8 Action79Sub:?
+Routine 0x8dd8 Action80Sub:?
+Routine 0x8de4 Action81Sub:?
+Routine 0x8df6 Action84Sub:?
+Routine 0x8e0e Action82Sub:?
+Routine 0x8e2c Action58Sub:?
+Routine 0x8f3e Action83Sub:?
+Routine 0x8f82 Action88Sub:?
+Routine 0x8f8a Action89Sub:?
+Routine 0x8f92 Action90Sub:?
+Routine 0x8fb2 Action91Sub:?
+Routine 0x9000 Action95Sub:?
+Routine 0x900a Action46Sub:?
+Routine 0x9014 Action96Sub:?
+Routine 0x9034 PreAction97Sub:?
+Routine 0x903e Action97Sub:?
+Routine 0x91a4 Action92Sub:?
+Routine 0x9206 Action98Sub:?
+Routine 0x9212 Action94Sub:?
+Routine 0x921e Action100Sub:?
+Routine 0x922a Action101Sub:?
+Routine 0x9240 Action102Sub:?
+Routine 0x924c Action103Sub:?
+Routine 0x9270 Action104Sub:?
+Routine 0x927c Action105Sub:?
+Routine 0x9286 Action106Sub:?
+Routine 0x9298 PreAction22Sub:?
+Routine 0x92aa Action22Sub:?
+Routine 0x9384 Action110Sub:?
+Routine 0x939e Action108Sub:?
+Routine 0x93d0 Action107Sub:?
+Routine 0x93e6 Action112Sub:?
+Routine 0x93fe Action111Sub:?
+Routine 0x9408 Action113Sub:?
+Routine 0x9460 PreAction85Sub:?
+Routine 0x94ac Action85Sub:?
+Routine 0x94d4 Action115Sub:?
+Routine 0x94e8 Action21Sub:?
+Routine 0x9514 PreAction86Sub:?
+Routine 0x95a8 Action86Sub:?
+Routine 0xa46e Action145Sub:?
+Routine 0xa478 Action117Sub:?
+Routine 0xa4c4 Action118Sub:?
+Routine 0xa4d2 Action119Sub:?
+Routine 0xa4fa Action66Sub:?
+Routine 0xa504 Action120Sub:?
+Routine 0xa546 Action121Sub:?
+Routine 0xa564 Action122Sub:?
+Routine 0xa58e Action123Sub:?
+Routine 0xa5aa Action125Sub:?
+Routine 0xa5be Action127Sub:?
+Routine 0xa5cc Action126Sub:?
+Routine 0xaa5e Action128Sub:?
+Routine 0xaa78 Action93Sub:?
+Routine 0xaa82 Action129Sub:?
+Routine 0xaa8e Action130Sub:?
+Routine 0xaade Action132Sub:?
+Routine 0xaaf2 PreAction124Sub:?
+Routine 0xaafc Action124Sub:?
+Routine 0xab04 Action131Sub:?
+Routine 0xab0e Action133Sub:?
+Routine 0xab38 Action134Sub:?
+Routine 0xab40 Action135Sub:?
+Routine 0xab4a Action137Sub:?
+Routine 0xab5e Action136Sub:?
+Routine 0xabc8 PreAction99Sub:?
+Routine 0xac74 Action99Sub:?
+Routine 0xaccc Action114Sub:?
+Routine 0xacf0 Action116Sub:?
+Routine 0xadb4 Action138Sub:?
+Routine 0xae00 Action54Sub:?
+Routine 0xae76 Action139Sub:?
+Routine 0xaed0 Action140Sub:?
+Routine 0xaee6 Action141Sub:?
+Routine 0xaefe Action142Sub:?
+Routine 0xaf18 Action143Sub:?
+Routine 0xaf82 Action144Sub:?
+Routine 0xafe2 Action146Sub:?
+Routine 0xafee Action147Sub:?
+Routine 0xaff6 Action148Sub:?
+Routine 0xb012 Action153Sub:?
+Routine 0xb0fe Action152Sub:?
+Routine 0xb11e Action154Sub:?
+Routine 0xb13a Action149Sub:?
+Routine 0xb160 Action150Sub:?
+Routine 0xb190 Action155Sub:?
+Routine 0xb19a Action156Sub:?
+Routine 0xb1cc Action157Sub:?
+Routine 0xb206 Action109Sub:?
+Routine 0xb226 Action158Sub:?
+Routine 0xb23c Action159Sub:?
+Routine 0xb266 Action160Sub:?
+Routine 0xb29e Action161Sub:?
+Routine 0xb2b6 Action162Sub:?
+Routine 0xb2e0 PreAction166Sub:?
+Routine 0xb528 Action163Sub:?
+Routine 0xb646 Action165Sub:?
+Routine 0xb6e0 routine46816:?
+Routine 0xb718 routine46872:?
+Routine 0xb73e Action164Sub:?
+Routine 0xb75a Action166Sub:?
+Routine 0xb7c2 Action167Sub:?
+Routine 0xb7f6 Action170Sub:?
+Routine 0xb834 Action171Sub:?
+Routine 0xba44 Action168Sub:?
+Routine 0xbb22 Action169Sub:?
+Routine 0xbc1e Action173Sub:?
+Routine 0xbc92 routine48274:?
+Routine 0xbcf6 Action175Sub:?
+Routine 0xbd88 Action174Sub:?
+Routine 0xbd90 Action176Sub:?
+Routine 0xbde8 Action177Sub:?
+Routine 0xbe68 Action178Sub:?
+Routine 0xbea6 Action172Sub:?
+Routine 0xbf08 Action179Sub:?
+Routine 0xbf44 Action180Sub:?
+Routine 0xbfbe Action13Sub:?
+Routine 0xbfe2 Action181Sub:?
+Routine 0xc012 Action182Sub:?
+Routine 0xc068 routine49256:?
+Routine 0xc178 routine49528:?
+Routine 0xc1c2 routine49602:?
+Routine 0xc272 routine49778:?
+Routine 0xc28a routine49802:?
+Routine 0xc2ba routine49850:?
+Routine 0xc394 routine50068:?
+Routine 0xc3c0 routine50112:?
+Routine 0xc4ac routine50348:?
+Routine 0xc5c0 routine50624:?
+Routine 0xc616 routine50710:?
+Routine 0xc678 routine50808:?
+Routine 0xc68e routine50830:?
+Routine 0xc6b6 routine50870:?
+Routine 0xc770 routine51056:?
+Routine 0xcbd2 routine52178:?
+Routine 0xcbf0 routine52208:?
+Routine 0xcc6c routine52332:?
+Routine 0xcc96 routine52374:?
+Routine 0xcc9e routine52382:?
+Routine 0xccae routine52398:?
+Routine 0xccd4 routine52436:?
+Routine 0xccec routine52460:?
+Routine 0xcd08 routine52488:?
+Routine 0xcd18 routine52504:?
+Routine 0xcd36 routine52534:?
+Routine 0xcd50 routine52560:?
+Routine 0xcd5e routine52574:?
+Routine 0xcd88 routine52616:?
+Routine 0xcdbc routine52668:?
+Routine 0xcde0 routine52704:?
+Routine 0xce00 routine52736:?
+Routine 0xce22 routine52770:?
+Routine 0xce3e routine52798:?
+Routine 0xce5c routine52828:?
+Routine 0xce78 routine52856:?
+Routine 0xcea2 routine52898:?
+Routine 0xcec4 routine52932:?
+Routine 0xcece routine52942:?
+Routine 0xced6 routine52950:?
+Routine 0xcee4 routine52964:?
+Routine 0xcef0 routine52976:?
+Routine 0xcefc routine52988:?
+Routine 0xcf0c routine53004:?
+Routine 0xcf16 routine53014:?
+Routine 0xcf22 routine53026:?
+Routine 0xcf32 routine53042:?
+Routine 0xcf4c routine53068:?
+Routine 0xcf66 routine53094:?
+Routine 0xcf82 routine53122:?
+Routine 0xd0ac routine53420:?
+Routine 0xd118 routine53528:?
+Routine 0xd142 routine53570:?
+Routine 0xd1fa routine53754:?
+Routine 0xd26e routine53870:?
+Routine 0xd27a routine53882:?
+Routine 0xd288 routine53896:?
+Routine 0xd2ec routine53996:?
+Routine 0xd372 routine54130:?
+Routine 0xd38c routine54156:?
+Routine 0xd3b8 routine54200:?
+Routine 0xd796 routine55190:?
+Routine 0xd98c routine55692:?
+Routine 0xda72 routine55922:?
+Routine 0xdaca routine56010:?
+Routine 0xdb02 routine56066:?
+Routine 0xdd38 routine56632:?
+Routine 0xdd78 routine56696:?
+Routine 0xddda routine56794:?
+Routine 0xddf2 routine56818:?
+Routine 0xde68 routine56936:?
+Routine 0xdeb0 routine57008:?
+Routine 0xdeea routine57066:?
+Routine 0xdf2e routine57134:?
+Routine 0xe034 routine57396:?
+Routine 0xe0ea routine57578:?
+Routine 0xe140 routine57664:?
+Routine 0xe19e routine57758:?
+Routine 0xe2c0 routine58048:?
+Routine 0xe47c routine58492:?
+Routine 0xe4d4 routine58580:?
+Routine 0xe62a routine58922:?
+Routine 0xe8b4 routine59572:?
+Routine 0xe92a routine59690:?
+Routine 0xe944 routine59716:?
+Routine 0xe9c2 routine59842:?
+Routine 0xe9ce routine59854:?
+Routine 0xe9ea routine59882:?
+Routine 0xea3e routine59966:?
+Routine 0xea7c routine60028:?
+Routine 0xeaa2 routine60066:?
+Routine 0xeb6c routine60268:?
+Routine 0xeba2 routine60322:?
+Routine 0xebdc routine60380:?
+Routine 0xec06 routine60422:?
+Routine 0xec6c routine60524:?
+Routine 0xed06 routine60678:?
+Routine 0xed2e routine60718:?
+Routine 0xed4e routine60750:?
+Routine 0xed76 routine60790:?
+Routine 0xee12 routine60946:?
+Routine 0xee36 routine60982:?
+Routine 0xee9e routine61086:?
+Routine 0xeec6 routine61126:?
+Routine 0xef42 routine61250:?
+Routine 0xef6e routine61294:?
+Routine 0xef86 routine61318:?
+Routine 0xef9e routine61342:?
+Routine 0xefce routine61390:?
+Routine 0xefec routine61420:?
+Routine 0xf27a routine62074:?
+Routine 0xf35c routine62300:?
+Routine 0xf386 routine62342:?
+Routine 0xf490 routine62608:?
+Routine 0xf57a routine62842:?
+Routine 0xf5b8 routine62904:?
+Routine 0xf5e6 routine62950:?
+Routine 0xf60e routine62990:?
+Routine 0xf6be routine63166:?
+Routine 0xf72a routine63274:?
+Routine 0xf72c routine63276:?
+Routine 0xf7ca routine63434:?
+Routine 0xf7da routine63450:?
+Routine 0xf872 routine63602:?
+Routine 0xf9ae routine63918:?
+Routine 0xf9c6 routine63942:?
+Routine 0xfae4 routine64228:?
+Routine 0xfb72 routine64370:?
+Routine 0xfb78 routine64376:?
+Routine 0xfbbc routine64444:?
+Routine 0xfbca routine64458:?
+Routine 0xfbcc routine64460:?
+Routine 0xfc2e routine64558:?
+Routine 0xfccc routine64716:?
+Routine 0xfcd6 routine64726:?
+Routine 0xfd0a routine64778:?
+Routine 0xfd18 routine64792:?
+Routine 0xfde2 routine64994:?
+Routine 0xfdf8 routine65016:?
+Routine 0xfe1a routine65050:?
+Routine 0xfe5c routine65116:?
+Routine 0xfeac routine65196:?
+Routine 0xfebc routine65212:?
+Routine 0xff20 routine65312:?
+Routine 0xff2c routine65324:?
+Routine 0xff38 routine65336:?
+Routine 0xff56 routine65366:?
+Routine 0xff70 routine65392:?
+Routine 0xffa6 routine65446:?
+Routine 0x1002c routine65580:?
+Routine 0x1006c routine65644:?
+Routine 0x1007a routine65658:?
+Routine 0x100fa routine65786:?
+Routine 0x101dc routine66012:?
+Routine 0x101ec routine66028:?
+Routine 0x10216 routine66070:?
+Routine 0x102f0 routine66288:?
+Routine 0x1032a routine66346:?
+Routine 0x103cc routine66508:?
+Routine 0x103ee routine66542:?
+Routine 0x1042a routine66602:?
+Routine 0x10438 routine66616:?
+Routine 0x10466 routine66662:?
+Routine 0x10474 routine66676:?
+Routine 0x1048c routine66700:?
+Routine 0x104a4 routine66724:?
+Routine 0x104de routine66782:?
+Routine 0x1050a routine66826:?
+Routine 0x10552 routine66898:?
+Routine 0x1056e routine66926:?
+Routine 0x1057c routine66940:?
+Routine 0x105ce routine67022:?
+Routine 0x10670 routine67184:?
+Routine 0x106ac routine67244:?
+Routine 0x1072a routine67370:?
+Routine 0x10764 routine67428:?
+Routine 0x107cc routine67532:?
+Routine 0x10910 routine67856:?
+Routine 0x1091a routine67866:?
+Routine 0x109e4 routine68068:?
+Routine 0x109f2 routine68082:?
+Routine 0x10a3c routine68156:?
+Routine 0x10a72 routine68210:?
+Routine 0x10bb8 routine68536:?
+Routine 0x10bde routine68574:?
+Routine 0x10bfe routine68606:?
+Routine 0x10c22 routine68642:?
+Routine 0x10d0e routine68878:?
+Routine 0x10d62 routine68962:?
+Routine 0x10dde routine69086:?
+Routine 0x110ac routine69804:?
+Routine 0x110e6 routine69862:?
+Routine 0x111a0 routine70048:?
+Routine 0x111ae routine70062:?
+Routine 0x111fa routine70138:?
+Routine 0x1123c routine70204:?
+Routine 0x112c2 routine70338:?
+Routine 0x11322 routine70434:?
+Routine 0x1138a routine70538:?
+Routine 0x113f0 routine70640:?
+Routine 0x1143e routine70718:?
+Routine 0x11466 routine70758:?
+Routine 0x11474 routine70772:?
+Routine 0x114be routine70846:?
+Routine 0x11632 routine71218:?
+Routine 0x11704 routine71428:?
+Routine 0x11802 routine71682:?
+Routine 0x1188c routine71820:?
+Routine 0x118b2 routine71858:?
+Routine 0x118e8 routine71912:?
+Routine 0x1192c routine71980:?
+Routine 0x1199c routine72092:?
+Routine 0x11b54 routine72532:?
+Routine 0x11bda routine72666:?
+Routine 0x11bf8 routine72696:?
+Routine 0x11c02 routine72706:?
+Routine 0x11c38 routine72760:?
+Routine 0x11dde routine73182:?
+Routine 0x11e3e routine73278:?
+Routine 0x11e44 routine73284:?
+Routine 0x11ecc routine73420:?
+Routine 0x11f2e routine73518:?
+Routine 0x11ffa routine73722:?
+Routine 0x12030 routine73776:?
+Routine 0x12118 routine74008:?
+Routine 0x12154 routine74068:?
+Routine 0x12162 routine74082:?
+Routine 0x121d2 routine74194:?
+Routine 0x12204 routine74244:?
+Routine 0x1222a routine74282:?
+Routine 0x12278 routine74360:?
+Routine 0x1229e routine74398:?
+Routine 0x122e4 routine74468:?
+Routine 0x12346 routine74566:?
+Routine 0x123fa routine74746:?
+Routine 0x124ae routine74926:?
+Routine 0x127a4 routine75684:?
+Routine 0x12810 routine75792:?
+Routine 0x128ba routine75962:?
+Routine 0x12d22 routine77090:?
+Routine 0x12d72 routine77170:?
+Routine 0x12dae routine77230:?
+Routine 0x12dc6 routine77254:?
+Routine 0x12e4e routine77390:?
+Routine 0x12f46 routine77638:?
+Routine 0x12fae routine77742:?
+Routine 0x130c6 routine78022:?
+Routine 0x131ae routine78254:?
+Routine 0x131f0 routine78320:?
+Routine 0x13234 routine78388:?
+Routine 0x13242 routine78402:?
+Routine 0x133c0 routine78784:?
+Routine 0x133c6 routine78790:?
+Routine 0x133dc routine78812:?
+Routine 0x134de routine79070:?
+Routine 0x13686 routine79494:?
+Routine 0x13834 routine79924:?
+Routine 0x13878 routine79992:?
+Routine 0x1388c routine80012:?
+Routine 0x138a4 routine80036:?
+Routine 0x138b8 routine80056:?
+Routine 0x13908 routine80136:?
+Routine 0x13932 routine80178:?
+Routine 0x13a00 routine80384:?
+Routine 0x13a8c routine80524:?
+Routine 0x13aea routine80618:?
+Routine 0x13b06 routine80646:?
+Routine 0x13c04 routine80900:?
+Routine 0x13c12 routine80914:?
+Routine 0x13dce routine81358:?
+Routine 0x13dd8 routine81368:?
+Routine 0x13dfe routine81406:?
+Routine 0x13e10 routine81424:?
+Routine 0x13e3e routine81470:?
+Routine 0x13e4c routine81484:?
+Routine 0x13f5a routine81754:?
+Routine 0x13f86 routine81798:?
+Routine 0x13fb8 routine81848:?
+Routine 0x13fde routine81886:?
+Routine 0x14092 routine82066:?
+Routine 0x14148 routine82248:?
+Routine 0x14162 routine82274:?
+Routine 0x1417c routine82300:?
+Routine 0x14194 routine82324:?
+Routine 0x14220 routine82464:?
+Routine 0x143f6 routine82934:?
+Routine 0x14438 routine83000:?
+Routine 0x1443e routine83006:?
+Routine 0x14460 routine83040:?
+Routine 0x1451e routine83230:?
+Routine 0x14632 routine83506:?
+Routine 0x14682 routine83586:?
+Routine 0x146ae routine83630:?
+Routine 0x14c74 routine85108:?
+Routine 0x14c82 routine85122:?
+Routine 0x14cce routine85198:?
+Routine 0x14d98 routine85400:?
+Routine 0x14e7e routine85630:?
+Routine 0x14e92 routine85650:?
+Routine 0x14f24 routine85796:?
+Routine 0x14f88 routine85896:?
+Routine 0x14fd4 routine85972:?
+Routine 0x15008 routine86024:?
+Routine 0x1500e routine86030:?
+Routine 0x1504c routine86092:?
+Routine 0x15132 routine86322:?
+Routine 0x15182 routine86402:?
+Routine 0x15190 routine86416:?
+Routine 0x151be routine86462:?
+Routine 0x1521a routine86554:?
+Routine 0x152a8 routine86696:?
+Routine 0x152e0 routine86752:?
+Routine 0x15302 routine86786:?
+Routine 0x153c4 routine86980:?
+Routine 0x153ee routine87022:?
+Routine 0x154ee routine87278:?
+Routine 0x155c4 routine87492:?
+Routine 0x155f6 routine87542:?
+Routine 0x156b6 routine87734:?
+Routine 0x1575e routine87902:?
+Routine 0x1576a routine87914:?
+Routine 0x15782 routine87938:?
+Routine 0x15798 routine87960:?
+Routine 0x15802 routine88066:?
+Routine 0x15824 routine88100:?
+Routine 0x15896 routine88214:?
+Routine 0x158a6 routine88230:?
+Routine 0x158f6 routine88310:?
+Routine 0x159c6 routine88518:?
+Routine 0x159ec routine88556:?
+Routine 0x15afa routine88826:?
+Routine 0x15b54 routine88916:?
+Routine 0x15b64 routine88932:?
+Routine 0x15b88 routine88968:?
+Routine 0x15b96 routine88982:?
+Routine 0x15c68 routine89192:?
+Routine 0x15ce2 routine89314:?
+Routine 0x15cf8 routine89336:?
+Routine 0x15d60 routine89440:?
+Routine 0x15e12 routine89618:?
+Routine 0x15e14 routine89620:?
+Routine 0x15eda routine89818:?
+Routine 0x15edc routine89820:?
+Routine 0x15f02 routine89858:?
+Routine 0x15f66 routine89958:?
+Routine 0x15fcc routine90060:?
+Routine 0x1602e routine90158:?
+Routine 0x16064 routine90212:?
+Routine 0x16146 routine90438:?
+Routine 0x1669c routine91804:?
+
+! ------------------------------- Words --------------------------------
+
+Word $be $be
+Word $co $co
+Word $de $de
+Word $sc $sc
+Word $ta $ta
+Word $ve $ve
+Word accard accard
+Word across across
+Word advanc advanc
+Word aggtho aggtho
+Word aimfiz aimfiz
+Word amathr amathr
+Word amulet amulet
+Word amusem amusem
+Word ancien ancien
+Word annihi annihi
+Word answer answer
+Word anthar anthar
+Word applia applia
+Word aragai aragai
+Word archwa archwa
+Word around around
+Word assaul assaul
+Word attach attach
+Word attack attack
+Word author author
+Word bandit bandit
+Word banish banish
+Word barbel barbel
+Word barrac barrac
+Word barrel barrel
+Word batter batter
+Word bearde bearde
+Word beauti beauti
+Word beckon beckon
+Word beetle beetle
+Word begone begone
+Word behind behind
+Word belboz belboz
+Word beneat beneat
+Word berzio berzio
+Word bestow bestow
+Word bleach bleach
+Word blight blight
+Word bloodw bloodw
+Word bloody bloody
+Word borphe borphe
+Word bozbar bozbar
+Word branch branch
+Word brandi brandi
+Word breath breath
+Word breede breede
+Word bricks bricks
+Word bridge bridge
+Word brogmo brogmo
+Word bunnie bunnie
+Word button button
+Word calend calend
+Word cannon cannon
+Word carvin carvin
+Word castle castle
+Word cave- cave-
+Word cavern cavern
+Word cavort cavort
+Word ceilin ceilin
+Word chambe chambe
+Word chevau chevau
+Word chimne chimne
+Word circle circle
+Word cleave cleave
+Word cliffs cliffs
+Word cobweb cobweb
+Word combin combin
+Word combus combus
+Word compar compar
+Word concea concea
+Word confis confis
+Word constr constr
+Word consum consum
+Word contro contro
+Word corpse corpse
+Word corrid corrid
+Word crafte crafte
+Word crater crater
+Word creatu creatu
+Word curved curved
+Word dagger dagger
+Word damage damage
+Word darkwo darkwo
+Word dazzli dazzli
+Word debark debark
+Word debris debris
+Word defile defile
+Word deflat deflat
+Word demoli demoli
+Word depart depart
+Word deplet deplet
+Word descen descen
+Word descri descri
+Word desert desert
+Word destro destro
+Word device device
+Word devour devour
+Word diabol diabol
+Word diagno diagno
+Word diamon diamon
+Word dimwit dimwit
+Word discha discha
+Word disemb disemb
+Word disloc disloc
+Word dispat dispat
+Word displa displa
+Word dissol dissol
+Word donate donate
+Word doorwa doorwa
+Word dornbe dornbe
+Word double double
+Word dragon dragon
+Word drawbr drawbr
+Word drawer drawer
+Word dryads dryads
+Word duncan duncan
+Word egreth egreth
+Word elevat elevat
+Word embark embark
+Word empire empire
+Word enchan enchan
+Word encrus encrus
+Word encycl encycl
+Word engrav engrav
+Word enscon enscon
+Word enthar enthar
+Word entrie entrie
+Word escape escape
+Word examin examin
+Word excava excava
+Word except except
+Word exorci exorci
+Word exotic exotic
+Word exting exting
+Word fannuc fannuc
+Word fast- fast-
+Word fasten fasten
+Word featur featur
+Word feroci feroci
+Word fibbsb fibbsb
+Word firepl firepl
+Word flagpo flagpo
+Word flathe flathe
+Word flower flower
+Word flumes flumes
+Word foamin foamin
+Word follow follow
+Word foobar foobar
+Word fooble fooble
+Word forces forces
+Word forest forest
+Word forget forget
+Word fortre fortre
+Word frigid frigid
+Word frobar frobar
+Word froboz froboz
+Word gabber gabber
+Word galepa galepa
+Word gambol gambol
+Word gaspar gaspar
+Word gestur gestur
+Word glitte glitte
+Word gnarle gnarle
+Word gnomes gnomes
+Word gnusto gnusto
+Word gobble gobble
+Word golmac golmac
+Word grease grease
+Word greeti greeti
+Word griffs griffs
+Word ground ground
+Word guzzle guzzle
+Word gyrate gyrate
+Word hallwa hallwa
+Word handle handle
+Word hangin hangin
+Word harken harken
+Word hawker hawker
+Word helist helist
+Word hellho hellho
+Word hidden hidden
+Word highwa highwa
+Word hoppin hoppin
+Word hungry hungry
+Word hurdle hurdle
+Word identi identi
+Word ignite ignite
+Word imbibe imbibe
+Word implem implem
+Word incant incant
+Word indigo indigo
+Word inflam inflam
+Word inflat inflat
+Word infoco infoco
+Word infota infota
+Word ingest ingest
+Word injure injure
+Word inscri inscri
+Word insert insert
+Word inside inside
+Word inspec inspec
+Word interr interr
+Word intnum intnum
+Word intric intric
+Word invent invent
+Word invoke invoke
+Word jeearr jeearr
+Word jostle jostle
+Word journa journa
+Word jungle jungle
+Word kerose kerose
+Word kindle kindle
+Word kobold kobold
+Word kovall kovall
+Word labyri labyri
+Word lacera lacera
+Word lagoon lagoon
+Word lanter lanter
+Word larges larges
+Word largon largon
+Word launch launch
+Word leathe leathe
+Word legend legend
+Word letter letter
+Word lichen lichen
+Word life- life-
+Word liquif liquif
+Word listen listen
+Word locust locust
+Word lonely lonely
+Word lubric lubric
+Word lurkin lurkin
+Word machin machin
+Word magazi magazi
+Word magicl magicl
+Word magnif magnif
+Word mailbo mailbo
+Word mailma mailma
+Word malyon malyon
+Word mammot mammot
+Word marble marble
+Word mareil mareil
+Word margin margin
+Word matchb matchb
+Word matche matche
+Word meadow meadow
+Word meande meande
+Word mechan mechan
+Word memori memori
+Word meretz meretz
+Word messag messag
+Word messen messen
+Word midway midway
+Word mighty mighty
+Word mithic mithic
+Word miznia miznia
+Word modest modest
+Word molest molest
+Word morgia morgia
+Word motion motion
+Word mounta mounta
+Word moving moving
+Word mumble mumble
+Word murder murder
+Word museum museum
+Word mutate mutate
+Word myself myself
+Word narrow narrow
+Word necrom necrom
+Word nibble nibble
+Word northe northe
+Word northw northw
+Word notebo notebo
+Word nymphs nymphs
+Word observ observ
+Word occlud occlud
+Word openin openin
+Word oracle oracle
+Word orange orange
+Word ordina ordina
+Word ornate ornate
+Word outdoo outdoo
+Word overfl overfl
+Word parasi parasi
+Word parchm parchm
+Word parrot parrot
+Word passag passag
+Word pendul pendul
+Word person person
+Word pierce pierce
+Word plague plague
+Word plants plants
+Word plaque plaque
+Word platea platea
+Word please please
+Word pocket pocket
+Word polish polish
+Word pollib pollib
+Word popula popula
+Word potion potion
+Word powere powere
+Word powerf powerf
+Word presen presen
+Word printi printi
+Word prized prized
+Word procee procee
+Word procla procla
+Word protag protag
+Word puddle puddle
+Word pulver pulver
+Word purple purple
+Word pursue pursue
+Word quanti quanti
+Word quench quench
+Word quendo quendo
+Word questi questi
+Word rabbit rabbit
+Word rampar rampar
+Word ransac ransac
+Word rapids rapids
+Word rattle rattle
+Word ravish ravish
+Word recept recept
+Word reclin reclin
+Word rectan rectan
+Word releas releas
+Word remove remove
+Word repair repair
+Word repell repell
+Word repent repent
+Word repose repose
+Word respon respon
+Word restar restar
+Word restor restor
+Word rezrov rezrov
+Word rollin rollin
+Word rotate rotate
+Word rotgru rotgru
+Word rotted rotted
+Word rubber rubber
+Word rubble rubble
+Word ruined ruined
+Word rummag rummag
+Word saluta saluta
+Word scream scream
+Word scribb scribb
+Word script script
+Word scroll scroll
+Word search search
+Word secret secret
+Word sectio sectio
+Word secure secure
+Word servan servan
+Word shallo shallo
+Word sharpe sharpe
+Word shimme shimme
+Word sickly sickly
+Word signpo signpo
+Word silent silent
+Word silver silver
+Word single single
+Word sinist sinist
+Word sleepi sleepi
+Word smelly smelly
+Word smooch smooch
+Word snakes snakes
+Word snatch snatch
+Word snooze snooze
+Word softsp softsp
+Word soiled soiled
+Word sorcer sorcer
+Word southe southe
+Word southw southw
+Word spells spells
+Word spense spense
+Word spiral spiral
+Word spirit spirit
+Word splatt splatt
+Word sprink sprink
+Word squeez squeez
+Word stagna stagna
+Word stairc stairc
+Word stairs stairs
+Word stairw stairw
+Word startl startl
+Word statue statue
+Word stenci stenci
+Word steven steven
+Word strang strang
+Word strike strike
+Word striki striki
+Word struct struct
+Word studde studde
+Word stunni stunni
+Word sturdy sturdy
+Word suckin suckin
+Word superb superb
+Word surmin surmin
+Word surpri surpri
+Word survey survey
+Word swallo swallo
+Word swanzo swanzo
+Word swirli swirli
+Word tatter tatter
+Word tempor tempor
+Word tenets tenets
+Word thanks thanks
+Word thriff thriff
+Word throug throug
+Word thrust thrust
+Word timber timber
+Word tortur tortur
+Word travel travel
+Word traver traver
+Word trickl trickl
+Word troglo troglo
+Word trolls trolls
+Word trudge trudge
+Word tumper tumper
+Word tunnel tunnel
+Word turbul turbul
+Word turret turret
+Word twiste twiste
+Word unatta unatta
+Word underg underg
+Word undern undern
+Word unfast unfast
+Word unhook unhook
+Word unknow unknow
+Word unlear unlear
+Word unlock unlock
+Word unmemo unmemo
+Word unscri unscri
+Word unseen unseen
+Word unused unused
+Word vanqui vanqui
+Word vardik vardik
+Word verbos verbos
+Word versio versio
+Word villag villag
+Word vilstu vilstu
+Word vipers vipers
+Word volume volume
+Word warloc warloc
+Word waterf waterf
+Word waters waters
+Word wheres wheres
+Word windin windin
+Word withdr withdr
+Word wizard wizard
+Word wooden wooden
+Word wrigli wrigli
+Word writhi writhi
+Word writin writin
+Word yipple yipple
+Word younge younge
+Word zorkmi zorkmi
+Word zzmgck zzmgck
+

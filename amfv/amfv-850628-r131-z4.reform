@@ -1,0 +1,1429 @@
+! ----------------------------------------------------
+!   amfv-850628-r131-z4.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 4879016488d76608fc39841718105b9f
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 12 attrib12  ! obj545_Aseejh_Randu
+Attribute 13 attrib13  ! obj545_Aseejh_Randu
+Attribute 14 attrib14  ! obj106_it obj152
+Attribute 15 attrib15  ! obj11_your_hands obj48_yourself obj152 obj159_it obj170_wall obj480_ceiling
+Attribute 16 attrib16  ! obj152
+Attribute 17 attrib17  ! obj152
+Attribute 18 attrib18  ! obj152
+Attribute 19 attrib19  ! obj95_Special_Report_buffer obj152 obj274_record_buffer obj561_World_News_buffer
+Attribute 20 attrib20  ! obj152
+Attribute 21 attrib21  ! obj152 obj492_word_processor obj558_WNN_Feeder_transmitter
+Attribute 22 attrib22  ! obj49_ham_sandwich obj152 obj286_apple obj328_granola_cluster obj570_turkey_sandwich
+Attribute 23 attrib23  ! obj152 obj353_can_of_soda
+Attribute 24 attrib24  ! obj152
+Attribute 25 attrib25  ! obj15_key obj152
+Attribute 26 attrib26  ! obj34_door obj55_door obj152 obj200_brown_tubecar_doors obj246_red_tubecar_doors obj569_door
+Attribute 27 attrib27  ! obj14_Tube_Station obj164_Tube_Station obj235_Tube_Station obj281_Tube_Station obj346_Tube_Station obj370_Tube_Station obj422_Tube_Station obj465_Tube_Station
+Attribute 28 attrib28  ! obj2_City_Dump obj32_Liquor_Store obj40_Factory_Entrance obj90_Power_Station_Entrance obj101_Book_Store obj124_Pier obj152 obj213_Skycar_Factory obj254_Pool_Hall obj259_Industrial_Park_Drive obj276_Industrial_Park_Entrance obj288_River_Street_Bridge obj302_Power_Station obj311_Dump_Entrance obj345_Warehouse obj352_Gun_Shop obj356_Wicker___River obj357_Tenement obj364_Tenement obj376_Tenement obj415 obj442 obj452_Burned_out_Area obj475_Bar obj512_Alley obj557_Wicker___Pier
+Attribute 29 attrib29  ! obj148_skylight obj152 obj184_window obj222_window obj511_tank
+Attribute 30 attrib30  ! obj35_counter obj152 obj268_table obj425_bureau obj488_table obj560_dinette_set
+Attribute 31 attrib31  ! obj42_sink obj67_couch obj78_seat obj110_chair obj152 obj192_tub obj294_crib obj305_Jill obj308_bed obj310_unshaven_man obj425_bureau obj441_seat obj446_shower_stall obj488_table obj560_dinette_set
+Attribute 32 attrib32  ! obj7_HVAC_CONTROLLER obj8_red_sign obj17 obj25_magazine obj27_ration_card obj33_LIST_TTD obj37_headstones obj41_sign obj44_RESIGNATION_LETTER obj47_credit_card obj60 obj65_JANITORIAL_CONTROLLER obj68_sign obj89_PRISM_NAME obj99_MOUNT_TAKEOVER obj152 obj155_driver_s_license obj161_graffiti obj182_statue obj189_pedestal obj208_WNN_FEEDER obj219_RYDER_SPEECHES obj236_List_of_Active_Ports obj247_AUDITING_COMPUTER obj248_PLAN_ELEMENTS obj253_strip_joint_advertisement obj262_glossy_pamphlet obj279_list obj283_banner obj287_list_of_communication_outlets obj290_romance_novel obj307 obj314_marquee obj326 obj363 obj371_plaque obj382_WEATHER_COMPUTER obj385_note obj387 obj411 obj424_newspaper obj459_PLAN_POPULARITY obj464_copy_of__The_Wizard_of_Oz_ obj485_SIMULATION_CONTROLLER obj486_PLAN_CRITICISMS obj515_BSF_FORMATION obj568 obj573_TRAFFIC_COMPUTER obj580_TAX_STUDY obj581_LIBYAN_ECONOMY obj589
+Attribute 33 attrib33  ! obj152 obj172 obj297 obj463_Riverside_Park obj572_Halley_Park_West obj582_Halley_Park_East
+Attribute 34 attrib34  ! obj9_air obj59_Emily_Warren obj66_interchange obj92_interstate_highway obj100_office obj107_Eleanor_Fortzman obj135_entertainment_center obj140_it obj152 obj159_it obj160_overcoat obj194_ALI_Building obj212_airport_gate obj216_apartment obj242_exhibits obj251_Alyson_Price obj286_apple obj310_unshaven_man obj312_auditing_percentage obj315_easel obj320_alley obj404_office obj440_industrial_park obj473_alarm obj518_Esther_Perelman obj519_University_Heights obj534_atrium obj537_InfoTech_Building obj539_animal obj545_Aseejh_Randu obj599_office_building
+Attribute 35 attrib35  ! obj48_yourself obj59_Emily_Warren obj97_IRS_Auditing_System obj107_Eleanor_Fortzman obj119_Metropolitan_Traffic_Computer obj120_police_officer obj134 obj152 obj166_Dr__Grimwold obj177_National_Weather_Center_Computer obj206_children obj238_Dr__Perelman obj251_Alyson_Price obj252_old_Chinese_man obj270_Mitchell obj305_Jill obj310_unshaven_man obj327_PRISM_Project_staff_member obj339_WNN_Feeder obj394_Janitorial_Controller obj451_maintenance_workers obj481_government_official obj498_Senator_Richard_Ryder obj501_HVAC_Controller obj504_prostitute obj506_baby obj518_Esther_Perelman obj552_BSF_guard obj554_Simulation_Controller obj588_Rav
+Attribute 36 attrib36  ! obj67_couch obj152 obj306_bleachers obj308_bed obj443_stool obj546_bench
+Attribute 37 attrib37  ! obj42_sink obj152 obj226_refrigerator obj294_crib obj305_Jill obj310_unshaven_man obj333_crate obj347_wallet obj425_bureau obj499_sack obj546_bench
+Attribute 38 attrib38  ! obj67_couch obj78_seat obj91_red_tubecar obj93_firecopter obj110_chair obj152 obj158_brown_tubecar obj192_tub obj306_bleachers obj308_bed obj340_pillowseats obj441_seat obj443_stool obj446_shower_stall obj488_table obj516_stands obj546_bench obj560_dinette_set obj564_firetruck
+Attribute 39 attrib39  ! obj94_headset obj117_sweater obj146_scarf obj152 obj401_vest
+Attribute 40 attrib40  ! obj15_key obj27_ration_card obj47_credit_card obj49_ham_sandwich obj63_bag_of_groceries obj117_sweater obj118_toy_duck obj146_scarf obj152 obj155_driver_s_license obj253_strip_joint_advertisement obj262_glossy_pamphlet obj280_ticket obj286_apple obj328_granola_cluster obj334_bottle_of_scotch obj347_wallet obj353_can_of_soda obj401_vest obj412_mug_of_beer obj423_blanket obj424_newspaper obj464_copy_of__The_Wizard_of_Oz_ obj468_bottle_of_formula obj499_sack obj506_baby obj538_pile_of_mold obj570_turkey_sandwich obj586_rusty_cross
+Attribute 41 attrib41  ! obj117_sweater obj152 obj180_clothes obj253_strip_joint_advertisement obj280_ticket obj334_bottle_of_scotch obj350_firearm obj361_hardware obj401_vest obj424_newspaper obj464_copy_of__The_Wizard_of_Oz_ obj538_pile_of_mold obj586_rusty_cross
+Attribute 42 attrib42  ! obj11_your_hands obj30_books obj46_books obj80_drugs obj105_dryers obj114_your_parents obj151_racks_of_fashionable_clothes obj152 obj190_skycars obj203_train_tracks obj204_cages obj206_children obj242_exhibits obj246_red_tubecar_doors obj260_plastalloy_beams obj292_people obj335_your_eyes obj340_pillowseats obj397_washers obj451_maintenance_workers obj484_your_ears obj559_your_teeth
+Attribute 43 attrib43  ! obj8_red_sign obj10_heating obj11_your_hands obj25_magazine obj29_turtle obj37_headstones obj39_mallard_duck obj42_sink obj43_terminal obj46_books obj54_map obj55_door obj62_card_catalog obj67_couch obj70_floors obj71_evening_rush_hour_start obj74_soup obj75_protrusions obj76_lawn obj78_seat obj80_drugs obj81_beta_sector obj88_snack obj91_red_tubecar obj93_firecopter obj94_headset obj97_IRS_Auditing_System obj100_office obj102_long_shadows obj104_water_tower obj105_dryers obj106_it obj109_gate obj115_PRISM_MESSAGES obj116_morning_rush_hour_end obj117_sweater obj119_Metropolitan_Traffic_Computer obj120_police_officer obj127_report obj128_duck_pond obj129_ticket_seller obj131_auditorium obj134 obj135_entertainment_center obj143_spaceport obj148_skylight obj151_racks_of_fashionable_clothes obj152 obj156_alpha_sector obj158_brown_tubecar obj159_it obj160_overcoat obj170_wall obj176_vibramat obj177_National_Weather_Center_Computer obj180_clothes obj182_statue obj183_morning_rush_hour_start obj186_fountain obj189_pedestal obj191_decoder obj192_tub obj194_ALI_Building obj195_PRISM_INTERFACES obj196_machinery obj198_skybus obj199_cooling obj200_brown_tubecar_doors obj201_dew obj204_cages obj205_air_conditioning_unit obj209_stacks_of_papers obj212_airport_gate obj221_painting obj225_pen obj226_refrigerator obj232_statue obj236_List_of_Active_Ports obj241_bathrooms obj246_red_tubecar_doors obj249_derricopter obj252_old_Chinese_man obj253_strip_joint_advertisement obj257_roof obj258_skycab obj260_plastalloy_beams obj267_fish obj269_jukebox obj279_list obj280_ticket obj282_delta_sector obj287_list_of_communication_outlets obj291_pool_table obj293_gamma_sector obj294_crib obj298_cup_of_coffee obj303_perimeter_fence obj304_gray_haze obj306_bleachers obj308_bed obj312_auditing_percentage obj314_marquee obj316_Perez_Towers obj327_PRISM_Project_staff_member obj331_it obj332_directory obj333_crate obj334_bottle_of_scotch obj339_WNN_Feeder obj340_pillowseats obj350_firearm obj355_lamp_post obj358_CURRENT_EVENTS obj359_lounge obj361_hardware obj365_PERELMAN_PERSONAL obj366_boarding_platform obj368_souvenir obj371_plaque obj375_classroom obj377_shelves obj381_liquor obj390_magazine_article obj392_PLAN_DATA obj394_Janitorial_Controller obj397_washers obj401_vest obj404_office obj407_rotating_functions obj414_tote_bag obj416_horizon obj417_row_of_memory_banks obj418_ventilation obj419_stairs obj421_barking obj425_bureau obj431_terminals obj441_seat obj444_red_button obj446_shower_stall obj447_conversation obj455_manta_ray obj456_library_unit obj461_cafeteria obj464_copy_of__The_Wizard_of_Oz_ obj467_garbage_disposal obj473_alarm obj474_magazine obj478_control_center obj480_ceiling obj490_current_feed obj491_your_buzzer obj500_mindex obj501_HVAC_Controller obj511_tank obj517_rolling_countryside obj521_cafeteria obj529_spotlight obj530_toilet obj534_atrium obj537_InfoTech_Building obj538_pile_of_mold obj540_waste obj546_bench obj548_bookstore obj549_bin_of_spare_parts obj551_spaceport_gate obj552_BSF_guard obj554_Simulation_Controller obj556_ramp obj558_WNN_Feeder_transmitter obj560_dinette_set obj562_Silicorp_Building obj564_firetruck obj565_door obj574_evening_rush_hour_end obj576_waterpool obj577_your_mailbox obj579_vent obj590_National_Guardsman obj596_activity_offices obj599_office_building
+Attribute 44 attrib44  ! obj4_dawn obj9_air obj11_your_hands obj30_books obj37_headstones obj45_Communications_Mode obj46_books obj48_yourself obj59_Emily_Warren obj61_the_Plan obj70_floors obj71_evening_rush_hour_start obj74_soup obj80_drugs obj87_billiards obj102_long_shadows obj105_dryers obj107_Eleanor_Fortzman obj112_your_head obj114_your_parents obj116_morning_rush_hour_end obj121_music obj132_noon obj140_it obj142_Halley_Estates obj144_liquor obj151_racks_of_fashionable_clothes obj152 obj159_it obj161_graffiti obj166_Dr__Grimwold obj171_Library_Mode obj180_clothes obj181_smoke obj183_morning_rush_hour_start obj190_skycars obj201_dew obj203_train_tracks obj204_cages obj206_children obj209_stacks_of_papers obj228_midnight obj238_Dr__Perelman obj241_bathrooms obj242_exhibits obj251_Alyson_Price obj255_Interface_Mode obj260_plastalloy_beams obj270_Mitchell obj292_people obj305_Jill obj313_Simulation_Mode obj316_Perez_Towers obj335_your_eyes obj338_Vera_Gold obj340_pillowseats obj362_dusk obj377_shelves obj381_liquor obj397_washers obj407_rotating_functions obj419_stairs obj421_barking obj431_terminals obj451_maintenance_workers obj454_it obj467_garbage_disposal obj484_your_ears obj489_Rockvil obj491_your_buzzer obj498_Senator_Richard_Ryder obj500_mindex obj503_your_name obj505_Sleep_Mode obj516_stands obj518_Esther_Perelman obj519_University_Heights obj524_Dunbar_s obj536_City_Hall obj540_waste obj559_your_teeth obj574_evening_rush_hour_end obj577_your_mailbox obj588_Rav obj594_glass
+Attribute 45 attrib45  ! obj12_Parkview_Apartments obj18_Post_Office obj20_Ezzi_s_Bar obj23_Tubecar obj24_Rockvil_Reformatory obj32_Liquor_Store obj38_Halley_Museum obj51 obj58_Tubecar obj64_Kitchen obj82 obj86_Railroad_Museum obj96_Cafeteria obj101_Book_Store obj123_Dental_School obj126_Drug_Store obj130_Dr__Perelman_s_Office obj136 obj152 obj157_University_Heights obj163 obj168 obj174_Park_Underpass obj178_Living_Room obj193_Laundromat obj220_Maintenance_Core obj239_Jail_Cell obj243 obj244_Hospital_Annex obj254_Pool_Hall obj261_Police_Station obj264_Dunbar_s obj272_Simon_s obj289_Church_Street_Apartments obj301_Stock_Exchange obj329_Pickford_Theatre obj330_Firehouse obj336_Wells_Theatre obj337_Hardware_Store obj341_City_Hall obj342_Courthouse obj343_Terminal obj344_World_News_Network_Feed obj348_Main_Library obj352_Gun_Shop obj357_Tenement obj360_Row_Houses obj364_Tenement obj372_Dorm obj376_Tenement obj378_Huang_Hall obj379_Service_Station obj384_Symphony_Hall obj393_Aquarium_Underpass obj408_Bedroom obj410_Heiman_Village obj415 obj432_Elm_Underpass obj442 obj460_Southway_Underpass obj469_Cinema obj470_Bathroom obj475_Bar obj495_Bank obj502_Foodville obj508_Veldran_Hotel obj526_Student_Union obj531_Roy_s_Pagoda obj532_PRISM_Project_Control_Center obj535_Hall_Near_Your_Apartment obj544_The_Coachman obj558_WNN_Feeder_transmitter obj566_Joybooth obj567_Foodville obj571_Lecture_Hall obj593_Colonial_Hotel obj595_Skybus_Terminal obj597_Hospital obj602_Aquarium
+Attribute 46 attrib46  ! obj1_Rockvil_University obj2_City_Dump obj26_River___Park obj31_Stadium_Lot_B obj40_Factory_Entrance obj50_Main_Street_Bridge obj52_Aquarium___Park obj53_Bodanski_Square obj69_Elm___River obj79_Aquarium___River obj83_Zoo obj85_Main___Church obj90_Power_Station_Entrance obj122_Halley___University obj124_Pier obj139_Airportway___River obj147_Skycar_Lot obj149_Base_Gate obj152 obj172 obj173_Skycar_Lot obj179 obj185_Elm___Kennedy obj187_Skycar_Lot obj202_Skycar_Lot obj207_Stadium_Lot_A obj213_Skycar_Factory obj218_Southway___Park obj224_Elm___University obj229 obj234_Airport_Entrance obj240_Halley___Park obj259_Industrial_Park_Drive obj266_Main___River obj273_Bend obj275_Construction_Site obj276_Industrial_Park_Entrance obj278_Rockvil_Centre obj288_River_Street_Bridge obj297 obj302_Power_Station obj311_Dump_Entrance obj317_Centre___Kennedy obj318_Zoo_Entrance obj321_Symphony_Entrance obj349_Southway___River obj356_Wicker___River obj374_Elm___Park obj398_Rockvil_Stadium obj406_Athletic_Field obj428_Cemetery obj429_River___Kennedy obj434 obj436_Water_Tower obj438_Skycar_Lot obj445_Midland___Church obj452_Burned_out_Area obj453_Skycar_Lot obj462 obj463_Riverside_Park obj471_Skycar_Lot obj476_Research_Center_Rooftop obj483_Stadium_Lot_C obj493_Southway___Kennedy obj497_Midland___River obj507_Main___Kennedy obj510 obj512_Alley obj520_Main___Wicker obj527_Church_Entrance obj528_Interchange obj557_Wicker___Pier obj572_Halley_Park_West obj578_Aquarium___Kennedy obj582_Halley_Park_East obj603_Museum_Entrance
+Attribute 47 attrib47  ! obj1_Rockvil_University obj26_River___Park obj40_Factory_Entrance obj52_Aquarium___Park obj53_Bodanski_Square obj69_Elm___River obj79_Aquarium___River obj85_Main___Church obj90_Power_Station_Entrance obj122_Halley___University obj124_Pier obj139_Airportway___River obj149_Base_Gate obj152 obj174_Park_Underpass obj185_Elm___Kennedy obj218_Southway___Park obj224_Elm___University obj234_Airport_Entrance obj240_Halley___Park obj259_Industrial_Park_Drive obj266_Main___River obj273_Bend obj276_Industrial_Park_Entrance obj278_Rockvil_Centre obj288_River_Street_Bridge obj311_Dump_Entrance obj317_Centre___Kennedy obj318_Zoo_Entrance obj321_Symphony_Entrance obj349_Southway___River obj356_Wicker___River obj374_Elm___Park obj393_Aquarium_Underpass obj429_River___Kennedy obj432_Elm_Underpass obj434 obj436_Water_Tower obj445_Midland___Church obj452_Burned_out_Area obj460_Southway_Underpass obj493_Southway___Kennedy obj497_Midland___River obj507_Main___Kennedy obj512_Alley obj520_Main___Wicker obj527_Church_Entrance obj528_Interchange obj557_Wicker___Pier obj578_Aquarium___Kennedy obj603_Museum_Entrance
+
+! ----------------------------- Properties -----------------------------
+
+Property 38 prop38:?
+Property 39 prop39:thing
+Property 40 u_to:exit
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 in_to:exit
+Property 44 prop44:?
+Property 45 prop45:string
+Property 46 prop46:string
+Property 47 prop47:string
+Property 48 d_to:exit
+Property 49 prop49:string
+Property 50 prop50:?
+Property 51 prop51:dictwords
+Property 52 prop52:dictwords
+Property 53 out_to:exit
+Property 54 prop54:?
+Property 55 prop55:?
+Property 56 northwest_to:exit
+Property 57 w_to:exit
+Property 58 southwest_to:exit
+Property 59 s_to:exit
+Property 60 se_to:exit
+Property 61 e_to:exit
+Property 62 ne_to:exit
+Property 63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Rockvil_University
+Object 2 obj2_City_Dump
+Object 3 obj3_park
+Object 4 obj4_dawn
+Object 5 obj5_annex
+Object 6 obj6_Symphony_Hall
+Object 7 obj7_HVAC_CONTROLLER
+Object 8 obj8_red_sign
+Object 9 obj9_air
+Object 10 obj10_heating
+Object 11 obj11_your_hands
+Object 12 obj12_Parkview_Apartments
+Object 13 obj13_dining_room
+Object 14 obj14_Tube_Station
+Object 15 obj15_key
+Object 16 obj16_crime
+Object 17 obj17
+Object 18 obj18_Post_Office
+Object 19 obj19_post_office
+Object 20 obj20_Ezzi_s_Bar
+Object 21 obj21_hotel
+Object 22 obj22_stadium
+Object 23 obj23_Tubecar
+Object 24 obj24_Rockvil_Reformatory
+Object 25 obj25_magazine
+Object 26 obj26_River___Park
+Object 27 obj27_ration_card
+Object 28 obj28_Heiman_World
+Object 29 obj29_turtle
+Object 30 obj30_books
+Object 31 obj31_Stadium_Lot_B
+Object 32 obj32_Liquor_Store
+Object 33 obj33_LIST_TTD
+Object 34 obj34_door
+Object 35 obj35_counter
+Object 36 obj36_railroad_bridge
+Object 37 obj37_headstones
+Object 38 obj38_Halley_Museum
+Object 39 obj39_mallard_duck
+Object 40 obj40_Factory_Entrance
+Object 41 obj41_sign
+Object 42 obj42_sink
+Object 43 obj43_terminal
+Object 44 obj44_RESIGNATION_LETTER
+Object 45 obj45_Communications_Mode
+Object 46 obj46_books
+Object 47 obj47_credit_card
+Object 48 obj48_yourself
+Object 49 obj49_ham_sandwich
+Object 50 obj50_Main_Street_Bridge
+Object 51 obj51
+Object 52 obj52_Aquarium___Park
+Object 53 obj53_Bodanski_Square
+Object 54 obj54_map
+Object 55 obj55_door
+Object 56 obj56_vacant_lot
+Object 57 obj57_power_station
+Object 58 obj58_Tubecar
+Object 59 obj59_Emily_Warren
+Object 60 obj60
+Object 61 obj61_the_Plan
+Object 62 obj62_card_catalog
+Object 63 obj63_bag_of_groceries
+Object 64 obj64_Kitchen
+Object 65 obj65_JANITORIAL_CONTROLLER
+Object 66 obj66_interchange
+Object 67 obj67_couch
+Object 68 obj68_sign
+Object 69 obj69_Elm___River
+Object 70 obj70_floors
+Object 71 obj71_evening_rush_hour_start
+Object 72 obj72_Dining_Room
+Object 73 obj73_cemetery
+Object 74 obj74_soup
+Object 75 obj75_protrusions
+Object 76 obj76_lawn
+Object 77 obj77_den
+Object 78 obj78_seat
+Object 79 obj79_Aquarium___River
+Object 80 obj80_drugs
+Object 81 obj81_beta_sector
+Object 82 obj82
+Object 83 obj83_Zoo
+Object 84 obj84
+Object 85 obj85_Main___Church
+Object 86 obj86_Railroad_Museum
+Object 87 obj87_billiards
+Object 88 obj88_snack
+Object 89 obj89_PRISM_NAME
+Object 90 obj90_Power_Station_Entrance
+Object 91 obj91_red_tubecar
+Object 92 obj92_interstate_highway
+Object 93 obj93_firecopter
+Object 94 obj94_headset
+Object 95 obj95_Special_Report_buffer
+Object 96 obj96_Cafeteria
+Object 97 obj97_IRS_Auditing_System
+Object 98 obj98_railroad_yard
+Object 99 obj99_MOUNT_TAKEOVER
+Object 100 obj100_office
+Object 101 obj101_Book_Store
+Object 102 obj102_long_shadows
+Object 103 obj103_library
+Object 104 obj104_water_tower
+Object 105 obj105_dryers
+Object 106 obj106_it
+Object 107 obj107_Eleanor_Fortzman
+Object 108 obj108
+Object 109 obj109_gate
+Object 110 obj110_chair
+Object 111 obj111_Huang_Hall
+Object 112 obj112_your_head
+Object 113 obj113_resignation
+Object 114 obj114_your_parents
+Object 115 obj115_PRISM_MESSAGES
+Object 116 obj116_morning_rush_hour_end
+Object 117 obj117_sweater
+Object 118 obj118_toy_duck
+Object 119 obj119_Metropolitan_Traffic_Computer
+Object 120 obj120_police_officer
+Object 121 obj121_music
+Object 122 obj122_Halley___University
+Object 123 obj123_Dental_School
+Object 124 obj124_Pier
+Object 125 obj125_field
+Object 126 obj126_Drug_Store
+Object 127 obj127_report
+Object 128 obj128_duck_pond
+Object 129 obj129_ticket_seller
+Object 130 obj130_Dr__Perelman_s_Office
+Object 131 obj131_auditorium
+Object 132 obj132_noon
+Object 133 obj133_Patio
+Object 134 obj134
+Object 135 obj135_entertainment_center
+Object 136 obj136
+Object 137 obj137_service_station
+Object 138 obj138_kitchen
+Object 139 obj139_Airportway___River
+Object 140 obj140_it
+Object 141 obj141_card
+Object 142 obj142_Halley_Estates
+Object 143 obj143_spaceport
+Object 144 obj144_liquor
+Object 145 obj145__undefined_
+Object 146 obj146_scarf
+Object 147 obj147_Skycar_Lot
+Object 148 obj148_skylight
+Object 149 obj149_Base_Gate
+Object 150 obj150_sky
+Object 151 obj151_racks_of_fashionable_clothes
+Object 152 obj152
+Object 153 obj153_prison
+Object 154 obj154_soup_kitchen
+Object 155 obj155_driver_s_license
+Object 156 obj156_alpha_sector
+Object 157 obj157_University_Heights
+Object 158 obj158_brown_tubecar
+Object 159 obj159_it
+Object 160 obj160_overcoat
+Object 161 obj161_graffiti
+Object 162 obj162_Stock_Exchange
+Object 163 obj163
+Object 164 obj164_Tube_Station
+Object 165 obj165_criminal
+Object 166 obj166_Dr__Grimwold
+Object 167 obj167_church
+Object 168 obj168
+Object 169 obj169_bookstore
+Object 170 obj170_wall
+Object 171 obj171_Library_Mode
+Object 172 obj172
+Object 173 obj173_Skycar_Lot
+Object 174 obj174_Park_Underpass
+Object 175 obj175_zoo
+Object 176 obj176_vibramat
+Object 177 obj177_National_Weather_Center_Computer
+Object 178 obj178_Living_Room
+Object 179 obj179
+Object 180 obj180_clothes
+Object 181 obj181_smoke
+Object 182 obj182_statue
+Object 183 obj183_morning_rush_hour_start
+Object 184 obj184_window
+Object 185 obj185_Elm___Kennedy
+Object 186 obj186_fountain
+Object 187 obj187_Skycar_Lot
+Object 188 obj188_skycopter
+Object 189 obj189_pedestal
+Object 190 obj190_skycars
+Object 191 obj191_decoder
+Object 192 obj192_tub
+Object 193 obj193_Laundromat
+Object 194 obj194_ALI_Building
+Object 195 obj195_PRISM_INTERFACES
+Object 196 obj196_machinery
+Object 197 obj197_movie
+Object 198 obj198_skybus
+Object 199 obj199_cooling
+Object 200 obj200_brown_tubecar_doors
+Object 201 obj201_dew
+Object 202 obj202_Skycar_Lot
+Object 203 obj203_train_tracks
+Object 204 obj204_cages
+Object 205 obj205_air_conditioning_unit
+Object 206 obj206_children
+Object 207 obj207_Stadium_Lot_A
+Object 208 obj208_WNN_FEEDER
+Object 209 obj209_stacks_of_papers
+Object 210 obj210_Aquarium
+Object 211 obj211_clerkmaton
+Object 212 obj212_airport_gate
+Object 213 obj213_Skycar_Factory
+Object 214 obj214_Heiman_Village
+Object 215 obj215_tenement
+Object 216 obj216_apartment
+Object 217 obj217_desk
+Object 218 obj218_Southway___Park
+Object 219 obj219_RYDER_SPEECHES
+Object 220 obj220_Maintenance_Core
+Object 221 obj221_painting
+Object 222 obj222_window
+Object 223 obj223_supermarket
+Object 224 obj224_Elm___University
+Object 225 obj225_pen
+Object 226 obj226_refrigerator
+Object 227 obj227_building
+Object 228 obj228_midnight
+Object 229 obj229
+Object 230 obj230_factory
+Object 231 obj231_Solarium
+Object 232 obj232_statue
+Object 233 obj233_reservoir
+Object 234 obj234_Airport_Entrance
+Object 235 obj235_Tube_Station
+Object 236 obj236_List_of_Active_Ports
+Object 237 obj237_sunroom
+Object 238 obj238_Dr__Perelman
+Object 239 obj239_Jail_Cell
+Object 240 obj240_Halley___Park
+Object 241 obj241_bathrooms
+Object 242 obj242_exhibits
+Object 243 obj243
+Object 244 obj244_Hospital_Annex
+Object 245 obj245_partition
+Object 246 obj246_red_tubecar_doors
+Object 247 obj247_AUDITING_COMPUTER
+Object 248 obj248_PLAN_ELEMENTS
+Object 249 obj249_derricopter
+Object 250 obj250_street_bridge
+Object 251 obj251_Alyson_Price
+Object 252 obj252_old_Chinese_man
+Object 253 obj253_strip_joint_advertisement
+Object 254 obj254_Pool_Hall
+Object 255 obj255_Interface_Mode
+Object 256 obj256_newspaper_dispenser
+Object 257 obj257_roof
+Object 258 obj258_skycab
+Object 259 obj259_Industrial_Park_Drive
+Object 260 obj260_plastalloy_beams
+Object 261 obj261_Police_Station
+Object 262 obj262_glossy_pamphlet
+Object 263 obj263_Wells_Theatre
+Object 264 obj264_Dunbar_s
+Object 265 obj265_campus
+Object 266 obj266_Main___River
+Object 267 obj267_fish
+Object 268 obj268_table
+Object 269 obj269_jukebox
+Object 270 obj270_Mitchell
+Object 271 obj271_dormitory
+Object 272 obj272_Simon_s
+Object 273 obj273_Bend
+Object 274 obj274_record_buffer
+Object 275 obj275_Construction_Site
+Object 276 obj276_Industrial_Park_Entrance
+Object 277 obj277_terrace
+Object 278 obj278_Rockvil_Centre
+Object 279 obj279_list
+Object 280 obj280_ticket
+Object 281 obj281_Tube_Station
+Object 282 obj282_delta_sector
+Object 283 obj283_banner
+Object 284 obj284_mailbox
+Object 285 obj285_warehouse
+Object 286 obj286_apple
+Object 287 obj287_list_of_communication_outlets
+Object 288 obj288_River_Street_Bridge
+Object 289 obj289_Church_Street_Apartments
+Object 290 obj290_romance_novel
+Object 291 obj291_pool_table
+Object 292 obj292_people
+Object 293 obj293_gamma_sector
+Object 294 obj294_crib
+Object 295 obj295__undefined_
+Object 296 obj296_fence
+Object 297 obj297
+Object 298 obj298_cup_of_coffee
+Object 299 obj299_Foyer
+Object 300 obj300_hospital
+Object 301 obj301_Stock_Exchange
+Object 302 obj302_Power_Station
+Object 303 obj303_perimeter_fence
+Object 304 obj304_gray_haze
+Object 305 obj305_Jill
+Object 306 obj306_bleachers
+Object 307 obj307
+Object 308 obj308_bed
+Object 309 obj309_school
+Object 310 obj310_unshaven_man
+Object 311 obj311_Dump_Entrance
+Object 312 obj312_auditing_percentage
+Object 313 obj313_Simulation_Mode
+Object 314 obj314_marquee
+Object 315 obj315_easel
+Object 316 obj316_Perez_Towers
+Object 317 obj317_Centre___Kennedy
+Object 318 obj318_Zoo_Entrance
+Object 319 obj319_room
+Object 320 obj320_alley
+Object 321 obj321_Symphony_Entrance
+Object 322 obj322_train_station
+Object 323 obj323_Skycab
+Object 324 obj324_soy_patty
+Object 325 obj325_hardware_store
+Object 326 obj326
+Object 327 obj327_PRISM_Project_staff_member
+Object 328 obj328_granola_cluster
+Object 329 obj329_Pickford_Theatre
+Object 330 obj330_Firehouse
+Object 331 obj331_it
+Object 332 obj332_directory
+Object 333 obj333_crate
+Object 334 obj334_bottle_of_scotch
+Object 335 obj335_your_eyes
+Object 336 obj336_Wells_Theatre
+Object 337 obj337_Hardware_Store
+Object 338 obj338_Vera_Gold
+Object 339 obj339_WNN_Feeder
+Object 340 obj340_pillowseats
+Object 341 obj341_City_Hall
+Object 342 obj342_Courthouse
+Object 343 obj343_Terminal
+Object 344 obj344_World_News_Network_Feed
+Object 345 obj345_Warehouse
+Object 346 obj346_Tube_Station
+Object 347 obj347_wallet
+Object 348 obj348_Main_Library
+Object 349 obj349_Southway___River
+Object 350 obj350_firearm
+Object 351 obj351_crowbar
+Object 352 obj352_Gun_Shop
+Object 353 obj353_can_of_soda
+Object 354 obj354_terminal
+Object 355 obj355_lamp_post
+Object 356 obj356_Wicker___River
+Object 357 obj357_Tenement
+Object 358 obj358_CURRENT_EVENTS
+Object 359 obj359_lounge
+Object 360 obj360_Row_Houses
+Object 361 obj361_hardware
+Object 362 obj362_dusk
+Object 363 obj363
+Object 364 obj364_Tenement
+Object 365 obj365_PERELMAN_PERSONAL
+Object 366 obj366_boarding_platform
+Object 367 obj367_bar
+Object 368 obj368_souvenir
+Object 369 obj369_pool_hall
+Object 370 obj370_Tube_Station
+Object 371 obj371_plaque
+Object 372 obj372_Dorm
+Object 373 obj373_construction_site
+Object 374 obj374_Elm___Park
+Object 375 obj375_classroom
+Object 376 obj376_Tenement
+Object 377 obj377_shelves
+Object 378 obj378_Huang_Hall
+Object 379 obj379_Service_Station
+Object 380 obj380_terminal
+Object 381 obj381_liquor
+Object 382 obj382_WEATHER_COMPUTER
+Object 383 obj383_Master_Bedroom
+Object 384 obj384_Symphony_Hall
+Object 385 obj385_note
+Object 386 obj386_living_room
+Object 387 obj387
+Object 388 obj388_bathroom
+Object 389 obj389_slot
+Object 390 obj390_magazine_article
+Object 391 obj391_river_bank
+Object 392 obj392_PLAN_DATA
+Object 393 obj393_Aquarium_Underpass
+Object 394 obj394_Janitorial_Controller
+Object 395 obj395_Kitchen
+Object 396 obj396_store
+Object 397 obj397_washers
+Object 398 obj398_Rockvil_Stadium
+Object 399 obj399_movie_theatre
+Object 400 obj400__undefined_
+Object 401 obj401_vest
+Object 402 obj402_hallway
+Object 403 obj403_drug_store
+Object 404 obj404_office
+Object 405 obj405_restaurant
+Object 406 obj406_Athletic_Field
+Object 407 obj407_rotating_functions
+Object 408 obj408_Bedroom
+Object 409 obj409_Bath
+Object 410 obj410_Heiman_Village
+Object 411 obj411
+Object 412 obj412_mug_of_beer
+Object 413 obj413_Den
+Object 414 obj414_tote_bag
+Object 415 obj415
+Object 416 obj416_horizon
+Object 417 obj417_row_of_memory_banks
+Object 418 obj418_ventilation
+Object 419 obj419_stairs
+Object 420 obj420_Rockvil_Mall
+Object 421 obj421_barking
+Object 422 obj422_Tube_Station
+Object 423 obj423_blanket
+Object 424 obj424_newspaper
+Object 425 obj425_bureau
+Object 426 obj426_bank
+Object 427 obj427_blackened_timbers
+Object 428 obj428_Cemetery
+Object 429 obj429_River___Kennedy
+Object 430 obj430_lecture_hall
+Object 431 obj431_terminals
+Object 432 obj432_Elm_Underpass
+Object 433 obj433_joybooth
+Object 434 obj434
+Object 435 obj435_police_station
+Object 436 obj436_Water_Tower
+Object 437 obj437_BSF_base
+Object 438 obj438_Skycar_Lot
+Object 439 obj439_parking_lot
+Object 440 obj440_industrial_park
+Object 441 obj441_seat
+Object 442 obj442
+Object 443 obj443_stool
+Object 444 obj444_red_button
+Object 445 obj445_Midland___Church
+Object 446 obj446_shower_stall
+Object 447 obj447_conversation
+Object 448 obj448_water
+Object 449 obj449_day
+Object 450 obj450_ground
+Object 451 obj451_maintenance_workers
+Object 452 obj452_Burned_out_Area
+Object 453 obj453_Skycar_Lot
+Object 454 obj454_it
+Object 455 obj455_manta_ray
+Object 456 obj456_library_unit
+Object 457 obj457_student_union
+Object 458 obj458_pier
+Object 459 obj459_PLAN_POPULARITY
+Object 460 obj460_Southway_Underpass
+Object 461 obj461_cafeteria
+Object 462 obj462
+Object 463 obj463_Riverside_Park
+Object 464 obj464_copy_of__The_Wizard_of_Oz_
+Object 465 obj465_Tube_Station
+Object 466 obj466_number
+Object 467 obj467_garbage_disposal
+Object 468 obj468_bottle_of_formula
+Object 469 obj469_Cinema
+Object 470 obj470_Bathroom
+Object 471 obj471_Skycar_Lot
+Object 472 obj472_museum
+Object 473 obj473_alarm
+Object 474 obj474_magazine
+Object 475 obj475_Bar
+Object 476 obj476_Research_Center_Rooftop
+Object 477 obj477_Pickford_Theatre
+Object 478 obj478_control_center
+Object 479 obj479_Tube_station
+Object 480 obj480_ceiling
+Object 481 obj481_government_official
+Object 482 obj482_entrance
+Object 483 obj483_Stadium_Lot_C
+Object 484 obj484_your_ears
+Object 485 obj485_SIMULATION_CONTROLLER
+Object 486 obj486_PLAN_CRITICISMS
+Object 487 obj487_Church_Street_City
+Object 488 obj488_table
+Object 489 obj489_Rockvil
+Object 490 obj490_current_feed
+Object 491 obj491_your_buzzer
+Object 492 obj492_word_processor
+Object 493 obj493_Southway___Kennedy
+Object 494 obj494_parish
+Object 495 obj495_Bank
+Object 496 obj496_picturephone
+Object 497 obj497_Midland___River
+Object 498 obj498_Senator_Richard_Ryder
+Object 499 obj499_sack
+Object 500 obj500_mindex
+Object 501 obj501_HVAC_Controller
+Object 502 obj502_Foodville
+Object 503 obj503_your_name
+Object 504 obj504_prostitute
+Object 505 obj505_Sleep_Mode
+Object 506 obj506_baby
+Object 507 obj507_Main___Kennedy
+Object 508 obj508_Veldran_Hotel
+Object 509 obj509_health_center
+Object 510 obj510
+Object 511 obj511_tank
+Object 512 obj512_Alley
+Object 513 obj513_courthouse
+Object 514 obj514__undefined_
+Object 515 obj515_BSF_FORMATION
+Object 516 obj516_stands
+Object 517 obj517_rolling_countryside
+Object 518 obj518_Esther_Perelman
+Object 519 obj519_University_Heights
+Object 520 obj520_Main___Wicker
+Object 521 obj521_cafeteria
+Object 522 obj522_river
+Object 523 obj523_tunnel
+Object 524 obj524_Dunbar_s
+Object 525 obj525_townhouse
+Object 526 obj526_Student_Union
+Object 527 obj527_Church_Entrance
+Object 528 obj528_Interchange
+Object 529 obj529_spotlight
+Object 530 obj530_toilet
+Object 531 obj531_Roy_s_Pagoda
+Object 532 obj532_PRISM_Project_Control_Center
+Object 533 obj533_fireplace
+Object 534 obj534_atrium
+Object 535 obj535_Hall_Near_Your_Apartment
+Object 536 obj536_City_Hall
+Object 537 obj537_InfoTech_Building
+Object 538 obj538_pile_of_mold
+Object 539 obj539_animal
+Object 540 obj540_waste
+Object 541 obj541_road
+Object 542 obj542_viewscreen
+Object 543 obj543_mall
+Object 544 obj544_The_Coachman
+Object 545 obj545_Aseejh_Randu
+Object 546 obj546_bench
+Object 547 obj547_milkshake
+Object 548 obj548_bookstore
+Object 549 obj549_bin_of_spare_parts
+Object 550 obj550_bedroom
+Object 551 obj551_spaceport_gate
+Object 552 obj552_BSF_guard
+Object 553 obj553_liquor_store
+Object 554 obj554_Simulation_Controller
+Object 555 obj555_Guest_Room
+Object 556 obj556_ramp
+Object 557 obj557_Wicker___Pier
+Object 558 obj558_WNN_Feeder_transmitter
+Object 559 obj559_your_teeth
+Object 560 obj560_dinette_set
+Object 561 obj561_World_News_buffer
+Object 562 obj562_Silicorp_Building
+Object 563 obj563_fire_station
+Object 564 obj564_firetruck
+Object 565 obj565_door
+Object 566 obj566_Joybooth
+Object 567 obj567_Foodville
+Object 568 obj568
+Object 569 obj569_door
+Object 570 obj570_turkey_sandwich
+Object 571 obj571_Lecture_Hall
+Object 572 obj572_Halley_Park_West
+Object 573 obj573_TRAFFIC_COMPUTER
+Object 574 obj574_evening_rush_hour_end
+Object 575 obj575_Living_Room
+Object 576 obj576_waterpool
+Object 577 obj577_your_mailbox
+Object 578 obj578_Aquarium___Kennedy
+Object 579 obj579_vent
+Object 580 obj580_TAX_STUDY
+Object 581 obj581_LIBYAN_ECONOMY
+Object 582 obj582_Halley_Park_East
+Object 583 obj583_bamboo_screen
+Object 584 obj584__undefined_
+Object 585 obj585_museum
+Object 586 obj586_rusty_cross
+Object 587 obj587_night
+Object 588 obj588_Rav
+Object 589 obj589
+Object 590 obj590_National_Guardsman
+Object 591 obj591_desk
+Object 592 obj592_buzzer
+Object 593 obj593_Colonial_Hotel
+Object 594 obj594_glass
+Object 595 obj595_Skybus_Terminal
+Object 596 obj596_activity_offices
+Object 597 obj597_Hospital
+Object 598 obj598_food
+Object 599 obj599_office_building
+Object 600 obj600_garbage_dump
+Object 601 obj601_nap
+Object 602 obj602_Aquarium
+Object 603 obj603_Museum_Entrance
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbose'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superbrie'
+Action 3 Action3  ! 'diagnose'
+Action 4 Action4  ! 'i//'/'inventory'
+Action 5 Action5  ! 'q//'/'quit'
+Action 6 Action6  ! 'restart'
+Action 7 Action7  ! 'restore'
+Action 8 Action8  ! 'save'
+Action 9 Action9  ! 'score'
+Action 10 Action10 ! 'script'
+Action 11 Action11 ! 'unscript'
+Action 12 Action12 ! 'version'
+Action 13 Action13 ! '$ver'/'$verif' object
+Action 14 Action14 ! '$refre'
+Action 15 Action15 ! '#random' object
+Action 16 Action16 ! '#command'
+Action 17 Action17 ! '#record'
+Action 18 Action18 ! '#unrecor'
+Action 19 Action19 ! '$blot'
+Action 20 Action20 ! '$cheat' object
+Action 21 Action21 ! '$data'
+Action 22 Action22 ! '$debug'
+Action 23 Action23 ! 'abort'
+Action 24 Action24 ! 'abort' object
+Action 25 Action25 ! 'answer'/'reply'
+Action 26 Action26 ! 'answer'/'reply' 'toward'/'to' object
+Action 27 Action27 ! 'approach' object
+Action 28 Action28 ! 'ask'/'consult'/'inquire'/'query'/'question'/'quiz' attrib35 'onto'/'on' object
+Action 29 Action29 ! 'ask'/'consult'/'inquire'/'query'/'question'/'quiz' 'for' object
+Action 30 Action30 ! 'ask'/'consult'/'inquire'/'query'/'question'/'quiz' attrib35 'for' object
+Action 31 Action31 ! 'annihilat'/'break'/'crack'/'damage'/'decimate'/'demolish'/'destro'/'devastate'/'smash'/'wreck' 'down'/'d//' object
+Action 32 Action32 ! 'bite' object
+Action 33 Action33 ! 'doze'/'nap'/'slumber'/'snooze' 'onto'/'on' object(in_room,on_ground)
+Action 34 Action34 ! 'buy'/'order'/'procure'/'purchase' object
+Action 35 Action35 ! 'buy'/'order'/'procure'/'purchase' object 'with'/'using' object
+Action 36 Action36 ! 'call'/'summon' object
+Action 37 Action37 ! 'ascend'/'climb'/'mount'/'scale' object(in_room,on_ground)
+Action 38 Action38 ! 'ascend'/'climb'/'mount'/'scale' 'onto'/'on' attrib38(in_room,on_ground)
+Action 39 Action39 ! 'ascend'/'climb'/'mount'/'scale' 'up'/'u//' attrib24(in_room,on_ground)
+Action 40 Action40 ! 'ascend'/'climb'/'mount'/'scale' 'down'/'d//' attrib24(in_room,on_ground)
+Action 41 Action41 ! 'ascend'/'climb'/'mount'/'scale' 'over' object(in_room,on_ground)
+Action 42 Action42 ! 'ascend'/'climb'/'mount'/'scale' 'thru'/'through' object
+Action 43 Action43 ! 'close'/'shut'/'slam' attrib26(held,carried,in_room,on_ground)
+Action 44 Action44 ! 'close'/'shut'/'slam' 'off' attrib45
+Action 45 Action45 ! 'close'/'shut'/'slam' 'off' object 'toward'/'to' object(on_ground,many)
+Action 46 Action46 ! 'close'/'shut'/'slam' 'off' object object
+Action 47 Action47 ! 'comfort'/'console' attrib35
+Action 48 Action48 ! 'count'/'tally' object
+Action 49 Action49 ! 'cross'/'traverse' object
+Action 50 Action50 ! 'cleave'/'cut'/'gash'/'sever'/'slash'/'slice' 'thru'/'through' object 'with'/'using' object(held,carried)
+Action 51 Action51 ! 'dance'
+Action 52 Action52 ! 'date'
+Action 53 Action53 ! 'annihilat'/'break'/'crack'/'damage'/'decimate'/'demolish'/'destro'/'devastate'/'smash'/'wreck' object 'with'/'using' object(held,carried,take)
+Action 54 Action54 ! 'dig' 'thru'/'through' object
+Action 55 Action55 ! 'depart'/'exit'/'retire'/'withdraw' object
+Action 56 Action56 ! 'drape'/'wrap' object 'into'/'inside'/'in' object(held,many)
+Action 57 Action57 ! 'drape'/'wrap' object(held,many) 'over' object
+Action 58 Action58 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallow'/'swill' attrib23(held,carried,in_room,on_ground)
+Action 59 Action59 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallow'/'swill' 'from' object(held,carried)
+Action 60 Action60 ! 'drop' object(held,many,have)
+Action 61 Action61 ! 'slide' object(held,many) 'thru'/'through' object
+Action 62 Action62 ! 'consume'/'devour'/'eat'/'gobble'/'ingest' attrib22(held,carried,in_room,on_ground)
+Action 63 Action63 ! 'enter'
+Action 64 Action64 ! 'depart'/'exit'/'retire'/'withdraw'
+Action 65 Action65 ! 'describe'/'examine'/'inspect'/'observe'/'scour'/'scrutiniz'/'see'/'study'/'survey'/'view'/'watch' object(held,carried,in_room,on_ground)
+Action 66 Action66 ! 'describe'/'examine'/'inspect'/'observe'/'scour'/'scrutiniz'/'see'/'study'/'survey'/'view'/'watch' object 'thru'/'through' object
+Action 67 Action67 ! 'describe'/'examine'/'inspect'/'observe'/'scour'/'scrutiniz'/'see'/'study'/'survey'/'view'/'watch' 'onto'/'on' object(held,carried,in_room,on_ground)
+Action 68 Action68 ! 'describe'/'examine'/'inspect'/'observe'/'scour'/'scrutiniz'/'see'/'study'/'survey'/'view'/'watch' 'for' object
+Action 69 Action69 ! 'list'/'print' object
+Action 70 Action70 ! 'exhibit' object(held,many) 'toward'/'to' attrib35
+Action 71 Action71 ! 'exhibit' attrib35 object(held,many)
+Action 72 Action72 ! 'feed' object
+Action 73 Action73 ! 'bestow'/'donate'/'give'/'hand'/'offer'/'sell' object(held,many,have) 'toward'/'to' attrib35(on_ground)
+Action 74 Action74 ! 'bestow'/'donate'/'give'/'hand'/'offer'/'sell' attrib35(on_ground) object(held,many,have)
+Action 75 Action75 ! 'fill' object
+Action 76 Action76 ! 'flush' object
+Action 77 Action77 ! 'accompany'/'chase'/'follow'/'pursue' object
+Action 78 Action78 ! 'dangle'/'hang'/'suspend' object 'from' object
+Action 79 Action79 ! 'listen' 'toward'/'to' object
+Action 80 Action80 ! 'greetings'/'hello'/'hi' object
+Action 81 Action81 ! 'help'/'hint'/'hints'
+Action 82 Action82 ! 'hide' 'behind' object
+Action 83 Action83 ! 'bound'/'dive'/'hurdle'/'jump'/'leap'/'vault' 'off' object
+Action 84 Action84 ! 'kick' object
+Action 85 Action85 ! 'kiss'/'smooch' attrib35(in_room,on_ground)
+Action 86 Action86 ! 'knock'/'rap' 'onto'/'on' object
+Action 87 Action87 ! 'leave' object
+Action 88 Action88 ! 'lie'/'recline'/'repose' 'down'/'d//' attrib24
+Action 89 Action89 ! 'activate'/'begin'/'start' attrib21
+Action 90 Action90 ! 'latch'/'lock' object(in_room,on_ground) 'with'/'using' object(take)
+Action 91 Action91 ! 'gaze'/'l//'/'look'/'stare'/'status' 'around'/'along' attrib24
+Action 92 Action92 ! 'gaze'/'l//'/'look'/'stare'/'status' 'down'/'d//' attrib24
+Action 93 Action93 ! 'gaze'/'l//'/'look'/'stare'/'status' 'up'/'u//' attrib24
+Action 94 Action94 ! 'gaze'/'l//'/'look'/'stare'/'status' 'underneat'/'under'/'beneath'/'below' object
+Action 95 Action95 ! 'gaze'/'l//'/'look'/'stare'/'status' 'behind' object
+Action 96 Action96 ! 'gaze'/'l//'/'look'/'stare'/'status' object
+Action 97 Action97 ! 'lower' object
+Action 98 Action98 ! 'maco'
+Action 99 Action99 ! 'dislocate'/'move'/'pull' object(in_room,on_ground)
+Action 100 Action100 ! 'doze'/'nap'/'slumber'/'snooze'
+Action 101 Action101 ! 'nay'/'negative'/'no'
+Action 102 Action102 ! 'open'/'part' attrib26(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 103 Action103 ! 'pcaf'
+Action 104 Action104 ! 'peof'
+Action 105 Action105 ! 'pick' object 'with'/'using' object
+Action 106 Action106 ! 'doff'/'remove'/'shed' attrib40(carried,in_room,many) 'from' object
+Action 107 Action107 ! 'play' object
+Action 108 Action108 ! 'play' 'with'/'using' object
+Action 109 Action109 ! 'point' 'toward'/'to' object
+Action 110 Action110 ! 'pour'/'spill'/'sprinkle' object(held,carried) 'over' object
+Action 111 Action111 ! 'ppcc'
+Action 112 Action112 ! 'pray'
+Action 113 Action113 ! 'slide' object
+Action 114 Action114 ! 'slide' object 'underneat'/'under'/'beneath'/'below' object
+Action 115 Action115 ! 'insert'/'lay'/'place'/'put'/'stuff' 'away' object(held,many)
+Action 116 Action116 ! 'don'/'wear' attrib39
+Action 117 Action117 ! 'insert'/'lay'/'place'/'put'/'stuff' object 'behind' object
+Action 118 Action118 ! 'elevate'/'hoist'/'lift'/'raise' 'up'/'u//' object
+Action 119 Action119 ! 'molest'/'rape'/'ravish' attrib35
+Action 120 Action120 ! 'rcro'
+Action 121 Action121 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 122 Action122 ! 'read'/'skim' attrib32(held,carried,in_room,on_ground,take) 'with'/'using' object
+Action 123 Action123 ! 'record' 'onto'/'on' attrib24
+Action 124 Action124 ! 'record' 'off' attrib24
+Action 125 Action125 ! 'doff'/'remove'/'shed' attrib20
+Action 126 Action126 ! 'report' object 'toward'/'to' attrib35
+Action 127 Action127 ! 'roff'
+Action 128 Action128 ! 'tell' attrib35(in_room)
+Action 129 Action129 ! 'say'/'speak'/'talk'/'utter'
+Action 130 Action130 ! 'frisk'/'ransack'/'rummage'/'search' 'into'/'inside'/'in' object
+Action 131 Action131 ! 'alter'/'change'/'decrease'/'increase'/'set' object 'at' object
+Action 132 Action132 ! 'agitate'/'jar'/'jiggle'/'joggle'/'jostle'/'rattle'/'rock'/'shake' object
+Action 133 Action133 ! 'agitate'/'jar'/'jiggle'/'joggle'/'jostle'/'rattle'/'rock'/'shake' object 'with'/'using' object
+Action 134 Action134 ! 'blast'/'discharge'/'fire'/'shoot' object 'with'/'using' object(have)
+Action 135 Action135 ! 'blast'/'discharge'/'fire'/'shoot' object(have) 'at' object
+Action 136 Action136 ! 'perch'/'rest'/'sit'/'squat' 'down'/'d//' attrib24(in_room,on_ground)
+Action 137 Action137 ! 'perch'/'rest'/'sit'/'squat' 'next' attrib35
+Action 138 Action138 ! 'cavort'/'gambol'/'hop'/'skip'
+Action 139 Action139 ! 'smell'/'sniff'/'whiff' object
+Action 140 Action140 ! 'smile' 'at' object
+Action 141 Action141 ! 'squeeze' object
+Action 142 Action142 ! 'rise'/'stand' 'up'/'u//' attrib24
+Action 143 Action143 ! 'rise'/'stand' 'into'/'inside'/'in' object
+Action 144 Action144 ! 'activate'/'begin'/'start' object 'toward'/'to' object(on_ground,many)
+Action 145 Action145 ! 'activate'/'begin'/'start' object object
+Action 146 Action146 ! 'swim' 'into'/'inside'/'in' object
+Action 147 Action147 ! 'flick'/'flip'/'switch'/'toggle'/'turn' object 'with'/'using' object(have)
+Action 148 Action148 ! 'carry'/'catch'/'get'/'grab'/'grasp'/'hold'/'obtain'/'seize'/'take' 'off' attrib20
+Action 149 Action149 ! 'tell' attrib35 'about' object
+Action 150 Action150 ! 'thank'/'thanks' object
+Action 151 Action151 ! 'fling'/'heave'/'hurl'/'pitch'/'sling'/'throw'/'toss' object(held,carried) 'into'/'inside'/'in' object
+Action 152 Action152 ! 'fling'/'heave'/'hurl'/'pitch'/'sling'/'throw'/'toss' object(held,carried) 'over' object
+Action 153 Action153 ! 'attach'/'fasten'/'hitch'/'secure'/'tie' object
+Action 154 Action154 ! 't//'/'time'
+Action 155 Action155 ! 'caress'/'feel'/'fondle'/'pat'/'pet'/'rub'/'stroke'/'touch' object 'with'/'using' object
+Action 156 Action156 ! 'transmit' object
+Action 157 Action157 ! 'unlock' object 'with'/'using' attrib25(have)
+Action 158 Action158 ! 'free'/'unattach'/'unfasten'/'unknot'/'untie' object(held,carried,in_room,on_ground)
+Action 159 Action159 ! 'linger'/'stay'/'wait'/'z//'
+Action 160 Action160 ! 'linger'/'stay'/'wait'/'z//' 'for' object
+Action 161 Action161 ! 'linger'/'stay'/'wait'/'z//' 'until' object
+Action 162 Action162 ! 'awake'/'awaken'/'rouse'/'wake' 'up'/'u//' attrib24
+Action 163 Action163 ! 'go'/'hike'/'proceed'/'run'/'step'/'stride'/'tramp'/'tread'/'troop'/'trudge'/'walk' 'behind' object
+Action 164 Action164 ! 'go'/'hike'/'proceed'/'run'/'step'/'stride'/'tramp'/'tread'/'troop'/'trudge'/'walk' object
+Action 165 Action165 ! 'go'/'hike'/'proceed'/'run'/'step'/'stride'/'tramp'/'tread'/'troop'/'trudge'/'walk' 'underneat'/'under'/'beneath'/'below' object
+Action 166 Action166 ! 'clean'/'launder'/'wash' object
+Action 167 Action167 ! 'wave' object(held,carried)
+Action 168 Action168 ! 'wave' 'toward'/'to' object
+Action 169 Action169 ! 'what'/'what^s'/'whats' object
+Action 170 Action170 ! 'where'/'where^s'/'wheres' object
+Action 171 Action171 ! 'who'/'who^s'/'whos' object
+Action 172 Action172 ! 'wnnf'
+Action 173 Action173 ! 'type'/'write' 'onto'/'on' object
+Action 174 Action174 ! 'howl'/'scream'/'shout'/'wail'/'whoop'/'yell' 'toward'/'to' object
+Action 175 Action175 ! 'affirmati'/'aye'/'ok'/'okay'/'sure'/'y//'/'yea'/'yeah'/'yep'/'yes'/'yup'
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word $cheat $cheat
+Word $debug $debug
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word abandoned abandoned
+Word accompany accompany
+Word activitie activitie
+Word adequatel adequatel
+Word administr administr
+Word admitting admitting
+Word advertise advertise
+Word affirmati affirmati
+Word annihilat annihilat
+Word announcem announcem
+Word apartment apartment
+Word auditoriu auditoriu
+Word automatic automatic
+Word ball-poi ball-poi
+Word bartender bartender
+Word bathrooms bathrooms
+Word beefburge beefburge
+Word billboard billboard
+Word billiards billiards
+Word blackened blackened
+Word bleachers bleachers
+Word blood-so blood-so
+Word bloodthir bloodthir
+Word boarded- boarded-
+Word bookshelf bookshelf
+Word bookshelv bookshelv
+Word bookstore bookstore
+Word boulevard boulevard
+Word breakfast breakfast
+Word breezeway breezeway
+Word bug-infe bug-infe
+Word buildings buildings
+Word built-in built-in
+Word burgerwor burgerwor
+Word cafeteria cafeteria
+Word champagne champagne
+Word cheap-lo cheap-lo
+Word classical classical
+Word classless classless
+Word classroom classroom
+Word clerkmato clerkmato
+Word closely- closely-
+Word clover-l clover-l
+Word cloverlea cloverlea
+Word coca-col coca-col
+Word communica communica
+Word comprehen comprehen
+Word computeri computeri
+Word concealed concealed
+Word concubine concubine
+Word condition condition
+Word conservat conservat
+Word construct construct
+Word continent continent
+Word controlle controlle
+Word controver controver
+Word conventio conventio
+Word conversat conversat
+Word corroding corroding
+Word countrysi countrysi
+Word courthous courthous
+Word crumbling crumbling
+Word darkening darkening
+Word dechemifi dechemifi
+Word departmen departmen
+Word derricopt derricopt
+Word devastate devastate
+Word dingy-lo dingy-lo
+Word directory directory
+Word discharge discharge
+Word disease- disease-
+Word disembark disembark
+Word disgustin disgustin
+Word dislocate dislocate
+Word dispenser dispenser
+Word distorted distorted
+Word doorbells doorbells
+Word dormitory dormitory
+Word dried-ou dried-ou
+Word driver's driver's
+Word dunbar's dunbar's
+Word engineeri engineeri
+Word entertain entertain
+Word equipment equipment
+Word establish establish
+Word expensive expensive
+Word extinguis extinguis
+Word extremely extremely
+Word factories factories
+Word fashionab fashionab
+Word fast-foo fast-foo
+Word firecopte firecopte
+Word firehouse firehouse
+Word fireplace fireplace
+Word firetruck firetruck
+Word fitzgeral fitzgeral
+Word flintlock flintlock
+Word foodville foodville
+Word forty-fi forty-fi
+Word four-sta four-sta
+Word four-the four-the
+Word francisco francisco
+Word free-for free-for
+Word functions functions
+Word glass-wa glass-wa
+Word glistenin glistenin
+Word governmen governmen
+Word graveston graveston
+Word graveyard graveyard
+Word greetings greetings
+Word groceries groceries
+Word guardsman guardsman
+Word guardsmen guardsmen
+Word hamburger hamburger
+Word hang-out hang-out
+Word headphone headphone
+Word headquart headquart
+Word headstone headstone
+Word high-ris high-ris
+Word high-sec high-sec
+Word ill-main ill-main
+Word imitation imitation
+Word impressiv impressiv
+Word industria industria
+Word inscribed inscribed
+Word inscripti inscripti
+Word insurance insurance
+Word interchan interchan
+Word interesti interesti
+Word interface interface
+Word interstat interstat
+Word inventory inventory
+Word janitoria janitoria
+Word joybooths joybooths
+Word kelpburge kelpburge
+Word librarian librarian
+Word lightness lightness
+Word limousine limousine
+Word literatur literatur
+Word locations locations
+Word loudspeak loudspeak
+Word low-qual low-qual
+Word luxurious luxurious
+Word machinery machinery
+Word magnifice magnifice
+Word mailboxes mailboxes
+Word maintaine maintaine
+Word maintenan maintenan
+Word malodorou malodorou
+Word medicines medicines
+Word metropoli metropoli
+Word michael' michael'
+Word microcosm microcosm
+Word milkshake milkshake
+Word moderatel moderatel
+Word monolithi monolithi
+Word multi-pu multi-pu
+Word multi-st multi-st
+Word municipal municipal
+Word neglected neglected
+Word newspaper newspaper
+Word nighttime nighttime
+Word nightwalk nightwalk
+Word northeast northeast
+Word northwest northwest
+Word omni-fab omni-fab
+Word once-boo once-boo
+Word once-pro once-pro
+Word once-thr once-thr
+Word organized organized
+Word over-pri over-pri
+Word over-stu over-stu
+Word overgrown overgrown
+Word overprice overprice
+Word overstuff overstuff
+Word partition partition
+Word pepsi-co pepsi-co
+Word percentag percentag
+Word perimeter perimeter
+Word periodica periodica
+Word pharmaceu pharmaceu
+Word photocopi photocopi
+Word photocopy photocopy
+Word pictureph pictureph
+Word pillowsea pillowsea
+Word plastallo plastallo
+Word plasticre plasticre
+Word policeman policeman
+Word policemen policemen
+Word presitgio presitgio
+Word processed processed
+Word processor processor
+Word professor professor
+Word propriete propriete
+Word proprieto proprieto
+Word prostitut prostitut
+Word protestan protestan
+Word protrusio protrusio
+Word psychiatr psychiatr
+Word publicati publicati
+Word putrid-s putrid-s
+Word radio-ac radio-ac
+Word radioacti radioacti
+Word rat-infe rat-infe
+Word receiving receiving
+Word recording recording
+Word reformato reformato
+Word refrigera refrigera
+Word reservoir reservoir
+Word resignati resignati
+Word restauran restauran
+Word revolutio revolutio
+Word revolvers revolvers
+Word rifle-be rifle-be
+Word river-ba river-ba
+Word riverfron riverfron
+Word riverside riverside
+Word rockvil' rockvil'
+Word roofed-i roofed-i
+Word run-down run-down
+Word saboteurs saboteurs
+Word sandwiche sandwiche
+Word sawed-of sawed-of
+Word schoolchi schoolchi
+Word scrutiniz scrutiniz
+Word sealed-o sealed-o
+Word secondary secondary
+Word shattered shattered
+Word simulatio simulatio
+Word six-shoo six-shoo
+Word skycopter skycopter
+Word skyscrape skyscrape
+Word smoke-fi smoke-fi
+Word snub-nos snub-nos
+Word southeast southeast
+Word southwest southwest
+Word souvenirs souvenirs
+Word soyburger soyburger
+Word spaceport spaceport
+Word spotlight spotlight
+Word sprawling sprawling
+Word staircase staircase
+Word stairwell stairwell
+Word stereotyp stereotyp
+Word streetwal streetwal
+Word structure structure
+Word sub-mach sub-mach
+Word sub-stan sub-stan
+Word submachin submachin
+Word substanda substanda
+Word superbrie superbrie
+Word supermark supermark
+Word tarnished tarnished
+Word technicia technicia
+Word telephone telephone
+Word temporary temporary
+Word tenements tenements
+Word terminals terminals
+Word thirty-e thirty-e
+Word thirty-t thirty-t
+Word tombstone tombstone
+Word top-of- top-of-
+Word townhouse townhouse
+Word tradition tradition
+Word train-re train-re
+Word transmitt transmitt
+Word tremendou tremendou
+Word twenty-f twenty-f
+Word twenty-t twenty-t
+Word two-mete two-mete
+Word typewrite typewrite
+Word typically typically
+Word underneat underneat
+Word universit universit
+Word unusually unusually
+Word vandalize vandalize
+Word ventilati ventilati
+Word viewscree viewscree
+Word wall-mou wall-mou
+Word warehouse warehouse
+Word watercolo watercolo
+Word waterpool waterpool
+Word well-gro well-gro
+Word well-kno well-kno
+Word well-mai well-mai
+Word well-man well-man
+Word well-sto well-sto
+Word whimperin whimperin
+Word whirlpool whirlpool
+Word zero-gla zero-gla
+Word zoologica zoologica
+

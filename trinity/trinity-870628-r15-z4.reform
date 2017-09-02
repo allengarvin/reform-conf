@@ -1,0 +1,1410 @@
+! ----------------------------------------------------
+!   trinity-870628-r15-z4.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 d81c47fff33d83c83097a3077b267624
+CodeArea 0xfd80 0x3d2d3
+StringArea 0x3d2d4 0x3fd6c
+FalseEnd     0x28af0 1
+
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 3 attrib3   ! obj132_Desert obj148_giant_bee obj159_Desert obj180_Foothills obj222_Foothills obj225_Foothills obj239_Desert obj465_Desert obj480_Desert obj497_Desert obj510_Desert obj529_Desert obj577_Desert
+Attribute 4 attrib4   ! obj10_your_hand obj34_piece_of_paper obj43_Cliff_Edge obj56_Tundra obj119_Tundra obj188_Tundra obj199_Platform obj235_ruby obj254_Tundra obj316_Vertex obj320_Tundra obj325_skink obj380_Tundra obj407_wristwatch obj432_crumpled_piece_of_paper obj449_Ice_Cavern obj458_rodents obj488_Under_Platform obj509_Tundra obj516_lump_of_metal obj585_Tundra
+Attribute 5 attrib5   ! obj5_Islet obj6_Front_Deck obj76_Mesa obj80_Halfway obj124_Earth_Orbit__on_a_satellite obj143 obj145_Crater obj158_Tower_Platform obj166_Thin_Air__on_the_giant_bird obj208_Thin_Air obj215_East_Beach obj224_North_Beach obj231_West_Beach obj242_Underwater obj247_Tower_Landing obj306_Chasm_s_Brink obj316_Vertex obj336_Edge_of_Reservoir obj370_Promontory obj425_Earth_Orbit obj438_Wading obj457_Reservoir obj476_South_Beach obj493_Jeep obj501_Sand_Bar obj522_Ossuary obj540_Windmill
+Attribute 6 attrib6   ! obj143 obj232_reservoir obj252_stream obj262_waterfall obj342_dish obj364_boiling_liquid obj401_lagoon obj421_Round_Pond obj482_river obj579_soapy_water
+Attribute 7 attrib7   ! obj143
+Attribute 8 attrib8   ! obj143
+Attribute 9 attrib9   ! obj143
+Attribute 10 attrib10  ! obj143
+Attribute 11 attrib11  ! obj79_The_Wabe obj143 obj144_Round_Pond obj179_Lancaster_Gate obj236_Palace_Gate obj250_Flower_Walk obj354_Broad_Walk obj355_Black_Lion_Gate obj371_Lancaster_Walk obj531_Inverness_Terrace
+Attribute 12 attrib12  ! obj41_bird_woman obj108_her obj143 obj155_girl obj567_old_woman
+Attribute 13 attrib13  ! obj20_burial_shroud obj35_your_foot obj68_bandage obj143 obj170_your_clothes obj172_red_boot obj294_green_boot obj407_wristwatch obj541_pair_of_binoculars
+Attribute 14 attrib14  ! obj143 obj305_bag obj402_bag_of_crumbs
+Attribute 15 attrib15  ! obj4_North_Arbor obj5_Islet obj42_North_Bog obj76_Mesa obj80_Halfway obj143 obj145_Crater obj155_girl obj213_Bluff obj306_Chasm_s_Brink obj316_Vertex obj317_Trellises obj319_South_Bog obj323_Summit obj327_Cottage obj353_Barrow obj370_Promontory obj400_Under_Cliff obj408_Top_of_Arbor obj414_Cemetery obj417_Herb_Garden obj418_Arborvitaes obj426_Forest_Clearing obj430_South_Arbor obj441_Crater_s_Edge obj449_Ice_Cavern obj462_Arboretum obj471_Moor obj472_Waterfall obj501_Sand_Bar obj522_Ossuary obj557_The_Bend obj565_The_River obj575_Bottom_of_Stairs obj580_Arborvitaes
+Attribute 16 attrib16  ! obj2_paved_road obj7_white_wire obj14_shades obj16_instruments obj17_rubble obj23_sundial obj25_toggle_switch obj32_notice obj33_treetops obj40_sink obj44_cables obj45_bubble_wand obj46_dial obj47_pile_of_cinders obj49_grass obj51_dirt_trail obj67_broken_lid obj69_map obj77_broken_limbs obj78_control_panel obj85_your_breath obj93_boy obj96_lemmings obj102_jeep_s_radio obj112_oak_tree obj113_dragonflies obj114_toadstool obj115_cupboard obj117_rows_of_herbs obj129_heap_of_damp_corruption obj130_northwest_road obj134_hanging_bulb obj137_headphones obj143 obj148_giant_bee obj155_girl obj162_log obj163_cylinder obj164_perambulator obj173_giant_bird obj176_rail obj178_pedestal obj185_headphones obj191_sphere obj192_blue_wire obj193_bolts obj195_pigeons obj200_sandpile obj201_children obj203_sparkling_sculpture obj209_instrument_lines obj211_tombstones obj212_circuit_breaker obj223_rope obj229_tourists obj233_mass_of_wires obj237_enclosure obj238_rocker_switch obj249_pile_of_refuse obj256_box obj257_brown_paper obj259_cables obj263_compass_rose obj264_thicket obj265_striped_wire obj269_map obj272_feathers obj277_rattlesnake obj280_lid obj285_trees obj287_lever obj288_broken_heads obj295_red_button obj298_cattails obj301_brass_ring obj304_bicyclists obj305_bag obj307_maneuvering_thrusters obj312_fin obj313_padlock obj318_folded_decorations obj322_flowers obj324_dirt obj326_debris obj329_cables_and_pipes obj334_ladder obj338_red_wire obj340_barrel obj342_dish obj359_coconuts obj360_hardware obj361_bees obj362_toadstools obj363_flytrap obj364_boiling_liquid obj368_cauldron obj376_roadrunner obj384_ichor obj386_symbols obj388_broken_perambulator obj390_enclosure obj391_German_shepherd obj392_dish obj397_southeast_road obj399_stove_pipes obj405_beehive obj406_south_road obj412_seat obj419_toy_boats obj423_urine obj424_toggle_switch obj427_loudspeaker obj428_loudspeakers obj434_GI_s_binoculars obj440_statues obj448_patch_of_thyme obj458_rodents obj463_ropes_and_cables obj464_nannies obj470_book obj474_tape obj478_icicles obj479_bones obj482_river obj486_clock obj489_sundial obj491_swings obj494_red_button obj496_boy obj505_soapy_film obj506_orange_button obj518_slider obj519_crabs obj520_that obj523_babies obj527_vellum_leaves obj536_antenna obj539_bench obj542_bits_of_wire obj546_southwest_road obj552_dolphin obj569_path obj570_searchlight obj579_soapy_water obj582_corpse obj584_magpie obj590_grass obj592_equipment
+Attribute 17 attrib17  ! obj143 obj212_circuit_breaker obj313_padlock
+Attribute 18 attrib18  ! obj13_birdcage obj143 obj203_sparkling_sculpture
+Attribute 19 attrib19  ! obj18_box obj25_toggle_switch obj40_sink obj61_perambulators obj66_your_pocket obj84_cracked_coconut obj97_Long_Water obj100_closet_door obj115_cupboard obj118_opening obj143 obj160_threaded_hole obj165_crevice obj172_red_boot obj200_sandpile obj203_sparkling_sculpture obj204_threaded_hole obj232_reservoir obj238_rocker_switch obj252_stream obj255_chasm obj260_tree obj294_green_boot obj295_red_button obj308_hole obj313_padlock obj339 obj342_dish obj346_soggy_bag obj363_flytrap obj367_iron_gate obj368_cauldron obj379_dory obj388_broken_perambulator obj392_dish obj399_stove_pipes obj402_bag_of_crumbs obj405_beehive obj415_white_door obj421_Round_Pond obj424_toggle_switch obj436_paper_bag obj445_spiked_door obj470_book obj479_bones obj494_red_button obj526_fissure obj549_umbrella obj574_Round_Pond obj590_grass
+Attribute 20 attrib20  ! obj109_Paved_Road obj120_Paved_Road obj122_Northwest_of_Ranch obj132_Desert obj143 obj146_Base_of_Tower obj159_Desert obj174_Outside_Blockhouse obj180_Foothills obj210_Northwest_of_Tower obj219_Southwest_of_Tower obj222_Foothills obj225_Foothills obj226_Paved_Road obj239_Desert obj290_East_of_Tower obj292_North_of_Reservoir obj293_Paved_Road obj296_North_of_Tower obj297_Back_Yard obj300_Under_the_Windmill obj311_West_of_Tower obj372_Southeast_of_Ranch obj381_Northeast_of_Tower obj382_Paved_Road obj437_Behind_the_Shed obj456_Shallow_Crater obj465_Desert obj466_South_of_Tower obj477_Southeast_Yard obj480_Desert obj497_Desert obj510_Desert obj515_Southwest_of_Ranch obj529_Desert obj534_Paved_Road obj544_Crossroads obj558_Northeast_of_Ranch obj559_South_of_Reservoir obj577_Desert
+Attribute 21 attrib21  ! obj19_front_door obj26_left_door obj39_right_door obj52_iron_gate obj70_white_door obj91_white_door obj100_closet_door obj126_door obj128_screen_door obj143 obj190_sliding_doors obj198_white_door obj230_white_door obj276_front_door obj356_white_door obj367_iron_gate obj377_white_door obj415_white_door obj435_outer_door obj445_spiked_door obj513_iron_gate obj524_white_door obj532_outside_door obj533_back_door obj538_front_door
+Attribute 22 attrib22  ! obj8_slip_of_cardboard obj23_sundial obj35_your_foot obj47_pile_of_cinders obj49_grass obj60_walkie_talkie obj65_handful_of_honey obj67_broken_lid obj78_control_panel obj97_Long_Water obj102_jeep_s_radio obj106_your_head obj107_platform obj110_toadstool obj115_cupboard obj142_snapshot obj143 obj154_wall obj162_log obj163_cylinder obj178_pedestal obj191_sphere obj217_coconut_tree obj234_slope obj241_oarsman obj244_landing obj246_that obj248_toadstool obj249_pile_of_refuse obj256_box obj257_brown_paper obj267_toadstool obj280_lid obj282_crypt obj309_corner obj351_platform obj373_islet obj389_smaller_toadstool obj390_enclosure obj403_larger_toadstool obj405_beehive obj416_workbench obj421_Round_Pond obj422_toadstool obj450_extension obj452_book obj473_stairway obj479_bones obj489_sundial obj491_swings obj499_flower_beds obj516_lump_of_metal obj527_vellum_leaves obj539_bench obj548_ramp obj549_umbrella obj551_toadstool obj568_jeep obj572_stairway obj574_Round_Pond obj581_toadstool obj582_corpse obj590_grass
+Attribute 23 attrib23  ! obj10_your_hand obj34_piece_of_paper obj54_yourself obj65_handful_of_honey obj84_cracked_coconut obj106_your_head obj143 obj148_giant_bee obj149_it obj154_wall obj166_Thin_Air__on_the_giant_bird obj341_your_eyes obj346_soggy_bag obj396_your_mouth obj432_crumpled_piece_of_paper obj458_rodents obj469_ceiling obj563_dead_skink
+Attribute 24 attrib24  ! obj143 obj148_giant_bee obj187_east_wind obj277_rattlesnake
+Attribute 25 attrib25  ! obj28_spade obj52_iron_gate obj60_walkie_talkie obj143 obj176_rail obj191_sphere obj259_cables obj287_lever obj367_iron_gate obj368_cauldron obj395_gnomon obj427_loudspeaker obj445_spiked_door obj513_iron_gate obj549_umbrella
+Attribute 26 attrib26  ! obj2_paved_road obj7_white_wire obj14_shades obj16_instruments obj17_rubble obj23_sundial obj25_toggle_switch obj33_treetops obj40_sink obj44_cables obj45_bubble_wand obj46_dial obj47_pile_of_cinders obj49_grass obj51_dirt_trail obj58_silver_coin obj65_handful_of_honey obj69_map obj77_broken_limbs obj78_control_panel obj93_boy obj102_jeep_s_radio obj112_oak_tree obj113_dragonflies obj114_toadstool obj115_cupboard obj117_rows_of_herbs obj129_heap_of_damp_corruption obj130_northwest_road obj134_hanging_bulb obj137_headphones obj143 obj148_giant_bee obj155_girl obj160_threaded_hole obj163_cylinder obj173_giant_bird obj176_rail obj178_pedestal obj185_headphones obj191_sphere obj192_blue_wire obj193_bolts obj200_sandpile obj201_children obj204_threaded_hole obj209_instrument_lines obj211_tombstones obj212_circuit_breaker obj223_rope obj229_tourists obj233_mass_of_wires obj237_enclosure obj238_rocker_switch obj249_pile_of_refuse obj257_brown_paper obj263_compass_rose obj264_thicket obj265_striped_wire obj269_map obj272_feathers obj277_rattlesnake obj279_emerald obj280_lid obj283_coconut obj285_trees obj287_lever obj288_broken_heads obj295_red_button obj298_cattails obj301_brass_ring obj304_bicyclists obj305_bag obj306_Chasm_s_Brink obj307_maneuvering_thrusters obj312_fin obj313_padlock obj318_folded_decorations obj322_flowers obj324_dirt obj326_debris obj329_cables_and_pipes obj334_ladder obj338_red_wire obj340_barrel obj359_coconuts obj360_hardware obj361_bees obj362_toadstools obj363_flytrap obj364_boiling_liquid obj368_cauldron obj370_Promontory obj376_roadrunner obj384_ichor obj386_symbols obj390_enclosure obj391_German_shepherd obj392_dish obj395_gnomon obj397_southeast_road obj399_stove_pipes obj405_beehive obj406_south_road obj412_seat obj423_urine obj424_toggle_switch obj427_loudspeaker obj428_loudspeakers obj434_GI_s_binoculars obj440_statues obj448_patch_of_thyme obj463_ropes_and_cables obj464_nannies obj470_book obj474_tape obj478_icicles obj482_river obj486_clock obj489_sundial obj491_swings obj494_red_button obj496_boy obj505_soapy_film obj506_orange_button obj518_slider obj520_that obj523_babies obj527_vellum_leaves obj531_Inverness_Terrace obj536_antenna obj537_access_panel obj539_bench obj542_bits_of_wire obj546_southwest_road obj552_dolphin obj560_meteor obj569_path obj570_searchlight obj579_soapy_water obj590_grass obj592_equipment
+Attribute 27 attrib27  ! obj14_shades obj16_instruments obj31_voices obj33_treetops obj44_cables obj59_GIs obj61_perambulators obj77_broken_limbs obj96_lemmings obj104_arborvitaes obj113_dragonflies obj116_trenches obj117_rows_of_herbs obj137_headphones obj143 obj147_coils_of_steam obj152_milk obj153_jeeps obj169_teachers obj184_mountains obj185_headphones obj190_sliding_doors obj193_bolts obj195_pigeons obj201_children obj209_instrument_lines obj211_tombstones obj218_palm_trees obj227_windows obj229_tourists obj244_landing obj259_cables obj272_feathers obj285_trees obj288_broken_heads obj298_cattails obj304_bicyclists obj307_maneuvering_thrusters obj318_folded_decorations obj322_flowers obj329_cables_and_pipes obj330_guards obj335_mountains obj348_shelters obj359_coconuts obj361_bees obj362_toadstools obj386_symbols obj399_stove_pipes obj419_toy_boats obj428_loudspeakers obj433_wild_birds obj440_statues obj458_rodents obj463_ropes_and_cables obj464_nannies obj478_icicles obj479_bones obj491_swings obj492_windows obj499_flower_beds obj502_windows obj512_stars obj519_crabs obj523_babies obj527_vellum_leaves obj542_bits_of_wire obj547_foothills obj553_children obj554_rock_walls obj555_sirens obj566_aircraft obj592_equipment
+Attribute 28 attrib28  ! obj16_instruments obj52_iron_gate obj77_broken_limbs obj83_axe obj104_arborvitaes obj112_oak_tree obj118_opening obj125_opening obj138_equipment_shed obj143 obj149_it obj167_opening obj187_east_wind obj205_Albert_Memorial obj209_instrument_lines obj228_ossuary obj237_enclosure obj241_oarsman obj268_icicle obj270_Able obj279_emerald obj281_opposite_shore obj333_island obj367_iron_gate obj373_islet obj384_ichor obj390_enclosure obj423_urine obj431_icehouse obj435_outer_door obj450_extension obj478_icicles obj481_opening obj498_iron_fence obj513_iron_gate obj530_Inverness_Terrace obj531_Inverness_Terrace obj532_outside_door obj536_antenna obj537_access_panel obj549_umbrella obj564_air obj566_aircraft obj567_old_woman obj592_equipment
+Attribute 29 attrib29  ! obj10_your_hand obj17_rubble obj35_your_foot obj38_Trinity obj54_yourself obj66_your_pocket obj85_your_breath obj88_that obj90_that_direction obj103_yourself obj106_your_head obj108_her obj143 obj149_it obj170_your_clothes obj171_smoke obj220_that obj245_Baker obj246_that obj251_Pittsburg obj253_that obj270_Able obj332_that_direction obj337_him obj341_your_eyes obj369_that obj385_them obj396_your_mouth obj410_myself obj423_urine obj444_your_ankle obj446_that obj467_Kensington_Gardens obj520_that obj543_London obj545_Nagasaki obj564_air obj589_that
+Attribute 30 attrib30  ! obj2_paved_road obj3_forest obj7_white_wire obj9_cavern obj10_your_hand obj11_crater obj14_shades obj15_skeleton_key obj16_instruments obj17_rubble obj18_box obj19_front_door obj20_burial_shroud obj22_paper_bird obj24_hill obj25_toggle_switch obj26_left_door obj31_voices obj33_treetops obj35_your_foot obj38_Trinity obj39_right_door obj40_sink obj41_bird_woman obj44_cables obj45_bubble_wand obj46_dial obj49_grass obj50_missile obj51_dirt_trail obj52_iron_gate obj53_Flower_Walk obj59_GIs obj61_perambulators obj62_ranch_house obj63_breeze obj64_cavern obj65_handful_of_honey obj66_your_pocket obj68_bandage obj70_white_door obj71_ladder obj72_kitchen obj73_blockhouse obj74_shelter obj75_soap_bubble obj77_broken_limbs obj81_scaffold obj82_city obj85_your_breath obj88_that obj89_pool obj90_that_direction obj91_white_door obj92_mouth obj94_mesa obj95_thin_man obj96_lemmings obj97_Long_Water obj98_copse obj99_trellises obj100_closet_door obj101_windmill obj102_jeep_s_radio obj103_yourself obj104_arborvitaes obj106_your_head obj107_platform obj110_toadstool obj111_cliff obj112_oak_tree obj113_dragonflies obj114_toadstool obj115_cupboard obj116_trenches obj117_rows_of_herbs obj118_opening obj123_vertex obj125_opening obj126_door obj128_screen_door obj129_heap_of_damp_corruption obj130_northwest_road obj134_hanging_bulb obj136_shadow obj137_headphones obj138_equipment_shed obj140_hallway obj141_sky obj143 obj147_coils_of_steam obj148_giant_bee obj149_it obj150_building obj151_valley obj152_milk obj153_jeeps obj154_wall obj155_girl obj156_sun obj160_threaded_hole obj161_sea obj163_cylinder obj165_crevice obj167_opening obj168_group_of_buildings obj169_teachers obj170_your_clothes obj171_smoke obj172_red_boot obj176_rail obj177_snake obj183_left_trellis obj184_mountains obj185_headphones obj186_flare obj187_east_wind obj189_tunnel obj190_sliding_doors obj191_sphere obj192_blue_wire obj193_bolts obj194_shore obj195_pigeons obj196_moon obj198_white_door obj200_sandpile obj201_children obj202_platform obj204_threaded_hole obj205_Albert_Memorial obj206_west_wind obj207_river_bed obj209_instrument_lines obj211_tombstones obj212_circuit_breaker obj216_paved_road obj217_coconut_tree obj218_palm_trees obj220_that obj221_northwest_road obj223_rope obj227_windows obj228_ossuary obj229_tourists obj230_white_door obj232_reservoir obj233_mass_of_wires obj234_slope obj237_enclosure obj238_rocker_switch obj241_oarsman obj243_trellis obj244_landing obj245_Baker obj246_that obj248_toadstool obj251_Pittsburg obj252_stream obj253_that obj255_chasm obj257_brown_paper obj258_fog obj259_cables obj260_tree obj261_satellite obj262_waterfall obj263_compass_rose obj264_thicket obj265_striped_wire obj266_cottage obj267_toadstool obj268_icicle obj270_Able obj272_feathers obj274_barrow obj275_bluff obj276_front_door obj277_rattlesnake obj278_Palace_Gate obj279_emerald obj280_lid obj281_opposite_shore obj282_crypt obj283_coconut obj284_shed obj285_trees obj286_deck obj288_broken_heads obj289_tower obj291_cliff obj294_green_boot obj295_red_button obj298_cattails obj299_shadow obj301_brass_ring obj302_clearing obj303_trellis obj304_bicyclists obj305_bag obj307_maneuvering_thrusters obj309_corner obj310_depression obj313_padlock obj314_sound obj318_folded_decorations obj321_ladder obj322_flowers obj324_dirt obj325_skink obj326_debris obj329_cables_and_pipes obj330_guards obj331_meadow obj332_that_direction obj333_island obj334_ladder obj335_mountains obj338_red_wire obj339 obj340_barrel obj341_your_eyes obj342_dish obj343_stairway obj347_giant_triangle obj348_shelters obj350_hedge obj351_platform obj356_white_door obj358_city obj360_hardware obj361_bees obj362_toadstools obj364_boiling_liquid obj365_tower obj366_stairway obj367_iron_gate obj368_cauldron obj369_that obj373_islet obj374_dirt_road obj375_hollow obj376_roadrunner obj377_white_door obj378_statue_of_Queen_Victoria obj383_right_trellis obj384_ichor obj386_symbols obj387_desert obj389_smaller_toadstool obj390_enclosure obj392_dish obj395_gnomon obj396_your_mouth obj397_southeast_road obj398_bedroom obj399_stove_pipes obj401_lagoon obj403_larger_toadstool obj404_surface obj405_beehive obj406_south_road obj409_horizon obj410_myself obj411_searchlight obj412_seat obj413_closet obj415_white_door obj419_toy_boats obj420_cemetery obj421_Round_Pond obj422_toadstool obj423_urine obj424_toggle_switch obj427_loudspeaker obj428_loudspeakers obj429_landslide obj431_icehouse obj433_wild_birds obj434_GI_s_binoculars obj435_outer_door obj440_statues obj443_ground obj444_your_ankle obj445_spiked_door obj447_playground obj448_patch_of_thyme obj450_extension obj453_shelter obj455_Lancaster_Walk obj458_rodents obj459_bathroom obj461_entrance obj463_ropes_and_cables obj464_nannies obj467_Kensington_Gardens obj468_framework obj469_ceiling obj470_book obj473_stairway obj474_tape obj475_pergola obj478_icicles obj479_bones obj481_opening obj482_river obj485_box obj486_clock obj487_that obj490_Broad_Walk obj491_swings obj492_windows obj494_red_button obj495_planet obj498_iron_fence obj499_flower_beds obj500_sculpture obj502_windows obj503_Black_Lion_Gate obj504_clove_of_garlic obj505_soapy_film obj506_orange_button obj508_bog obj511_general obj513_iron_gate obj514_tunnel obj517_screwdriver obj518_slider obj519_crabs obj520_that obj521_falling_object obj523_babies obj524_white_door obj525_structure obj526_fissure obj527_vellum_leaves obj528_tundra obj530_Inverness_Terrace obj532_outside_door obj533_back_door obj535_Lancaster_Gate obj536_antenna obj537_access_panel obj538_front_door obj539_bench obj543_London obj545_Nagasaki obj546_southwest_road obj547_foothills obj548_ramp obj549_umbrella obj551_toadstool obj553_children obj554_rock_walls obj555_sirens obj560_meteor obj561_tall_fence obj562_dirt_road obj564_air obj566_aircraft obj567_old_woman obj568_jeep obj569_path obj570_searchlight obj571_stone_wall obj572_stairway obj574_Round_Pond obj578_shack obj579_soapy_water obj581_toadstool obj583_loudspeaker obj587_garden obj589_that obj590_grass obj591_barrow_wight obj592_equipment obj593_moor
+Attribute 31 attrib31  ! obj143
+Attribute 32 attrib32  ! obj1_Northwest_Room obj4_North_Arbor obj12_Spare_Room obj21_Kitchen obj30_Underground obj36_Shelter obj87_Underground obj131_Underground obj143 obj175_Bathroom obj214_Bedroom obj240_Hallway obj242_Underwater obj327_Cottage obj344_Bottom_of_Scaffold obj345_Icehouse obj352_Closet obj353_Barrow obj394_Scaffold obj408_Top_of_Arbor obj430_South_Arbor obj442_Assembly_Room obj449_Ice_Cavern obj460_Southeast_Room obj507_Shack
+Attribute 33 attrib33  ! obj15_skeleton_key obj135_steel_key obj143
+Attribute 34 attrib34  ! obj35_your_foot obj143 obj170_your_clothes obj407_wristwatch
+Attribute 35 attrib35  ! obj8_slip_of_cardboard obj16_instruments obj22_paper_bird obj25_toggle_switch obj32_notice obj34_piece_of_paper obj39_right_door obj69_map obj142_snapshot obj143 obj163_cylinder obj211_tombstones obj263_compass_rose obj269_map obj282_crypt obj295_red_button obj318_folded_decorations obj386_symbols obj432_crumpled_piece_of_paper obj470_book obj486_clock obj494_red_button
+Attribute 36 attrib36  ! obj10_your_hand obj143 obj517_screwdriver
+Attribute 37 attrib37  ! obj1_Northwest_Room obj4_North_Arbor obj5_Islet obj6_Front_Deck obj12_Spare_Room obj21_Kitchen obj36_Shelter obj37_Southwest_Yard obj42_North_Bog obj43_Cliff_Edge obj48_The_End obj56_Tundra obj76_Mesa obj79_The_Wabe obj80_Halfway obj109_Paved_Road obj119_Tundra obj120_Paved_Road obj121_Long_Water obj122_Northwest_of_Ranch obj124_Earth_Orbit__on_a_satellite obj127_Playground obj132_Desert obj139_Northeast_Yard obj143 obj144_Round_Pond obj145_Crater obj146_Base_of_Tower obj158_Tower_Platform obj159_Desert obj166_Thin_Air__on_the_giant_bird obj174_Outside_Blockhouse obj175_Bathroom obj179_Lancaster_Gate obj180_Foothills obj188_Tundra obj199_Platform obj208_Thin_Air obj210_Northwest_of_Tower obj213_Bluff obj214_Bedroom obj215_East_Beach obj219_Southwest_of_Tower obj222_Foothills obj224_North_Beach obj225_Foothills obj226_Paved_Road obj231_West_Beach obj236_Palace_Gate obj239_Desert obj240_Hallway obj247_Tower_Landing obj250_Flower_Walk obj254_Tundra obj290_East_of_Tower obj292_North_of_Reservoir obj293_Paved_Road obj296_North_of_Tower obj297_Back_Yard obj300_Under_the_Windmill obj306_Chasm_s_Brink obj311_West_of_Tower obj316_Vertex obj317_Trellises obj319_South_Bog obj320_Tundra obj323_Summit obj327_Cottage obj336_Edge_of_Reservoir obj344_Bottom_of_Scaffold obj345_Icehouse obj352_Closet obj353_Barrow obj354_Broad_Walk obj355_Black_Lion_Gate obj370_Promontory obj371_Lancaster_Walk obj372_Southeast_of_Ranch obj380_Tundra obj381_Northeast_of_Tower obj382_Paved_Road obj394_Scaffold obj400_Under_Cliff obj414_Cemetery obj417_Herb_Garden obj418_Arborvitaes obj425_Earth_Orbit obj426_Forest_Clearing obj430_South_Arbor obj437_Behind_the_Shed obj438_Wading obj439_The_River obj441_Crater_s_Edge obj442_Assembly_Room obj449_Ice_Cavern obj456_Shallow_Crater obj457_Reservoir obj460_Southeast_Room obj462_Arboretum obj465_Desert obj466_South_of_Tower obj471_Moor obj472_Waterfall obj476_South_Beach obj477_Southeast_Yard obj480_Desert obj484_splinter obj488_Under_Platform obj493_Jeep obj497_Desert obj501_Sand_Bar obj507_Shack obj509_Tundra obj510_Desert obj515_Southwest_of_Ranch obj522_Ossuary obj529_Desert obj531_Inverness_Terrace obj534_Paved_Road obj540_Windmill obj544_Crossroads obj557_The_Bend obj558_Northeast_of_Ranch obj559_South_of_Reservoir obj565_The_River obj573_Front_Yard obj575_Bottom_of_Stairs obj576_Meadow obj577_Desert obj580_Arborvitaes obj585_Tundra
+Attribute 38 attrib38  ! obj65_handful_of_honey obj143 obj402_bag_of_crumbs
+Attribute 39 attrib39  ! obj13_birdcage obj18_box obj40_sink obj61_perambulators obj66_your_pocket obj84_cracked_coconut obj92_mouth obj97_Long_Water obj115_cupboard obj118_opening obj143 obj160_threaded_hole obj163_cylinder obj164_perambulator obj165_crevice obj172_red_boot obj200_sandpile obj203_sparkling_sculpture obj204_threaded_hole obj232_reservoir obj234_slope obj241_oarsman obj246_that obj252_stream obj255_chasm obj260_tree obj294_green_boot obj308_hole obj313_padlock obj339 obj340_barrel obj342_dish obj346_soggy_bag obj349_wallet obj357_lantern obj363_flytrap obj368_cauldron obj379_dory obj388_broken_perambulator obj392_dish obj399_stove_pipes obj402_bag_of_crumbs obj405_beehive obj421_Round_Pond obj436_paper_bag obj450_extension obj452_book obj470_book obj479_bones obj485_box obj526_fissure obj568_jeep obj574_Round_Pond obj590_grass
+Attribute 41 attrib41  ! obj8_slip_of_cardboard obj13_birdcage obj15_skeleton_key obj20_burial_shroud obj22_paper_bird obj27_lemming obj28_spade obj34_piece_of_paper obj57_credit_card obj58_silver_coin obj60_walkie_talkie obj65_handful_of_honey obj68_bandage obj83_axe obj84_cracked_coconut obj133_small_coin obj135_steel_key obj142_snapshot obj143 obj152_milk obj157_soccer_ball obj172_red_boot obj197_dead_magpie obj235_ruby obj256_box obj268_icicle obj271_dead_lemming obj279_emerald obj294_green_boot obj325_skink obj346_soggy_bag obj349_wallet obj357_lantern obj393_steak_knife obj395_gnomon obj402_bag_of_crumbs obj407_wristwatch obj432_crumpled_piece_of_paper obj436_paper_bag obj452_book obj484_splinter obj504_clove_of_garlic obj516_lump_of_metal obj517_screwdriver obj537_access_panel obj541_pair_of_binoculars obj549_umbrella obj556_dead_roadrunner obj563_dead_skink obj588_seven_sided_coin
+Attribute 42 attrib42  ! obj83_axe obj143 obj393_steak_knife
+Attribute 43 attrib43  ! obj13_birdcage obj18_box obj19_front_door obj26_left_door obj39_right_door obj52_iron_gate obj70_white_door obj91_white_door obj92_mouth obj100_closet_door obj126_door obj128_screen_door obj134_hanging_bulb obj143 obj164_perambulator obj190_sliding_doors obj191_sphere obj198_white_door obj227_windows obj230_white_door obj256_box obj276_front_door obj308_hole obj313_padlock obj346_soggy_bag obj349_wallet obj356_white_door obj363_flytrap obj367_iron_gate obj368_cauldron obj377_white_door obj388_broken_perambulator obj402_bag_of_crumbs obj415_white_door obj435_outer_door obj436_paper_bag obj445_spiked_door obj452_book obj485_box obj513_iron_gate obj524_white_door obj532_outside_door obj533_back_door obj538_front_door obj549_umbrella
+Attribute 44 attrib44  ! obj1_Northwest_Room obj4_North_Arbor obj5_Islet obj6_Front_Deck obj12_Spare_Room obj21_Kitchen obj30_Underground obj36_Shelter obj37_Southwest_Yard obj42_North_Bog obj43_Cliff_Edge obj48_The_End obj56_Tundra obj76_Mesa obj79_The_Wabe obj80_Halfway obj87_Underground obj109_Paved_Road obj119_Tundra obj120_Paved_Road obj121_Long_Water obj122_Northwest_of_Ranch obj124_Earth_Orbit__on_a_satellite obj127_Playground obj131_Underground obj132_Desert obj139_Northeast_Yard obj143 obj144_Round_Pond obj145_Crater obj146_Base_of_Tower obj158_Tower_Platform obj159_Desert obj166_Thin_Air__on_the_giant_bird obj174_Outside_Blockhouse obj175_Bathroom obj179_Lancaster_Gate obj180_Foothills obj188_Tundra obj199_Platform obj208_Thin_Air obj210_Northwest_of_Tower obj213_Bluff obj214_Bedroom obj215_East_Beach obj219_Southwest_of_Tower obj222_Foothills obj224_North_Beach obj225_Foothills obj226_Paved_Road obj231_West_Beach obj236_Palace_Gate obj239_Desert obj240_Hallway obj242_Underwater obj247_Tower_Landing obj250_Flower_Walk obj254_Tundra obj290_East_of_Tower obj292_North_of_Reservoir obj293_Paved_Road obj296_North_of_Tower obj297_Back_Yard obj300_Under_the_Windmill obj306_Chasm_s_Brink obj311_West_of_Tower obj316_Vertex obj317_Trellises obj319_South_Bog obj320_Tundra obj323_Summit obj327_Cottage obj336_Edge_of_Reservoir obj344_Bottom_of_Scaffold obj345_Icehouse obj352_Closet obj353_Barrow obj354_Broad_Walk obj355_Black_Lion_Gate obj370_Promontory obj371_Lancaster_Walk obj372_Southeast_of_Ranch obj380_Tundra obj381_Northeast_of_Tower obj382_Paved_Road obj394_Scaffold obj400_Under_Cliff obj408_Top_of_Arbor obj414_Cemetery obj417_Herb_Garden obj418_Arborvitaes obj425_Earth_Orbit obj426_Forest_Clearing obj430_South_Arbor obj437_Behind_the_Shed obj438_Wading obj439_The_River obj441_Crater_s_Edge obj442_Assembly_Room obj449_Ice_Cavern obj456_Shallow_Crater obj457_Reservoir obj460_Southeast_Room obj462_Arboretum obj465_Desert obj466_South_of_Tower obj471_Moor obj472_Waterfall obj476_South_Beach obj477_Southeast_Yard obj480_Desert obj488_Under_Platform obj493_Jeep obj497_Desert obj501_Sand_Bar obj507_Shack obj509_Tundra obj510_Desert obj515_Southwest_of_Ranch obj522_Ossuary obj529_Desert obj531_Inverness_Terrace obj534_Paved_Road obj540_Windmill obj544_Crossroads obj557_The_Bend obj558_Northeast_of_Ranch obj559_South_of_Reservoir obj565_The_River obj573_Front_Yard obj575_Bottom_of_Stairs obj576_Meadow obj577_Desert obj580_Arborvitaes obj585_Tundra
+Attribute 45 attrib45  ! obj10_your_hand obj143
+Attribute 46 attrib46  ! obj14_shades obj27_lemming obj41_bird_woman obj54_yourself obj59_GIs obj93_boy obj96_lemmings obj108_her obj113_dragonflies obj143 obj148_giant_bee obj155_girl obj169_teachers obj173_giant_bird obj195_pigeons obj201_children obj229_tourists obj241_oarsman obj277_rattlesnake obj325_skink obj337_him obj376_roadrunner obj391_German_shepherd obj433_wild_birds obj464_nannies obj496_boy obj511_general obj519_crabs obj552_dolphin obj553_children obj567_old_woman obj584_magpie obj591_barrow_wight
+Attribute 47 attrib47  ! obj27_lemming obj41_bird_woman obj54_yourself obj59_GIs obj93_boy obj95_thin_man obj108_her obj142_snapshot obj143 obj155_girl obj169_teachers obj173_giant_bird obj201_children obj229_tourists obj277_rattlesnake obj330_guards obj337_him obj376_roadrunner obj391_German_shepherd obj464_nannies obj496_boy obj511_general obj519_crabs obj523_babies obj552_dolphin obj553_children obj567_old_woman obj591_barrow_wight
+
+! ----------------------------- Properties -----------------------------
+
+Property 21 prop21:?
+Property 22 prop22:?
+Property 23 prop23:?
+Property 24 prop24:?
+Property 25 prop25:?
+Property 26 prop26:?
+Property 27 prop27:?
+Property 28 prop28:?
+Property 29 prop29:?
+Property 30 prop30:?
+Property 31 prop31:?
+Property 32 prop32:?
+Property 33 prop33:?
+Property 34 prop34:?
+Property 35 prop35:?
+Property 36 prop36:?
+Property 37 prop37:?
+Property 38 prop38:?
+Property 39 prop39:?
+Property 40 prop40:?
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:thing
+Property 44 prop44:?
+Property 45 prop45:?
+Property 46 prop46:?
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:dictwords
+Property 50 prop50:?
+Property 51 prop51:dictwords
+Property 52 out_to:exit
+Property 53 in_to:exit
+Property 54 d_to:exit
+Property 55 u_to:exit
+Property 56 northwest_to:exit
+Property 57 w_to:exit
+Property 58 southwest_to:exit
+Property 59 s_to:exit
+Property 60 se_to:exit
+Property 61 e_to:exit
+Property 62 ne_to:exit
+Property 63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Northwest_Room
+Object 2 obj2_paved_road
+Object 3 obj3_forest
+Object 4 obj4_North_Arbor
+Object 5 obj5_Islet
+Object 6 obj6_Front_Deck
+Object 7 obj7_white_wire
+Object 8 obj8_slip_of_cardboard
+Object 9 obj9_cavern
+Object 10 obj10_your_hand
+Object 11 obj11_crater
+Object 12 obj12_Spare_Room
+Object 13 obj13_birdcage
+Object 14 obj14_shades
+Object 15 obj15_skeleton_key
+Object 16 obj16_instruments
+Object 17 obj17_rubble
+Object 18 obj18_box
+Object 19 obj19_front_door
+Object 20 obj20_burial_shroud
+Object 21 obj21_Kitchen
+Object 22 obj22_paper_bird
+Object 23 obj23_sundial
+Object 24 obj24_hill
+Object 25 obj25_toggle_switch
+Object 26 obj26_left_door
+Object 27 obj27_lemming
+Object 28 obj28_spade
+Object 29 obj29_missile
+Object 30 obj30_Underground
+Object 31 obj31_voices
+Object 32 obj32_notice
+Object 33 obj33_treetops
+Object 34 obj34_piece_of_paper
+Object 35 obj35_your_foot
+Object 36 obj36_Shelter
+Object 37 obj37_Southwest_Yard
+Object 38 obj38_Trinity
+Object 39 obj39_right_door
+Object 40 obj40_sink
+Object 41 obj41_bird_woman
+Object 42 obj42_North_Bog
+Object 43 obj43_Cliff_Edge
+Object 44 obj44_cables
+Object 45 obj45_bubble_wand
+Object 46 obj46_dial
+Object 47 obj47_pile_of_cinders
+Object 48 obj48_The_End
+Object 49 obj49_grass
+Object 50 obj50_missile
+Object 51 obj51_dirt_trail
+Object 52 obj52_iron_gate
+Object 53 obj53_Flower_Walk
+Object 54 obj54_yourself
+Object 55 obj55
+Object 56 obj56_Tundra
+Object 57 obj57_credit_card
+Object 58 obj58_silver_coin
+Object 59 obj59_GIs
+Object 60 obj60_walkie_talkie
+Object 61 obj61_perambulators
+Object 62 obj62_ranch_house
+Object 63 obj63_breeze
+Object 64 obj64_cavern
+Object 65 obj65_handful_of_honey
+Object 66 obj66_your_pocket
+Object 67 obj67_broken_lid
+Object 68 obj68_bandage
+Object 69 obj69_map
+Object 70 obj70_white_door
+Object 71 obj71_ladder
+Object 72 obj72_kitchen
+Object 73 obj73_blockhouse
+Object 74 obj74_shelter
+Object 75 obj75_soap_bubble
+Object 76 obj76_Mesa
+Object 77 obj77_broken_limbs
+Object 78 obj78_control_panel
+Object 79 obj79_The_Wabe
+Object 80 obj80_Halfway
+Object 81 obj81_scaffold
+Object 82 obj82_city
+Object 83 obj83_axe
+Object 84 obj84_cracked_coconut
+Object 85 obj85_your_breath
+Object 86 obj86_direction
+Object 87 obj87_Underground
+Object 88 obj88_that
+Object 89 obj89_pool
+Object 90 obj90_that_direction
+Object 91 obj91_white_door
+Object 92 obj92_mouth
+Object 93 obj93_boy
+Object 94 obj94_mesa
+Object 95 obj95_thin_man
+Object 96 obj96_lemmings
+Object 97 obj97_Long_Water
+Object 98 obj98_copse
+Object 99 obj99_trellises
+Object 100 obj100_closet_door
+Object 101 obj101_windmill
+Object 102 obj102_jeep_s_radio
+Object 103 obj103_yourself
+Object 104 obj104_arborvitaes
+Object 105 obj105
+Object 106 obj106_your_head
+Object 107 obj107_platform
+Object 108 obj108_her
+Object 109 obj109_Paved_Road
+Object 110 obj110_toadstool
+Object 111 obj111_cliff
+Object 112 obj112_oak_tree
+Object 113 obj113_dragonflies
+Object 114 obj114_toadstool
+Object 115 obj115_cupboard
+Object 116 obj116_trenches
+Object 117 obj117_rows_of_herbs
+Object 118 obj118_opening
+Object 119 obj119_Tundra
+Object 120 obj120_Paved_Road
+Object 121 obj121_Long_Water
+Object 122 obj122_Northwest_of_Ranch
+Object 123 obj123_vertex
+Object 124 obj124_Earth_Orbit__on_a_satellite
+Object 125 obj125_opening
+Object 126 obj126_door
+Object 127 obj127_Playground
+Object 128 obj128_screen_door
+Object 129 obj129_heap_of_damp_corruption
+Object 130 obj130_northwest_road
+Object 131 obj131_Underground
+Object 132 obj132_Desert
+Object 133 obj133_small_coin
+Object 134 obj134_hanging_bulb
+Object 135 obj135_steel_key
+Object 136 obj136_shadow
+Object 137 obj137_headphones
+Object 138 obj138_equipment_shed
+Object 139 obj139_Northeast_Yard
+Object 140 obj140_hallway
+Object 141 obj141_sky
+Object 142 obj142_snapshot
+Object 143 obj143
+Object 144 obj144_Round_Pond
+Object 145 obj145_Crater
+Object 146 obj146_Base_of_Tower
+Object 147 obj147_coils_of_steam
+Object 148 obj148_giant_bee
+Object 149 obj149_it
+Object 150 obj150_building
+Object 151 obj151_valley
+Object 152 obj152_milk
+Object 153 obj153_jeeps
+Object 154 obj154_wall
+Object 155 obj155_girl
+Object 156 obj156_sun
+Object 157 obj157_soccer_ball
+Object 158 obj158_Tower_Platform
+Object 159 obj159_Desert
+Object 160 obj160_threaded_hole
+Object 161 obj161_sea
+Object 162 obj162_log
+Object 163 obj163_cylinder
+Object 164 obj164_perambulator
+Object 165 obj165_crevice
+Object 166 obj166_Thin_Air__on_the_giant_bird
+Object 167 obj167_opening
+Object 168 obj168_group_of_buildings
+Object 169 obj169_teachers
+Object 170 obj170_your_clothes
+Object 171 obj171_smoke
+Object 172 obj172_red_boot
+Object 173 obj173_giant_bird
+Object 174 obj174_Outside_Blockhouse
+Object 175 obj175_Bathroom
+Object 176 obj176_rail
+Object 177 obj177_snake
+Object 178 obj178_pedestal
+Object 179 obj179_Lancaster_Gate
+Object 180 obj180_Foothills
+Object 181 obj181_statue
+Object 182 obj182_shadow
+Object 183 obj183_left_trellis
+Object 184 obj184_mountains
+Object 185 obj185_headphones
+Object 186 obj186_flare
+Object 187 obj187_east_wind
+Object 188 obj188_Tundra
+Object 189 obj189_tunnel
+Object 190 obj190_sliding_doors
+Object 191 obj191_sphere
+Object 192 obj192_blue_wire
+Object 193 obj193_bolts
+Object 194 obj194_shore
+Object 195 obj195_pigeons
+Object 196 obj196_moon
+Object 197 obj197_dead_magpie
+Object 198 obj198_white_door
+Object 199 obj199_Platform
+Object 200 obj200_sandpile
+Object 201 obj201_children
+Object 202 obj202_platform
+Object 203 obj203_sparkling_sculpture
+Object 204 obj204_threaded_hole
+Object 205 obj205_Albert_Memorial
+Object 206 obj206_west_wind
+Object 207 obj207_river_bed
+Object 208 obj208_Thin_Air
+Object 209 obj209_instrument_lines
+Object 210 obj210_Northwest_of_Tower
+Object 211 obj211_tombstones
+Object 212 obj212_circuit_breaker
+Object 213 obj213_Bluff
+Object 214 obj214_Bedroom
+Object 215 obj215_East_Beach
+Object 216 obj216_paved_road
+Object 217 obj217_coconut_tree
+Object 218 obj218_palm_trees
+Object 219 obj219_Southwest_of_Tower
+Object 220 obj220_that
+Object 221 obj221_northwest_road
+Object 222 obj222_Foothills
+Object 223 obj223_rope
+Object 224 obj224_North_Beach
+Object 225 obj225_Foothills
+Object 226 obj226_Paved_Road
+Object 227 obj227_windows
+Object 228 obj228_ossuary
+Object 229 obj229_tourists
+Object 230 obj230_white_door
+Object 231 obj231_West_Beach
+Object 232 obj232_reservoir
+Object 233 obj233_mass_of_wires
+Object 234 obj234_slope
+Object 235 obj235_ruby
+Object 236 obj236_Palace_Gate
+Object 237 obj237_enclosure
+Object 238 obj238_rocker_switch
+Object 239 obj239_Desert
+Object 240 obj240_Hallway
+Object 241 obj241_oarsman
+Object 242 obj242_Underwater
+Object 243 obj243_trellis
+Object 244 obj244_landing
+Object 245 obj245_Baker
+Object 246 obj246_that
+Object 247 obj247_Tower_Landing
+Object 248 obj248_toadstool
+Object 249 obj249_pile_of_refuse
+Object 250 obj250_Flower_Walk
+Object 251 obj251_Pittsburg
+Object 252 obj252_stream
+Object 253 obj253_that
+Object 254 obj254_Tundra
+Object 255 obj255_chasm
+Object 256 obj256_box
+Object 257 obj257_brown_paper
+Object 258 obj258_fog
+Object 259 obj259_cables
+Object 260 obj260_tree
+Object 261 obj261_satellite
+Object 262 obj262_waterfall
+Object 263 obj263_compass_rose
+Object 264 obj264_thicket
+Object 265 obj265_striped_wire
+Object 266 obj266_cottage
+Object 267 obj267_toadstool
+Object 268 obj268_icicle
+Object 269 obj269_map
+Object 270 obj270_Able
+Object 271 obj271_dead_lemming
+Object 272 obj272_feathers
+Object 273 obj273
+Object 274 obj274_barrow
+Object 275 obj275_bluff
+Object 276 obj276_front_door
+Object 277 obj277_rattlesnake
+Object 278 obj278_Palace_Gate
+Object 279 obj279_emerald
+Object 280 obj280_lid
+Object 281 obj281_opposite_shore
+Object 282 obj282_crypt
+Object 283 obj283_coconut
+Object 284 obj284_shed
+Object 285 obj285_trees
+Object 286 obj286_deck
+Object 287 obj287_lever
+Object 288 obj288_broken_heads
+Object 289 obj289_tower
+Object 290 obj290_East_of_Tower
+Object 291 obj291_cliff
+Object 292 obj292_North_of_Reservoir
+Object 293 obj293_Paved_Road
+Object 294 obj294_green_boot
+Object 295 obj295_red_button
+Object 296 obj296_North_of_Tower
+Object 297 obj297_Back_Yard
+Object 298 obj298_cattails
+Object 299 obj299_shadow
+Object 300 obj300_Under_the_Windmill
+Object 301 obj301_brass_ring
+Object 302 obj302_clearing
+Object 303 obj303_trellis
+Object 304 obj304_bicyclists
+Object 305 obj305_bag
+Object 306 obj306_Chasm_s_Brink
+Object 307 obj307_maneuvering_thrusters
+Object 308 obj308_hole
+Object 309 obj309_corner
+Object 310 obj310_depression
+Object 311 obj311_West_of_Tower
+Object 312 obj312_fin
+Object 313 obj313_padlock
+Object 314 obj314_sound
+Object 315 obj315_room
+Object 316 obj316_Vertex
+Object 317 obj317_Trellises
+Object 318 obj318_folded_decorations
+Object 319 obj319_South_Bog
+Object 320 obj320_Tundra
+Object 321 obj321_ladder
+Object 322 obj322_flowers
+Object 323 obj323_Summit
+Object 324 obj324_dirt
+Object 325 obj325_skink
+Object 326 obj326_debris
+Object 327 obj327_Cottage
+Object 328 obj328_stone_steps
+Object 329 obj329_cables_and_pipes
+Object 330 obj330_guards
+Object 331 obj331_meadow
+Object 332 obj332_that_direction
+Object 333 obj333_island
+Object 334 obj334_ladder
+Object 335 obj335_mountains
+Object 336 obj336_Edge_of_Reservoir
+Object 337 obj337_him
+Object 338 obj338_red_wire
+Object 339 obj339
+Object 340 obj340_barrel
+Object 341 obj341_your_eyes
+Object 342 obj342_dish
+Object 343 obj343_stairway
+Object 344 obj344_Bottom_of_Scaffold
+Object 345 obj345_Icehouse
+Object 346 obj346_soggy_bag
+Object 347 obj347_giant_triangle
+Object 348 obj348_shelters
+Object 349 obj349_wallet
+Object 350 obj350_hedge
+Object 351 obj351_platform
+Object 352 obj352_Closet
+Object 353 obj353_Barrow
+Object 354 obj354_Broad_Walk
+Object 355 obj355_Black_Lion_Gate
+Object 356 obj356_white_door
+Object 357 obj357_lantern
+Object 358 obj358_city
+Object 359 obj359_coconuts
+Object 360 obj360_hardware
+Object 361 obj361_bees
+Object 362 obj362_toadstools
+Object 363 obj363_flytrap
+Object 364 obj364_boiling_liquid
+Object 365 obj365_tower
+Object 366 obj366_stairway
+Object 367 obj367_iron_gate
+Object 368 obj368_cauldron
+Object 369 obj369_that
+Object 370 obj370_Promontory
+Object 371 obj371_Lancaster_Walk
+Object 372 obj372_Southeast_of_Ranch
+Object 373 obj373_islet
+Object 374 obj374_dirt_road
+Object 375 obj375_hollow
+Object 376 obj376_roadrunner
+Object 377 obj377_white_door
+Object 378 obj378_statue_of_Queen_Victoria
+Object 379 obj379_dory
+Object 380 obj380_Tundra
+Object 381 obj381_Northeast_of_Tower
+Object 382 obj382_Paved_Road
+Object 383 obj383_right_trellis
+Object 384 obj384_ichor
+Object 385 obj385_them
+Object 386 obj386_symbols
+Object 387 obj387_desert
+Object 388 obj388_broken_perambulator
+Object 389 obj389_smaller_toadstool
+Object 390 obj390_enclosure
+Object 391 obj391_German_shepherd
+Object 392 obj392_dish
+Object 393 obj393_steak_knife
+Object 394 obj394_Scaffold
+Object 395 obj395_gnomon
+Object 396 obj396_your_mouth
+Object 397 obj397_southeast_road
+Object 398 obj398_bedroom
+Object 399 obj399_stove_pipes
+Object 400 obj400_Under_Cliff
+Object 401 obj401_lagoon
+Object 402 obj402_bag_of_crumbs
+Object 403 obj403_larger_toadstool
+Object 404 obj404_surface
+Object 405 obj405_beehive
+Object 406 obj406_south_road
+Object 407 obj407_wristwatch
+Object 408 obj408_Top_of_Arbor
+Object 409 obj409_horizon
+Object 410 obj410_myself
+Object 411 obj411_searchlight
+Object 412 obj412_seat
+Object 413 obj413_closet
+Object 414 obj414_Cemetery
+Object 415 obj415_white_door
+Object 416 obj416_workbench
+Object 417 obj417_Herb_Garden
+Object 418 obj418_Arborvitaes
+Object 419 obj419_toy_boats
+Object 420 obj420_cemetery
+Object 421 obj421_Round_Pond
+Object 422 obj422_toadstool
+Object 423 obj423_urine
+Object 424 obj424_toggle_switch
+Object 425 obj425_Earth_Orbit
+Object 426 obj426_Forest_Clearing
+Object 427 obj427_loudspeaker
+Object 428 obj428_loudspeakers
+Object 429 obj429_landslide
+Object 430 obj430_South_Arbor
+Object 431 obj431_icehouse
+Object 432 obj432_crumpled_piece_of_paper
+Object 433 obj433_wild_birds
+Object 434 obj434_GI_s_binoculars
+Object 435 obj435_outer_door
+Object 436 obj436_paper_bag
+Object 437 obj437_Behind_the_Shed
+Object 438 obj438_Wading
+Object 439 obj439_The_River
+Object 440 obj440_statues
+Object 441 obj441_Crater_s_Edge
+Object 442 obj442_Assembly_Room
+Object 443 obj443_ground
+Object 444 obj444_your_ankle
+Object 445 obj445_spiked_door
+Object 446 obj446_that
+Object 447 obj447_playground
+Object 448 obj448_patch_of_thyme
+Object 449 obj449_Ice_Cavern
+Object 450 obj450_extension
+Object 451 obj451_number
+Object 452 obj452_book
+Object 453 obj453_shelter
+Object 454 obj454_floor
+Object 455 obj455_Lancaster_Walk
+Object 456 obj456_Shallow_Crater
+Object 457 obj457_Reservoir
+Object 458 obj458_rodents
+Object 459 obj459_bathroom
+Object 460 obj460_Southeast_Room
+Object 461 obj461_entrance
+Object 462 obj462_Arboretum
+Object 463 obj463_ropes_and_cables
+Object 464 obj464_nannies
+Object 465 obj465_Desert
+Object 466 obj466_South_of_Tower
+Object 467 obj467_Kensington_Gardens
+Object 468 obj468_framework
+Object 469 obj469_ceiling
+Object 470 obj470_book
+Object 471 obj471_Moor
+Object 472 obj472_Waterfall
+Object 473 obj473_stairway
+Object 474 obj474_tape
+Object 475 obj475_pergola
+Object 476 obj476_South_Beach
+Object 477 obj477_Southeast_Yard
+Object 478 obj478_icicles
+Object 479 obj479_bones
+Object 480 obj480_Desert
+Object 481 obj481_opening
+Object 482 obj482_river
+Object 483 obj483
+Object 484 obj484_splinter
+Object 485 obj485_box
+Object 486 obj486_clock
+Object 487 obj487_that
+Object 488 obj488_Under_Platform
+Object 489 obj489_sundial
+Object 490 obj490_Broad_Walk
+Object 491 obj491_swings
+Object 492 obj492_windows
+Object 493 obj493_Jeep
+Object 494 obj494_red_button
+Object 495 obj495_planet
+Object 496 obj496_boy
+Object 497 obj497_Desert
+Object 498 obj498_iron_fence
+Object 499 obj499_flower_beds
+Object 500 obj500_sculpture
+Object 501 obj501_Sand_Bar
+Object 502 obj502_windows
+Object 503 obj503_Black_Lion_Gate
+Object 504 obj504_clove_of_garlic
+Object 505 obj505_soapy_film
+Object 506 obj506_orange_button
+Object 507 obj507_Shack
+Object 508 obj508_bog
+Object 509 obj509_Tundra
+Object 510 obj510_Desert
+Object 511 obj511_general
+Object 512 obj512_stars
+Object 513 obj513_iron_gate
+Object 514 obj514_tunnel
+Object 515 obj515_Southwest_of_Ranch
+Object 516 obj516_lump_of_metal
+Object 517 obj517_screwdriver
+Object 518 obj518_slider
+Object 519 obj519_crabs
+Object 520 obj520_that
+Object 521 obj521_falling_object
+Object 522 obj522_Ossuary
+Object 523 obj523_babies
+Object 524 obj524_white_door
+Object 525 obj525_structure
+Object 526 obj526_fissure
+Object 527 obj527_vellum_leaves
+Object 528 obj528_tundra
+Object 529 obj529_Desert
+Object 530 obj530_Inverness_Terrace
+Object 531 obj531_Inverness_Terrace
+Object 532 obj532_outside_door
+Object 533 obj533_back_door
+Object 534 obj534_Paved_Road
+Object 535 obj535_Lancaster_Gate
+Object 536 obj536_antenna
+Object 537 obj537_access_panel
+Object 538 obj538_front_door
+Object 539 obj539_bench
+Object 540 obj540_Windmill
+Object 541 obj541_pair_of_binoculars
+Object 542 obj542_bits_of_wire
+Object 543 obj543_London
+Object 544 obj544_Crossroads
+Object 545 obj545_Nagasaki
+Object 546 obj546_southwest_road
+Object 547 obj547_foothills
+Object 548 obj548_ramp
+Object 549 obj549_umbrella
+Object 550 obj550_shadow
+Object 551 obj551_toadstool
+Object 552 obj552_dolphin
+Object 553 obj553_children
+Object 554 obj554_rock_walls
+Object 555 obj555_sirens
+Object 556 obj556_dead_roadrunner
+Object 557 obj557_The_Bend
+Object 558 obj558_Northeast_of_Ranch
+Object 559 obj559_South_of_Reservoir
+Object 560 obj560_meteor
+Object 561 obj561_tall_fence
+Object 562 obj562_dirt_road
+Object 563 obj563_dead_skink
+Object 564 obj564_air
+Object 565 obj565_The_River
+Object 566 obj566_aircraft
+Object 567 obj567_old_woman
+Object 568 obj568_jeep
+Object 569 obj569_path
+Object 570 obj570_searchlight
+Object 571 obj571_stone_wall
+Object 572 obj572_stairway
+Object 573 obj573_Front_Yard
+Object 574 obj574_Round_Pond
+Object 575 obj575_Bottom_of_Stairs
+Object 576 obj576_Meadow
+Object 577 obj577_Desert
+Object 578 obj578_shack
+Object 579 obj579_soapy_water
+Object 580 obj580_Arborvitaes
+Object 581 obj581_toadstool
+Object 582 obj582_corpse
+Object 583 obj583_loudspeaker
+Object 584 obj584_magpie
+Object 585 obj585_Tundra
+Object 586 obj586
+Object 587 obj587_garden
+Object 588 obj588_seven_sided_coin
+Object 589 obj589_that
+Object 590 obj590_grass
+Object 591 obj591_barrow_wight
+Object 592 obj592_equipment
+Object 593 obj593_moor
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! '$refre'
+Action 1 Action1  ! '$credi'
+Action 2 Action2  ! '$prams'
+Action 3 Action3  ! 'verbose'
+Action 4 Action4  ! 'brief'
+Action 5 Action5  ! 'super'/'superbrie'
+Action 6 Action6  ! 'i//'/'inventory'
+Action 7 Action7  ! 'q//'/'quit'
+Action 8 Action8  ! 'restart'
+Action 9 Action9  ! 'save'
+Action 10 Action10 ! 'aid'/'help' object
+Action 11 Action11 ! 'restore'
+Action 12 Action12 ! 'score'
+Action 13 Action13 ! 't//'/'time'
+Action 14 Action14 ! 'script'
+Action 15 Action15 ! 'unscript'
+Action 16 Action16 ! 'version'
+Action 17 Action17 ! '$ver'/'$verif'
+Action 18 Action18 ! 'notify'
+Action 19 Action19 ! '$id'
+Action 20 Action20 ! '#command'
+Action 21 Action21 ! 'diagnose'
+Action 22 Action22 ! 'answer' attrib47
+Action 23 Action23 ! 'ask'/'interroga'/'query'/'question'/'quiz' 'for' attrib47
+Action 24 Action24 ! 'ask'/'interroga'/'query'/'question'/'quiz' attrib47 'about' object
+Action 25 Action25 ! 'ask'/'interroga'/'query'/'question'/'quiz' attrib47 'for' object
+Action 26 Action26 ! 'dispatch'/'kill'/'murder'/'punch'/'slay'/'stab'/'vanquish'/'wound' attrib46(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 27 Action27 ! 'go' 'beyond'/'behind' object
+Action 28 Action28 ! 'go' 'from' object
+Action 29 Action29 ! 'bite' object
+Action 30 Action30 ! 'inflate' object
+Action 31 Action31 ! 'detonate'/'explode'/'fire' object
+Action 32 Action32 ! 'close'/'shut'/'slam' 'off' object(held,carried,in_room,on_ground)
+Action 33 Action33 ! 'burn'/'char'/'combust'/'cremate'/'ignite'/'incinerat'/'kindle'/'scorch' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 34 Action34 ! 'buy' object 'with'/'using' object(held,carried,have)
+Action 35 Action35 ! 'buy' object 'from' object
+Action 36 Action36 ! 'charge' object 'with'/'using' attrib44(held,carried)
+Action 37 Action37 ! 'brush'/'clean'/'polish'/'smear'/'sweep'/'wipe' 'off' object
+Action 38 Action38 ! 'brush'/'clean'/'polish'/'smear'/'sweep'/'wipe' 'off' object(held,carried,have) 'over'/'across' object
+Action 39 Action39 ! 'climb' 'up'/'u//' attrib44(in_room,on_ground)
+Action 40 Action40 ! 'climb' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 41 Action41 ! 'climb' 'down'/'d//' attrib44(in_room,on_ground)
+Action 42 Action42 ! 'climb' 'over'/'across' attrib44(in_room,on_ground)
+Action 43 Action43 ! 'climb' 'thru'/'through' object(in_room,on_ground)
+Action 44 Action44 ! 'climb' 'within'/'into'/'inside'/'in'/'between' attrib44(in_room,on_ground)
+Action 45 Action45 ! 'climb' 'outside'/'out' attrib44
+Action 46 Action46 ! 'close'/'shut'/'slam' attrib43(held,carried,in_room,on_ground)
+Action 47 Action47 ! 'count'/'tabulate'/'tally' object
+Action 48 Action48 ! 'go' 'over'/'across' object
+Action 49 Action49 ! 'fell' object 'with'/'using' attrib42(held,carried,take,have)
+Action 50 Action50 ! 'rip'/'tear' 'down'/'d//' object 'with'/'using' attrib45(held,carried,take,have)
+Action 51 Action51 ! 'remove' attrib41(in_room,on_ground,many) 'within'/'into'/'inside'/'in'/'between' object
+Action 52 Action52 ! 'kick' 'down'/'d//' object
+Action 53 Action53 ! 'dig'/'excavate' 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground) 'with'/'using' attrib45(held,carried,have)
+Action 54 Action54 ! 'dig'/'excavate' 'with'/'using' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 55 Action55 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' object(held,carried,in_room,on_ground)
+Action 56 Action56 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' 'from' object(held,carried)
+Action 57 Action57 ! 'drive' attrib44(in_room,on_ground)
+Action 58 Action58 ! 'drop'/'dump' object(held,many,have)
+Action 59 Action59 ! 'conceal' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 60 Action60 ! 'leave' object(held,carried,many) 'upon'/'onto'/'on'/'aboard' object(carried,in_room,on_ground)
+Action 61 Action61 ! 'consume'/'devour'/'eat'/'gobble'/'ingest'/'nibble'/'swallow' object(held,carried,in_room,on_ground)
+Action 62 Action62 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 63 Action63 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 64 Action64 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace' 'for' object
+Action 65 Action65 ! 'observe'/'watch' object(held,carried,in_room,on_ground) 'with'/'using' object
+Action 66 Action66 ! 'observe'/'watch' attrib44(held,carried,in_room,on_ground)
+Action 67 Action67 ! 'fill' attrib39(held,carried,in_room,on_ground) 'at' object
+Action 68 Action68 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' object object
+Action 69 Action69 ! 'fly' 'over'/'across' object
+Action 70 Action70 ! 'retract' object
+Action 71 Action71 ! 'fold'/'wrap' object(held,carried,have) 'around'/'along' object(in_room,on_ground)
+Action 72 Action72 ! 'fold'/'wrap' 'up'/'u//' object(in_room,on_ground) 'within'/'into'/'inside'/'in'/'between' object(held,carried,have)
+Action 73 Action73 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' 'down'/'d//' object
+Action 74 Action74 ! 'extend'/'unflatten'/'unfold' object(held,carried,have)
+Action 75 Action75 ! 'untangle' object
+Action 76 Action76 ! 'chase'/'follow'/'pursue' object
+Action 77 Action77 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer'/'present' object(held,carried,take,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 78 Action78 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer'/'present' attrib46(in_room,on_ground) object(held,carried,take,have)
+Action 79 Action79 ! 'sell' object(held,carried,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 80 Action80 ! 'sell' attrib46(in_room,on_ground) object(held,carried,take,have)
+Action 81 Action81 ! 'display'/'show' object(held,carried,take,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 82 Action82 ! 'display'/'show' attrib46 object(held,carried,take,have)
+Action 83 Action83 ! 'feed' attrib46(in_room,on_ground) attrib38(held,carried,have)
+Action 84 Action84 ! 'feed' attrib38(held,carried,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 85 Action85 ! 'listen' 'for' object(held,carried,in_room,on_ground)
+Action 86 Action86 ! 'greet'/'greetings'/'hello'/'hi'/'salute' attrib44
+Action 87 Action87 ! 'bye'/'farewell'/'goodbye' attrib44
+Action 88 Action88 ! 'hint'/'hints'
+Action 89 Action89 ! 'conceal' object(held,carried,have) 'beyond'/'behind' object(in_room,on_ground)
+Action 90 Action90 ! 'conceal' object(held,carried,have) 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 91 Action91 ! 'hide' 'beyond'/'behind' object
+Action 92 Action92 ! 'get' 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 93 Action93 ! 'block'/'cover'/'shield' 'over'/'across' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 94 Action94 ! 'breathe' 'within'/'into'/'inside'/'in'/'between' attrib44
+Action 95 Action95 ! 'breathe' 'outside'/'out' attrib44
+Action 96 Action96 ! 'deflate' object
+Action 97 Action97 ! 'dive' 'over'/'across' object
+Action 98 Action98 ! 'go' 'upon'/'onto'/'on'/'aboard' object
+Action 99 Action99 ! 'bounce'/'dribble' 'around'/'along' attrib44(held,carried,have)
+Action 100 Action100 ! 'kick' 'around'/'along' object
+Action 101 Action101 ! 'hit'/'slap'/'strike'/'swat'/'whack' 'at' object(in_room,on_ground) 'with'/'using' attrib45(held,carried,have)
+Action 102 Action102 ! 'kiss'/'smooch' attrib47(in_room,on_ground)
+Action 103 Action103 ! 'knock'/'pound'/'rap' 'upon'/'onto'/'on'/'aboard' object
+Action 104 Action104 ! 'leave' attrib44
+Action 105 Action105 ! 'nap'/'rest'/'sleep'/'snooze' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 106 Action106 ! 'lock' object(in_room,on_ground) 'with'/'using' attrib45(held,have)
+Action 107 Action107 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'around'/'along' attrib44
+Action 108 Action108 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'down'/'d//' attrib44
+Action 109 Action109 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'up'/'u//' attrib44
+Action 110 Action110 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' object(held,carried,in_room,on_ground)
+Action 111 Action111 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'thru'/'through' object 'at' object
+Action 112 Action112 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'underneat'/'under'/'beneath'/'below' object
+Action 113 Action113 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'beyond'/'behind' object
+Action 114 Action114 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 115 Action115 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'outside'/'out' attrib44
+Action 116 Action116 ! 'focus' object(held,carried)
+Action 117 Action117 ! 'focus' object 'at' object
+Action 118 Action118 ! 'force'/'wedge' 'up'/'u//' object 'with'/'using' object(held,carried,have)
+Action 119 Action119 ! 'get' 'down'/'d//' attrib44(in_room,on_ground)
+Action 120 Action120 ! 'make' 'up'/'u//' object
+Action 121 Action121 ! 'slide' object
+Action 122 Action122 ! 'slide' object 'towards'/'toward'/'to' object
+Action 123 Action123 ! 'lean' 'upon'/'onto'/'on'/'aboard' object
+Action 124 Action124 ! 'hold' 'apart' object(in_room,on_ground)
+Action 125 Action125 ! 'disassemb'/'open'/'unseal' 'up'/'u//' attrib43(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 126 Action126 ! 'drag'/'pull'/'tug'/'yank' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 127 Action127 ! 'get' 'up'/'u//' attrib44(in_room,on_ground)
+Action 128 Action128 ! 'detach'/'disconnec'/'disengage'/'unattach'/'unplug' object 'from' object(in_room,on_ground)
+Action 129 Action129 ! 'bribe'/'entice'/'pay'/'renumerat' attrib47 'with'/'using' object(held,carried)
+Action 130 Action130 ! 'pick' object 'with'/'using' attrib45(held,carried,have)
+Action 131 Action131 ! 'cavort'/'fiddle'/'play'/'toy' 'with'/'using' object
+Action 132 Action132 ! 'point' 'outside'/'out' object 'towards'/'toward'/'to' attrib46
+Action 133 Action133 ! 'point' 'at' object 'with'/'using' object
+Action 134 Action134 ! 'point' object 'towards'/'toward'/'to' object
+Action 135 Action135 ! 'flash' attrib37(held,carried,have) 'over'/'across' object(in_room,on_ground)
+Action 136 Action136 ! 'illuminat' object(in_room,on_ground) 'with'/'using' attrib37(held,carried,have)
+Action 137 Action137 ! 'light' 'up'/'u//' object(in_room,on_ground) 'with'/'using' attrib45(held,carried,have)
+Action 138 Action138 ! 'burst'/'pop' object 'with'/'using' attrib45(held,carried,have)
+Action 139 Action139 ! 'pour'/'spill'/'sprinkle' 'outside'/'out' object(held,carried,have)
+Action 140 Action140 ! 'clear'/'empty' 'outside'/'out' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object
+Action 141 Action141 ! 'shake' 'outside'/'out' object 'from' object(held,carried,have)
+Action 142 Action142 ! 'pocket' object(held,carried)
+Action 143 Action143 ! 'clear'/'empty' 'off' object(held,carried)
+Action 144 Action144 ! 'attach'/'connect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 145 Action145 ! 'hold' object(held,carried,have) 'near'/'against' object
+Action 146 Action146 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 147 Action147 ! 'don'/'wear' object
+Action 148 Action148 ! 'force'/'wedge' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object
+Action 149 Action149 ! 'defile'/'hump'/'molest'/'rape'/'ravish' attrib46
+Action 150 Action150 ! 'grope'/'reach' 'towards'/'toward'/'to' object 'with'/'using' attrib36
+Action 151 Action151 ! 'feel' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 152 Action152 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' 'thru'/'through' object
+Action 153 Action153 ! 'browse'/'leaf'/'read'/'skim' attrib35(held,carried,in_room,on_ground) 'towards'/'toward'/'to' attrib47
+Action 154 Action154 ! 'free'/'release' object(held,carried,in_room,on_ground) 'from' attrib45
+Action 155 Action155 ! 'undo'/'unfasten'/'unhook'/'untie' object
+Action 156 Action156 ! 'screw'/'tighten' 'within'/'into'/'inside'/'in'/'between' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 157 Action157 ! 'screw'/'tighten' 'down'/'d//' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 158 Action158 ! 'unscrew' object(held,carried,in_room,on_ground) 'with'/'using' attrib36(held,carried,take,have)
+Action 159 Action159 ! 'unscrew' object(held,carried,in_room,on_ground) 'outside'/'out' object
+Action 160 Action160 ! 'fix' 'up'/'u//' object 'with'/'using' attrib45(held,carried,have)
+Action 161 Action161 ! 'replace' object
+Action 162 Action162 ! 'ride' 'upon'/'onto'/'on'/'aboard' object
+Action 163 Action163 ! 'bow'/'genuflect'/'grovel'/'kneel' 'before' attrib47
+Action 164 Action164 ! 'call'/'maybe'/'proclaim'/'say'/'speak'/'talk'/'utter' attrib44
+Action 165 Action165 ! 'tell' attrib47(in_room)
+Action 166 Action166 ! 'frisk'/'ransack'/'rummage'/'search'/'sift' 'thru'/'through' object
+Action 167 Action167 ! 'jostle'/'rattle' object 'with'/'using' attrib45(held,carried,have)
+Action 168 Action168 ! 'shoot' 'off' object
+Action 169 Action169 ! 'crouch'/'settle'/'sit'/'squat' 'at' object
+Action 170 Action170 ! 'nap'/'rest'/'sleep'/'snooze'
+Action 171 Action171 ! 'smell'/'sniff'/'whiff' attrib44
+Action 172 Action172 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' 'over'/'across' object
+Action 173 Action173 ! 'crumple'/'crush'/'squash'/'squeeze'/'squish' object
+Action 174 Action174 ! 'rise'/'stand' 'up'/'u//' attrib44
+Action 175 Action175 ! 'duck'
+Action 176 Action176 ! 'bathe'/'swim'/'wade' 'over'/'across' object
+Action 177 Action177 ! 'bathe'/'swim'/'wade' 'underneat'/'under'/'beneath'/'below' object
+Action 178 Action178 ! 'surface'
+Action 179 Action179 ! 'wave' object
+Action 180 Action180 ! 'remove' attrib41 'with'/'using' object(held,carried,have)
+Action 181 Action181 ! 'remove' attrib34(held,carried)
+Action 182 Action182 ! 'hold' object(held,carried,have) 'over'/'across' object
+Action 183 Action183 ! 'get' object(in_room,on_ground) object
+Action 184 Action184 ! 'get' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 185 Action185 ! 'lick'/'taste' object
+Action 186 Action186 ! 'tell' attrib47(in_room) 'about' object
+Action 187 Action187 ! 'thank'/'thanks'
+Action 188 Action188 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'over'/'across' object
+Action 189 Action189 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(in_room,on_ground) object(held,carried,many,have)
+Action 190 Action190 ! 'fasten'/'secure'/'tie' object 'towards'/'toward'/'to' object
+Action 191 Action191 ! 'fasten'/'secure'/'tie' 'up'/'u//' attrib47(in_room,on_ground) 'with'/'using' attrib45(held,carried,in_room,on_ground,have)
+Action 192 Action192 ! 'pet' object
+Action 193 Action193 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' object 'with'/'using' attrib45(held,carried,take,have)
+Action 194 Action194 ! 'flip'/'rotate'/'toggle'/'turn'/'twist' 'towards'/'toward'/'to' object
+Action 195 Action195 ! 'start' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 196 Action196 ! 'unlock' object(in_room,on_ground) 'with'/'using' attrib33(held,carried,take,have)
+Action 197 Action197 ! 'employ'/'exploit'/'operate'/'use' object
+Action 198 Action198 ! 'loiter'/'wait'/'z//'
+Action 199 Action199 ! 'loiter'/'wait'/'z//' 'for' object
+Action 200 Action200 ! 'awake'/'awaken'/'rouse'/'wake' 'up'/'u//' attrib44
+Action 201 Action201 ! 'go' object
+Action 202 Action202 ! 'go' 'towards'/'toward'/'to' object
+Action 203 Action203 ! 'wave' 'towards'/'toward'/'to' attrib47
+Action 204 Action204 ! 'what'/'what^s'/'whats' 'about' object
+Action 205 Action205 ! 'where'/'where^s'/'wheres' object
+Action 206 Action206 ! 'who'/'who^s'/'whos' object
+Action 207 Action207 ! 'wind' 'up'/'u//' object
+Action 208 Action208 ! 'howl'/'scream'/'shout'/'yell' 'towards'/'toward'/'to' object
+Action 209 Action209 ! 'flush' object
+Action 210 Action210 ! 'melt' object(held,carried,have)
+Action 211 Action211 ! 'dress' attrib44
+Action 212 Action212 ! 'disrobe'/'strip'/'undress' attrib44
+Action 213 Action213 ! 'wish' 'for' object
+Action 214 Action214 ! 'heel' attrib44
+Action 215 Action215 ! 'pee'/'urinate' 'upon'/'onto'/'on'/'aboard' object
+Action 216 Action216 ! 'suck' 'outside'/'out' object 'from' object
+Action 217 Action217 ! 'bandage' object
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word $credi $credi
+Word $prams $prams
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word abandoned abandoned
+Word additions additions
+Word affirmati affirmati
+Word air-raid air-raid
+Word airplanes airplanes
+Word apparitio apparitio
+Word arborvita arborvita
+Word atmospher atmospher
+Word automobil automobil
+Word babysitte babysitte
+Word backwards backwards
+Word batteries batteries
+Word bewilderi bewilderi
+Word bicyclist bicyclist
+Word binocular binocular
+Word blockhous blockhous
+Word bottle-n bottle-n
+Word brilliant brilliant
+Word buildings buildings
+Word bumbersho bumbersho
+Word bumblebee bumblebee
+Word calligrap calligrap
+Word cardboard cardboard
+Word carefully carefully
+Word carelessl carelessl
+Word carriages carriages
+Word cautiousl cautiousl
+Word character character
+Word chipmunks chipmunks
+Word classroom classroom
+Word clockwise clockwise
+Word cocksucke cocksucke
+Word compresso compresso
+Word confiscat confiscat
+Word conglomer conglomer
+Word constella constella
+Word construct construct
+Word corpse's corpse's
+Word corruptio corruptio
+Word countercl countercl
+Word crustacea crustacea
+Word crystalli crystalli
+Word decompose decompose
+Word decoratio decoratio
+Word depressio depressio
+Word detonator detonator
+Word diamondba diamondba
+Word direction direction
+Word disassemb disassemb
+Word discarded discarded
+Word disconnec disconnec
+Word disembark disembark
+Word disengage disengage
+Word dislocate dislocate
+Word dragonfli dragonfli
+Word dragonfly dragonfly
+Word earphones earphones
+Word electrica electrica
+Word electroni electroni
+Word elementar elementar
+Word enclosure enclosure
+Word engraving engraving
+Word equipment equipment
+Word everythin everythin
+Word extension extension
+Word extinguis extinguis
+Word faucetles faucetles
+Word fertilize fertilize
+Word flickerin flickerin
+Word foothills foothills
+Word footpaths footpaths
+Word foresight foresight
+Word forgotten forgotten
+Word formidabl formidabl
+Word framework framework
+Word frequency frequency
+Word gathering gathering
+Word genuflect genuflect
+Word goddamned goddamned
+Word grass-pl grass-pl
+Word graveston graveston
+Word graveyard graveyard
+Word greetings greetings
+Word headphone headphone
+Word hellhound hellhound
+Word hermetica hermetica
+Word hiroshima hiroshima
+Word honeybees honeybees
+Word humongous humongous
+Word hurriedly hurriedly
+Word hypervent hypervent
+Word hypotenus hypotenus
+Word illuminat illuminat
+Word impressiv impressiv
+Word incantati incantati
+Word incinerat incinerat
+Word indicator indicator
+Word inhabitan inhabitan
+Word inscripti inscripti
+Word insectivo insectivo
+Word instrumen instrumen
+Word interroga interroga
+Word intersect intersect
+Word inventory inventory
+Word inverness inverness
+Word iridescen iridescen
+Word kensingto kensingto
+Word lancaster lancaster
+Word landscape landscape
+Word landslide landslide
+Word lantern' lantern'
+Word left-han left-han
+Word loudspeak loudspeak
+Word machinery machinery
+Word malignant malignant
+Word maneuveri maneuveri
+Word manicured manicured
+Word meteorite meteorite
+Word microphon microphon
+Word monstrous monstrous
+Word morningde morningde
+Word mountains mountains
+Word mushrooms mushrooms
+Word nervous- nervous-
+Word northeast northeast
+Word northwest northwest
+Word nursemaid nursemaid
+Word old-fash old-fash
+Word one-room one-room
+Word oppenheim oppenheim
+Word orientals orientals
+Word overgrown overgrown
+Word oversized oversized
+Word paperback paperback
+Word parrot's parrot's
+Word passersby passersby
+Word perambula perambula
+Word perimeter perimeter
+Word permafros permafros
+Word personnel personnel
+Word phosphore phosphore
+Word photograp photograp
+Word pittsburg pittsburg
+Word playgroun playgroun
+Word plutonium plutonium
+Word porcelain porcelain
+Word positivel positivel
+Word prehistor prehistor
+Word privately privately
+Word protagoni protagoni
+Word pushbutto pushbutto
+Word rattlesna rattlesna
+Word razor-sh razor-sh
+Word recklessl recklessl
+Word renumerat renumerat
+Word reservoir reservoir
+Word residenti residenti
+Word right-ha right-ha
+Word roadrunne roadrunne
+Word satellite satellite
+Word schoolhou schoolhou
+Word schooltea schooltea
+Word screwdriv screwdriv
+Word sculpture sculpture
+Word searchlig searchlig
+Word serpentin serpentin
+Word seven-si seven-si
+Word seventeen seventeen
+Word shoreline shoreline
+Word shrinking shrinking
+Word skeletons skeletons
+Word snakebite snakebite
+Word southeast southeast
+Word southwest southwest
+Word spacecraf spacecraf
+Word sparkling sparkling
+Word splintere splintere
+Word spotlight spotlight
+Word squiggles squiggles
+Word squirrels squirrels
+Word structure structure
+Word suffocati suffocati
+Word superbrie superbrie
+Word sweet-sm sweet-sm
+Word switchbox switchbox
+Word technicia technicia
+Word telescopi telescopi
+Word themselve themselve
+Word thermonuc thermonuc
+Word threshold threshold
+Word thrusters thrusters
+Word toadstool toadstool
+Word tombstone tombstone
+Word trellises trellises
+Word triangula triangula
+Word undergrou undergrou
+Word underneat underneat
+Word unflatten unflatten
+Word unsightly unsightly
+Word unspeakab unspeakab
+Word victorian victorian
+Word wabewalke wabewalke
+Word walkie-t walkie-t
+Word washbasin washbasin
+Word wasteland wasteland
+Word waterfall waterfall
+Word waterproo waterproo
+Word windowles windowles
+Word wire-lad wire-lad
+Word wishbring wishbring
+Word workbench workbench
+Word wristwatc wristwatc
+

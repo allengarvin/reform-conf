@@ -1,0 +1,1596 @@
+! ----------------------------------------------------
+!   zork0-871030-r001-z5.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 c5de99342c5681cf508b18ef1ea20cae
+CodeArea 0x7da4 0x18b96
+StringArea 0x18b98 0x20aa4
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 10 attrib10  ! obj35_royal_leader obj50_mounted_soldier obj174_man_atop_a_castle_tower obj234_foot_soldier
+Attribute 11 attrib11  ! obj83_royal_leader obj189_high_priest obj252_foot_soldier obj257_mounted_soldier
+Attribute 12 attrib12  ! obj167_Stream
+Attribute 13 attrib13  ! obj68_Tight_Squeeze
+Attribute 14 attrib14  ! obj23_quill_pen obj43_T_square obj65_zorkmid_bill obj66_stoppered_glass_flask_filled_with_liquid obj112_wooden_club obj229_stock_certificate obj238_fancy_violin obj241_gaudy_crown obj256_spyglass obj289_brass_lantern obj296_landscape obj323_lance
+Attribute 15 attrib15  ! obj9_your_hands obj51_controls obj123_goggles obj191_cobwebs obj227_your_eyes obj367_controls
+Attribute 16 attrib16  ! obj9_your_hands obj38_yourself obj51_controls obj70_your_head obj72_her obj80_sleep obj101_it obj123_goggles obj191_cobwebs obj212_gravel obj224_him obj227_your_eyes obj269_your_mouth obj297_water obj306_even_more_gravel obj310_it obj320_the_largest_fly obj354_your_nose obj360_more_gravel obj367_controls
+Attribute 17 attrib17  ! obj97_it
+Attribute 18 attrib18  ! obj6_yellow_dock obj19_blue_dock obj39_bathysphere obj73_green_dock obj97_it obj146_red_dock obj158_left_booth obj290_royal_yacht obj386_right_booth
+Attribute 19 attrib19  ! obj97_it
+Attribute 20 attrib20  ! obj39_bathysphere obj97_it obj158_left_booth obj233_oracle obj386_right_booth
+Attribute 21 attrib21  ! obj9_your_hands obj70_your_head obj97_it obj227_your_eyes obj269_your_mouth obj354_your_nose
+Attribute 22 attrib22  ! obj5_jester_s_hat obj6_yellow_dock obj9_your_hands obj11_toll_booth obj12_jester_s_shoe obj16_portrait_of_Babe_Flathead obj17_dial obj18_ominous_black_button obj19_blue_dock obj24_window obj30_sickly_witch obj44_jester_s_pocket obj51_controls obj52_altar obj56_darkest_slab obj59_portrait_of_John_Paul_Flathead obj62_exterior_light obj73_green_dock obj74_small_elm_tree obj87_hand_hole obj89_mighty_elm_tree obj97_it obj100_yellow_button obj102_locker obj107_boulder obj108_idol obj110_portrait_of_Dimwit_Flathead obj119_conductor_s_stand obj120_twelve_paintings obj121_portrait_of_Leonardo_Flathead obj128_small_throne obj130_brass_plaque obj132_wheel obj141_portrait_of_Lucrezia_Flathead obj146_red_dock obj149_statue obj157_gnarled_elm_tree obj158_left_booth obj163_hole obj170_right_button obj175_left_button obj180_large_throne obj186_up_down_lever obj191_cobwebs obj193_outer_gate obj194_mirror obj207_doorbell obj221_portrait_of_Thomas_Alva_Flathead obj223_ungnarled_elm_tree obj230_green_button obj233_oracle obj260_executioner obj268_cave obj284_portrait_of_Johann_Sebastion_Flathead obj287_flower obj290_royal_yacht obj294_white_button obj301_exact_change_basket obj305_toll_gate obj311_table obj324_porthole obj327_ceiling obj329_vase obj333_portrait_of_Frank_Lloyd_Flathead obj339_red_button obj341_rocky_spire obj347_it obj350_portrait_of_Ralph_Waldo_Flathead obj352_ominous_black_button obj353_blue_button obj359_fireplace obj363_portrait_of_John_D__Flathead obj367_controls obj369_bed_of_straw obj370_portrait_of_J__Pierpoint_Flathead obj371_pile_of_orbs obj373_brass_plaque obj375_waldo obj377_fresco obj380_wall obj386_right_booth obj391_portrait_of_Stonewall_Flathead
+Attribute 23 attrib23  ! obj2_vault_door obj97_it obj351_door obj357_trunk obj365_door
+Attribute 24 attrib24  ! obj52_altar obj62_exterior_light obj97_it obj101_it obj108_idol obj156_angry_wizard obj168_amulet obj186_up_down_lever obj213_easle obj223_ungnarled_elm_tree obj233_oracle obj260_executioner obj275_Encyclopedia_Frobozzica obj301_exact_change_basket obj314_even_larger_fly obj326_iron_key obj337_elixir
+Attribute 25 attrib25  ! obj5_jester_s_hat obj10_cage obj12_jester_s_shoe obj21_toboggan obj35_royal_leader obj39_bathysphere obj41_walnut_shell obj44_jester_s_pocket obj50_mounted_soldier obj52_altar obj75_treasure_chest obj83_royal_leader obj97_it obj102_locker obj124_ugly_toad obj128_small_throne obj143_ladder obj158_left_booth obj163_hole obj171_box obj174_man_atop_a_castle_tower obj176_tree_stump obj178_huge_lily_pad obj179_package obj180_large_throne obj189_high_priest obj213_easle obj233_oracle obj234_foot_soldier obj245_bowl obj249_cauldron obj252_foot_soldier obj257_mounted_soldier obj273_bag obj301_exact_change_basket obj311_table obj319_small_table obj329_vase obj345_jester obj355_small_lily_pad obj357_trunk obj371_pile_of_orbs obj374_fish_tank obj375_waldo obj386_right_booth
+Attribute 26 attrib26  ! obj7_Delta obj8_View_of_Statue obj22_Delta obj34_Delta obj61_Outer_Bailey obj63_Parapet obj93_Glacier obj97_it obj138_River_s_End obj148_Perimeter_Wall obj159_Ocean_s_Edge obj172_Causeway obj203_Delta obj218_Delta obj246_Delta obj259_Fublio_Valley obj262_Shady_Park obj263_Coast_Road obj303_Mine_Entrance obj315_Flathead_Stadium obj318_Village_Gate obj322_Outside_Hut obj338_Drawbridge obj342_Plain obj394_Village_Center obj395_Delta obj396_Inner_Bailey
+Attribute 27 attrib27  ! obj97_it
+Attribute 28 attrib28  ! obj1_FrobozzCo_Offices_North obj3_Vault obj4_Dungeon obj7_Delta obj8_View_of_Statue obj13_Parlor obj14_Toll_Plaza obj15_Post_Office obj20_Courtyard obj22_Delta obj26_Passage_Storage_Room obj27_North_Shore obj28_Theatre obj31_Great_Underground_Woods obj34_Delta obj40_Oracle obj45_Kitchen obj48_Balcony obj49_Upper_Barbican obj53_Courtroom obj54_Top_of_Stair obj60_East_Hall obj61_Outer_Bailey obj63_Parapet obj71_Crag obj76_Pits obj77_Gumboz__Shack obj78_Root_Cellar obj82_Middle_of_Desert obj84_Cell obj85_Cave_In obj86_Mirror_Lake obj88_Grotto obj91_Bastion obj93_Glacier obj94_Precipice obj95_Great_Underground_Desert obj96_Greenhouse obj97_it obj98_West_Hall obj99_West_of_House obj103_Lower_Hall obj105_Forebuilding obj109_Crawl obj111_Dirigible_Hangar obj113_FrobozzCo_Offices_West obj114_Southern_Edge_of_Desert obj115_Tee obj116_Enchanted_Cave obj118_Guest_Rooms obj133_Kennels obj134_Underwater obj135_Marsh obj137_Oubliette obj138_River_s_End obj142_Frobozz_Philharmonic_Hall obj145_Wine_Cellar obj148_Perimeter_Wall obj151_Ruined_Hall obj152_Royal_Zoo obj154_Port_Foozle obj155_Sandbar obj159_Ocean_s_Edge obj160_Field_Office obj161_Great_Underground_Savannah obj162_Roof obj164_Dead_End obj166_Chapel obj169_FrobozzCo_Offices obj172_Causeway obj173_Korboz_s_Hovel obj177_Conductor_Pit obj182_Hold obj183_Scullery obj185_Magic_Clothes_Closet obj187_Crypt obj188_Gondola obj190_Bottom_of_Stair obj192_Great_Hall obj195_Edge_of_Bog obj198_Gallery obj199_Servants__Quarters obj200_Outside_Hovel obj201_Garrison obj203_Delta obj205_Great_Underground_Highway obj210_Heart_of_Mine obj214_Aerie obj216_Banquet_Hall obj217_East_Shore obj218_Delta obj219_Outside_Shack obj220_Fork obj222_Great_Underground_Oasis obj225_Library obj226_Crossroads obj228_Lowest_Hall obj231_Donjon obj232_Laboratory obj235_Gaming_Room obj237_West_Shore obj240_Lake_Bottom obj242_Torture_Chamber obj243_Secret_Room obj244_FrobozzCo_Basement obj246_Delta obj248_Quarry obj250_FrobozzCo_HQ obj251_Formal_Garden obj253_Rest_Stop obj254_Great_Underground_Mountain obj258_Fissure_s_Edge obj259_Fublio_Valley obj261_Lower_Ledge obj262_Shady_Park obj263_Coast_Road obj266_East_Wing obj267_Barbican obj274_Rubble_Room obj276_Dunes obj278_Outside_Crypt obj279_West_Wing obj280_Shrine obj283_Closet obj285_Fishy_Odor obj286_Orb_Room obj288_Cliff_Bottom obj291_FrobozzCo_Offices_South obj295_Icky_Cave obj299_Deserted_Castle obj302_Attic obj303_Mine_Entrance obj308_Construction obj309_FrobozzCo_Offices_East obj312_Steam_Bath obj315_Flathead_Stadium obj318_Village_Gate obj321_Entrance_Hall obj322_Outside_Hut obj328_Solar obj330_Cairn obj331_Potholes obj332_Inquisition obj335_Dimwit_s_Room obj338_Drawbridge obj342_Plain obj344_Secret_Passage obj346_Lake_Flathead obj348_Summer_Hangar obj349_Testing_Room obj356_Stable obj361_Megaboz__Hut obj362_Gym obj364_Throne_Room obj368_Exit obj376_Natural_Arch obj381_Base_of_Mountain obj384_South_Shore obj385_Upper_Ledge obj388_FrobozzCo_Penthouse obj389_Salty_Smell obj390_North_of_Anthar obj392_Audience_Chamber obj393_Quilbozza_Beach obj394_Village_Center obj395_Delta obj396_Inner_Bailey
+Attribute 29 attrib29  ! obj10_cage obj39_bathysphere obj66_stoppered_glass_flask_filled_with_liquid obj97_it
+Attribute 30 attrib30  ! obj5_jester_s_hat obj6_yellow_dock obj10_cage obj12_jester_s_shoe obj19_blue_dock obj21_toboggan obj35_royal_leader obj39_bathysphere obj41_walnut_shell obj44_jester_s_pocket obj50_mounted_soldier obj52_altar obj73_green_dock obj75_treasure_chest obj83_royal_leader obj97_it obj102_locker obj124_ugly_toad obj128_small_throne obj143_ladder obj146_red_dock obj158_left_booth obj163_hole obj174_man_atop_a_castle_tower obj176_tree_stump obj178_huge_lily_pad obj179_package obj180_large_throne obj189_high_priest obj213_easle obj233_oracle obj234_foot_soldier obj245_bowl obj252_foot_soldier obj257_mounted_soldier obj273_bag obj290_royal_yacht obj301_exact_change_basket obj319_small_table obj329_vase obj334_camel obj345_jester obj355_small_lily_pad obj357_trunk obj371_pile_of_orbs obj374_fish_tank obj375_waldo obj386_right_booth
+Attribute 31 attrib31  ! obj6_yellow_dock obj19_blue_dock obj21_toboggan obj35_royal_leader obj50_mounted_soldier obj52_altar obj73_green_dock obj83_royal_leader obj97_it obj124_ugly_toad obj128_small_throne obj146_red_dock obj158_left_booth obj163_hole obj174_man_atop_a_castle_tower obj176_tree_stump obj178_huge_lily_pad obj180_large_throne obj189_high_priest obj213_easle obj233_oracle obj234_foot_soldier obj245_bowl obj249_cauldron obj252_foot_soldier obj257_mounted_soldier obj290_royal_yacht obj301_exact_change_basket obj311_table obj319_small_table obj329_vase obj334_camel obj345_jester obj355_small_lily_pad obj371_pile_of_orbs obj374_fish_tank obj375_waldo obj386_right_booth
+Attribute 32 attrib32  ! obj16_portrait_of_Babe_Flathead obj46_clump_of_spenseweed obj57_large_fly obj59_portrait_of_John_Paul_Flathead obj97_it obj110_portrait_of_Dimwit_Flathead obj112_wooden_club obj121_portrait_of_Leonardo_Flathead obj127_northwest_southeast_passage obj129_lobster obj140_flamingo obj141_portrait_of_Lucrezia_Flathead obj150_rooster obj197_jewel obj221_portrait_of_Thomas_Alva_Flathead obj245_bowl obj256_spyglass obj271_sign obj284_portrait_of_Johann_Sebastion_Flathead obj287_flower obj289_brass_lantern obj314_even_larger_fly obj320_the_largest_fly obj326_iron_key obj333_portrait_of_Frank_Lloyd_Flathead obj350_portrait_of_Ralph_Waldo_Flathead obj357_trunk obj363_portrait_of_John_D__Flathead obj366_north_south_passage obj370_portrait_of_J__Pierpoint_Flathead obj378_larger_fly obj391_portrait_of_Stonewall_Flathead
+Attribute 33 attrib33  ! obj52_altar obj97_it obj143_ladder obj176_tree_stump obj178_huge_lily_pad obj311_table obj319_small_table obj355_small_lily_pad obj371_pile_of_orbs
+Attribute 34 attrib34  ! obj9_your_hands obj38_yourself obj72_her obj97_it obj101_it obj224_him obj327_ceiling obj380_wall
+Attribute 35 attrib35  ! obj97_it obj347_it
+Attribute 36 attrib36  ! obj81_glove obj97_it obj122_cloak obj123_goggles obj131_hardhat obj168_amulet obj211_seaman_s_cap obj236_red_clown_nose obj358_wizardly_robe
+Attribute 37 attrib37  ! obj97_it
+Attribute 38 attrib38  ! obj21_toboggan obj29_notice obj42_scrap_of_parchment obj65_zorkmid_bill obj66_stoppered_glass_flask_filled_with_liquid obj112_wooden_club obj130_brass_plaque obj139_ceramic_perch obj171_box obj179_package obj181_ticket obj206_ceramic_pigeon obj229_stock_certificate obj247_nine_gloop_vial obj270_scroll obj271_sign obj272_pile_of_napkins obj273_bag obj275_Encyclopedia_Frobozzica obj282_notebook obj289_brass_lantern obj292_slate obj293_blueprint obj300_pit_bomb obj313_funny_paper obj325_zorkmid_coin obj343_proclamation obj373_brass_plaque obj382_four_gloop_vial
+Attribute 39 attrib39  ! obj21_toboggan obj23_quill_pen obj29_notice obj32_tray_of_roc_teriyaki obj33_wand obj37_nutcracker obj41_walnut_shell obj42_scrap_of_parchment obj43_T_square obj57_large_fly obj64_smoky_orb obj65_zorkmid_bill obj66_stoppered_glass_flask_filled_with_liquid obj75_treasure_chest obj79_steel_key obj81_glove obj90_starfish obj92_rope obj104_pellet_of_squid_repellent obj106_milky_orb obj112_wooden_club obj117_walnut obj122_cloak obj123_goggles obj125_saucepan obj126_candle obj127_northwest_southeast_passage obj131_hardhat obj136_fiery_orb obj139_ceramic_perch obj143_ladder obj147_drinking_straw obj153_harmonica obj165_poster_of_Ursula_Flathead obj168_amulet obj171_box obj179_package obj181_ticket obj184_snake obj196_glittery_orb obj197_jewel obj202_bar_of_food obj206_ceramic_pigeon obj208_shovel obj211_seaman_s_cap obj212_gravel obj213_easle obj229_stock_certificate obj236_red_clown_nose obj238_fancy_violin obj239_star obj241_gaudy_crown obj247_nine_gloop_vial obj256_spyglass obj264_weather_vane obj265_lawn_ornament obj270_scroll obj272_pile_of_napkins obj273_bag obj282_notebook obj287_flower obj289_brass_lantern obj292_slate obj293_blueprint obj296_landscape obj298_wine_keg obj300_pit_bomb obj306_even_more_gravel obj313_funny_paper obj314_even_larger_fly obj320_the_largest_fly obj323_lance obj325_zorkmid_coin obj326_iron_key obj340_platter_of_hellhound_bones obj343_proclamation obj358_wizardly_robe obj360_more_gravel obj366_north_south_passage obj378_larger_fly obj379_rusty_key obj382_four_gloop_vial obj387_cake
+Attribute 40 attrib40  ! obj79_steel_key obj326_iron_key obj379_rusty_key
+Attribute 41 attrib41  ! obj62_exterior_light obj97_it obj126_candle obj289_brass_lantern
+Attribute 42 attrib42  ! obj2_vault_door obj97_it obj193_outer_gate obj277_portcullis obj305_toll_gate obj307_trap_door obj351_door obj365_door obj383_trap_door
+Attribute 43 attrib43  ! obj97_it
+Attribute 44 attrib44  ! obj29_notice obj42_scrap_of_parchment obj65_zorkmid_bill obj97_it obj112_wooden_club obj165_poster_of_Ursula_Flathead obj229_stock_certificate obj238_fancy_violin obj270_scroll obj293_blueprint obj313_funny_paper obj343_proclamation
+Attribute 45 attrib45  ! obj6_yellow_dock obj19_blue_dock obj21_toboggan obj39_bathysphere obj73_green_dock obj97_it obj128_small_throne obj143_ladder obj146_red_dock obj158_left_booth obj176_tree_stump obj180_large_throne obj233_oracle obj290_royal_yacht obj334_camel obj386_right_booth
+Attribute 46 attrib46  ! obj7_Delta obj8_View_of_Statue obj13_Parlor obj20_Courtyard obj22_Delta obj27_North_Shore obj28_Theatre obj31_Great_Underground_Woods obj34_Delta obj45_Kitchen obj48_Balcony obj49_Upper_Barbican obj53_Courtroom obj60_East_Hall obj61_Outer_Bailey obj63_Parapet obj71_Crag obj82_Middle_of_Desert obj86_Mirror_Lake obj91_Bastion obj93_Glacier obj94_Precipice obj95_Great_Underground_Desert obj96_Greenhouse obj97_it obj98_West_Hall obj99_West_of_House obj111_Dirigible_Hangar obj114_Southern_Edge_of_Desert obj118_Guest_Rooms obj126_candle obj135_Marsh obj138_River_s_End obj148_Perimeter_Wall obj151_Ruined_Hall obj154_Port_Foozle obj155_Sandbar obj159_Ocean_s_Edge obj161_Great_Underground_Savannah obj162_Roof obj166_Chapel obj167_Stream obj172_Causeway obj183_Scullery obj188_Gondola obj192_Great_Hall obj195_Edge_of_Bog obj198_Gallery obj200_Outside_Hovel obj201_Garrison obj203_Delta obj214_Aerie obj216_Banquet_Hall obj217_East_Shore obj218_Delta obj219_Outside_Shack obj222_Great_Underground_Oasis obj225_Library obj237_West_Shore obj246_Delta obj248_Quarry obj250_FrobozzCo_HQ obj251_Formal_Garden obj254_Great_Underground_Mountain obj259_Fublio_Valley obj261_Lower_Ledge obj262_Shady_Park obj263_Coast_Road obj266_East_Wing obj267_Barbican obj276_Dunes obj279_West_Wing obj283_Closet obj288_Cliff_Bottom obj299_Deserted_Castle obj303_Mine_Entrance obj312_Steam_Bath obj315_Flathead_Stadium obj318_Village_Gate obj321_Entrance_Hall obj322_Outside_Hut obj328_Solar obj330_Cairn obj332_Inquisition obj338_Drawbridge obj342_Plain obj346_Lake_Flathead obj348_Summer_Hangar obj362_Gym obj364_Throne_Room obj376_Natural_Arch obj381_Base_of_Mountain obj384_South_Shore obj385_Upper_Ledge obj388_FrobozzCo_Penthouse obj390_North_of_Anthar obj392_Audience_Chamber obj393_Quilbozza_Beach obj394_Village_Center obj395_Delta obj396_Inner_Bailey
+Attribute 47 attrib47  ! obj25_prickly_witch obj30_sickly_witch obj35_royal_leader obj50_mounted_soldier obj83_royal_leader obj97_it obj124_ugly_toad obj156_angry_wizard obj174_man_atop_a_castle_tower obj189_high_priest obj234_foot_soldier obj252_foot_soldier obj257_mounted_soldier obj260_executioner obj334_camel obj345_jester obj347_it
+
+! ----------------------------- Properties -----------------------------
+
+Property 38 prop38:?
+Property 39 prop39:string
+Property 40 prop40:string
+Property 41 prop41:routine
+Property 42 prop42:dictwords
+Property 43 prop43:routine
+Property 44 prop44:?
+Property 45 prop45:string
+Property 46 prop46:?
+Property 47 prop47:string
+Property 48 prop48:string
+Property 49 prop49:?
+Property 50 prop50:thing
+Property 51 prop51:dictwords
+Property 52 out_to:exit
+Property 53 in_to:exit
+Property 54 d_to:exit
+Property 55 u_to:exit
+Property 56 northwest_to:exit
+Property 57 w_to:exit
+Property 58 southwest_to:exit
+Property 59 s_to:exit
+Property 60 se_to:exit
+Property 61 e_to:exit
+Property 62 ne_to:exit
+Property 63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_FrobozzCo_Offices_North
+Object 2 obj2_vault_door
+Object 3 obj3_Vault
+Object 4 obj4_Dungeon
+Object 5 obj5_jester_s_hat
+Object 6 obj6_yellow_dock
+Object 7 obj7_Delta
+Object 8 obj8_View_of_Statue
+Object 9 obj9_your_hands
+Object 10 obj10_cage
+Object 11 obj11_toll_booth
+Object 12 obj12_jester_s_shoe
+Object 13 obj13_Parlor
+Object 14 obj14_Toll_Plaza
+Object 15 obj15_Post_Office
+Object 16 obj16_portrait_of_Babe_Flathead
+Object 17 obj17_dial
+Object 18 obj18_ominous_black_button
+Object 19 obj19_blue_dock
+Object 20 obj20_Courtyard
+Object 21 obj21_toboggan
+Object 22 obj22_Delta
+Object 23 obj23_quill_pen
+Object 24 obj24_window
+Object 25 obj25_prickly_witch
+Object 26 obj26_Passage_Storage_Room
+Object 27 obj27_North_Shore
+Object 28 obj28_Theatre
+Object 29 obj29_notice
+Object 30 obj30_sickly_witch
+Object 31 obj31_Great_Underground_Woods
+Object 32 obj32_tray_of_roc_teriyaki
+Object 33 obj33_wand
+Object 34 obj34_Delta
+Object 35 obj35_royal_leader
+Object 36 obj36_Lord_Dimwit_Flathead_the_Excessive
+Object 37 obj37_nutcracker
+Object 38 obj38_yourself
+Object 39 obj39_bathysphere
+Object 40 obj40_Oracle
+Object 41 obj41_walnut_shell
+Object 42 obj42_scrap_of_parchment
+Object 43 obj43_T_square
+Object 44 obj44_jester_s_pocket
+Object 45 obj45_Kitchen
+Object 46 obj46_clump_of_spenseweed
+Object 47 obj47_lullaby
+Object 48 obj48_Balcony
+Object 49 obj49_Upper_Barbican
+Object 50 obj50_mounted_soldier
+Object 51 obj51_controls
+Object 52 obj52_altar
+Object 53 obj53_Courtroom
+Object 54 obj54_Top_of_Stair
+Object 55 obj55_direction
+Object 56 obj56_darkest_slab
+Object 57 obj57_large_fly
+Object 58 obj58_it
+Object 59 obj59_portrait_of_John_Paul_Flathead
+Object 60 obj60_East_Hall
+Object 61 obj61_Outer_Bailey
+Object 62 obj62_exterior_light
+Object 63 obj63_Parapet
+Object 64 obj64_smoky_orb
+Object 65 obj65_zorkmid_bill
+Object 66 obj66_stoppered_glass_flask_filled_with_liquid
+Object 67 obj67_giant_bedbug
+Object 68 obj68_Tight_Squeeze
+Object 69 obj69_it
+Object 70 obj70_your_head
+Object 71 obj71_Crag
+Object 72 obj72_her
+Object 73 obj73_green_dock
+Object 74 obj74_small_elm_tree
+Object 75 obj75_treasure_chest
+Object 76 obj76_Pits
+Object 77 obj77_Gumboz__Shack
+Object 78 obj78_Root_Cellar
+Object 79 obj79_steel_key
+Object 80 obj80_sleep
+Object 81 obj81_glove
+Object 82 obj82_Middle_of_Desert
+Object 83 obj83_royal_leader
+Object 84 obj84_Cell
+Object 85 obj85_Cave_In
+Object 86 obj86_Mirror_Lake
+Object 87 obj87_hand_hole
+Object 88 obj88_Grotto
+Object 89 obj89_mighty_elm_tree
+Object 90 obj90_starfish
+Object 91 obj91_Bastion
+Object 92 obj92_rope
+Object 93 obj93_Glacier
+Object 94 obj94_Precipice
+Object 95 obj95_Great_Underground_Desert
+Object 96 obj96_Greenhouse
+Object 97 obj97_it
+Object 98 obj98_West_Hall
+Object 99 obj99_West_of_House
+Object 100 obj100_yellow_button
+Object 101 obj101_it
+Object 102 obj102_locker
+Object 103 obj103_Lower_Hall
+Object 104 obj104_pellet_of_squid_repellent
+Object 105 obj105_Forebuilding
+Object 106 obj106_milky_orb
+Object 107 obj107_boulder
+Object 108 obj108_idol
+Object 109 obj109_Crawl
+Object 110 obj110_portrait_of_Dimwit_Flathead
+Object 111 obj111_Dirigible_Hangar
+Object 112 obj112_wooden_club
+Object 113 obj113_FrobozzCo_Offices_West
+Object 114 obj114_Southern_Edge_of_Desert
+Object 115 obj115_Tee
+Object 116 obj116_Enchanted_Cave
+Object 117 obj117_walnut
+Object 118 obj118_Guest_Rooms
+Object 119 obj119_conductor_s_stand
+Object 120 obj120_twelve_paintings
+Object 121 obj121_portrait_of_Leonardo_Flathead
+Object 122 obj122_cloak
+Object 123 obj123_goggles
+Object 124 obj124_ugly_toad
+Object 125 obj125_saucepan
+Object 126 obj126_candle
+Object 127 obj127_northwest_southeast_passage
+Object 128 obj128_small_throne
+Object 129 obj129_lobster
+Object 130 obj130_brass_plaque
+Object 131 obj131_hardhat
+Object 132 obj132_wheel
+Object 133 obj133_Kennels
+Object 134 obj134_Underwater
+Object 135 obj135_Marsh
+Object 136 obj136_fiery_orb
+Object 137 obj137_Oubliette
+Object 138 obj138_River_s_End
+Object 139 obj139_ceramic_perch
+Object 140 obj140_flamingo
+Object 141 obj141_portrait_of_Lucrezia_Flathead
+Object 142 obj142_Frobozz_Philharmonic_Hall
+Object 143 obj143_ladder
+Object 144 obj144
+Object 145 obj145_Wine_Cellar
+Object 146 obj146_red_dock
+Object 147 obj147_drinking_straw
+Object 148 obj148_Perimeter_Wall
+Object 149 obj149_statue
+Object 150 obj150_rooster
+Object 151 obj151_Ruined_Hall
+Object 152 obj152_Royal_Zoo
+Object 153 obj153_harmonica
+Object 154 obj154_Port_Foozle
+Object 155 obj155_Sandbar
+Object 156 obj156_angry_wizard
+Object 157 obj157_gnarled_elm_tree
+Object 158 obj158_left_booth
+Object 159 obj159_Ocean_s_Edge
+Object 160 obj160_Field_Office
+Object 161 obj161_Great_Underground_Savannah
+Object 162 obj162_Roof
+Object 163 obj163_hole
+Object 164 obj164_Dead_End
+Object 165 obj165_poster_of_Ursula_Flathead
+Object 166 obj166_Chapel
+Object 167 obj167_Stream
+Object 168 obj168_amulet
+Object 169 obj169_FrobozzCo_Offices
+Object 170 obj170_right_button
+Object 171 obj171_box
+Object 172 obj172_Causeway
+Object 173 obj173_Korboz_s_Hovel
+Object 174 obj174_man_atop_a_castle_tower
+Object 175 obj175_left_button
+Object 176 obj176_tree_stump
+Object 177 obj177_Conductor_Pit
+Object 178 obj178_huge_lily_pad
+Object 179 obj179_package
+Object 180 obj180_large_throne
+Object 181 obj181_ticket
+Object 182 obj182_Hold
+Object 183 obj183_Scullery
+Object 184 obj184_snake
+Object 185 obj185_Magic_Clothes_Closet
+Object 186 obj186_up_down_lever
+Object 187 obj187_Crypt
+Object 188 obj188_Gondola
+Object 189 obj189_high_priest
+Object 190 obj190_Bottom_of_Stair
+Object 191 obj191_cobwebs
+Object 192 obj192_Great_Hall
+Object 193 obj193_outer_gate
+Object 194 obj194_mirror
+Object 195 obj195_Edge_of_Bog
+Object 196 obj196_glittery_orb
+Object 197 obj197_jewel
+Object 198 obj198_Gallery
+Object 199 obj199_Servants__Quarters
+Object 200 obj200_Outside_Hovel
+Object 201 obj201_Garrison
+Object 202 obj202_bar_of_food
+Object 203 obj203_Delta
+Object 204 obj204_drawbridge
+Object 205 obj205_Great_Underground_Highway
+Object 206 obj206_ceramic_pigeon
+Object 207 obj207_doorbell
+Object 208 obj208_shovel
+Object 209 obj209_center_shell
+Object 210 obj210_Heart_of_Mine
+Object 211 obj211_seaman_s_cap
+Object 212 obj212_gravel
+Object 213 obj213_easle
+Object 214 obj214_Aerie
+Object 215 obj215_room
+Object 216 obj216_Banquet_Hall
+Object 217 obj217_East_Shore
+Object 218 obj218_Delta
+Object 219 obj219_Outside_Shack
+Object 220 obj220_Fork
+Object 221 obj221_portrait_of_Thomas_Alva_Flathead
+Object 222 obj222_Great_Underground_Oasis
+Object 223 obj223_ungnarled_elm_tree
+Object 224 obj224_him
+Object 225 obj225_Library
+Object 226 obj226_Crossroads
+Object 227 obj227_your_eyes
+Object 228 obj228_Lowest_Hall
+Object 229 obj229_stock_certificate
+Object 230 obj230_green_button
+Object 231 obj231_Donjon
+Object 232 obj232_Laboratory
+Object 233 obj233_oracle
+Object 234 obj234_foot_soldier
+Object 235 obj235_Gaming_Room
+Object 236 obj236_red_clown_nose
+Object 237 obj237_West_Shore
+Object 238 obj238_fancy_violin
+Object 239 obj239_star
+Object 240 obj240_Lake_Bottom
+Object 241 obj241_gaudy_crown
+Object 242 obj242_Torture_Chamber
+Object 243 obj243_Secret_Room
+Object 244 obj244_FrobozzCo_Basement
+Object 245 obj245_bowl
+Object 246 obj246_Delta
+Object 247 obj247_nine_gloop_vial
+Object 248 obj248_Quarry
+Object 249 obj249_cauldron
+Object 250 obj250_FrobozzCo_HQ
+Object 251 obj251_Formal_Garden
+Object 252 obj252_foot_soldier
+Object 253 obj253_Rest_Stop
+Object 254 obj254_Great_Underground_Mountain
+Object 255 obj255_right_shell
+Object 256 obj256_spyglass
+Object 257 obj257_mounted_soldier
+Object 258 obj258_Fissure_s_Edge
+Object 259 obj259_Fublio_Valley
+Object 260 obj260_executioner
+Object 261 obj261_Lower_Ledge
+Object 262 obj262_Shady_Park
+Object 263 obj263_Coast_Road
+Object 264 obj264_weather_vane
+Object 265 obj265_lawn_ornament
+Object 266 obj266_East_Wing
+Object 267 obj267_Barbican
+Object 268 obj268_cave
+Object 269 obj269_your_mouth
+Object 270 obj270_scroll
+Object 271 obj271_sign
+Object 272 obj272_pile_of_napkins
+Object 273 obj273_bag
+Object 274 obj274_Rubble_Room
+Object 275 obj275_Encyclopedia_Frobozzica
+Object 276 obj276_Dunes
+Object 277 obj277_portcullis
+Object 278 obj278_Outside_Crypt
+Object 279 obj279_West_Wing
+Object 280 obj280_Shrine
+Object 281 obj281_stair
+Object 282 obj282_notebook
+Object 283 obj283_Closet
+Object 284 obj284_portrait_of_Johann_Sebastion_Flathead
+Object 285 obj285_Fishy_Odor
+Object 286 obj286_Orb_Room
+Object 287 obj287_flower
+Object 288 obj288_Cliff_Bottom
+Object 289 obj289_brass_lantern
+Object 290 obj290_royal_yacht
+Object 291 obj291_FrobozzCo_Offices_South
+Object 292 obj292_slate
+Object 293 obj293_blueprint
+Object 294 obj294_white_button
+Object 295 obj295_Icky_Cave
+Object 296 obj296_landscape
+Object 297 obj297_water
+Object 298 obj298_wine_keg
+Object 299 obj299_Deserted_Castle
+Object 300 obj300_pit_bomb
+Object 301 obj301_exact_change_basket
+Object 302 obj302_Attic
+Object 303 obj303_Mine_Entrance
+Object 304 obj304
+Object 305 obj305_toll_gate
+Object 306 obj306_even_more_gravel
+Object 307 obj307_trap_door
+Object 308 obj308_Construction
+Object 309 obj309_FrobozzCo_Offices_East
+Object 310 obj310_it
+Object 311 obj311_table
+Object 312 obj312_Steam_Bath
+Object 313 obj313_funny_paper
+Object 314 obj314_even_larger_fly
+Object 315 obj315_Flathead_Stadium
+Object 316 obj316_left_shell
+Object 317 obj317_number
+Object 318 obj318_Village_Gate
+Object 319 obj319_small_table
+Object 320 obj320_the_largest_fly
+Object 321 obj321_Entrance_Hall
+Object 322 obj322_Outside_Hut
+Object 323 obj323_lance
+Object 324 obj324_porthole
+Object 325 obj325_zorkmid_coin
+Object 326 obj326_iron_key
+Object 327 obj327_ceiling
+Object 328 obj328_Solar
+Object 329 obj329_vase
+Object 330 obj330_Cairn
+Object 331 obj331_Potholes
+Object 332 obj332_Inquisition
+Object 333 obj333_portrait_of_Frank_Lloyd_Flathead
+Object 334 obj334_camel
+Object 335 obj335_Dimwit_s_Room
+Object 336 obj336_dirigible
+Object 337 obj337_elixir
+Object 338 obj338_Drawbridge
+Object 339 obj339_red_button
+Object 340 obj340_platter_of_hellhound_bones
+Object 341 obj341_rocky_spire
+Object 342 obj342_Plain
+Object 343 obj343_proclamation
+Object 344 obj344_Secret_Passage
+Object 345 obj345_jester
+Object 346 obj346_Lake_Flathead
+Object 347 obj347_it
+Object 348 obj348_Summer_Hangar
+Object 349 obj349_Testing_Room
+Object 350 obj350_portrait_of_Ralph_Waldo_Flathead
+Object 351 obj351_door
+Object 352 obj352_ominous_black_button
+Object 353 obj353_blue_button
+Object 354 obj354_your_nose
+Object 355 obj355_small_lily_pad
+Object 356 obj356_Stable
+Object 357 obj357_trunk
+Object 358 obj358_wizardly_robe
+Object 359 obj359_fireplace
+Object 360 obj360_more_gravel
+Object 361 obj361_Megaboz__Hut
+Object 362 obj362_Gym
+Object 363 obj363_portrait_of_John_D__Flathead
+Object 364 obj364_Throne_Room
+Object 365 obj365_door
+Object 366 obj366_north_south_passage
+Object 367 obj367_controls
+Object 368 obj368_Exit
+Object 369 obj369_bed_of_straw
+Object 370 obj370_portrait_of_J__Pierpoint_Flathead
+Object 371 obj371_pile_of_orbs
+Object 372 obj372_suit_of_armor
+Object 373 obj373_brass_plaque
+Object 374 obj374_fish_tank
+Object 375 obj375_waldo
+Object 376 obj376_Natural_Arch
+Object 377 obj377_fresco
+Object 378 obj378_larger_fly
+Object 379 obj379_rusty_key
+Object 380 obj380_wall
+Object 381 obj381_Base_of_Mountain
+Object 382 obj382_four_gloop_vial
+Object 383 obj383_trap_door
+Object 384 obj384_South_Shore
+Object 385 obj385_Upper_Ledge
+Object 386 obj386_right_booth
+Object 387 obj387_cake
+Object 388 obj388_FrobozzCo_Penthouse
+Object 389 obj389_Salty_Smell
+Object 390 obj390_North_of_Anthar
+Object 391 obj391_portrait_of_Stonewall_Flathead
+Object 392 obj392_Audience_Chamber
+Object 393 obj393_Quilbozza_Beach
+Object 394 obj394_Village_Center
+Object 395 obj395_Delta
+Object 396 obj396_Inner_Bailey
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbose'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superbrie'
+Action 3 Action3  ! 'diagnose'
+Action 4 Action4  ! 'i//'/'inventory'
+Action 5 Action5  ! 'q//'/'quit'
+Action 6 Action6  ! 'restart'
+Action 7 Action7  ! 'restore'
+Action 8 Action8  ! 'rescue'/'save'
+Action 9 Action9  ! 'score'/'status'
+Action 10 Action10 ! 'script'
+Action 11 Action11 ! 'unscript'
+Action 12 Action12 ! 'version'
+Action 13 Action13 ! '#random' object
+Action 14 Action14 ! '#command'
+Action 15 Action15 ! '#record'
+Action 16 Action16 ! '#unrecor'
+Action 17 Action17 ! '$refre'
+Action 18 Action18 ! '$ver'/'$verif' object
+Action 19 Action19 ! '$debug'
+Action 20 Action20 ! '$skip'
+Action 21 Action21 ! '$cheat'
+Action 22 Action22 ! 'applaud'/'clap' object
+Action 23 Action23 ! 'go' 'toward'/'to' object
+Action 24 Action24 ! 'ask' attrib47 'upon'/'onto'/'on' object
+Action 25 Action25 ! 'ask' attrib47 'for' object
+Action 26 Action26 ! 'ask' 'for' object
+Action 27 Action27 ! 'break'/'crack'/'crush'/'damage'/'demolish'/'destroy'/'smash'/'trample'/'wreck' 'downstair'/'down'/'d//' object
+Action 28 Action28 ! 'behead' attrib47
+Action 29 Action29 ! 'bite' object
+Action 30 Action30 ! 'inflate' object
+Action 31 Action31 ! 'close'/'shut' 'off' attrib41(held,carried,in_room,on_ground,take)
+Action 32 Action32 ! 'climb'/'scale' 'thru'/'through' object
+Action 33 Action33 ! 'lead' object object
+Action 34 Action34 ! 'burn' 'upstairs'/'up'/'u//' attrib44 'with'/'using' object(have)
+Action 35 Action35 ! 'pay' 'for' object
+Action 36 Action36 ! 'call' object 'upon'/'onto'/'on' object
+Action 37 Action37 ! 'go' 'around'/'along' attrib43
+Action 38 Action38 ! 'climb'/'scale' object(in_room,on_ground)
+Action 39 Action39 ! 'climb'/'scale' 'upon'/'onto'/'on' attrib45(in_room,on_ground)
+Action 40 Action40 ! 'climb'/'scale' 'upstairs'/'up'/'u//' attrib43(in_room,on_ground)
+Action 41 Action41 ! 'climb'/'scale' 'downstair'/'down'/'d//' attrib43(in_room,on_ground)
+Action 42 Action42 ! 'climb'/'scale' 'off' attrib43(in_room,on_ground)
+Action 43 Action43 ! 'climb'/'scale' 'over' object(in_room,on_ground)
+Action 44 Action44 ! 'climb'/'scale' 'underneat'/'under'/'beneath'/'below' object
+Action 45 Action45 ! 'close'/'shut' attrib42(held,carried,in_room,on_ground)
+Action 46 Action46 ! 'close'/'shut' 'upstairs'/'up'/'u//' attrib43
+Action 47 Action47 ! 'count' object
+Action 48 Action48 ! 'cross'/'ford' object
+Action 49 Action49 ! 'decipher'/'decode' object
+Action 50 Action50 ! 'deflate'/'pop' object 'with'/'using' object(have)
+Action 51 Action51 ! 'break'/'crack'/'crush'/'damage'/'demolish'/'destroy'/'smash'/'trample'/'wreck' 'outside'/'out' attrib43
+Action 52 Action52 ! 'break'/'crack'/'crush'/'damage'/'demolish'/'destroy'/'smash'/'trample'/'wreck' 'off' object
+Action 53 Action53 ! 'dig' 'thru'/'through' object 'with'/'using' object(have)
+Action 54 Action54 ! 'drink'/'sip' object(held,carried,in_room,on_ground)
+Action 55 Action55 ! 'drink'/'sip' 'from' object(held,carried)
+Action 56 Action56 ! 'drink'/'sip' object 'with'/'using' object
+Action 57 Action57 ! 'drop'/'dump'/'release' object(held,many,have)
+Action 58 Action58 ! 'leave' object(held,many) 'into'/'inside'/'in' object
+Action 59 Action59 ! 'leave' object(held,many) 'upon'/'onto'/'on' object
+Action 60 Action60 ! 'drop'/'dump'/'release' object(held,many) 'thru'/'through' object
+Action 61 Action61 ! 'leave' object(held,carried) 'at' object
+Action 62 Action62 ! 'devour'/'dine'/'eat'/'gobble'/'ingest'/'swallow' 'upon'/'onto'/'on' object
+Action 63 Action63 ! 'empty' object(take,have) 'toward'/'to' object
+Action 64 Action64 ! 'empty' object(many) 'outside'/'out' object(take,have)
+Action 65 Action65 ! 'enter'
+Action 66 Action66 ! 'describe'/'examine'/'inspect'/'observe'/'study'/'watch'/'x//' object(held,carried,in_room,on_ground)
+Action 67 Action67 ! 'feed' attrib47
+Action 68 Action68 ! 'deal'/'deliver'/'donate'/'extend'/'give'/'hand'/'offer'/'sell' object(held,many,have) 'back' attrib47(on_ground)
+Action 69 Action69 ! 'deal'/'deliver'/'donate'/'extend'/'give'/'hand'/'offer'/'sell' attrib47(on_ground) object(held,many,have)
+Action 70 Action70 ! 'fill' object(held,carried,have) 'from' object
+Action 71 Action71 ! 'l//'/'look' 'for' object
+Action 72 Action72 ! 'l//'/'look' 'for' object 'into'/'inside'/'in' object
+Action 73 Action73 ! 'go' 'with'/'using' object
+Action 74 Action74 ! 'go' object
+Action 75 Action75 ! 'go' 'behind' object
+Action 76 Action76 ! 'go' 'outside'/'out' object 'into'/'inside'/'in' object
+Action 77 Action77 ! 'go' 'toward'/'to' object 'into'/'inside'/'in' object
+Action 78 Action78 ! 'go' 'away' attrib43
+Action 79 Action79 ! 'deal'/'deliver'/'donate'/'extend'/'give'/'hand'/'offer'/'sell' 'upstairs'/'up'/'u//' attrib43
+Action 80 Action80 ! 'return' object(held,carried,have) 'toward'/'to' object(on_ground)
+Action 81 Action81 ! 'hang' attrib47
+Action 82 Action82 ! 'listen' 'toward'/'to' object
+Action 83 Action83 ! 'hello'/'hi' object
+Action 84 Action84 ! 'help' object
+Action 85 Action85 ! 'dive'/'jump'/'leap'/'vault' 'toward'/'to' object
+Action 86 Action86 ! 'rise'/'stand' 'upon'/'onto'/'on' object
+Action 87 Action87 ! 'kick' object
+Action 88 Action88 ! 'kiss' attrib47(in_room,on_ground)
+Action 89 Action89 ! 'knock'/'rap' 'at' attrib42
+Action 90 Action90 ! 'lead' object 'toward'/'to' object
+Action 91 Action91 ! 'lean' object(have) 'against' object
+Action 92 Action92 ! 'let' 'outside'/'out' object
+Action 93 Action93 ! 'lie' 'downstair'/'down'/'d//' attrib43
+Action 94 Action94 ! 'activate'/'start' object
+Action 95 Action95 ! 'lock' object 'with'/'using' attrib40(have)
+Action 96 Action96 ! 'l//'/'look' 'around'/'along' attrib43
+Action 97 Action97 ! 'l//'/'look' 'downstair'/'down'/'d//' attrib43
+Action 98 Action98 ! 'l//'/'look' 'at' object 'into'/'inside'/'in' object
+Action 99 Action99 ! 'l//'/'look' 'into'/'inside'/'in' object(held,carried,in_room,on_ground)
+Action 100 Action100 ! 'l//'/'look' 'underneat'/'under'/'beneath'/'below' object
+Action 101 Action101 ! 'l//'/'look' 'behind' object
+Action 102 Action102 ! 'l//'/'look' 'over' object
+Action 103 Action103 ! 'l//'/'look' 'upstairs'/'up'/'u//' object 'into'/'inside'/'in' object
+Action 104 Action104 ! 'l//'/'look' object
+Action 105 Action105 ! 'lower' object
+Action 106 Action106 ! 'create'/'make' object
+Action 107 Action107 ! 'create'/'make' object 'with'/'using' attrib47
+Action 108 Action108 ! 'measure' object
+Action 109 Action109 ! 'greet'/'meet' object
+Action 110 Action110 ! 'move'/'pull' 'into'/'inside'/'in' object
+Action 111 Action111 ! 'press'/'push'/'ring'/'squeeze' 'upstairs'/'up'/'u//' object
+Action 112 Action112 ! 'remove'/'unwrap' attrib37
+Action 113 Action113 ! 'remove'/'unwrap' attrib39(carried,in_room,many) 'from' object
+Action 114 Action114 ! 'nah'/'no'/'nope'/'uh-uh'
+Action 115 Action115 ! 'open' attrib42(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 116 Action116 ! 'pass' object
+Action 117 Action117 ! 'pay' attrib47
+Action 118 Action118 ! 'harvest'/'pick' 'upstairs'/'up'/'u//' attrib39(on_ground,many)
+Action 119 Action119 ! 'feel'/'fondle'/'pat'/'pet'/'poke'/'rub'/'scratch'/'stroke'/'touch' object(have) 'upon'/'onto'/'on' object
+Action 120 Action120 ! 'play' object
+Action 121 Action121 ! 'cover'/'plug' object 'with'/'using' object(held,many)
+Action 122 Action122 ! 'cover'/'plug' object 'into'/'inside'/'in' object
+Action 123 Action123 ! 'aim'/'point' object(take,have) 'into'/'inside'/'in' object
+Action 124 Action124 ! 'pour'/'spill' 'outside'/'out' object(held,carried) 'into'/'inside'/'in' object
+Action 125 Action125 ! 'press'/'push'/'ring'/'squeeze' 'upon'/'onto'/'on' object(in_room,on_ground)
+Action 126 Action126 ! 'press'/'push'/'ring'/'squeeze' 'off' attrib43
+Action 127 Action127 ! 'press'/'push'/'ring'/'squeeze' object 'underneat'/'under'/'beneath'/'below' object
+Action 128 Action128 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 129 Action129 ! 'browse'/'read'/'skim' attrib38(take) 'with'/'using' object
+Action 130 Action130 ! 'roll' 'upstairs'/'up'/'u//' object
+Action 131 Action131 ! 'answer'/'guess'/'reply'/'say'
+Action 132 Action132 ! 'answer'/'guess'/'reply'/'say' object
+Action 133 Action133 ! 'rummage'/'search' 'thru'/'through' object
+Action 134 Action134 ! 'rummage'/'search' object 'for' object
+Action 135 Action135 ! 'bounce'/'shake' object
+Action 136 Action136 ! 'bounce'/'shake' object 'with'/'using' object
+Action 137 Action137 ! 'show'/'showing' object(held,many) 'toward'/'to' attrib47
+Action 138 Action138 ! 'show'/'showing' attrib47 object(held,many)
+Action 139 Action139 ! 'sing' object
+Action 140 Action140 ! 'sink' object
+Action 141 Action141 ! 'sit' 'downstair'/'down'/'d//' attrib43(in_room,on_ground)
+Action 142 Action142 ! 'hop'/'skip'
+Action 143 Action143 ! 'doze'/'nap'/'rest'/'sleep'/'snooze'
+Action 144 Action144 ! 'chop'/'cut'/'slice' 'thru'/'through' object 'with'/'using' object(held,carried)
+Action 145 Action145 ! 'smell'/'sniff'/'whiff' object
+Action 146 Action146 ! 'snap' object
+Action 147 Action147 ! 'rise'/'stand' 'upstairs'/'up'/'u//' attrib43
+Action 148 Action148 ! 'insert'/'install'/'place'/'put'/'stick'/'stuff' object(held,many) 'near'/'by'/'before' object
+Action 149 Action149 ! 'don'/'wear' attrib36(many,have)
+Action 150 Action150 ! 'insert'/'install'/'place'/'put'/'stick'/'stuff' object 'behind' object
+Action 151 Action151 ! 'insert'/'install'/'place'/'put'/'stick'/'stuff' object 'toward'/'to' object
+Action 152 Action152 ! 'swim' 'across' object
+Action 153 Action153 ! 'swing' object(held,carried,have) 'at' attrib47
+Action 154 Action154 ! 'carry'/'extract'/'get'/'grab'/'hold'/'take' 'off' attrib43
+Action 155 Action155 ! 'carry'/'extract'/'get'/'grab'/'hold'/'take' object(carried,in_room,many) 'with'/'using' object
+Action 156 Action156 ! 'speak'/'talk' 'toward'/'to' attrib47(in_room)
+Action 157 Action157 ! 'lick'/'nibble'/'taste' object
+Action 158 Action158 ! 'tell' attrib47 'about' object
+Action 159 Action159 ! 'tell' object object
+Action 160 Action160 ! 'thank'/'thanks'
+Action 161 Action161 ! 'cast'/'hurl'/'throw'/'toss' object(carried) 'upon'/'onto'/'on' object(in_room,on_ground)
+Action 162 Action162 ! 'cast'/'hurl'/'throw'/'toss' 'overboard' object(held,carried)
+Action 163 Action163 ! 'cast'/'hurl'/'throw'/'toss' object(carried) 'toward'/'to' object(in_room,on_ground)
+Action 164 Action164 ! 'cast'/'hurl'/'throw'/'toss' object(in_room,on_ground) object(carried)
+Action 165 Action165 ! 'attach'/'fasten'/'hitch'/'hook'/'secure'/'strap'/'tie' object(held) 'around'/'along' object
+Action 166 Action166 ! 't//'/'time'
+Action 167 Action167 ! 'feel'/'fondle'/'pat'/'pet'/'poke'/'rub'/'scratch'/'stroke'/'touch' object(have) 'toward'/'to' object
+Action 168 Action168 ! 'dial'/'flick'/'flip'/'revolve'/'rotate'/'set'/'spin'/'steer'/'switch'/'turn'/'wind' object 'toward'/'to' object
+Action 169 Action169 ! 'unlock' object 'with'/'using' attrib40(have)
+Action 170 Action170 ! 'unplug' object
+Action 171 Action171 ! 'free'/'unattach'/'unfasten'/'unknot'/'unstrap'/'untangle'/'untie' object(held,carried,in_room,on_ground)
+Action 172 Action172 ! 'use' object
+Action 173 Action173 ! 'wait'/'z//'
+Action 174 Action174 ! 'wait'/'z//' 'for' object
+Action 175 Action175 ! 'awake'/'rouse'/'wake' 'upstairs'/'up'/'u//' attrib43
+Action 176 Action176 ! 'clean'/'clear'/'shine'/'soak'/'wash'/'wipe' 'away' object
+Action 177 Action177 ! 'what'/'what^s'/'whats' object
+Action 178 Action178 ! 'where'/'wheres' object
+Action 179 Action179 ! 'who'/'who^s'/'whos' object
+Action 180 Action180 ! 'wrap' object(held,many) 'around'/'along' object
+Action 181 Action181 ! 'wrap' object 'into'/'inside'/'in' object(held,many)
+Action 182 Action182 ! 'yawn' 'at' object
+Action 183 Action183 ! 'scream'/'shout'/'yell' 'toward'/'to' object
+Action 184 Action184 ! 'ok'/'okay'/'sure'/'y//'/'yes'/'yup'
+Action 185 Action185 ! 'zzmgck' object
+Action 186 Action186 ! 'aulderfoo'/'eldablitz'/'fublitske'/'fzorty'/'hildebud'/'lizowurt'/'mordex'/'sizul'/'xzilch'/'zastic'
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x7da4 routine32164:?
+Routine 0x7de8 routine32232:?
+Routine 0x7dfc routine32252:?
+Routine 0x7e24 routine32292:?
+Routine 0x7e3c routine32316:?
+Routine 0x7e44 routine32324:?
+Routine 0x7e4c routine32332:?
+Routine 0x7e58 routine32344:?
+Routine 0x7e64 routine32356:?
+Routine 0x7e8c routine32396:?
+Routine 0x7f78 routine32632:?
+Routine 0x7f80 routine32640:?
+Routine 0x81e8 routine33256:?
+Routine 0x826c routine33388:?
+Routine 0x8298 routine33432:?
+Routine 0x8314 routine33556:?
+Routine 0x8320 routine33568:?
+Routine 0x85e4 routine34276:?
+Routine 0x8644 routine34372:?
+Routine 0x8654 routine34388:?
+Routine 0x867c routine34428:?
+Routine 0x86a8 routine34472:?
+Routine 0x8724 routine34596:?
+Routine 0x87bc routine34748:?
+Routine 0x882c routine34860:?
+Routine 0x8868 routine34920:?
+Routine 0x8898 routine34968:?
+Routine 0x8fac routine36780:?
+Routine 0x8ff8 routine36856:?
+Routine 0x9024 routine36900:?
+Routine 0x906c routine36972:?
+Routine 0x9098 routine37016:?
+Routine 0x92b0 routine37552:?
+Routine 0x9358 routine37720:?
+Routine 0x9530 routine38192:?
+Routine 0x955c routine38236:?
+Routine 0x957c routine38268:?
+Routine 0x9590 routine38288:?
+Routine 0x95d4 routine38356:?
+Routine 0x962c routine38444:?
+Routine 0x9800 routine38912:?
+Routine 0x9830 routine38960:?
+Routine 0x98a0 routine39072:?
+Routine 0x98bc routine39100:?
+Routine 0x99a4 routine39332:?
+Routine 0x99b0 routine39344:?
+Routine 0x99e8 routine39400:?
+Routine 0x99f8 routine39416:?
+Routine 0x9a50 routine39504:?
+Routine 0x9a70 routine39536:?
+Routine 0x9a90 routine39568:?
+Routine 0x9a9c routine39580:?
+Routine 0x9b00 routine39680:?
+Routine 0x9b68 routine39784:?
+Routine 0x9bac routine39852:?
+Routine 0x9d08 routine40200:?
+Routine 0x9d10 routine40208:?
+Routine 0x9d4c routine40268:?
+Routine 0x9ef8 routine40696:?
+Routine 0x9f10 routine40720:?
+Routine 0x9f7c routine40828:?
+Routine 0xa028 routine41000:?
+Routine 0xa078 routine41080:?
+Routine 0xa0ac routine41132:?
+Routine 0xa10c routine41228:?
+Routine 0xa120 routine41248:?
+Routine 0xa13c routine41276:?
+Routine 0xa28c routine41612:?
+Routine 0xa320 routine41760:?
+Routine 0xa388 routine41864:?
+Routine 0xa3c8 Action0Sub:?
+Routine 0xa3e4 Action1Sub:?
+Routine 0xa3f8 Action2Sub:?
+Routine 0xa414 Action8Sub:?
+Routine 0xa48c Action7Sub:?
+Routine 0xa49c Action10Sub:?
+Routine 0xa4bc Action11Sub:?
+Routine 0xa4d8 routine42200:?
+Routine 0xa510 Action3Sub:?
+Routine 0xa5b4 Action4Sub:?
+Routine 0xa600 Action5Sub:?
+Routine 0xa618 Action6Sub:?
+Routine 0xa63c routine42556:?
+Routine 0xa664 routine42596:?
+Routine 0xa6b0 routine42672:?
+Routine 0xa778 Action12Sub:?
+Routine 0xa828 Action14Sub:?
+Routine 0xa830 Action13Sub:?
+Routine 0xa850 Action15Sub:?
+Routine 0xa858 Action16Sub:?
+Routine 0xa860 routine43104:?
+Routine 0xa888 Action18Sub:?
+Routine 0xa8c0 Action17Sub:?
+Routine 0xa8d4 Action19Sub:?
+Routine 0xa8f0 Action20Sub:?
+Routine 0xa934 Action21Sub:?
+Routine 0xa99c Action175Sub:?
+Routine 0xa9cc Action22Sub:?
+Routine 0xa9d8 Action24Sub:?
+Routine 0xaa0c Action25Sub:?
+Routine 0xaa2c Action26Sub:?
+Routine 0xaa48 Action28Sub:?
+Routine 0xaa94 Action29Sub:?
+Routine 0xaaa0 Action34Sub:?
+Routine 0xab40 Action35Sub:?
+Routine 0xab54 Action36Sub:?
+Routine 0xab5c Action104Sub:?
+Routine 0xabe8 Action176Sub:?
+Routine 0xac08 Action38Sub:?
+Routine 0xac28 Action41Sub:?
+Routine 0xac48 Action39Sub:?
+Routine 0xac7c Action43Sub:?
+Routine 0xac90 Action40Sub:?
+Routine 0xacb0 Action45Sub:?
+Routine 0xacfc Action47Sub:?
+Routine 0xad04 Action44Sub:?
+Routine 0xad14 Action48Sub:?
+Routine 0xad1c Action144Sub:?
+Routine 0xad40 Action49Sub:?
+Routine 0xad54 Action50Sub:?
+Routine 0xad5c Action53Sub:?
+Routine 0xaeb8 Action54Sub:?
+Routine 0xaec4 Action55Sub:?
+Routine 0xaecc Action56Sub:?
+Routine 0xaf04 Action57Sub:?
+Routine 0xaf50 routine44880:?
+Routine 0xaf54 Action62Sub:?
+Routine 0xaf7c Action63Sub:?
+Routine 0xb044 Action64Sub:?
+Routine 0xb064 PreAction32Sub:?
+Routine 0xb08c Action32Sub:?
+Routine 0xb170 Action66Sub:?
+Routine 0xb280 routine45696:?
+Routine 0xb2cc Action42Sub:?
+Routine 0xb318 Action67Sub:?
+Routine 0xb330 PreAction70Sub:?
+Routine 0xb354 Action70Sub:?
+Routine 0xb35c Action71Sub:?
+Routine 0xb418 Action73Sub:?
+Routine 0xb464 PreAction68Sub:?
+Routine 0xb48c Action68Sub:?
+Routine 0xb4d0 Action79Sub:?
+Routine 0xb4e0 Action81Sub:?
+Routine 0xb528 Action83Sub:?
+Routine 0xb574 Action75Sub:?
+Routine 0xb588 Action65Sub:?
+Routine 0xb590 Action30Sub:?
+Routine 0xb598 Action87Sub:?
+Routine 0xb5a4 Action27Sub:?
+Routine 0xb5fc Action88Sub:?
+Routine 0xb610 Action89Sub:?
+Routine 0xb62c Action90Sub:?
+Routine 0xb668 Action85Sub:?
+Routine 0xb6d4 routine46804:?
+Routine 0xb748 Action76Sub:?
+Routine 0xb75c Action78Sub:?
+Routine 0xb77c Action92Sub:?
+Routine 0xb798 Action93Sub:?
+Routine 0xb7c8 Action82Sub:?
+Routine 0xb7ec PreAction95Sub:?
+Routine 0xb818 Action95Sub:?
+Routine 0xb860 PreAction66Sub:?
+Routine 0xb86c Action96Sub:?
+Routine 0xb87c Action101Sub:?
+Routine 0xb8a0 Action97Sub:?
+Routine 0xb8b4 Action99Sub:?
+Routine 0xba14 Action102Sub:?
+Routine 0xba1c Action100Sub:?
+Routine 0xba4c Action105Sub:?
+Routine 0xba54 Action106Sub:?
+Routine 0xba70 Action107Sub:?
+Routine 0xba7c Action109Sub:?
+Routine 0xba84 Action108Sub:?
+Routine 0xbab8 Action98Sub:?
+Routine 0xbadc Action110Sub:?
+Routine 0xbb2c Action51Sub:?
+Routine 0xbb38 Action114Sub:?
+Routine 0xbb4c routine47948:?
+Routine 0xbb60 Action31Sub:?
+Routine 0xbb9c Action94Sub:?
+Routine 0xbbcc Action115Sub:?
+Routine 0xbc70 Action116Sub:?
+Routine 0xbc98 Action117Sub:?
+Routine 0xbca8 Action52Sub:?
+Routine 0xbcb4 Action118Sub:?
+Routine 0xbcc0 Action120Sub:?
+Routine 0xbccc Action122Sub:?
+Routine 0xbcd4 Action123Sub:?
+Routine 0xbce8 Action124Sub:?
+Routine 0xbcf0 Action125Sub:?
+Routine 0xbcfc Action126Sub:?
+Routine 0xbd00 PreAction58Sub:?
+Routine 0xbda8 Action58Sub:?
+Routine 0xbea4 Action91Sub:?
+Routine 0xbeac Action150Sub:?
+Routine 0xbeb4 Action148Sub:?
+Routine 0xbebc Action61Sub:?
+Routine 0xbec4 Action59Sub:?
+Routine 0xbf14 Action60Sub:?
+Routine 0xbf4c Action151Sub:?
+Routine 0xbf54 Action127Sub:?
+Routine 0xbf5c Action111Sub:?
+Routine 0xbf68 PreAction103Sub:?
+Routine 0xbff8 Action103Sub:?
+Routine 0xc030 Action77Sub:?
+Routine 0xc03c Action33Sub:?
+Routine 0xc074 Action128Sub:?
+Routine 0xc0c8 Action129Sub:?
+Routine 0xc0e0 Action112Sub:?
+Routine 0xc0f4 Action80Sub:?
+Routine 0xc128 Action130Sub:?
+Routine 0xc144 Action186Sub:?
+Routine 0xc194 Action84Sub:?
+Routine 0xc1b0 Action131Sub:?
+Routine 0xc464 Action185Sub:?
+Routine 0xc480 routine50304:?
+Routine 0xc4c4 Action9Sub:?
+Routine 0xc5c0 routine50624:?
+Routine 0xc5d4 Action133Sub:?
+Routine 0xc618 Action72Sub:?
+Routine 0xc624 Action134Sub:?
+Routine 0xc694 Action168Sub:?
+Routine 0xc6b8 Action69Sub:?
+Routine 0xc6c4 Action135Sub:?
+Routine 0xc6e4 Action136Sub:?
+Routine 0xc720 Action137Sub:?
+Routine 0xc774 Action46Sub:?
+Routine 0xc7a4 Action139Sub:?
+Routine 0xc7e4 Action140Sub:?
+Routine 0xc7ec Action141Sub:?
+Routine 0xc804 Action142Sub:?
+Routine 0xc814 Action143Sub:?
+Routine 0xc854 Action145Sub:?
+Routine 0xc870 routine51312:?
+Routine 0xc894 Action146Sub:?
+Routine 0xc8b4 Action121Sub:?
+Routine 0xc8c0 Action138Sub:?
+Routine 0xc8cc Action147Sub:?
+Routine 0xc964 Action86Sub:?
+Routine 0xc980 Action159Sub:?
+Routine 0xc988 Action164Sub:?
+Routine 0xc994 Action152Sub:?
+Routine 0xc9e4 Action153Sub:?
+Routine 0xc9fc PreAction46Sub:?
+Routine 0xca24 Action181Sub:?
+Routine 0xca30 PreAction113Sub:?
+Routine 0xcb74 Action113Sub:?
+Routine 0xcb88 Action154Sub:?
+Routine 0xcbc8 Action155Sub:?
+Routine 0xcbfc Action157Sub:?
+Routine 0xcc08 PreAction156Sub:?
+Routine 0xcc18 Action156Sub:?
+Routine 0xcc94 Action158Sub:?
+Routine 0xcca8 Action160Sub:?
+Routine 0xccec Action161Sub:?
+Routine 0xcd14 Action162Sub:?
+Routine 0xcd88 Action163Sub:?
+Routine 0xcda0 Action165Sub:?
+Routine 0xcdb4 Action166Sub:?
+Routine 0xcdd4 PreAction31Sub:?
+Routine 0xcde4 Action167Sub:?
+Routine 0xcdf0 Action119Sub:?
+Routine 0xce00 Action169Sub:?
+Routine 0xce44 Action170Sub:?
+Routine 0xce4c Action171Sub:?
+Routine 0xce54 Action172Sub:?
+Routine 0xce7c Action132Sub:?
+Routine 0xceec Action74Sub:?
+Routine 0xd0d4 routine53460:?
+Routine 0xd164 Action37Sub:?
+Routine 0xd188 Action23Sub:?
+Routine 0xd1b4 Action173Sub:?
+Routine 0xd1dc Action174Sub:?
+Routine 0xd204 Action149Sub:?
+Routine 0xd240 Action177Sub:?
+Routine 0xd250 Action178Sub:?
+Routine 0xd258 Action179Sub:?
+Routine 0xd268 Action180Sub:?
+Routine 0xd270 Action182Sub:?
+Routine 0xd314 Action183Sub:?
+Routine 0xd328 routine54056:?
+Routine 0xd330 Action184Sub:?
+Routine 0xd358 routine54104:?
+Routine 0xd370 routine54128:?
+Routine 0xd388 routine54152:?
+Routine 0xd460 PreAction57Sub:?
+Routine 0xd538 routine54584:?
+Routine 0xd54c routine54604:?
+Routine 0xd56c routine54636:?
+Routine 0xd5b0 routine54704:?
+Routine 0xd674 routine54900:?
+Routine 0xd8d8 routine55512:?
+Routine 0xd90c routine55564:?
+Routine 0xd930 routine55600:?
+Routine 0xd964 routine55652:?
+Routine 0xd978 routine55672:?
+Routine 0xda24 routine55844:?
+Routine 0xda58 routine55896:?
+Routine 0xda98 routine55960:?
+Routine 0xdabc routine55996:?
+Routine 0xdb08 routine56072:?
+Routine 0xdb20 routine56096:?
+Routine 0xdb40 routine56128:?
+Routine 0xdb60 routine56160:?
+Routine 0xdb78 routine56184:?
+Routine 0xdb90 routine56208:?
+Routine 0xdbc8 routine56264:?
+Routine 0xdbf0 routine56304:?
+Routine 0xdc08 routine56328:?
+Routine 0xdc24 routine56356:?
+Routine 0xdc30 routine56368:?
+Routine 0xdc3c routine56380:?
+Routine 0xdc5c routine56412:?
+Routine 0xdc68 routine56424:?
+Routine 0xdc74 routine56436:?
+Routine 0xdc80 routine56448:?
+Routine 0xdc8c routine56460:?
+Routine 0xdc98 routine56472:?
+Routine 0xdcc0 routine56512:?
+Routine 0xdd54 routine56660:?
+Routine 0xdd64 routine56676:?
+Routine 0xdd78 routine56696:?
+Routine 0xdef4 routine57076:?
+Routine 0xdf1c routine57116:?
+Routine 0xdf30 routine57136:?
+Routine 0xdfc0 routine57280:?
+Routine 0xdffc routine57340:?
+Routine 0xe044 routine57412:?
+Routine 0xe05c routine57436:?
+Routine 0xe098 routine57496:?
+Routine 0xe26c routine57964:?
+Routine 0xe354 routine58196:?
+Routine 0xe378 routine58232:?
+Routine 0xe3f8 routine58360:?
+Routine 0xe588 routine58760:?
+Routine 0xe59c routine58780:?
+Routine 0xe644 routine58948:?
+Routine 0xe68c routine59020:?
+Routine 0xea6c routine60012:?
+Routine 0xeaa0 routine60064:?
+Routine 0xeae8 routine60136:?
+Routine 0xeaf4 routine60148:?
+Routine 0xeb60 routine60256:?
+Routine 0xeb78 routine60280:?
+Routine 0xebbc routine60348:?
+Routine 0xebe8 routine60392:?
+Routine 0xec14 routine60436:?
+Routine 0xec24 routine60452:?
+Routine 0xec50 routine60496:?
+Routine 0xeca4 routine60580:?
+Routine 0xecf0 routine60656:?
+Routine 0xed04 routine60676:?
+Routine 0xed28 routine60712:?
+Routine 0xed30 routine60720:?
+Routine 0xed44 routine60740:?
+Routine 0xed7c routine60796:?
+Routine 0xeda8 routine60840:?
+Routine 0xedd0 routine60880:?
+Routine 0xedfc routine60924:?
+Routine 0xee2c routine60972:?
+Routine 0xee48 routine61000:?
+Routine 0xee78 routine61048:?
+Routine 0xee8c routine61068:?
+Routine 0xeeb0 routine61104:?
+Routine 0xeef4 routine61172:?
+Routine 0xef50 routine61264:?
+Routine 0xf070 routine61552:?
+Routine 0xf184 routine61828:?
+Routine 0xf244 routine62020:?
+Routine 0xf2b4 routine62132:?
+Routine 0xfe58 routine65112:?
+Routine 0x10070 routine65648:?
+Routine 0x10584 routine66948:?
+Routine 0x105d0 routine67024:?
+Routine 0x1070c routine67340:?
+Routine 0x10710 routine67344:?
+Routine 0x10730 routine67376:?
+Routine 0x10878 routine67704:?
+Routine 0x10934 routine67892:?
+Routine 0x10958 routine67928:?
+Routine 0x109f4 routine68084:?
+Routine 0x10ab4 routine68276:?
+Routine 0x10ae0 routine68320:?
+Routine 0x10b1c routine68380:?
+Routine 0x10b30 routine68400:?
+Routine 0x10c8c routine68748:?
+Routine 0x10cc0 routine68800:?
+Routine 0x11020 routine69664:?
+Routine 0x11068 routine69736:?
+Routine 0x11140 routine69952:?
+Routine 0x112b8 routine70328:?
+Routine 0x112dc routine70364:?
+Routine 0x112fc routine70396:?
+Routine 0x11314 routine70420:?
+Routine 0x1137c routine70524:?
+Routine 0x113c8 routine70600:?
+Routine 0x11404 routine70660:?
+Routine 0x11428 routine70696:?
+Routine 0x1144c routine70732:?
+Routine 0x11510 routine70928:?
+Routine 0x11520 routine70944:?
+Routine 0x11578 routine71032:?
+Routine 0x115c0 routine71104:?
+Routine 0x115d8 routine71128:?
+Routine 0x11690 routine71312:?
+Routine 0x116cc routine71372:?
+Routine 0x1171c routine71452:?
+Routine 0x117b4 routine71604:?
+Routine 0x11840 routine71744:?
+Routine 0x11934 routine71988:?
+Routine 0x11958 routine72024:?
+Routine 0x11a78 routine72312:?
+Routine 0x11ae8 routine72424:?
+Routine 0x11c00 routine72704:?
+Routine 0x11c2c routine72748:?
+Routine 0x11d4c routine73036:?
+Routine 0x11e10 routine73232:?
+Routine 0x11e1c routine73244:?
+Routine 0x11e80 routine73344:?
+Routine 0x11eb0 routine73392:?
+Routine 0x11ec0 routine73408:?
+Routine 0x11f74 routine73588:?
+Routine 0x11fcc routine73676:?
+Routine 0x12074 routine73844:?
+Routine 0x120d8 routine73944:?
+Routine 0x12110 routine74000:?
+Routine 0x121ac routine74156:?
+Routine 0x121d4 routine74196:?
+Routine 0x121e4 routine74212:?
+Routine 0x121f0 routine74224:?
+Routine 0x12230 routine74288:?
+Routine 0x1229c routine74396:?
+Routine 0x122c0 routine74432:?
+Routine 0x12350 routine74576:?
+Routine 0x124b0 routine74928:?
+Routine 0x12524 routine75044:?
+Routine 0x125cc routine75212:?
+Routine 0x125dc routine75228:?
+Routine 0x12644 routine75332:?
+Routine 0x12684 routine75396:?
+Routine 0x12934 routine76084:?
+Routine 0x12968 routine76136:?
+Routine 0x12a4c routine76364:?
+Routine 0x12a60 routine76384:?
+Routine 0x12aa0 routine76448:?
+Routine 0x12ac4 routine76484:?
+Routine 0x12b14 routine76564:?
+Routine 0x12b3c routine76604:?
+Routine 0x12b54 routine76628:?
+Routine 0x12b60 routine76640:?
+Routine 0x12bec routine76780:?
+Routine 0x12d20 routine77088:?
+Routine 0x12d50 routine77136:?
+Routine 0x12f10 routine77584:?
+Routine 0x12fd4 routine77780:?
+Routine 0x130ec routine78060:?
+Routine 0x13194 routine78228:?
+Routine 0x13274 routine78452:?
+Routine 0x1341c routine78876:?
+Routine 0x13480 routine78976:?
+Routine 0x134a4 routine79012:?
+Routine 0x13510 routine79120:?
+Routine 0x13604 routine79364:?
+Routine 0x13614 routine79380:?
+Routine 0x13634 routine79412:?
+Routine 0x1389c routine80028:?
+Routine 0x13b1c routine80668:?
+Routine 0x13b80 routine80768:?
+Routine 0x13d08 routine81160:?
+Routine 0x13d30 routine81200:?
+Routine 0x13ff4 routine81908:?
+Routine 0x140cc routine82124:?
+Routine 0x148e4 routine84196:?
+Routine 0x14b28 routine84776:?
+Routine 0x14b7c routine84860:?
+Routine 0x14c48 routine85064:?
+Routine 0x14c90 routine85136:?
+Routine 0x14ccc routine85196:?
+Routine 0x14d90 routine85392:?
+Routine 0x14da0 routine85408:?
+Routine 0x14e14 routine85524:?
+Routine 0x14ecc routine85708:?
+Routine 0x14f80 routine85888:?
+Routine 0x1507c routine86140:?
+Routine 0x15108 routine86280:?
+Routine 0x1519c routine86428:?
+Routine 0x15240 routine86592:?
+Routine 0x1530c routine86796:?
+Routine 0x153f0 routine87024:?
+Routine 0x15548 routine87368:?
+Routine 0x1567c routine87676:?
+Routine 0x15694 routine87700:?
+Routine 0x157c8 routine88008:?
+Routine 0x15824 routine88100:?
+Routine 0x15830 routine88112:?
+Routine 0x1585c routine88156:?
+Routine 0x158ac routine88236:?
+Routine 0x15968 routine88424:?
+Routine 0x15a90 routine88720:?
+Routine 0x15ba8 routine89000:?
+Routine 0x15bd0 routine89040:?
+Routine 0x15c70 routine89200:?
+Routine 0x15cbc routine89276:?
+Routine 0x15d3c routine89404:?
+Routine 0x15f34 routine89908:?
+Routine 0x15f40 routine89920:?
+Routine 0x16168 routine90472:?
+Routine 0x16174 routine90484:?
+Routine 0x16294 routine90772:?
+Routine 0x162a8 routine90792:?
+Routine 0x164f0 routine91376:?
+Routine 0x16510 routine91408:?
+Routine 0x1658c routine91532:?
+Routine 0x165d0 routine91600:?
+Routine 0x1666c routine91756:?
+Routine 0x166e8 routine91880:?
+Routine 0x16704 routine91908:?
+Routine 0x16760 routine92000:?
+Routine 0x1678c routine92044:?
+Routine 0x167a8 routine92072:?
+Routine 0x16818 routine92184:?
+Routine 0x168f4 routine92404:?
+Routine 0x16994 routine92564:?
+Routine 0x16a68 routine92776:?
+Routine 0x16a9c routine92828:?
+Routine 0x16c24 routine93220:?
+Routine 0x16c4c routine93260:?
+Routine 0x16d38 routine93496:?
+Routine 0x16d44 routine93508:?
+Routine 0x16e78 routine93816:?
+Routine 0x170e4 routine94436:?
+Routine 0x17318 routine95000:?
+Routine 0x17388 routine95112:?
+Routine 0x17404 routine95236:?
+Routine 0x17440 routine95296:?
+Routine 0x17460 routine95328:?
+Routine 0x17480 routine95360:?
+Routine 0x174f0 routine95472:?
+Routine 0x17578 routine95608:?
+Routine 0x176c4 routine95940:?
+Routine 0x176f8 routine95992:?
+Routine 0x17700 routine96000:?
+Routine 0x177d4 routine96212:?
+Routine 0x178c0 routine96448:?
+Routine 0x178f8 routine96504:?
+Routine 0x179a0 routine96672:?
+Routine 0x17a2c routine96812:?
+Routine 0x17fb4 routine98228:?
+Routine 0x17fd0 routine98256:?
+Routine 0x18110 routine98576:?
+Routine 0x18150 routine98640:?
+Routine 0x18298 routine98968:?
+Routine 0x18328 routine99112:?
+Routine 0x18364 routine99172:?
+Routine 0x1838c routine99212:?
+Routine 0x184a8 routine99496:?
+Routine 0x185b8 routine99768:?
+Routine 0x18600 routine99840:?
+Routine 0x18700 routine100096:?
+Routine 0x18738 routine100152:?
+Routine 0x18740 routine100160:?
+Routine 0x1899c routine100764:?
+Routine 0x18a78 routine100984:?
+Routine 0x18ab4 routine101044:?
+Routine 0x18adc routine101084:?
+
+! ------------------------------- Words --------------------------------
+
+Word $cheat $cheat
+Word $debug $debug
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word appetizer appetizer
+Word aulderfoo aulderfoo
+Word bathysphe bathysphe
+Word battery- battery-
+Word beautiful beautiful
+Word blindling blindling
+Word blueprint blueprint
+Word bottomles bottomles
+Word certifica certifica
+Word comfortab comfortab
+Word conductor conductor
+Word deactivat deactivat
+Word dirigible dirigible
+Word disembark disembark
+Word downstair downstair
+Word drawbridg drawbridg
+Word eldablitz eldablitz
+Word encyclope encyclope
+Word everythin everythin
+Word excessive excessive
+Word execution execution
+Word extinguis extinguis
+Word fireplace fireplace
+Word foofoonap foofoonap
+Word forbiddin forbiddin
+Word four-glo four-glo
+Word frobozzic frobozzic
+Word fublitske fublitske
+Word hand-hol hand-hol
+Word harmonica harmonica
+Word hellhound hellhound
+Word inanimati inanimati
+Word incredibl incredibl
+Word inscripti inscripti
+Word inventory inventory
+Word iron-rei iron-rei
+Word irregular irregular
+Word jester's jester's
+Word landscape landscape
+Word magglebar magglebar
+Word monogramm monogramm
+Word mountains mountains
+Word newspaper newspaper
+Word nine-glo nine-glo
+Word north-so north-so
+Word northeast northeast
+Word northwest northwest
+Word nutcracke nutcracke
+Word oracle's oracle's
+Word overboard overboard
+Word paintings paintings
+Word parchment parchment
+Word pierpoint pierpoint
+Word portculli portculli
+Word portraits portraits
+Word proclamat proclamat
+Word quadruple quadruple
+Word quilbozza quilbozza
+Word quintuple quintuple
+Word reflectiv reflectiv
+Word repellent repellent
+Word reproduct reproduct
+Word seaman's seaman's
+Word sebastian sebastian
+Word self-por self-por
+Word shattered shattered
+Word southeast southeast
+Word southwest southwest
+Word spensewee spensewee
+Word staircase staircase
+Word stepladde stepladde
+Word stonewall stonewall
+Word stradivar stradivar
+Word superbrie superbrie
+Word t-square t-square
+Word telescope telescope
+Word transluce transluce
+Word tremendou tremendou
+Word undergrou undergrou
+Word underneat underneat
+Word unfriendl unfriendl
+Word ungnarled ungnarled
+Word unhealthy unhealthy
+Word weathered weathered
+Word zilbeetha zilbeetha
+

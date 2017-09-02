@@ -1,0 +1,1530 @@
+! ----------------------------------------------------
+!   Planetfall_37_851003.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  68E31F85AFDCADB00B42345336E2D6E7
+CodeArea  0x5664  0x15a94
+StringArea  0x15a94  0x1ab56
+
+Enum  rarg  M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_WAKE=4 M_FIGHT=5 M_BEFORE=6
+Enum  laser_ndx L_RED=1 L_ORANGE=2 L_YELLOW=3 L_GREEN=4 L_BLUE=5 L_VIOLET=6
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum ftype F_RED=1 F_BLUE=2 F_GREEN=3 F_YELLOW=4 F_GRAY=5 F_BROWN=6 F_BLACK=7 F_CLEAR1=8 F_CLEAR2=9
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global        0 location:object
+Global        1 score:int
+Global        2 turns:int
+GlobalArray   3 Microbe_laser:table(string)
+Global        4 Microbe_cnt:int
+Global        5 Microbe_shot:bool
+GlobalArray   6 Microbe_near:table(string)
+GlobalArray   7 Pseudopod_msg:table(string)
+GlobalArray   8 Laser_miss:table(string)
+Global        9 Speck_damage_cnt:int
+Global       10 Laser_scored:bool
+Global       11 Laser_fired:bool
+Global       12 Laser_warm_cnt:int
+Global       13 Newbattery_power:int
+Global       14 Oldbattery_power:int
+Global       15 Speck_is_hit:bool
+Global       16 Laser_color:laser_ndx
+Global       17 Microbe_gone:bool
+Global       18 Microbe_trapped:bool
+Global       19 Innard_msg:string
+Global       20 Mural_open:bool
+Global       21 Into_computer:bool
+Global       22 Miniaturization_on:bool
+Global       23 Faintrelay_msg:string
+Global       24 Emergency_sys_enabled:bool
+Global       25 Biolab_light:bool
+Global       26 Radiation_sickness:int
+GlobalArray  27 Alien_attack:table(string)
+Global       28 Mutant_location:object
+Global       29 Current_location:object
+Global       30 Monster_elevator_flag:bool
+Global       31 Monster_gallop_flag:bool
+Global       32 Floyd_trapped_cnt:int
+Global       33 Labdoor_open:bool
+Global       34 Floyd_gives_up_on_getting_card:bool
+Global       35 Floyd_ready_cnt:int
+Global       36 Floyd_plan_flag:bool
+Global       37 Door_close:string
+Global       38 Door_open:string
+Global       39 Relay_click:string
+Global       40 Floyd_has_looked_in_window:bool
+Global       41 Uniform_searched:bool
+Global       42 Floyd_computer_flag:bool
+Global       43 Escaped_from_monsters:bool
+Global       44 Floyd_sees_mural:bool
+Global       45 Gestation_msg:string
+Global       46 Helicopter_msg:string
+Global       47 Screen_msg:string
+Global       48 Spool_msg:string
+Global       49 Current_spool_msg:string
+Global       50 Starcross_msg:string
+Global       51 Deadline_msg:string
+Global       52 Zork_msg:string
+Global       53 Complex_msg:string
+Global       54 Plateau_msg:string
+Global       55 Origin_msg:string
+Global       56 Settlement_msg:string
+Global       57 Undersea_msg:string
+Global       58 Resida_msg:string
+Global       59 Primary_msg:string
+Global       60 Robot_msg:string
+Global       61 Spacetravel_msg:string
+Global       62 Farming_msg:string
+Global       63 Disease_msg:string
+Global       64 Recording_msg:string
+Global       65 History_msg:string
+Global       66 Literature_msg:string
+Global       67 Recent_msg:string
+Global       68 Archeology_msg:string
+Global       69 Legends_msg:string
+Global       70 Menu1:string
+Global       71 Menu2:string
+Global       72 Menu3:string
+Global       73 Menu4:string
+Global       74 Menu5:string
+Global       75 Menu6:string
+Global       76 Menu7:string
+Global       77 Low_msg:string
+Global       78 Moreinfo_msg:string
+Global       79 Clear_text_msg:string
+Global       80 Clear_next_menu:string
+Global       81 Terminal_feep:string
+Global       82 Displayed_on_terminal:string
+Global       83 Numpad_number:int
+Global       84 Fried_board:bool
+Global       85 Communications_active:bool
+Global       86 Planet_course_active:bool
+Global       87 Planetary_defense_active:bool
+Global       88 Floyd_found_fromitz:bool
+Global       89 Floyd_in_smallplace:bool
+Global       90 Achilles_found:bool
+Global       91 Lazarus_found:bool
+Global       92 Lawand_station_entered:bool
+Global       93 Hole_cnt:int
+Global       94 Liquid_type:int
+Global       95 Communications_repaired:bool
+Global       96 Coolant_imbalanced:bool
+GlobalArray  97 Hole_contents:table(?)
+Global       98 Coolant_flash:bool
+Global       99 Elevator_shut:string
+Global      100 Elevator_inactive:string
+Global      101 Lower_elevator_activated:bool
+Global      102 Upper_elevator_activated:bool
+Global      103 Elevator_on_way:bool
+Global      104 N_Elevator_here:bool
+Global      105 S_Elevator_here:bool
+GlobalArray 106 Floyd_msg:table(string)
+Global      107 Have_met_Floyd:bool
+Global      108 Floyd_turned_on:bool
+Global      109 Floyd_is_here:bool
+Global      110 Floyd_done_something:bool
+Global      111 Floyd_awakened:bool
+Global      112 Floyd_reveals_access_card:bool
+GlobalArray 113 Colors:table(string)
+Global      114 Fluid_type_in_flask:ftype
+Global      115 Under_spout:object
+Global      116 Ladder_spans_rift:bool
+Global      117 Ladder_extended:bool
+Global      118 Padlock_removed:bool
+Global      119 Combination:int
+Global      120 Current_setting:int
+Global      121 Time_spent_underwater:int
+GlobalArray 122 Yuks_table:table(string)
+GlobalArray 123 Ho_hum_table:table(string)
+GlobalArray 124 Hop_table:table(string)
+GlobalArray 125 Hello_table:table(string)
+Global      126 Transcript_msg:string
+Global      127 Max_held_mult:int
+Global      128 Maximum_held:int
+GlobalArray 129 Indents:array(6*string)
+Global      130 Day_number:int
+Global      131 Current_time:int
+Global      132 Lit:bool
+Global      133 Superbrief:bool
+Global      134 verbose:bool
+Global      135 P_xadjn
+Global      136 P_xadj
+Global      137 P_xnam:dictword
+Global      138 Ob_token
+Global      139 SnarfFlag:bool
+Global      140 P_ceptr
+Global      141 P_csptr
+Global      142 P_getflags:int
+Global      143 P_matchlen:int
+GlobalArray 144 P_oclause:array(50*int)
+GlobalArray 145 P_merge:array(50*int)
+GlobalArray 146 P_buts:array(50*int)
+GlobalArray 147 P_prsi:array(50*int)
+GlobalArray 148 P_prso:array(50*int)
+Global      149 P_adj
+Global      150 P_adjn:adjective
+Global      151 P_name:dictword
+Global      152 P_gwimbit:attribute0
+Global      153 P_slocbits:int
+Global      154 P_number:int
+Global      155 Direction
+Global      156 P_quote_flag:bool
+Global      157 P_ncn:int
+GlobalArray 158 P_vtbl:array(4*dictword)
+GlobalArray 159 P_otbl:array(10*int)
+GlobalArray 160 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+Global      161 P_aadj
+Global      162 P_anam
+Global      163 P_aclause:p_partsofspeech
+Global      164 P_merged:bool
+Global      165 P_oflag:int
+Global      166 Tmp_location
+Global      167 LastNounLocation:object
+Global      168 P_it_objectobject
+Global      169 P_cont
+GlobalArray 170 P_inbuf:array(~int,n*~char)
+GlobalArray 171 P_lexv:array(~int,~int,119*dictword)
+Global      172 player:object
+Global      173 P_dir:int
+Global      174 P_len
+Global      175 P_cctbl
+Global      176 P_syntax
+Global      177 P_oneobj
+Global      178 P_table
+Global      179 P_numnewlines:int
+Global      180 P_assigned_but_unused
+Global      181 P_assigned_but_unused2
+Global      182 noun:object
+Global      183 second:object
+Global      184 action:action
+Global      185 Have_noticed_sickness_today:bool
+Global      186 Sickness_level:int
+Global      187 Not_hungry:string
+Global      188 Hunger_cnt:int
+GlobalArray 189 Dream_msg:table(string)
+Global      190 Exhaustion_cnt:int
+Global      191 Blinking_lights:string
+Global      192 Shuttle_damaged_in_Bettie_Control:bool
+Global      193 Shuttle_damaged_in_Alfie_Control:bool
+Global      194 Shuttle_lever:int
+Global      195 Shuttle_inactive:string
+Global      196 Shuttle_active:string
+Global      197 Control_cabin:string
+Global      198 Already_activated:string
+Global      199 Shuttle_location:int
+Global      200 Shuttle_speed:int
+Global      201 Shuttle_activated:bool
+Global      202 Shuttle_moving:bool
+Global      203 SShuttle_at_Lawanda:bool
+Global      204 NShuttle_at_Lawanda:bool
+Global      205 Cant_go:string
+Global      206 Teleport_activated:bool
+Global      207 Floyd_shown_lower_elevator_card:bool
+Global      208 No_authorize:string
+Global      209 Elevator_enable:string
+Global      210 Time_underwater:int
+Global      211 Time_in_escapepod:int
+Global      212 Time_after_explosion:int
+GlobalArray 213 Ambassador_msg:table(string)
+Global      214 Slime_cnt:int
+Global      215 demerits:int
+Global      216 Time_away_from_post:int
+Global      217 Time_when_broken:int
+Global      218 Load_max:int
+Global      219 Lowest_direction:attribute
+Global      220 Obscure_time_related_variable:int
+Global      221 C_ints:int
+Global      222 C_ints2:int
+GlobalArray 223 C_table:array(60*(bool,?,^routine))
+Global      224 prev_second:object
+Global      225 prev_noun:object
+Global      226 prev_verb:action
+Global      227 P_won
+GlobalArray 228 Prepositions:table(dictword,int)
+GlobalArray 229 Actions:array(138*routine)
+GlobalArray 230 Preactions:array(138*routine)
+GlobalArray 231 Verbs:array(2*int)
+
+LastGlobal  231
+
+! ------------------------------- Arrays -------------------------------
+Array 0x2a1c brig_dir:array(12*int)
+Array 0x37b8 strip_near_relay_dir:array(12*int)
+Array 0x37a0 middle_of_strip_dir:array(12*int)
+Array 0x3788 strip_near_station_dir:array(12*int)
+Array 0x3770 station_384_dir:array(12*int)
+Array 0x3758 auxiliary_booth_dir:array(12*int)
+Array 0x3740 lab_office_dir:array(12*int)
+Array 0x3728 radiation_lab_dir:array(12*int)
+Array 0x3710 bio_lab_dir:array(12*int)
+Array 0x36f8 radiation_lock_east_dir:array(12*int)
+Array 0x36e0 radiation_lock_west_dir:array(12*int)
+Array 0x36c8 bio_lock_east_dir:array(12*int)
+Array 0x36b0 bio_lock_west_dir:array(12*int)
+Array 0x3698 lab_storage_dir:array(12*int)
+Array 0x3680 main_lab_dir:array(12*int)
+Array 0x3668 miniaturization_booth_dir:array(12*int)
+Array 0x3650 computer_room_dir:array(12*int)
+Array 0x3638 project_corridor_east_dir:array(12*int)
+Array 0x3620 cryo_anteroom_dir:array(12*int)
+Array 0x3608 cryo_elevator_dir:array(12*int)
+Array 0x35f0 projcon_office_dir:array(12*int)
+Array 0x35d8 project_corridor_dir:array(12*int)
+Array 0x35c0 sanfac_f_dir:array(12*int)
+Array 0x35a8 project_corridor_west_dir:array(12*int)
+Array 0x3590 library_dir:array(12*int)
+Array 0x3578 booth_3_dir:array(12*int)
+Array 0x3560 library_lobby_dir:array(12*int)
+Array 0x3548 course_control_dir:array(12*int)
+Array 0x3530 planetary_defense_dir:array(12*int)
+Array 0x3518 physical_plant_dir:array(12*int)
+Array 0x3500 systems_corridor_east_dir:array(12*int)
+Array 0x34e8 systems_corridor_dir:array(12*int)
+Array 0x34d0 systems_corridor_west_dir:array(12*int)
+Array 0x34b8 repair_room_dir:array(12*int)
+Array 0x34a0 infirmary_dir:array(12*int)
+Array 0x3488 fork_dir:array(12*int)
+Array 0x3470 escalator_dir:array(12*int)
+Array 0x3458 lawanda_platform_dir:array(12*int)
+Array 0x3440 kalamontee_platform_dir:array(12*int)
+Array 0x3428 waiting_area_dir:array(12*int)
+Array 0x3410 observation_deck_dir:array(12*int)
+Array 0x33d0 comm_room_dir:array(12*int)
+Array 0x33e8 communications_receive_console_dir:array(12*int)
+Array 0x33b8 helicopter_dir:array(12*int)
+Array 0x33a0 helipad_dir:array(12*int)
+Array 0x3388 tower_core_dir:array(12*int)
+Array 0x3370 booth_2_dir:array(12*int)
+Array 0x3358 lower_elevator_dir:array(12*int)
+Array 0x3340 upper_elevator_dir:array(12*int)
+Array 0x3328 elevator_lobby_dir:array(12*int)
+Array 0x3310 robot_shop_dir:array(12*int)
+Array 0x32f8 machine_shop_dir:array(12*int)
+Array 0x09 square_white_button_dir:array(12*int)
+Array 0x08 round_white_button_dir:array(12*int)
+Array 0x07 black_button_2_dir:array(12*int)
+Array 0x06 brown_button_dir:array(12*int)
+Array 0x05 gray_button_dir:array(12*int)
+Array 0x04 yellow_button_dir:array(12*int)
+Array 0x03 green_button_dir:array(12*int)
+Array 0x02 blue_button_2_dir:array(12*int)
+Array 0x01 red_button_3_dir:array(12*int)
+Array 0x32e0 tool_room_dir:array(12*int)
+Array 0x32c8 reactor_elevator_dir:array(12*int)
+Array 0x32b0 reactor_access_stairs_dir:array(12*int)
+Array 0x3298 reactor_control_dir:array(12*int)
+Array 0x3280 physical_plant_2_dir:array(12*int)
+Array 0x3268 storage_east_dir:array(12*int)
+Array 0x3250 mech_corridor_south_dir:array(12*int)
+Array 0x3238 mech_corridor_dir:array(12*int)
+Array 0x3220 mech_corridor_north_dir:array(12*int)
+Array 0x3208 large_office_dir:array(12*int)
+Array 0x31f0 small_office_dir:array(12*int)
+Array 0x31d8 transportation_supply_dir:array(12*int)
+Array 0x31c0 plan_room_dir:array(12*int)
+Array 0x31a8 systems_monitors_dir:array(12*int)
+Array 0x3190 sanfac_e_dir:array(12*int)
+Array 0x3178 admin_corridor_north_dir:array(12*int)
+Array 0x3160 admin_corridor_dir:array(12*int)
+Array 0x3148 admin_corridor_south_dir:array(12*int)
+Array 0x3130 corridor_junction_dir:array(12*int)
+Array 0x3118 kitchen_dir:array(12*int)
+Array 0x3100 mess_hall_dir:array(12*int)
+Array 0x30e8 dorm_corridor_dir:array(12*int)
+Array 0x30d0 storage_west_dir:array(12*int)
+Array 0x30b8 mess_corridor_dir:array(12*int)
+Array 0x30a0 sanfac_d_dir:array(12*int)
+Array 0x3088 dorm_d_dir:array(12*int)
+Array 0x3070 sanfac_c_dir:array(12*int)
+Array 0x3058 dorm_c_dir:array(12*int)
+Array 0x3040 sanfac_b_dir:array(12*int)
+Array 0x3028 dorm_b_dir:array(12*int)
+Array 0x3010 sanfac_a_dir:array(12*int)
+Array 0x2ff8 dorm_a_dir:array(12*int)
+Array 0x2fe0 rec_corridor_dir:array(12*int)
+Array 0x2fc8 booth_1_dir:array(12*int)
+Array 0x2fb0 conference_room_dir:array(12*int)
+Array 0x2f98 rec_area_dir:array(12*int)
+Array 0x2f80 plain_hall_dir:array(12*int)
+Array 0x2f68 west_wing_dir:array(12*int)
+Array 0x2f50 courtyard_dir:array(12*int)
+Array 0x2f38 winding_stair_dir:array(12*int)
+Array 0x2f20 balcony_dir:array(12*int)
+Array 0x2f08 crag_dir:array(12*int)
+Array 0x2ef0 underwater_dir:array(12*int)
+Array 0x2b24 betty_control_west_dir:array(12*int)
+Array 0x2b0c betty_control_east_dir:array(12*int)
+Array 0x2af4 shuttle_car_betty_dir:array(12*int)
+Array 0x2adc alfie_control_west_dir:array(12*int)
+Array 0x2ac4 alfie_control_east_dir:array(12*int)
+Array 0x2aac shuttle_car_alfie_dir:array(12*int)
+Array 0x2a94 escape_pod_dir:array(12*int)
+Array 0x2a7c deck_eight_dir:array(12*int)
+Array 0x2a64 gangway_dir:array(12*int)
+Array 0x2a4c reactor_lobby_dir:array(12*int)
+Array 0x2a34 deck_nine_dir:array(12*int)
+! ----------------------------- Attributes -----------------------------
+
+Attribute  2 floyd_explore
+Attribute  3 water_room
+Attribute  4 fits_under_spout
+Attribute  5 light
+Attribute  6 functional
+Attribute  7 vowel_start
+Attribute  8 scenery
+Attribute  9 transparent
+Attribute 10 scope_inside
+Attribute 11 open
+Attribute 12 worn
+Attribute 13 randomized
+Attribute 14 rmungbit
+Attribute 15 immune_to_acid
+Attribute 16 trytakebit
+Attribute 17 supporter
+Attribute 18 visited
+Attribute 19 concealed
+Attribute 20 toolbit
+Attribute 21 switchable
+Attribute 22 clothing
+Attribute 23 readable
+Attribute 24 container
+Attribute 25 takeable
+Attribute 26 door
+Attribute 27 edible
+Attribute 28 rmungbit
+Attribute 29 climbable
+Attribute 30 enterable
+Attribute 31 animate
+
+! ----------------------------- Properties -----------------------------
+
+Property 6  initial:thing
+Property 7  capacity:int
+Property 8  text_string:thing
+Property 9  contains:objbytes
+Property 10 c_move:^array
+Property 11  description:thing
+Property 12  adjectives:adjbytes
+Property 13  action:^routine(int,rarg)
+Property 14  pseudo:pseudo
+Property 15  size:int
+Property 16  initial2:^routine(int,rarg)
+Property 17  unused_prop:int
+Property 18  value:int
+Property 19  name:dictwords
+Property 20  out_to:exit
+Property 21  in_to:exit
+Property 22  d_to:exit
+Property 23  u_to:exit
+Property 24  nw_To:exit
+Property 25  w_to:exit
+Property 26  sw_to:exit
+Property 27  s_to:exit
+Property 28  se_to:exit
+Property 29  e_to:exit
+Property 30  ne_to:exit
+Property 31  n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1  mobile_man_eating_plant
+Object 2  lurking_fanged_creature
+Object 3  hairy_growling_biped
+Object 4  rat_ant
+Object 5  microbe
+Object 6  new_battery
+Object 7  old_battery
+Object 8  laser_setting_dial
+Object 9  laser
+Object 10  speck
+Object 11  micro_relay
+Object 12  Strip_Near_Relay
+Object 13  Middle_of_Strip
+Object 14  Strip_Near_Station
+Object 15  silicon_strip
+Object 16  Station_384
+Object 17  Auxiliary_Booth
+Object 18  red_button
+Object 19  black_button
+Object 20  white_button
+Object 21  memo
+Object 22  gas_mask
+Object 23  desk
+Object 24  Lab_Office
+Object 25  portable_lamp
+Object 26  brown_spool
+Object 27  Radiation_Lab
+Object 28  office_door
+Object 29  Bio_Lab
+Object 30  lab_door
+Object 31  Radiation_Lock_East
+Object 32  Radiation_Lock_West
+Object 33  lab_door_2
+Object 34  Bio_Lock_West
+Object 35  piece_of_paper
+Object 36  teleportation_access_card
+Object 37  lab_uniform
+Object 38  Lab_Storage
+Object 39  radiation_lock_door
+Object 40  bio_lock_door
+Object 41  Main_Lab
+Object 42  Bio_Lock_East
+Object 43  miniaturization_access_card
+Object 44  Miniaturization_Booth
+Object 45  pile_of_computer_output
+Object 46  Computer_Room
+Object 47  Project_Corridor_East
+Object 48  Cryo_Anteroom
+Object 49  Cryo_Elevator
+Object 50  cryo_elevator_door
+Object 51  ProjCon_Office
+Object 52  Project_Corridor
+Object 53  SanFac_F
+Object 54  Project_Corridor_West
+Object 55  microfilm_reader
+Object 56  terminal
+Object 57  Library
+Object 58  Booth_3
+Object 59  green_spool
+Object 60  Library_Lobby
+Object 61  fused_ninety_ohm_bedistor
+Object 62  large_metal_cube
+Object 63  Course_Control
+Object 64  fried_17_cm_fromitz_board
+Object 65  second_17_cm_fromitz_board
+Object 66  third_17_cm_fromitz_board
+Object 67  fourth_17_cm_fromitz_board
+Object 68  first_17_cm_fromitz_board
+Object 69  access_panel
+Object 70  Planetary_Defense
+Object 71  Physical_Plant
+Object 72  Systems_Corridor_East
+Object 73  Systems_Corridor
+Object 74  Systems_Corridor_West
+Object 75  shiny_17_cm_fromitz_board
+Object 76  small_doorway
+Object 77  broken_robot
+Object 78  Repair_Room
+Object 79  quantity_of_medicine
+Object 80  medicine_bottle
+Object 81  red_spool
+Object 82  medical_robot_breastplate
+Object 83  Infirmary
+Object 84  Fork
+Object 85  Escalator
+Object 86  Lawanda_Platform
+Object 87  Kalamontee_Platform
+Object 88  Waiting_Area
+Object 89  Observation_Deck
+Object 90  quantity_of_chemical_fluid
+Object 91  funnel_shaped_hole
+Object 92  screen
+Object 93  communication_send_console
+Object 94  glowing_button
+Object 95  communications_receive_console
+Object 96  Comm_Room
+Object 97  Helicopter
+Object 98  large_vehicle
+Object 99  Helipad
+Object 100  Tower_Core
+Object 101  Booth_2
+Object 102  red_button_2
+Object 103  blue_button
+Object 104  Lower_Elevator
+Object 105  Upper_Elevator
+Object 106  red_door
+Object 107  blue_door
+Object 108  Elevator_Lobby
+Object 109  mangled_robot
+Object 110  Floyd
+Object 111  Robot_Shop
+Object 112  square_white_button
+Object 113  round_white_button
+Object 114  black_button_2
+Object 115  brown_button
+Object 116  gray_button
+Object 117  yellow_button
+Object 118  green_button
+Object 119  blue_button_2
+Object 120  red_button_3
+Object 121  chemical_dispenser
+Object 122  Machine_Shop
+Object 123  pair_of_wide_nosed_pliers
+Object 124  curved_metal_bar
+Object 125  glass_flask
+Object 126  Tool_Room
+Object 127  button
+Object 128  Reactor_Elevator
+Object 129  Reactor_Access_Stairs
+Object 130  reactor_elevator_door
+Object 131  Reactor_Control
+Object 132  Physical_Plant_2
+Object 133  good_ninety_ohm_bedistor
+Object 134  K_series_megafuse
+Object 135  B_series_megafuse
+Object 136  cracked_17_cm_fromitz_board
+Object 137  cardboard_box
+Object 138  oil_can
+Object 139  Storage_East
+Object 140  Mech_Corridor_South
+Object 141  Mech_Corridor
+Object 142  Mech_Corridor_North
+Object 143  Large_Office
+Object 144  lower_elevator_access_card
+Object 145  large_desk
+Object 146  shuttle_access_card
+Object 147  upper_elevator_access_card
+Object 148  kitchen_access_card
+Object 149  small_desk
+Object 150  Small_Office
+Object 151  Transportation_Supply
+Object 152  Plan_Room
+Object 153  Systems_Monitors
+Object 154  SanFac_E
+Object 155  Admin_Corridor_North
+Object 156  rift
+Object 157  Admin_Corridor
+Object 158  key
+Object 159  crevice
+Object 160  Admin_Corridor_South
+Object 161  Corridor_Junction
+Object 162  protein_rich_liquid
+Object 163  canteen
+Object 164  dispenser_unit
+Object 165  Kitchen
+Object 166  door
+Object 167  Mess_Hall
+Object 168  Dorm_Corridor
+Object 169  ladder
+Object 170  tin_can
+Object 171  Storage_West
+Object 172  padlock
+Object 173  door_2
+Object 174  Mess_Corridor
+Object 175  SanFac_D
+Object 176  Dorm_D
+Object 177  SanFac_C
+Object 178  Dorm_C
+Object 179  SanFac_B
+Object 180  Dorm_B
+Object 181  SanFac_A
+Object 182  Dorm_A
+Object 183  Rec_Corridor
+Object 184  Booth_1
+Object 185  combination_dial
+Object 186  Conference_Room
+Object 187  door_3
+Object 188  Rec_Area
+Object 189  Plain_Hall
+Object 190  West_Wing
+Object 191  Courtyard
+Object 192  Winding_Stair
+Object 193  Balcony
+Object 194  Crag
+Object 195  Underwater
+Object 196  bed
+Object 197  Betty_Control_West
+Object 198  Betty_Control_East
+Object 199  Shuttle_Car_Betty
+Object 200  Alfie_Control_West
+Object 201  lever
+Object 202  Alfie_Control_East
+Object 203  door_4
+Object 204  Shuttle_Car_Alfie
+Object 205  shuttle_car
+Object 206  tan_button
+Object 207  beige_button
+Object 208  brown_button_2
+Object 209  slot
+Object 210  blob_of_green_goo
+Object 211  blob_of_brown_goo
+Object 212  blob_of_red_goo
+Object 213  survival_kit
+Object 214  towel
+Object 215  safety_web
+Object 216  Escape_Pod
+Object 217  brochure
+Object 218  piece_of_celery
+Object 219  alien_ambassador
+Object 220  Ensign_First_Class
+Object 221  Deck_Eight
+Object 222  Gangway
+Object 223  Reactor_Lobby
+Object 224  Patrol_uniform
+Object 225  ID_card
+Object 226  chronometer
+Object 227  scrub_brush
+Object 228  escape_pod
+Object 229  narrow_bulkhead
+Object 230  wide_bulkhead
+Object 231  escape_pod_bulkhead
+Object 232  Brig
+Object 233  not_here_object
+Object 234  you
+Object 235  Deck_Nine
+Object 236  cretin
+Object 237  sacred_act_of_sleeping
+Object 238  pair_of_hands
+Object 239  game
+Object 240  set_of_controls
+Object 241  doorway
+Object 242  light
+Object 243  shelf
+Object 244  table
+Object 245  ocean
+Object 246  cliff
+Object 247  window
+Object 248  floor
+Object 249  stairway
+Object 250  it_object
+Object 251  pseudo
+Object 252  number
+Object 253  Room_Holder
+Object 254  local_globals
+Object 255  global_objects
+
+! ------------------------------ Actions -------------------------------
+
+Action 0  Brief
+Action 1  Superbrief
+Action 2  Diagnose
+Action 3  Inventory
+Action 4  Quit
+Action 5  Restart
+Action 6  Restore
+Action 7  Save
+Action 8  Score
+Action 9  Script
+Action 10  Unscript
+Action 11  Verify
+Action 12  Version
+Action 13  Verbose
+Action 14  Random
+Action 15  Comm
+Action 16  Record
+Action 17  Unrecord
+Action 18  Again
+Action 19  Answer
+Action 20  AnswerObj
+Action 21  Insert
+Action 22  Attack
+Action 23  Board
+Action 24  Climb
+Action 25  ClimbOn
+Action 26  GoUp
+Action 27  EnterObj
+Action 28  GoDown
+Action 29  ClimbObj
+Action 30  Lay
+Action 31  PutDown
+Action 32  PutUnder
+Action 33  PutNear
+Action 34  PutAcross
+Action 35  Stand
+Action 36  StandOn
+Action 37  Close
+Action 38  Curse
+Action 39  Disembark
+Action 40  Drop
+Action 41  PutOn
+Action 42  Drink
+Action 43  DrinkFrom
+Action 44  Enter
+Action 45  Exit
+Action 46  Examine
+Action 47  LookIn
+Action 48  Find
+Action 49  BlastWith
+Action 50  Blast
+Action 51  Follow
+Action 52  Flush
+Action 53  Fly
+Action 54  Give
+Action 55  GiveReverse
+Action 56  Hello
+Action 57  Help
+Action 58  Jump
+Action 59  Kick
+Action 60  Kiss
+Action 61  Knock
+Action 62  Leave
+Action 63  Listen
+Action 64  Lock
+Action 65  Look
+Action 66  LookObj
+Action 67  LookUnder
+Action 68  LookBehind
+Action 69  LookDown
+Action 70  Search
+Action 71  Move
+Action 72  Raise
+Action 73  Lower
+Action 74  Aim
+Action 75  Pull
+Action 76  PullWith
+Action 77  Destroy
+Action 78  Open
+Action 79  OpenWith
+Action 80  Take
+Action 81  Play
+Action 82  PlayWith
+Action 83  Push
+Action 84  Wear
+Action 85  InsertWith
+Action 86  InsertOn
+Action 87  Molest
+Action 88  ReachIn
+Action 89  ReachFor
+Action 90  Read
+Action 91  Touch
+Action 92  Brush
+Action 93  Sleep
+Action 94  Shake
+Action 95  ShakeWith
+Action 96  Hop
+Action 97  Smell
+Action 98  StepIn
+Action 99  Swim
+Action 100  SwimTo
+Action 101  SwimUp
+Action 102  TakeOff
+Action 103  Remove
+Action 104  AskObj
+Action 105  AskFor
+Action 106  Grin
+Action 107  Salute
+Action 108  Tell
+Action 109  Say
+Action 110  Throw
+Action 111  ThrowOver
+Action 112  TurnWith
+Action 113  SwitchOn
+Action 114  SwitchOff
+Action 115  Turn
+Action 116  Type
+Action 117  Unlock
+Action 118  Wait
+Action 119  Wake
+Action 120  Go
+Action 121  WalkAround
+Action 122  WalkTo
+Action 123  Wave
+Action 124  Yell
+Action 125  Scold
+Action 126  Sneeze
+Action 127  Yes
+Action 128  No
+Action 129  Dunno
+Action 130  Pour
+Action 131  Empty
+Action 132  Repair
+Action 133  Grease
+Action 134  Show
+Action 135  Taste
+Action 136  Escape
+Action 137  Time
+
+! ------------------------------ Routines ------------------------------
+
+Routine  0x5664 PickOne tbl
+Routine  0x5674 Main
+Routine  0x581e Setup
+Routine  0x5840 CommandLoop icnt:bool ocnt:int num cnt obj:object tbl v:act_result ptbl:bool obj1:object tmp:bool tmpobj
+Routine  0x5af6 TestMetaVerb vrb:action
+Routine  0x5b22 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp objtmp indtmp
+Routine  0x5c24 InScope:object obj:object
+Routine  0x5c3c Queue:^array(bool) rtn:routine ticks:int cint
+Routine  0x5c50 QueueInterrupt:^array(bool) rtn:routine int2flag end c int
+Routine  0x5c8e Clocker c end tick:int flag:bool
+Routine  0x5d02 DebugOn UNUSED1 UNUSED2
+Routine  0x5d08 FloorAction
+Routine  0x5d72 WindowAction
+Routine  0x5f7a CliffAction
+Routine  0x5fd0 OceanAction
+Routine  0x6006 TableAction
+Routine  0x6096 ShelfAction
+Routine  0x60ca LightAction
+Routine  0x60fa DoorwayAction
+Routine  0x614c UseDirectionsPlease
+Routine  0x6166 NoClose
+Routine  0x6176 EscapeControlAction
+Routine  0x6256 GameAction
+Routine  0x6278 HandsAction
+Routine  0x62e0 SleepingAction
+Routine  0x62ec YouAction
+Routine  0x63e4 DescribeOpenOrClose obj:object
+Routine  0x63f6 AlreadyOpen
+Routine  0x6400 AlreadyClosed
+Routine  0x6408 EnterObjSub obj:object UNUSED
+Routine  0x6478 FindIn rm:object attr:attribute obj:object
+Routine  0x6492 Not_Here_Object_F:int obj:object ind_obj:object obj_set:object
+Routine  0x653c SetNounAndSecondObs:object obj:object obj2:object foundp:bool UNUSED
+Routine  0x657c Print_no_see obj:object ptr
+Routine  0x65be Deck9Action rarg:rarg
+Routine  0x666c WatchAction
+Routine  0x66d4 PrintTime
+Routine  0x6706 PatrolUniformAction
+Routine  0x690c GangwayAction rarg:rarg
+Routine  0x695c BlatherDaemon
+Routine  0x6c20 BlatherAction:int
+Routine  0x6dfc CeleryAction
+Routine  0x6e2c AmbassadorDaemon
+Routine  0x6fbe AlienAction:int
+Routine  0x7154 EscapePodAction
+Routine  0x7198 ExitEscapePod:object
+Routine  0x71d6 SafetyWebAction rarg:rarg
+Routine  0x7356 TowelAction
+Routine  0x7384 KitAction
+Routine  0x73d6 GooAction
+Routine  0x74c0 EscapePodRoomAction rarg:rarg
+Routine  0x7560 EscapeBulkheadAction
+Routine  0x7648 BulkheadAction
+Routine  0x768e ExplosionTimer
+Routine  0x7b4e EscapepodDaemon
+Routine  0x7f5c UnderwaterDaemon
+Routine  0x8016 SlotAction
+Routine  0x8276 FloydLikesAccessCards
+Routine  0x83cc KitchenRoomDaemon
+Routine  0x840c Teleport_to dest:object
+Routine  0x84c0 BrownButtonAction
+Routine  0x84c8 BeigeButtonAction
+Routine  0x84d0 TanButtonAction
+Routine  0x84d8 Teleport_off
+Routine  0x84f8 ShuttleCarAction
+Routine  0x857c ShuttleCabinAction rarg:rarg
+Routine  0x860a ShuttleControlAction rarg:rarg
+Routine  0x86ee LookOutShuttle
+Routine  0x877e Door4Action
+Routine  0x87cc EnterShuttle:object
+Routine  0x880a ExitShuttle:object
+Routine  0x8822 ActivateShuttle
+Routine  0x8966 ShuttleDeactivationTimer
+Routine  0x897c LeverAction
+Routine  0x8a88 ShuttleDaemon
+Routine  0x8b4a ShuttleMovement
+Routine  0x8c6c ShuttleDestination
+Routine  0x8d94 WearinessDaemon
+Routine  0x8fba BedAction rarg:rarg
+Routine  0x90f8 GotoSleep
+Routine  0x912a Dream
+Routine  0x9208 WakeUp obj:object nextitm:object
+Routine  0x9434 NewDayRoutines
+Routine  0x951e HungerDaemon
+Routine  0x9614 SickDaemon
+Routine  0x97e4 PseudoTranslatorSub:int
+Routine  0x9838 PseudoSlimeSub:int
+Routine  0x98e2 SlimeMsg sense_msg:string
+Routine  0x990c PseudoGraffitiSub:int
+Routine  0x99e0 PseudoDoorSub:int
+Routine  0x99f4 PseudoWalkwaySub:int
+Routine  0x9a2e PseudoBenchSub:int
+Routine  0x9a4a PseudoCatwalkSub:int
+Routine  0x9a6c PseudoEquipmentSub:int
+Routine  0x9ab4 PseudoMonitorSub:int
+Routine  0x9ac2 PseudoMuralSub:int
+Routine  0x9b8e PseudoLogoSub:int
+Routine  0x9bdc PseudoKeyboardSub:int
+Routine  0x9c08 PseudoCrackSub:int
+Routine  0x9c86 PseudoVoidSub:int
+Routine  0x9ce2 PseudoSpout2Sub:int
+Routine  0x9d16 PseudoToiletSub:int
+Routine  0x9d48 PseudoGamesSub:int
+Routine  0x9d94 PseudoTapesSub:int
+Routine  0x9e28 PseudoPartitionSub:int
+Routine  0x9e6a PseudoCubbyholeSub:int
+Routine  0x9eac PseudoMapsSub:int
+Routine  0x9ed2 PseudoDeviceSub:int
+Routine  0x9efe PseudoCablesSub:int
+Routine  0x9f3e PseudoStructureSub:int
+Routine  0x9f74 PseudoButton1Sub:int
+Routine  0xa0aa PseudoCarpetSub:int
+Routine  0xa0bc PseudoFilesSub:int
+Routine  0xa0e6 PseudoPlateSub:int
+Routine  0xa102 PseudoEscalatorSub:int
+Routine  0xa15a PseudoButton2Sub:int
+Routine  0xa190 PseudoSuppliesSub:int
+Routine  0xa1b0 PseudoDeskSub:int
+Routine  0xa1e4 PseudoButton3Sub:int
+Routine  0xa270 PseudoCastleSub:int
+Routine  0xa28c PseudoSpoutSub:int
+Routine  0xa2be PseudoCleftSub:int
+Routine  0xa2cc PseudoRubbleSub:int
+Routine  0xa2dc PseudoPlaqueSub:int
+Routine  0xa37a PseudoFenceSub:int
+Routine  0xa38c PseudoLockSub:int
+Routine  0xa3ba PseudoDiagramSub:int
+Routine  0xa3fc PseudoEnunciatorSub:int
+Routine  0xa40e PseudoBooth1Sub:int
+Routine  0xa430 PseudoBooth2Sub:int
+Routine  0xa452 Parser:bool ptr:p_lexv word:dictword val vrb:verbnum len:int dir nw:dictword tmpword num tcnt cnt:int
+Routine  0xa79e Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
+Routine  0xa7c4 Clause:int ptr val word:dictword off num flag:bool flag:bool wd:dictword tmpword cnt:int
+Routine  0xa9a8 ParseNumber:dictword ptr len nptr digit num clocknum mult
+Routine  0xaa0c Orphan_Merge cnt:int temp verb beg end adj:bool word:dictword UNUSED
+Routine  0xabaa NClauseWin otbl
+Routine  0xabd4 Word_Print cnt:int buf:int
+Routine  0xabea Unknown_Word ptr buf word
+Routine  0xac28 Cant_Use ptr buf word
+Routine  0xac68 Syntax_Check syn:int len num:int obj drive1:bool drive2:bool prep vrb:verbnum tmp attr:attribute0 lbit:attribute0
+Routine  0xae14 Cant_Orphan
+Routine  0xae36 Orphan d1 d2 cnt:int
+Routine  0xae92 Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool beginning
+Routine  0xaeac Buffer_Print beg:int end:int cp:bool nosp:bool wrd:dictword first:bool not_prefixed:bool ob:object
+Routine  0xaf2e Capitalize ptr word
+Routine  0xaf5a Prep_Print ndx:int prep:dictword
+Routine  0xaf6e Clause_Copy bptr:int eptr:int insrt beg end
+Routine  0xafd2 Clause_Add word:dictword len:int
+Routine  0xaff4 Prep_Find prep cnt len
+Routine  0xb01a Syntax_Found syn
+Routine  0xb026 GWim:object gbit:attribute lbit:attribute prep:int obj:object
+Routine  0xb082 Snarf_Objects ptr
+Routine  0xb0e4 But_Merge tbl len butlen cnt:int matches obj:object ntbl
+Routine  0xb132 Snarfem ptr eptr tbl but UNUSED wv word:dictword nw:dictword
+Routine  0xb29a TestAdj
+Routine  0xb2d4 Get_Object tbl:^array(int) vrb:bool bits len:int xbits tlen gcheck:bool tmp UNUSED
+Routine  0xb4b2 Moby_Find list rlist cnt:int
+Routine  0xb514 Which_Print num cnt:int list obj total:int
+Routine  0xb586 Global_Check tbl ptr rmg rmg_len cnt obj obits foo
+Routine  0xb65e Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
+Routine  0xb690 Search_List obj:object tbl lvl:p_searchlevels fls nobj:object
+Routine  0xb70e Obj_Found obj:object tbl ptr
+Routine  0xb72c Take_Check
+Routine  0xb748 ITake_Check tbl bits ptr obj:object taken:bool
+Routine  0xb7fc InLocation obj:object
+Routine  0xb81e ThingInPlayer itm:object
+Routine  0xb82e Many_Check loss:int tmp word
+Routine  0xb8b8 ZMemQ itm tbl size:int cnt:int
+Routine  0xb8e0 ZMemQB itm tbl size:int cnt:int
+Routine  0xb8f8 LitP room:object oldroom:object islit:bool
+Routine  0xb946 Prsi_Print ptr:^array(dictword)
+Routine  0xb96e This_It_P obj:object UNUSED syns UNUSED2
+Routine  0xb9bc VerboseSub:int
+Routine  0xb9da BriefSub:int
+Routine  0xb9f0 SuperbriefSub:int
+Routine  0xba0a LookSub:int
+Routine  0xba1e LookObjSub:int
+Routine  0xba66 FirstLook
+Routine  0xba78 PreExamineSub:int
+Routine  0xbab0 ExamineSub:int
+Routine  0xbafc Describe_Room look:bool v:bool text environment
+Routine  0xbbb4 Describe_Objects v:bool
+Routine  0xbbea DescribeOb obj:int v:bool beg end cp:bool nosp:bool wrd:dictword first:booil level text av
+Routine  0xbc9e PrintCont:int obj:object v:bool level:int itm:object first:bool environment:object text pv:bool inv:bool
+Routine  0xbdb2 Firster obj:object level:int
+Routine  0xbe0a Score_Obj obj:object
+Routine  0xbe26 ScoreSub:int wouldbe:bool
+Routine  0xbf80 AfterDeath resurrect_flag:bool noscore_flag:bool
+Routine  0xc0e0 QuitSub:int
+Routine  0xc142 YesOrNo
+Routine  0xc164 VersionSub offset:int offset
+Routine  0xc264 AgainSub:int obj:object
+Routine  0xc2ce JigsUp deathmsg:string UNUSED
+Routine  0xc300 RestoreSub:int
+Routine  0xc360 SaveSub:int
+Routine  0xc3b2 RestartSub:int
+Routine  0xc41c WalkAroundSub:int
+Routine  0xc424 WalkToSub:int
+Routine  0xc440 GoSub:int prop propsize:int str obj room dir:property ways_to_go:^array
+Routine  0xc540 InventorySub:int
+Routine  0xc55e PreTakeSub:int
+Routine  0xc5d8 TakeSub:int
+Routine  0xc5ea TakeItem
+Routine  0xc608 ITake:act_result vb:bool num_items itm:object weight
+Routine  0xc752 PrePutOnSub:int
+Routine  0xc77c InsertSub:int wt:int
+Routine  0xc852 InsertWithSub:int
+Routine  0xc85e PreGiveSub:int
+Routine  0xc86e PreGiveReverseSub:int
+Routine  0xc878 GiveSub:int
+Routine  0xc8b4 GiveReverseSub:int
+Routine  0xc8ba DropSub:int
+Routine  0xc8cc ThrowSub:int
+Routine  0xc8dc Idrop
+Routine  0xc920 OpenSub:int itm:object str:string
+Routine  0xc9d2 OpenWithSub:int
+Routine  0xc9ea PrintContents obj:object itm:object nextitm:object first:bool last_ob last_ob_flag:bool
+Routine  0xca3c CloseSub:int
+Routine  0xca8c CCount obj:object cnt:int x:object
+Routine  0xcaa0 QueryWeight obj:object cont:object wt:int
+Routine  0xcac8 ScriptSub:int
+Routine  0xcb26 UnscriptSub:int
+Routine  0xcb7c PreMoveSub:int
+Routine  0xcb96 MoveSub:int
+Routine  0xcbc2 SwitchOnSub:int
+Routine  0xcbee SwitchOffSub:int
+Routine  0xcc1e WaitSub turns:int
+Routine  0xcc30 PreBoardSub:int env:object
+Routine  0xcc76 BoardSub:int UNUSED
+Routine  0xcc96 DisembarkSub:int
+Routine  0xccf4 BackOnFeet
+Routine  0xcd0a StandSub:int
+Routine  0xcd30 Goto room:object v:bool env old_lit:bool
+Routine  0xcd7e DrinkSub:int
+Routine  0xcd9a DrinkFromSub itm:object
+Routine  0xcdd6 CurseSub:int
+Routine  0xcdf6 ListenSub:int
+Routine  0xce0c FollowSub:int
+Routine  0xce1e JumpSub:int
+Routine  0xce5e HopSub:int
+Routine  0xce6a LeaveSub:int
+Routine  0xce8a HelloSub:int
+Routine  0xced6 HelpSub:int
+Routine  0xcf24 PreReadSub:int
+Routine  0xcf40 ReadSub:int
+Routine  0xcf66 LookUnderSub:int
+Routine  0xcf86 LookBehindSub:int
+Routine  0xcf8e LookInSub:int
+Routine  0xd05c SeeInside obj:object
+Routine  0xd06c LookDownSub:int
+Routine  0xd076 TurnWithSub:int
+Routine  0xd082 LockSub:int
+Routine  0xd08a UnlockSub:int
+Routine  0xd092 AttackSub:int
+Routine  0xd0da KickSub:int
+Routine  0xd0e4 WaveSub:int
+Routine  0xd0ee TouchSub:int
+Routine  0xd0f8 PushSub:int
+Routine  0xd1cc NoButtonNumbered where:object
+Routine  0xd206 RaiseSub:int
+Routine  0xd210 LowerSub:int
+Routine  0xd21a PullSub:int
+Routine  0xd224 DestroySub:int
+Routine  0xd22e HackHack do_what:string
+Routine  0xd240 WordType obj:object word:dictword addr UNUSED
+Routine  0xd262 KnockSub:int
+Routine  0xd290 YellSub:int
+Routine  0xd2a2 BatteryFallsOut
+Routine  0xd2b2 ShakeSub itm:object
+Routine  0xd3b4 ShakeWithSub:int
+Routine  0xd3e2 SmellSub:int
+Routine  0xd3fa RoomContentsToScope env rm propaddr
+Routine  0xd418 SwimSub:int
+Routine  0xd458 SwimToSub:int
+Routine  0xd478 SwimUpSub:int
+Routine  0xd48e WakeSub:int
+Routine  0xd4a2 SneezeSub:int
+Routine  0xd4ae LaySub:int
+Routine  0xd50a PutDownSub:int
+Routine  0xd51e ClimbSub:int
+Routine  0xd526 ClimbOntoSub:int
+Routine  0xd546 ClimbObjSub:int
+Routine  0xd55c GoUpSub:int dir:property print_insult:bool UNUSED
+Routine  0xd588 GoDownSub:int
+Routine  0xd59a PrePutUnderSub:int
+Routine  0xd5b4 PutUnderSub:int
+Routine  0xd5c0 EnterSub:int
+Routine  0xd5c8 ExitSub:int
+Routine  0xd5d0 SearchSub:int
+Routine  0xd5e2 FindSub:int env:object
+Routine  0xd654 AskObjSub:int
+Routine  0xd732 AskForSub:int
+Routine  0xd77a SaySub:int who:object
+Routine  0xd7b0 TellSub:int
+Routine  0xd7ba AnswerSub:int
+Routine  0xd7d8 AnswerObjSub:int
+Routine  0xd800 KissSub:int
+Routine  0xd824 MolestSub:int
+Routine  0xd83c DiagnoseSub:int
+Routine  0xd936 WearSub:int
+Routine  0xd976 RemoveSub:int
+Routine  0xd98c TakeOffSub:int
+Routine  0xd9ca StepInSub:int
+Routine  0xd9e0 PutOnSub:int
+Routine  0xd9fa NoSub:int
+Routine  0xda0e YesSub:int
+Routine  0xda22 DunnoSub:int
+Routine  0xda36 AimSub:int
+Routine  0xda56 TurnSub:int
+Routine  0xdaba VerifySub:int
+Routine  0xdb0a CommSub:int
+Routine  0xdb10 RandomSub:int
+Routine  0xdb36 RecordSub:int
+Routine  0xdb3c UnrecordSub:int
+Routine  0xdb42 StandOnSub:int
+Routine  0xdb62 ReachInSub:int
+Routine  0xdb8c ReachForSub:int
+Routine  0xdbb8 GoDir dir:property
+Routine  0xdbc6 FlushSub:int
+Routine  0xdbd8 FlySub:int
+Routine  0xdbf4 GrinSub:int
+Routine  0xdc00 SaluteSub:int
+Routine  0xdc1a PutNearSub:int
+Routine  0xdc2c PullWithSub:int
+Routine  0xdc36 PutAcrossSub:int
+Routine  0xdc40 NumbersOnly
+Routine  0xdc6e TypeSub:int
+Routine  0xddca PreBlastWithSub:int
+Routine  0xddd4 PreBlastSub:int
+Routine  0xddfa BlastSub:int
+Routine  0xde32 BlastWithSub:int
+Routine  0xde38 BrushSub:int
+Routine  0xdea8 PourSub:int
+Routine  0xdf04 EmptySub itm:object
+Routine  0xdf52 ThrowOverSub:int
+Routine  0xdf6a SleepSub:int
+Routine  0xdfc2 RepairSub:int
+Routine  0xe01c GreaseSub:int
+Routine  0xe090 ShowSub:int
+Routine  0xe0e2 InsertOnSub:int
+Routine  0xe13c TasteSub:int
+Routine  0xe17e EscapeSub:int
+Routine  0xe1d6 TimeSub:int
+Routine  0xe206 PlaySub:int
+Routine  0xe21e PlayWithSub:int
+Routine  0xe246 ScoldSub:int
+Routine  0xe274 Rob what:object dest:object sib:object itm:object
+Routine  0xe292 SetPronoun it:object
+Routine  0xe29e PlaceThingsInScope object:object env:object
+Routine  0xe2e6 VisiblePForScopeReasons obj:object env:object
+Routine  0xe30a Article
+Routine  0xe318 AlreadyMSg what:string the_p:bool
+Routine  0xe336 NotHoldingMsg
+Routine  0xe348 TakeOffFirstMsg
+Routine  0xe360 CantSeeAnymore
+Routine  0xe36e FixedWithFont
+Routine  0xe37e NoFixedWithFont
+Routine  0xe390 UnderwaterAction rarg:rarg
+Routine  0xe3a6 CragAction rarg:rarg
+Routine  0xe3b2 BalconyAction rarg:rarg
+Routine  0xe516 WindingStairAction rarg:rarg
+Routine  0xe592 CourtyardAction rarg:rarg
+Routine  0xe688 DownFromBalcony:object
+Routine  0xe6ae RecAreaAction rarg:rarg
+Routine  0xe73a ConferenceAction rarg:rarg
+Routine  0xe79e CombinationAction
+Routine  0xe86c Door3Action
+Routine  0xe8ec MessCorridorAction rarg:rarg
+Routine  0xe964 Door2Action
+Routine  0xe9ee PadlockAction
+Routine  0xeb30 TinCanAction
+Routine  0xeb92 LadderAction
+Routine  0xee6c MessHallAction rarg:rarg
+Routine  0xeed0 DoorAction
+Routine  0xeef8 DispenserAction
+Routine  0xeff0 ProteinAction filled:bool
+Routine  0xf0d8 WorthlessAction
+Routine  0xf116 WalkLongHallway:object
+Routine  0xf174 AdminSouthAction rarg:rarg
+Routine  0xf1b8 CreviceAction
+Routine  0xf236 KeyAction
+Routine  0xf2e2 AdminCorridorAction rarg:rarg
+Routine  0xf3ce AdminNorthAction rarg:rarg
+Routine  0xf49c CrossLadder:object
+Routine  0xf510 RiftAction
+Routine  0xf5d2 MonitorsAction rarg:rarg
+Routine  0xf600 DescribeMonitors
+Routine  0xf76e DeskAction
+Routine  0xf790 OilCanAction
+Routine  0xf7d4 BoxAction
+Routine  0xf7e0 CrackedBoardAction
+Routine  0xf806 GoodBedistorAction
+Routine  0xf816 ReactorElevatorDoorAction
+Routine  0xf82a StartElevator
+Routine  0xf862 FlaskAction
+Routine  0xf8ea MagnetAction
+Routine  0xf9de MagnetDaemon
+Routine  0xfa4c MachineShopAction rarg:rarg
+Routine  0xfc2c ChemDispenseAction
+Routine  0xfc76 ButtonAction
+Routine  0xfde8 FloydAction:int floyd_has:object sib:object
+Routine 0x107b6 PointInFloydPresence
+Routine 0x107f6 WhatWereYouSaying
+Routine 0x10836 PointAtDoorAroundFloyd
+Routine 0x10882 FloydDoesntHave
+Routine 0x10898 FloydActivated itm:object
+Routine 0x109ba FloydDaemon
+Routine 0x10d06 MeetFloyd
+Routine 0x10d6e FloydArrives
+Routine 0x10e68 DeadFloydAction
+Routine 0x10f0c LobbyAction rarg:rarg
+Routine 0x10fe2 UpperElevatorAction rarg:rarg
+Routine 0x11074 LowerElevatorAction rarg:rarg
+Routine 0x110c0 IntoElevator:object
+Routine 0x110ea OutOfElevator:object
+Routine 0x11118 BlueDoorAction
+Routine 0x11154 RedDoorAction
+Routine 0x111ce DoorIsClosed
+Routine 0x111d8 BlueButtonAction
+Routine 0x1123e RedButton2Action
+Routine 0x11292 NorthElevatorComingTimer
+Routine 0x112c2 SouthElevatorComingTimer
+Routine 0x112f6 SButtonAction
+Routine 0x113de LowerElevatorArrives
+Routine 0x113fc UpperElevatorArrives
+Routine 0x1141a NorthElevatorTimer
+Routine 0x11440 SouthElevatorTimer
+Routine 0x11466 ElevatorDoorOpens
+Routine 0x11476 VehicleAction
+Routine 0x114d4 CommAction rarg:rarg
+Routine 0x1175c CoolantDaemon
+Routine 0x11772 GlowingButtonAction
+Routine 0x1189a CheckBalance cnt:int rnd:int in_hole1 in_hole2 
+Routine 0x118f8 FluidAction
+Routine 0x11cbe CubeDamage
+Routine 0x11cde Chemical_overflow
+Routine 0x11d08 StripDissolves
+Routine 0x11d12 CoolantImbalance
+Routine 0x11d4a MoreSetup
+Routine 0x11d72 EnterLowerElevator:object
+Routine 0x11d88 KalamonteeAction rarg:rarg
+Routine 0x11e62 LawandaAction rarg:rarg
+Routine 0x11f38 InfirmaryAction rarg:rarg
+Routine 0x12068 RedSpoolAction
+Routine 0x12094 MedicineAction relocated:bool
+Routine 0x1215e SmallDoorAction
+Routine 0x121ee FloydOrderedIn
+Routine 0x122de FromitzShinyAction
+Routine 0x12316 DefenseAction rarg:rarg
+Routine 0x123c6 AccessPanelAction
+Routine 0x12490 FriedFromitzAction
+Routine 0x124b8 FromitzBoardAction
+Routine 0x12526 DescribeFromitz
+Routine 0x1257a FromitzFits
+Routine 0x12594 FromitzShock
+Routine 0x125be CourseControlAction rarg:rarg
+Routine 0x126b0 CubeAction
+Routine 0x1277e Bedistor90Action
+Routine 0x127e6 GreenSpoolAction
+Routine 0x12812 TerminalAction
+Routine 0x1291e ComputerInfo
+Routine 0x12cee MicrofilmAction
+Routine 0x12e52 ProjConAction rarg:rarg
+Routine 0x12f68 CryoElevatorAction rarg:rarg
+Routine 0x12f9e CryoElevator_n_dir:object
+Routine 0x12fb0 CryoElevatorTimer
+Routine 0x12fcc CryoAnteAction rarg:rarg
+Routine 0x137dc FloydExaminesComputer
+Routine 0x1386c OutputAction
+Routine 0x13a3c MiniatureAccessAction
+Routine 0x13a62 LabUniformAction
+Routine 0x13b74 PaperAction
+Routine 0x13bb2 BioLockAction rarg:rarg
+Routine 0x13dfc FloydWindowTimer  
+Routine 0x13e02 LabDoor2Action
+Routine 0x13f44 LabdoorCloses
+Routine 0x13f78 BiolockDoorAction
+Routine 0x13fb8 BiodoorCloses
+Routine 0x13fec LabDoorAction
+Routine 0x14020 RadiationLockAction
+Routine 0x14054 FloydHeroDaemon
+Routine 0x1453a MonstersCatchYou
+Routine 0x14544 BioLabAction rarg:rarg
+Routine 0x1464c MonstersDaemon
+Routine 0x14730 RadiationLabAction rarg:rarg
+Routine 0x1474a RadiationDaemon
+Routine 0x147f4 LampAction
+Routine 0x14848 LabOfficeAction rarg:rarg
+Routine 0x149d0 LargeDeskAction
+Routine 0x14a5c WhiteButtonAtion
+Routine 0x14a74 BlackButtonAction
+Routine 0x14a8c RedButtonAction
+Routine 0x14abe MistTimer
+Routine 0x14b40 ActivateMiniature
+Routine 0x14b6c Station384Action:int rarg:rarg
+Routine 0x14bf8 CryoAnnouncement
+Routine 0x14c5c MiddleStripAction rarg:rarg
+Routine 0x14dda StripAction rarg:rarg
+Routine 0x14ebe MicroRelay_Go
+Routine 0x14f14 RelayAction
+Routine 0x14fda LaserDialAction
+Routine 0x15070 BatteryDrain
+Routine 0x15088 LaserAction UNUSED
+Routine 0x15400 BatteryAlreadyThere
+Routine 0x15410 BatteryInserted
+Routine 0x1543a LaserHeatDaemon
+Routine 0x154b6 LaserFeels howhot:string
+Routine 0x154e6 LaserCools howhot:string
+Routine 0x15508 Show_color
+Routine 0x15544 SpeckShot
+Routine 0x156ae Sector384Active
+Routine 0x156c0 MicrobeAction:int
+Routine 0x157e2 GiantMicrobeDaemon
+Routine 0x15886 ShootMicrobe
+Routine 0x158cc SiliconStripAction
+Routine 0x1598e FangedCreatureAction
+
+! ------------------------------- Words --------------------------------
+
+Word  achill  achilles
+Word  activa  activate
+Word  admira  admiral
+Word  affirm  affirmative
+Word  agains  against
+Word  alumin  aluminum
+Word  ambass  ambassador
+Word  attrac  attract
+Word  bedist  bedistur
+Word  benche  benches
+Word  blathe  blather
+Word  blinki  blinking
+Word  boulde  boulder
+Word  brandi  brandish
+Word  breast  breastplate
+Word  brochu  brochure
+Word  bulkhe  bulkhead
+Word  cabine  cabinet
+Word  cantee  canteen
+Word  cardbo  cardboard
+Word  catwal  catwalk
+Word  centim  centimeter
+Word  chemic  chemical
+Word  chrono  chronometer
+Word  circul  circular
+Word  collap  collapse
+Word  colore  colored
+Word  combin  combine
+Word  commun  communication
+Word  compan  companion
+Word  compar  compartment
+Word  comple  complex
+Word  comput  computer
+Word  confer  conference
+Word  consol  console
+Word  contro  control
+Word  cracke  cracked
+Word  creatu  creature
+Word  crevic  crevice
+Word  cubbyh  cubbyhole
+Word  darkne  darkness
+Word  dazzli  dazzling
+Word  deform  deformed
+Word  depres  depression
+Word  descri  describe
+Word  destro  destroy
+Word  diagno  diagnose
+Word  diagra  diagram
+Word  disemb  disembark
+Word  dispat  dispatch
+Word  dispen  dispenser
+Word  doorwa  doorway
+Word  elevat  elevator
+Word  emerge  emergency
+Word  endles  endless
+Word  enunci  enunciator
+Word  equipm  equipment
+Word  escala  escalator
+Word  examin  examine
+Word  experi  experimental
+Word  fixtur  fixture
+Word  flashi  flashing
+Word  forewa  foreward
+Word  forwar  forward
+Word  fromit  fromitz
+Word  fungic  fungical
+Word  gangwa  gangway
+Word  gestur  gesture
+Word  glowin  glowing
+Word  graffi  graffiti
+Word  growli  growling
+Word  helico  helicopter
+Word  identi  identify
+Word  import  important
+Word  impuri  impurity
+Word  invent  inventory
+Word  keyboa  keyboard
+Word  kitche  kitchen
+Word  lanter  lantern
+Word  lazaru  lazarus
+Word  leafle  leaflet
+Word  length  lengthen
+Word  lubric  lubricate
+Word  lurkin  lurking
+Word  machin  machine
+Word  medica  medical
+Word  medici  medicine
+Word  megafu  megafuse
+Word  megakr  megakrap
+Word  messag  message
+Word  microb  microbe
+Word  microf  microfilm
+Word  miniat  miniature
+Word  monito  monitor
+Word  monste  monster
+Word  multip  multiple
+Word  negati  negative
+Word  octago  octagon
+Word  openin  opening
+Word  padloc  padlock
+Word  pamphl  pamphlet
+Word  partit  partition
+Word  plasti  plastic
+Word  playba  playback
+Word  portab  portable
+Word  possib  possible
+Word  powerf  powerful
+Word  precip  precipice
+Word  primar  primary
+Word  printo  printout
+Word  procee  proceed
+Word  protei  protein
+Word  provis  provisions
+Word  purpos  purpose
+Word  quanti  quantity
+Word  radiat  radiation
+Word  rankin  ranking
+Word  reacto  reactor
+Word  receiv  receive
+Word  reclin  recline
+Word  releas  release
+Word  restar  restart
+Word  restor  restore
+Word  rummag  rummage
+Word  scrubb  scrubber
+Word  scrubr  scrubrush
+Word  settin  setting
+Word  sevent  seventh
+Word  shelve  shelves
+Word  shorte  shorten
+Word  shuttl  shuttle
+Word  silico  silicon
+Word  sinist  sinister
+Word  smithe  smithers
+Word  stairw  stairway
+Word  starbo  starboard
+Word  startl  startle
+Word  struct  structure
+Word  superb  superbrief
+Word  suppli  supplies
+Word  surpri  surprise
+Word  surviv  survival
+Word  swallo  swallow
+Word  telepo  teleportation
+Word  termin  terminal
+Word  throug  through
+Word  transl  translator
+Word  trotti  trotting
+Word  unifor  uniform
+Word  unopen  unopened
+Word  unscri  unscript
+Word  vehicl  vehicle
+Word  verbos  verbose
+Word  versio  version
+Word  viciou  vicious
+Word  viewpo  viewport
+Word  walkwa  walkway
+Word  warnin  warning
+Word  webbin  webbing
+Word  wrinkl  wrinkled
+Word  wristw  wristwatch
+

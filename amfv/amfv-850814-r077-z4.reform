@@ -1,0 +1,1947 @@
+! ----------------------------------------------------
+!   AMFV_77_850814.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  c9c0b36e7b3a93acd5174169d91d793f
+CodeArea  0xcb00  0x39129
+StringArea  0x3912c  0x3ff80
+FalseEnd  0x35b88  1
+
+Enum    month_const JAN=1 FEB=2 MAR=3 APR=4 MAY=5 JUN=6 JUl=7 AUG=8 SEP=9 OCT=10 NOV=11 DEC=12
+Enum    order_const ARRIVED=1 WAITING=2 WAITING_FOR_PAYMENT=4 EATEN=6
+
+Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_SEVEN=7 M_EIGHT=8 M_NINE=9 OTHER=100
+
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global        1 Report_reviewed_str:string
+Global        5 Year_is_2071:bool
+Global        8 Month:month_const
+Global       10 Jill_is_gracious_str:string
+Global       15 P_slocbits:int
+Global       17 Year_is_2081:bool
+Global       23 Clock_wait:bool
+Global       28 global28:bool
+GlobalArray  30 C_table:array(25*(int,^routine))
+Global       35 Unable_to_parse_str:string
+Global       39 Go_to_comm_outlet_str:string
+Global       41 Real_life_year:int
+Global       44 Contact_ack_str:string
+Global       45 Must_leave_str:string
+Global       51 No_refer_str:string
+Global       53 No_go_str:string
+Global       54 Mugging_msg_str:string
+Global       56 WWN_str:string
+Global       60 No_exit_str:string
+Global       65 Current_fiscal_year_str:string
+Global       68 Desc_of_view_str:string
+Global       70 No_kill_str:string
+Global       73 Weather_forecast_str:string
+Global       75 C_ints:int
+GlobalArray  76 P_lexv:array(~int,~int,119*dictword)
+Global       77 Looks_like_str:string
+Global       78 Tobacco_str:string
+Global       79 Already_closed_str:string
+Global       80 Stinky_str:string
+Global       86 Restaurant_counter:order_const
+Global       88 Bartender_angry_str:string
+Global       91 noun:object
+Global       99 Fountain_str:string
+Global      100 Stools_str:string
+Global      106 Technical_difficulties_str:string
+Global      111 Year_is_2051:bool
+Global      113 Day_number:int
+Global      118 action:action
+Global      119 Already_are_str:string
+Global      123 Message_over_line_str:string
+Global      124 Money_in_bank:int
+Global      125 Enter_comm_mode_str:string
+Global      129 Day_of_month:int
+GlobalArray 133 P_inbuf:array(~int,n*~char)
+Global      134 Sports_str:string
+Global      135 Get_more_data_str:string
+Global      136 Not_holding_str:string
+Global      144 location:object
+Global      145 Gates_locked_str:string
+Global      146 Top_stories_str:string
+Global      149 Already_open_str:string
+Global      152 Look_around_str:string
+GlobalArray 153 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+Global      154 Time_of_day:int
+Global      155 Cannot_execute_str:string
+Global      156 P_quote_flag:bool
+Global      158 Joke_not_funny_str:string
+Global      162 Tubecar_str:string
+Global      168 Year_is_2061:bool
+Global      171 Simulation_Year:int
+Global      172 P_oflag:bool
+Global      177 ALI_building_str:string
+Global      179 Perel_private_str:string
+Global      180 No_ticket_str:string
+Global      181 Baby_to_crub_str:string
+GlobalArray 183 Tasks_to_record:array(18*string)
+Global      184 Symphony_closed_str:string
+Global      193 Active_light_str:string
+Global      196 Boarded_over_str:string
+Global      199 Dogs_closer_cnt:int
+Global      202 Change_agents_str:string
+Global      204 River_desc_str:string
+Global      209 Chun_buld_str:string
+Global      212 Good_score_str:string
+Global      213 Current_directory:object
+Global      218 Current_file:object
+Global      219 Silicorp_str:string
+Global      220 P_ncn:int
+Global      221 Desk_desc_str:string
+Global      223 Unactive_func_str:string
+Global      224 Current_newsfeed:object
+GlobalArray 226 Actions:array(176*routine)
+GlobalArray 227 Preactions:array(176*routine)
+Global      228 Verbs:^array
+LastGlobal  228 
+
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute   19  worn
+Attribute   20  switchable
+Attribute   21  edible
+Attribute   22  drinkable
+Attribute   23  global
+Attribute   24  key
+Attribute   25  door
+Attribute   26  UNUSED
+Attribute   30  open
+Attribute   31  readable
+Attribute   33  on
+Attribute   34  vowel_start
+Attribute   35  animate
+Attribute   38  openable
+Attribute   39  vehicle
+Attribute   40  clothing
+Attribute   41  takeable
+Attribute   43  plural
+Attribute   46  outside
+
+! ----------------------------- Properties -----------------------------
+
+Property     38 msg_header:array(4*int)
+Property     39 living:routine
+Property     41 capacity:int
+Property     45 read_text:thing
+Property     46 short_name:string
+Property     48 preaction:routine
+Property     49 description:thing
+Property     50 size:int
+Property     51 adjectives:dictwords
+Property     52 name:dictwords
+Property     54 action:^routine(int,rarg)
+Property     55 contains:objwords
+Property     56 nw_to:exit
+Property     57 w_to:exit
+Property     58 sw_to:exit
+Property     59 s_to:exit
+Property     60 se_to:exit
+Property     61 e_to:exit
+Property     62 ne_to:exit
+Property     63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1  Rockvil_University
+Object 2  City_Dump
+Object 3  park
+Object 4  dawn
+Object 5  annex
+Object 6  Symphony_Hall
+Object 7  HVAC_CONTROLLER
+Object 8  red_sign
+Object 9  heating
+Object 10  your_hands
+Object 11  Parkview_Apartments
+Object 12  easel
+Object 13  dining_room
+Object 14  Tube_Station
+Object 15  key
+Object 16  crime
+Object 17  email_psych_test
+Object 18  Post_Office
+Object 19  post_office
+Object 20  Ezzis_Bar
+Object 21  hotel
+Object 22  stadium
+Object 23  Tubecar
+Object 24  Rockvil_Reformatory
+Object 25  River_and_Park
+Object 26  ration_card
+Object 27  Heiman_World
+Object 28  turtle
+Object 29  Fyla
+Object 30  Stadium_Lot_B
+Object 31  books
+Object 32  Liquor_Store
+Object 33  LIST_TTD
+Object 34  door
+Object 35  counter
+Object 36  railroad_bridge
+Object 37  headstones
+Object 38  Halley_Museum
+Object 39  mallard_duck
+Object 40  Factory_Entrance
+Object 41  sign
+Object 42  sink
+Object 43  terminal
+Object 44  RESIGNATION_LETTER
+Object 45  Communications_Mode
+Object 46  credit_card
+Object 47  yourself
+Object 48  ham_sandwich
+Object 49  Main_Street_Bridge
+Object 50  Serf_Housing
+Object 51  Aquarium_and_Park
+Object 52  Bodanski_Square
+Object 53  map
+Object 54  door_2
+Object 55  vacant_lot_obj
+Object 56  power_station
+Object 57  Tubecar_2
+Object 58  Emily_Warren
+Object 59  unnamed_3
+Object 60  the_Plan
+Object 61  card_catalog
+Object 62  bag_of_groceries
+Object 63  Kitchen
+Object 64  JANITORIAL_CONTROLLER
+Object 65  interchange
+Object 66  couch
+Object 67  sign_2
+Object 68  Elm_and_River
+Object 69  floors
+Object 70  evening_rush_hour_start
+Object 71  Dining_Room
+Object 72  woman
+Object 73  cemetery
+Object 74  soup
+Object 75  protrusions
+Object 76  lawn
+Object 77  den
+Object 78  Aquarium_and_River
+Object 79  drugs
+Object 80  beta_sector
+Object 81  Vacant_Lot
+Object 82  Zoo
+Object 83  Room_Holder
+Object 84  Main_and_Church
+Object 85  Railroad_Museum
+Object 86  billiards
+Object 87  snack
+Object 88  PRISM_NAME
+Object 89  museum
+Object 90  Power_Station_Entrance
+Object 91  red_tubecar
+Object 92  interstate_highway
+Object 93  firecopter
+Object 94  headset
+Object 95  Special_Report_buffer
+Object 96  PRISM_Facility_Cafeteria
+Object 97  IRS_Auditing_System
+Object 98  railroad_yard
+Object 99  MOUNT_TAKEOVER
+Object 100  office
+Object 101  Bookstore
+Object 102  library
+Object 103  water_tower
+Object 104  dryers
+Object 105  it
+Object 106  Eleanor_Fortzman
+Object 107  local_globals
+Object 108  gate
+Object 109  Huang_Hall
+Object 110  your_head
+Object 111  resignation
+Object 112  your_parents
+Object 113  chair
+Object 114  PRISM_MESSAGES
+Object 115  morning_rush_hour_end
+Object 116  sweater
+Object 117  toy_duck
+Object 118  Metropolitan_Traffic_Computer
+Object 119  police_officer
+Object 120  music
+Object 121  Halley_and_University
+Object 122  Dental_School
+Object 123  church_elder
+Object 124  Pier
+Object 125  field
+Object 126  Drug_Store
+Object 127  report
+Object 128  duck_pond
+Object 129  ticket_seller
+Object 130  Dr__Perelmans_Office
+Object 131  auditorium
+Object 132  noon
+Object 133  Patio
+Object 134  unnamed_7
+Object 135  entertainment_center
+Object 136  Train_Station_room
+Object 137  service_station
+Object 138  kitchen
+Object 139  play
+Object 140  Airportway_and_River
+Object 141  it_2
+Object 142  card
+Object 143  Halley_Estates
+Object 144  spaceport
+Object 145  liquor
+Object 146  undefined
+Object 147  email_plan_adopted
+Object 148  scarf
+Object 149  Skycar_Lot
+Object 150  skylight
+Object 151  Base_Gate
+Object 152  sky
+Object 153  racks_of_fashionable_clothes
+Object 154  globals
+Object 155  prison
+Object 156  soup_kitchen
+Object 157  drivers_license
+Object 158  alpha_sector
+Object 159  University_Heights
+Object 160  brown_tubecar
+Object 161  it_3
+Object 162  overcoat
+Object 163  graffiti
+Object 164  Stock_Exchange
+Object 165  High_School
+Object 166  Tube_Station_2
+Object 167  criminal
+Object 168  Dr__Grimwold
+Object 169  church
+Object 170  Bar_room
+Object 171  bookstore
+Object 172  wall
+Object 173  Library_Mode
+Object 174  unnamed_13
+Object 175  Skycar_Lot_2
+Object 176  Park_Underpass
+Object 177  zoo
+Object 178  vibramat
+Object 179  National_Weather_Center_Computer
+Object 180  Living_Room
+Object 181  Construction_Site3
+Object 182  clothes
+Object 183  smoke
+Object 184  statue
+Object 185  morning_rush_hour_start
+Object 186  window
+Object 187  Elm_and_Kennedy
+Object 188  dried_up_fountain
+Object 189  Skycar_Lot_3
+Object 190  skycopter
+Object 191  pedestal
+Object 192  skycars
+Object 193  decoder
+Object 194  tub
+Object 195  Laundromat
+Object 196  ALI_Building
+Object 197  PRISM_INTERFACES
+Object 198  machinery
+Object 199  movie
+Object 200  Clave
+Object 201  skybus
+Object 202  cooling
+Object 203  brown_tubecar_doors
+Object 204  Skycar_Lot_4
+Object 205  train_tracks
+Object 206  cages
+Object 207  air_conditioning_unit
+Object 208  homework
+Object 209  children
+Object 210  Stadium_Lot_A
+Object 211  WNN_FEEDER
+Object 212  stack_of_papers
+Object 213  Aquarium
+Object 214  clerkmaton
+Object 215  airport_gate
+Object 216  Skycar_Factory
+Object 217  Heiman_Village
+Object 218  tenement
+Object 219  apartment
+Object 220  desk
+Object 221  Southway_and_Park
+Object 222  RYDER_SPEECHES
+Object 223  Maintenance_Core
+Object 224  painting
+Object 225  window_2
+Object 226  supermarket
+Object 227  Elm_and_University
+Object 228  pen
+Object 229  refrigerator
+Object 230  building
+Object 231  midnight
+Object 232  library_account
+Object 233  Heiman_World2
+Object 234  factory
+Object 235  Solarium
+Object 236  statue_2
+Object 237  reservoir
+Object 238  Airport_Entrance
+Object 239  Tube_Station_3
+Object 240  List_of_Active_Ports
+Object 241  sunroom
+Object 242  Dr__Perelman
+Object 243  Jail_Cell
+Object 244  Halley_and_Park
+Object 245  bathrooms
+Object 246  exhibits
+Object 247  Hospital_Annex
+Object 248  partition
+Object 249  red_tubecar_doors
+Object 250  AUDITING_SYSTEM
+Object 251  PLAN_ELEMENTS
+Object 252  derricopter
+Object 253  street_bridge
+Object 254  Alyson_Price
+Object 255  old_Chinese_man
+Object 256  strip_joint_advertisement
+Object 257  Pool_Hall
+Object 258  Interface_Mode
+Object 259  newspaper_dispenser
+Object 260  roof
+Object 261  skycab
+Object 262  Industrial_Park_Drive
+Object 263  plastalloy_beams
+Object 264  Police_Station
+Object 265  glossy_pamphlet
+Object 266  Wells_Theatre
+Object 267  Dunbars
+Object 268  campus
+Object 269  Main_and_River
+Object 270  table
+Object 271  fish
+Object 272  jukebox
+Object 273  Mitchell
+Object 274  dormitory
+Object 275  Simons
+Object 276  Bend
+Object 277  record_buffer
+Object 278  Construction_Site
+Object 279  Industrial_Park_Entrance
+Object 280  terrace
+Object 281  Rockvil_Centre
+Object 282  Church_bldg
+Object 283  ticket
+Object 284  Tube_Station_4
+Object 285  delta_sector
+Object 286  banner
+Object 287  mailbox
+Object 288  warehouse
+Object 289  apple
+Object 290  list_of_communication_outlets
+Object 291  River_Street_Bridge
+Object 292  Church_Street_Apartments
+Object 293  romance_novel
+Object 294  pool_table
+Object 295  people
+Object 296  gamma_sector
+Object 297  crib
+Object 298  undefined_2
+Object 299  fence
+Object 300  Church_Street_Park_room
+Object 301  rectory_obj
+Object 302  cup_of_coffee
+Object 303  Foyer
+Object 304  hospital
+Object 305  Stock_Exchange_2
+Object 306  Power_Station
+Object 307  Jill
+Object 308  bleachers
+Object 309  email_come_for_psych_test
+Object 310  bed
+Object 311  school
+Object 312  unshaven_man
+Object 313  Dump_Entrance
+Object 314  auditing_percentage
+Object 315  Simulation_Mode
+Object 316  marquee
+Object 317  Perez_Towers
+Object 318  Centre_and_Kennedy
+Object 319  Zoo_Entrance
+Object 320  room
+Object 321  alley
+Object 322  Symphony_Entrance
+Object 323  train_station
+Object 324  Skycab
+Object 325  soy_patty
+Object 326  hardware_store
+Object 327  unnamed_19
+Object 328  PRISM_Project_staff_member
+Object 329  granola_cluster
+Object 330  Pickford_Theatre
+Object 331  Firehouse
+Object 332  it_4
+Object 333  electronic_logic_game
+Object 334  directory
+Object 335  crate
+Object 336  bottle_of_cheap_scotch
+Object 337  Wells_Theatre_2
+Object 338  Hardware_Store
+Object 339  Vera_Gold
+Object 340  WNN_Feeder
+Object 341  City_Hall
+Object 342  Courthouse
+Object 343  Terminal
+Object 344  World_News_Network_Feed
+Object 345  Warehouse
+Object 346  Tube_Station_5
+Object 347  wallet
+Object 348  Main_Library
+Object 349  Southway_and_River
+Object 350  firearm
+Object 351  Gun_Shop
+Object 352  can_of_soda
+Object 353  terminal_2
+Object 354  lamp_post
+Object 355  Wicker_and_River
+Object 356  Tenement
+Object 357  CURRENT_EVENTS
+Object 358  lounge
+Object 359  Row_Houses
+Object 360  hardware
+Object 361  dusk
+Object 362  email_irs_audit
+Object 363  Tenement_2
+Object 364  PERELMAN_PERSONAL
+Object 365  boarding_platform
+Object 366  bar
+Object 367  souvenir
+Object 368  pool_hall
+Object 369  Tube_Station_6
+Object 370  plaque
+Object 371  Dorm
+Object 372  construction_site_obj
+Object 373  Elm_and_Park
+Object 374  classroom
+Object 375  Tenement_3
+Object 376  shelves
+Object 377  Huang_Hall_2
+Object 378  Service_Station
+Object 379  terminal_3
+Object 380  liquor_2
+Object 381  WEATHER_COMPUTER
+Object 382  Master_Bedroom
+Object 383  Symphony_Hall_2
+Object 384  note
+Object 385  living_room
+Object 386  email_come_see_perelman
+Object 387  bathroom
+Object 388  Parkview_Apartments_2
+Object 389  slot
+Object 390  magazine_article
+Object 391  river_bank
+Object 392  PLAN_DATA
+Object 393  Aquarium_Underpass
+Object 394  Janitorial_Controller
+Object 395  Kitchen_2
+Object 396  store
+Object 397  washers
+Object 398  Rockvil_Stadium
+Object 399  movie_theatre
+Object 400  undefined_3
+Object 401  vest
+Object 402  hallway
+Object 403  drug_store
+Object 404  office_2
+Object 405  restaurant
+Object 406  Athletic_Field
+Object 407  rotating_functions
+Object 408  Bedroom
+Object 409  Bath
+Object 410  Heiman_Village_2
+Object 411  email_wnnf
+Object 412  rack
+Object 413  mug_of_beer
+Object 414  Den
+Object 415  tote_bag
+Object 416  Warehouse
+Object 417  floodlight
+Object 418  row_of_memory_banks
+Object 419  ventilation
+Object 420  stairs
+Object 421  Rockvil_Mall
+Object 422  barking
+Object 423  Tube_Station_7
+Object 424  blanket
+Object 425  seat
+Object 426  newspaper
+Object 427  bureau
+Object 428  bank
+Object 429  label
+Object 430  blackened_timbers
+Object 431  Cemetery
+Object 432  River_and_Kennedy
+Object 433  vegetable_salad
+Object 434  lecture_hall
+Object 435  tool
+Object 436  terminals
+Object 437  Elm_Underpass
+Object 438  joybooth
+Object 439  unnamed_24
+Object 440  police_station
+Object 441  Water_Tower
+Object 442  BSF_base
+Object 443  Skycar_Lot_5
+Object 444  parking_lot
+Object 445  industrial_park
+Object 446  Closed_Factory
+Object 447  red_button
+Object 448  Midland_and_Church
+Object 449  stool
+Object 450  shower_stall
+Object 451  list_of_titles
+Object 452  conversation
+Object 453  water
+Object 454  stone
+Object 455  day
+Object 456  ground
+Object 457  maintenance_workers
+Object 458  Burned_out_Area
+Object 459  Skycar_Lot_6
+Object 460  it_5
+Object 461  manta_ray
+Object 462  library_unit
+Object 463  receiver_station
+Object 464  student_union
+Object 465  pier
+Object 466  PLAN_POPULARITY
+Object 467  Southway_Underpass
+Object 468  cafeteria
+Object 469  Rectory
+Object 470  Riverside_Park
+Object 471  The_Wizard_of_Oz
+Object 472  Tube_Station_8
+Object 473  number
+Object 474  garbage_disposal
+Object 475  bottle_of_baby_formula
+Object 476  Cinema
+Object 477  Bathroom
+Object 478  Riverside_Cultural_Center
+Object 479  Skycar_Lot_7
+Object 480  sleep
+Object 481  Silver_Dove
+Object 482  alarm
+Object 483  magazine
+Object 484  Bar
+Object 485  Research_Center_Rooftop
+Object 486  Pickford_Theatre_2
+Object 487  control_center
+Object 488  Tube_station
+Object 489  ceiling
+Object 490  government_official
+Object 491  entrance
+Object 492  Stadium_Lot_C
+Object 493  SIMULATION_CONTROLLER
+Object 494  PLAN_CRITICISMS
+Object 495  Church_Street_City
+Object 496  table_2
+Object 497  Rockvil
+Object 498  current_feed
+Object 499  your_buzzer
+Object 500  word_processor
+Object 501  Southway_and_Kennedy
+Object 502  Bank
+Object 503  picturephone
+Object 504  Midland_and_River
+Object 505  Senator_Richard_Ryder
+Object 506  sack
+Object 507  mindex
+Object 508  HVAC_Controller
+Object 509  Foodville
+Object 510  your_name
+Object 511  prostitute
+Object 512  Sleep_Mode
+Object 513  baby
+Object 514  Main_and_Kennedy
+Object 515  Veldran_Hotel
+Object 516  health_center
+Object 517  Construction_Site2
+Object 518  tank
+Object 519  Alley
+Object 520  courthouse
+Object 521  undefined_4
+Object 522  BSF_FORMATION
+Object 523  the_stands
+Object 524  rolling_countryside
+Object 525  menu
+Object 526  Esther_Perelman
+Object 527  University_Heights_2
+Object 528  Main_and_Wicker
+Object 529  cafeteria_2
+Object 530  river
+Object 531  tunnel
+Object 532  Dunbars_2
+Object 533  townhouse
+Object 534  Student_Union
+Object 535  Street_by_Vacant_Lot
+Object 536  Interchange
+Object 537  toilet
+Object 538  Roys_Pagoda
+Object 539  PRISM_Project_Control_Center
+Object 540  fireplace
+Object 541  atrium
+Object 542  Hall_Near_Your_Apartment
+Object 543  City_Hall_2
+Object 544  InfoTech_Building
+Object 545  pile_of_mold
+Object 546  animal
+Object 547  waste
+Object 548  road
+Object 549  viewscreen
+Object 550  mall
+Object 551  The_Coachman
+Object 552  Aseejh_Randu
+Object 553  bench
+Object 554  milkshake
+Object 555  bookstore_2
+Object 556  bin_of_spare_parts
+Object 557  bedroom
+Object 558  spaceport_gate
+Object 559  BSF_guard
+Object 560  liquor_store
+Object 561  Simulation_Controller
+Object 562  Guest_Room
+Object 563  ramp
+Object 564  Wicker_and_Pier
+Object 565  WNN_Feeder_transmitter
+Object 566  dinette_set
+Object 567  World_News_buffer
+Object 568  Silicorp_Building
+Object 569  fire_station
+Object 570  firetruck
+Object 571  door_3
+Object 572  Joybooth
+Object 573  Foodville_2
+Object 574  email_introduction
+Object 575  door_4
+Object 576  turkey_sandwich
+Object 577  Lecture_Hall
+Object 578  Halley_Park_West
+Object 579  TRAFFIC_COMPUTER
+Object 580  evening_rush_hour_end
+Object 581  Living_Room_2
+Object 582  waterpool
+Object 583  your_mailbox
+Object 584  Aquarium_and_Kennedy
+Object 585  vent
+Object 586  gun_shop
+Object 587  TAX_STUDY
+Object 588  LIBYAN_ECONOMY
+Object 589  Halley_Park_East
+Object 590  bamboo_screen
+Object 591  undefined_5
+Object 592  rusty_cross
+Object 593  night
+Object 594  Rav_and_Frita
+Object 595  email_please_enter_sim_mode
+Object 596  National_Guardsman
+Object 597  desk_2
+Object 598  dirty_dishes
+Object 599  Colonial_Hotel
+Object 600  buzzer
+Object 601  glass
+Object 602  Skybus_Terminal
+Object 603  activity_offices
+Object 604  Hospital
+Object 605  food
+Object 606  office_building
+Object 607  garbage_dump
+Object 608  Aquarium_2
+Object 609  Museum_Entrance
+
+! ------------------------------ Actions -------------------------------
+
+Action    0 Verbose
+Action    1 Brief
+Action    2 Superbrief
+Action    3 Diagnose
+Action    4 Inventory
+Action    5 Quit
+Action    6 Restart
+Action    7 Restore
+Action    8 Save
+Action    9 Script
+Action   10 Unscript
+Action   11 Version
+Action   12 Verify
+Action   13 DEBUG_Refre
+Action   14 RandomSet
+Action   15 Command
+Action   16 DebugRecord
+Action   17 DEBUG_Unrecord
+Action   18 Abort
+Action   19 AbortObject
+Action   20 Answer
+Action   21 AnswerTo
+Action   22 Approach
+Action   23 AskAbout
+Action   24 AskFor
+Action   25 AskPersonFor
+Action   26 Fight
+Action   26 KnockDown
+Action   27 Bite
+Action   28 ClimbIn
+Action   28 SleepOn
+Action   29 Buy
+Action   30 PayForWith
+Action   31 Call
+Action   32 Climb
+Action   33 ClimbOn
+Action   34 ClimbUp
+Action   35 ClimbDown
+Action   36 ClimbOver
+Action   37 ClimbThrough
+Action   38 Close
+Action   39 SwitchOff
+Action   40 SwitchOffFor
+Action   41 SwitchOffObjObj
+Action   42 Comfort
+Action   43 Count
+Action   44 Cover
+Action   45 Traverse
+Action   46 Weep
+Action   47 Cut
+Action   48 Dance
+Action   49 Date
+Action   50 Destroy
+Action   51 Dig
+Action   52 ExitFrom
+Action   53 PlaceOn
+Action   54 Drink
+Action   55 DrinkFrom
+Action   56 Drop
+Action   57 SlideIn
+Action   58 Eat
+Action   59 Enter
+Action   60 Exit
+Action   61 Examine
+Action   62 LookIn
+Action   63 LookFor
+Action   64 List
+Action   65 ExhibitTo
+Action   66 ExibitObjObj
+Action   67 Feed
+Action   68 Give
+Action   69 GiveReverse
+Action   70 Fill
+Action   71 Flush
+Action   72 Follow
+Action   73 HangOn
+Action   74 Listen
+Action   75 Hello
+Action   76 Hint
+Action   77 Hide
+Action   78 Hold
+Action   79 HoldUp
+Action   79 Rob
+Action   80 JumpOver
+Action   81 Kick
+Action   82 Kiss
+Action   83 Knock
+Action   84 Leave
+Action   85 LieOn
+Action   86 Activate
+Action   87 Lock
+Action   88 Look
+Action   89 LookDown
+Action   90 LookUp
+Action   91 LookUnder
+Action   92 LookBehind
+Action   93 LookObj
+Action   94 Lower
+Action   95 MACO
+Action   96 Pull
+Action   97 FlipWith
+Action   97 Set
+Action   98 Sleep
+Action   99 No
+Action  100 Open
+Action  101 PayFor
+Action  102 PCAF
+Action  103 PEOF
+Action  104 Pick
+Action  105 RemoveFrom
+Action  106 Play
+Action  107 PlayWith
+Action  108 Point
+Action  109 Pour
+Action  110 PPCC
+Action  111 Pray
+Action  112 Press
+Action  113 PutUnder
+Action  114 PutAway
+Action  115 Wear
+Action  116 PlaceBehind
+Action  117 Raise
+Action  118 Rape
+Action  119 RCRO
+Action  120 ReachIn
+Action  121 Read
+Action  122 Record
+Action  123 RecordOff
+Action  124 Doff
+Action  125 Report
+Action  126 Roff
+Action  127 Tell
+Action  128 Talk
+Action  129 Search
+Action  130 Shake
+Action  131 ShakeWith
+Action  132 Shoot
+Action  133 ShootAt
+Action  134 SitOn
+Action  135 SitNext
+Action  136 Cavort
+Action  137 Smell
+Action  138 Smile
+Action  139 Squeeze
+Action  140 Stand
+Action  141 StandOn
+Action  142 StartFar
+Action  143 StartObjObj
+Action  144 Status
+Action  145 Swim
+Action  146 Flip
+Action  147 TakeOff
+Action  148 TellAbout
+Action  149 Thank
+Action  150 Throw
+Action  151 ThrowwOff
+Action  152 Tie
+Action  153 Time
+Action  154 Touch
+Action  155 Broadcast
+Action  156 Unlock
+Action  157 Unattach
+Action  158 Wait
+Action  159 WaitFor
+Action  160 WaitUntil
+Action  161 Awaken
+Action  162 Go
+Action  163 GoDir
+Action  164 WalkOut
+Action  165 GoUnder
+Action  166 Clean
+Action  167 WaveObject
+Action  168 Wave
+Action  169 Who
+Action  170 What
+Action  170 WhatIs
+Action  171 Where
+Action  172 WhoIs
+Action  173 WNNF
+Action  174 Write
+Action  175 Scream
+Action  176 Yes
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0xcb00 routine51968 local1 local2 local3 local4
+Routine 0xcb28 routine52008 local1 local2
+Routine 0xcb40 routine52032 local1 local2 local3
+Routine 0xcb60 routine52064 local1 local2 local3 local4 local5 local6
+Routine 0xcbb0 PrintNumber num:int
+Routine 0xcbd4 DescribeObject obj:object
+Routine 0xcc38 Main
+Routine 0xcd1c routine52508 local1
+Routine 0xcd28 routine52520 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12
+Routine 0xcf94 routine53140 local1 local2 local3 local4
+Routine 0xd010 routine53264 local1 local2
+Routine 0xd084 routine53380 local1 local2 local3 local4 local5 local6 local7
+Routine 0xd170 DoAction:thing msg:string act:thing flag:bool rvalue:thing
+Routine 0xd190 Queue:^array(bool) rtn:routine ticks:int cint
+Routine 0xd1a4 QueueInterrupt:^array(bool) rtn:routine end c intr
+Routine 0xd1fc Clocker c end tick rtn:routine flag:bool
+Routine 0xd260 routine53856 local1 local2 local3
+Routine 0xd628 routine54824
+Routine 0xd648 ChangeFont msg:string
+Routine 0xd6f4 routine55028
+Routine 0xd700 routine55040 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14
+Routine 0xdd88 routine56712 local1 local2 local3 local4 local5 local6
+Routine 0xdde0 routine56800 local1 local2 local3 local4 local5 local6
+Routine 0xde30 routine56880 local1 local2 local3Routine 0xde48 routine56904 local1 local2 local3 local4 local5 local6 local7
+Routine 0xdea8 routine57000 local1 local2 local3 local4 local5
+Routine 0xded0 routine57040 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10
+Routine 0xe0b8 routine57528 local1 local2 local3 local4 local5 local6 local7
+Routine 0xe13c routine57660 local1 local2 local3 local4 local5 local6 local7 local8
+Routine 0xe330 routine58160 local1 local2
+Routine 0xe364 routine58212
+Routine 0xe384 Word_Print cnt:int buf:int
+Routine 0xe39c Unknown_Word:bool ptr buf wd:dictword
+Routine 0xe3e4 Cant_Use ptr buf wd
+Routine 0xe438 Syntax_Check syn:int len:int local3 local4 local5 local6 local7 verb local9 local10 local11
+Routine 0xe634 routine58932 local1 local2
+Routine 0xe668 routine58984 local1 local2
+Routine 0xe6a0 routine59040 local1 local2 local3Routine 0xe724 routine59172 local1 local2 local3 local4
+Routine 0xe740 routine59200 local1 local2 local3 local4 local5 local6 local7 local8
+Routine 0xe7ec routine59372 local1
+Routine 0xe868 routine59496 local1 local2
+Routine 0xe8a4 routine59556 local1 local2
+Routine 0xe8b8 routine59576 local1 local2 local3 local4 local5 local6 local7 local8 local9
+Routine 0xe924 routine59684 local1 local2
+Routine 0xe948 routine59720 local1 local2 local3
+Routine 0xe970 routine59760 local1
+Routine 0xe97c routine59772 local1 local2 local3 local4
+Routine 0xea24 routine59940 local1
+Routine 0xea8c routine60044 local1 local2 local3 local4 local5 local6 local7 local8 local9
+Routine 0xeae8 routine60136 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10
+Routine 0xec44 routine60484 local1
+Routine 0xec60 routine60512
+Routine 0xec90 routine60560 local1 local2 local3 local4 local5 local6 local7 local8 local9
+Routine 0xee5c routine61020 local1 local2 local3 local4 local5 local6
+Routine 0xeeac routine61100 local1 local2 local3 local4 local5
+Routine 0xef7c routine61308 local1 local2 local3 local4 local5 local6 local7 local8
+Routine 0xefdc Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits local4 local5 local6
+Routine 0xf01c routine61468 local1 local2 local3 local4 local5 local6
+Routine 0xf08c routine61580 local1 local2 local3
+Routine 0xf0a8 routine61608
+Routine 0xf0c4 routine61636 local1 local2 local3 local4 local5
+Routine 0xf208 routine61960 local1 local2 local3
+Routine 0xf298 routine62104 local1 local2 local3
+Routine 0xf2d8 routine62168 local1
+Routine 0xfc24 Perelman_Movement
+Routine 0xfda0 routine64928 local1
+Routine 0x10a14 routine68116
+Routine 0x10ce0 routine68832
+Routine 0x110b8 routine69816
+Routine 0x11268 routine70248 local1
+Routine 0x115f8 routine71160 local1
+Routine 0x11b64 routine72548
+Routine 0x11d14 routine72980
+Routine 0x11e50 routine73296
+Routine 0x1219c routine74140 local1 local2
+Routine 0x123e8 routine74728 local1 local2
+Routine 0x12444 routine74820 local1 local2 local3 local4 local5 local6
+Routine 0x12554 routine75092
+Routine 0x12608 routine75272
+Routine 0x1268c routine75404
+Routine 0x126ec VerboseSub
+Routine 0x1270c BriefSub
+Routine 0x12724 SuperbriefSub
+Routine 0x12740 DiagnoseSub
+Routine 0x12968 InventorySub local1
+Routine 0x129b4 QuitSub
+Routine 0x129dc RestartSub
+Routine 0x12a14 routine76308
+Routine 0x12ad0 routine76496 local1 local2
+Routine 0x12b28 RestoreSub
+Routine 0x12b48 SaveSub local1
+Routine 0x12bc8 ScriptSub
+Routine 0x12c14 UnscriptSub
+Routine 0x12c60 TranscriptHeader msg:string
+Routine 0x12c80 VersionSub offset:int local1 local2
+Routine 0x12d34 VerifySub
+Routine 0x12d9c DEBUG_RefreSub
+Routine 0x12da8 routine77224
+Routine 0x12dc4 CommandSub
+Routine 0x12dcc RandomSetSub
+Routine 0x12dec DebugRecordSub
+Routine 0x12df4 DEBUG_UnrecordSub
+Routine 0x12e00 AbortSub
+Routine 0x12e4c AbortObjectSub
+Routine 0x12e5c AwakenSub
+Routine 0x12e84 AnswerSub
+Routine 0x12ea8 routine77480
+Routine 0x12f44 routine77636
+Routine 0x12f7c AskAboutSub
+Routine 0x12fa8 AskForSub local1
+Routine 0x12fcc AskPersonForSub
+Routine 0x12ff0 BiteSub
+Routine 0x12ffc PreClimbInSub
+Routine 0x13008 ClimbInSub
+Routine 0x13060 PreBuySub
+Routine 0x130b0 BuySub
+Routine 0x130c4 PayForWithSub
+Routine 0x130f0 CallSub
+Routine 0x13128 LookObjSub
+Routine 0x13188 ClimbDownSub
+Routine 0x1319c ClimbSub
+Routine 0x131b0 ClimbOnSub
+Routine 0x131d4 ClimbOverSub
+Routine 0x131dc ClimbUpSub
+Routine 0x131f0 CloseSub
+Routine 0x1323c ComfortSub
+Routine 0x13264 CountSub
+Routine 0x13270 TraverseSub
+Routine 0x13284 WeepSub
+Routine 0x132bc CutSub
+Routine 0x132ec DanceSub
+Routine 0x1330c DateSub
+Routine 0x1333c DigSub
+Routine 0x13344 ExitFromSub
+Routine 0x13418 ListSub
+Routine 0x13420 DrinkSub
+Routine 0x1343c DrinkFromSub
+Routine 0x13444 PreDropSub
+Routine 0x13450 DropSub
+Routine 0x13460 EatSub
+Routine 0x13494 EnterSub local1
+Routine 0x134cc ExamineSub
+Routine 0x13568 routine79208
+Routine 0x13584 ExitSub
+Routine 0x135a0 FeedSub
+Routine 0x135c8 FillSub
+Routine 0x135d4 LookForSub local1 local2
+Routine 0x136b4 routine79540
+Routine 0x136c8 FlushSub
+Routine 0x136d0 FollowSub
+Routine 0x13724 routine79652
+Routine 0x1372c PreGiveSub
+Routine 0x13738 GiveSub
+Routine 0x13778 HangOnSub
+Routine 0x13780 HelloSub local1
+Routine 0x137e0 HintSub
+Routine 0x13840 HideSub
+Routine 0x13854 HoldSub
+Routine 0x1386c WhoSub
+Routine 0x13880 KickSub
+Routine 0x1388c FightSub
+Routine 0x138a0 KnockSub
+Routine 0x138bc KissSub
+Routine 0x138c8 JumpOverSub
+Routine 0x138dc LeaveSub
+Routine 0x13908 LieOnSub
+Routine 0x13930 ListenSub
+Routine 0x13a70 LockSub
+Routine 0x13a7c LookSub
+Routine 0x13aec LookBehindSub
+Routine 0x13b0c LookDownSub
+Routine 0x13b24 LookInSub
+Routine 0x13c5c LookUnderSub
+Routine 0x13ca8 LookUpSub
+Routine 0x13ccc LowerSub
+Routine 0x13cd4 MACOSub
+Routine 0x13d00 PullSub
+Routine 0x13d50 DestroySub
+Routine 0x13d5c NoSub
+Routine 0x13f30 SwitchOffSub
+Routine 0x13f60 ActivateSub
+Routine 0x13f8c OpenSub local1 local2
+Routine 0x14018 PayForSub
+Routine 0x14034 PCAFSub
+Routine 0x14060 PEOFSub
+Routine 0x14080 PickSub
+Routine 0x14088 PlaySub
+Routine 0x14094 PlayWithSub
+Routine 0x140a8 PointSub
+Routine 0x140b8 PourSub
+Routine 0x140c0 PPCCSub
+Routine 0x140ec PraySub
+Routine 0x1417c PressSub
+Routine 0x14188 PrePlaceOnSub
+Routine 0x141e8 SlideInSub local1 local2
+Routine 0x1433c PutAwaySub
+Routine 0x1436c PlaceBehindSub
+Routine 0x14374 PlaceOnSub
+Routine 0x143a8 PutUnderSub
+Routine 0x143b0 RapeSub
+Routine 0x143b8 RaiseSub
+Routine 0x143c4 RCROSub
+Routine 0x143f8 ReachInSub local1
+Routine 0x14448 PreReadSub
+Routine 0x1446c ReadSub
+Routine 0x14490 RecordSub
+Routine 0x1450c RecordOffSub
+Routine 0x14538 DoffSub
+Routine 0x14550 AnswerToSub
+Routine 0x1457c ReportSub
+Routine 0x14588 HoldUpSub
+Routine 0x145ac RoffSub
+Routine 0x145b8 TalkSub local1
+Routine 0x145e0 SearchSub
+Routine 0x14654 FlipWithSub
+Routine 0x14668 GiveReverseSub
+Routine 0x14674 ShakeSub
+Routine 0x14680 ShakeWithSub
+Routine 0x146b0 ShootSub
+Routine 0x146bc ExhibitToSub
+Routine 0x146dc SwitchOffForSub
+Routine 0x146e4 SitOnSub local1
+Routine 0x14724 SitNextSub
+Routine 0x14748 CavortSub
+Routine 0x14764 SleepSub local1
+Routine 0x149e4 routine84452
+Routine 0x14a18 SmellSub
+Routine 0x14b18 SmileSub
+Routine 0x14b24 CoverSub
+Routine 0x14b30 SqueezeSub
+Routine 0x14b38 ShootAtSub
+Routine 0x14b44 ExibitObjObjSub
+Routine 0x14b50 SwitchOffObjObjSub
+Routine 0x14b5c StandSub
+Routine 0x14ba8 StandOnSub
+Routine 0x14bb0 StatusSub
+Routine 0x14bb8 StartObjObjSub
+Routine 0x14bc4 SwimSub
+Routine 0x14c54 PreRemoveFromSub
+Routine 0x14cfc RemoveFromSub
+Routine 0x14d0c TakeOffSub
+Routine 0x14d80 TellSub
+Routine 0x14e0c TellAboutSub
+Routine 0x14e44 ThankSub
+Routine 0x14e74 ClimbThroughSub
+Routine 0x14ed8 PreThrowSub
+Routine 0x14ee4 ThrowSub
+Routine 0x14ef4 ThrowwOffSub
+Routine 0x14f00 TieSub
+Routine 0x14f14 TimeSub
+Routine 0x14f34 TouchSub
+Routine 0x14f44 BroadcastSub
+Routine 0x14f60 FlipSub
+Routine 0x14f78 StartFarSub
+Routine 0x14fd0 UnlockSub
+Routine 0x14fd8 UnattachSub
+Routine 0x14fe0 WaitSub local1 local2 local3
+Routine 0x15070 WaitForSub
+Routine 0x150d0 WaitUntilSub local1 local2 local3
+Routine 0x151d4 GoDirSub local1 local2 local3 local4 local5
+Routine 0x152d4 GoSub
+Routine 0x152fc WalkOutSub
+Routine 0x15314 ApproachSub
+Routine 0x15350 GoUnderSub
+Routine 0x15364 CleanSub
+Routine 0x15384 WaveObjectSub
+Routine 0x1538c WaveSub
+Routine 0x153c4 WearSub
+Routine 0x15414 WhatSub
+Routine 0x15430 WhereSub
+Routine 0x15438 WhoIsSub
+Routine 0x15454 WNNFSub
+Routine 0x15488 WriteSub
+Routine 0x1549c ScreamSub
+Routine 0x154ac routine87212
+Routine 0x154b4 YesSub
+Routine 0x1577c routine87932 local1 local2 local3 local4
+Routine 0x157f8 routine88056
+Routine 0x158a0 routine88224 local1 local2 local3
+Routine 0x158b8 routine88248 local1 local2 local3
+Routine 0x158f8 routine88312 local1 local2 local3 local4
+Routine 0x159a0 routine88480
+Routine 0x15b44 routine88900
+Routine 0x15b4c routine88908 local1
+Routine 0x15b78 routine88952 local1 local2 local3 local4 local5
+Routine 0x15c10 routine89104 local1 local2 local3 local4 local5 local6 local7 local8 local9
+Routine 0x15d1c routine89372 local1 local2 local3 local4 local5 local6
+Routine 0x15d70 routine89456 local1 local2
+Routine 0x15dc8 routine89544
+Routine 0x15df4 routine89588 local1 local2Routine 0x15e40 Terminate_Simulation local1:string local2
+Routine 0x161c0 routine90560
+Routine 0x161d0 routine90576 local1 local2
+Routine 0x16210 routine90640 local1 local2
+Routine 0x16234 routine90676 local1 local2
+Routine 0x16258 routine90712 local1 local2 local3
+Routine 0x16280 routine90752 local1 local2
+Routine 0x162a4 routine90788 local1
+Routine 0x162b4 routine90804 local1 local2 local3
+Routine 0x162d4 routine90836 local1 local2 local3
+Routine 0x162f0 routine90864
+Routine 0x1631c routine90908
+Routine 0x16338 routine90936 local1
+Routine 0x16348 routine90952 local1 local2
+Routine 0x16364 routine90980
+Routine 0x16370 routine90992 local1 local2 local3 local4
+Routine 0x16398 routine91032 wrd:string
+Routine 0x163b0 PrefixWithArticle obj:object definite_obj:bool
+Routine 0x163e4 routine91108 local1
+Routine 0x163f8 it_5_action local1 local2 local3 local4
+Routine 0x165e4 routine91620
+Routine 0x16604 routine91652
+Routine 0x16610 routine91664 local1 local2 local3 local4
+Routine 0x1665c routine91740 local1 local2
+Routine 0x166ac ground_action
+Routine 0x166d4 wall_action
+Routine 0x16720 ceiling_action
+Routine 0x1672c hallway_action
+Routine 0x167e0 building_action
+Routine 0x16858 stairs_action
+Routine 0x168dc door_action
+Routine 0x1693c sleep_action
+Routine 0x16948 smoke_action
+Routine 0x16a38 play_action
+Routine 0x16a4c sky_action
+Routine 0x16ac4 night_action
+Routine 0x16afc day_action
+Routine 0x16b20 your_hands_action local1
+Routine 0x16b90 your_head_action
+Routine 0x16bac it_action
+Routine 0x16cb8 it_2_action
+Routine 0x16cd4 yourself_action local1
+Routine 0x16f40 your_name_action
+Routine 0x16f50 conversation_action
+Routine 0x16fc8 music_action
+Routine 0x17014 entrance_action
+Routine 0x17078 room_action
+Routine 0x17124 alley_action
+Routine 0x17178 road_action
+Routine 0x171d0 people_action
+Routine 0x172dc routine94940
+Routine 0x17328 your_parents_action
+Routine 0x17384 mindex_action
+Routine 0x173fc apartment_preaction
+Routine 0x17400 Mitchell_preaction
+Routine 0x1741c books_preaction
+Routine 0x1744c tubecar_preaction
+Routine 0x1746c drink_preaction
+Routine 0x17470 food_preaction
+Routine 0x174c8 scientist_preaction
+Routine 0x174cc papers_preaction
+Routine 0x174d0 duck_pond_preaction
+Routine 0x174d4 BSF_preaction
+Routine 0x17504 house_room_preaction
+Routine 0x17534 kitchen_preaction
+Routine 0x17538 church_elder_preaction
+Routine 0x17548 Rockvil_action
+Routine 0x175e4 routine95716 local1
+Routine 0x175fc routine95740 local1 local2
+Routine 0x176b4 routine95924 local1
+Routine 0x17714 routine96020 local1 local2 local3
+Routine 0x177ac AnnounceClose:bool local1:int wheremsg:string whomsg:string where:object
+Routine 0x17810 routine96272 local1
+Routine 0x17870 routine96368 local1
+Routine 0x178d0 BusinessClosing:bool when:int wheremsg:string whomsg:string where:object
+Routine 0x17910 NotOpen wheremsg:string
+Routine 0x17948 Out_of_city_dir
+Routine 0x1799c Assorted_no_entrance
+Routine 0x17aa4 Main_and_River_northwest_to:object
+Routine 0x17b80 DescribeHighrise:bool dir:string otherway:string
+Routine 0x17cd0 buzzer_action
+Routine 0x17d5c mailbox_action
+Routine 0x17dd8 picturephone_action
+Routine 0x17dfc label_action
+Routine 0x17eb0 graffiti_action
+Routine 0x17fac sign_2_action
+Routine 0x182a4 window_2_action
+Routine 0x18554 glass_action
+Routine 0x18620 seat_action
+Routine 0x18648 chair_action
+Routine 0x1867c table_action
+Routine 0x186f4 park_action
+Routine 0x18890 museum_action
+Routine 0x1895c field_action
+Routine 0x189d4 fence_action
+Routine 0x18a74 gate_action
+Routine 0x18be4 counter_action
+Routine 0x18c30 shelves_action
+Routine 0x18cc4 factory_action
+Routine 0x18d80 store_action
+Routine 0x18dac hotel_action
+Routine 0x18e5c church_action
+Routine 0x18f78 school_action
+Routine 0x19038 construction_site_action
+Routine 0x19160 vacant_lot_action
+Routine 0x191f0 tunnel_action
+Routine 0x19250 exhibits_action
+Routine 0x192ec skycars_action
+Routine 0x193d4 parking_lot_action local1
+Routine 0x19434 children_action
+Routine 0x19514 woman_action
+Routine 0x19590 water_action
+Routine 0x19774 reservoir_action
+Routine 0x197e0 Many_rooms_dir
+Routine 0x197ec river_action
+Routine 0x19920 routine104736
+Routine 0x19934 restaurant_action
+Routine 0x19a38 routine105016 local1 local2
+Routine 0x19aa4 routine105124 local1 local2
+Routine 0x19ae8 PrintInitialSpaces spaces:int
+Routine 0x19af8 WaitForInputThenReset flag:bool
+Routine 0x19b38 routine105272 local1 local2
+Routine 0x19c68 PrintTime min:int print_am_pm:bool num:int
+Routine 0x19cb0 routine105648 local1
+Routine 0x19cdc PrintMeridian min:int
+Routine 0x19cf4 PrintGameTitle
+Routine 0x19d00 routine105728 local1
+Routine 0x19d38 ErrorMsg err:string flag:bool
+Routine 0x19d54 YouCantSee obj:object local2
+Routine 0x19de8 PRISM_ShutDown
+Routine 0x19e78 routine106104 local1
+Routine 0x19e98 routine106136
+Routine 0x19eb4 HowToDo_msg
+Routine 0x19ed4 IsClosed_msg where:object
+Routine 0x19ef8 AddressDirectly_msg who:object 
+Routine 0x19f1c SpentTooMuchMoney_msg
+Routine 0x19f50 FurnitureRemoved_msg
+Routine 0x19f68 PerelmanArrives_msg
+Routine 0x19fcc Rockvil_Centre_action rarg:rarg
+Routine 0x1a0a4 Rockvil_Centre_se_to:object
+Routine 0x1a1c0 Dunbars_action rarg:rarg
+Routine 0x1a2fc Dunbars_2_action
+Routine 0x1a374 racks_of_fashionable_clothes_action
+Routine 0x1a470 clothes_action local1
+Routine 0x1a6e8 sweater_action
+Routine 0x1a730 vest_action
+Routine 0x1a770 scarf_action
+Routine 0x1a7a0 City_Hall_action rarg:rarg
+Routine 0x1a84c Rockvil_Centre_w_to:object
+Routine 0x1a864 City_Hall_2_action
+Routine 0x1a8a0 bench_action
+Routine 0x1a8c4 government_official_action
+Routine 0x1a9a8 snack_action
+Routine 0x1a9d8 Main_and_Kennedy_action rarg:rarg
+Routine 0x1ab18 Silicorp_Building_action
+Routine 0x1ab40 InfoTech_Building_action
+Routine 0x1abf0 Main_and_Kennedy_northwest_to:object
+Routine 0x1ac04 Skybus_Terminal_action rarg:rarg
+Routine 0x1ad0c boarding_platform_action
+Routine 0x1ad40 skybus_action
+Routine 0x1ad88 terminal_2_action
+Routine 0x1adcc townhouse_action
+Routine 0x1ae10 locked_townhouses
+Routine 0x1ae38 unnamed_13_action local1
+Routine 0x1af5c waterpool_action
+Routine 0x1afd8 statue_2_action
+Routine 0x1b00c Elm_and_Park_action rarg:rarg
+Routine 0x1b0bc Elm_and_Park_northwest_to:object
+Routine 0x1b0d4 Courthouse_action rarg:rarg
+Routine 0x1b25c courthouse_action
+Routine 0x1b2a4 police_station_action
+Routine 0x1b2f0 Police_Station_action rarg:rarg
+Routine 0x1b3f0 police_officer_action
+Routine 0x1b484 routine111748
+Routine 0x1b494 blanket_action
+Routine 0x1b4fc Post_Office_action rarg:rarg
+Routine 0x1b6a0 post_office_action
+Routine 0x1b6e4 Southway_and_Park_action rarg:rarg
+Routine 0x1b7a0 routine112544
+Routine 0x1b8a8 Southway_and_Park_northwest_to:object
+Routine 0x1b8ec library_action
+Routine 0x1b97c Main_Library_action rarg:rarg local2
+Routine 0x1bab8 list_of_titles_action
+Routine 0x1bc08 card_catalog_action
+Routine 0x1bcb0 card_action
+Routine 0x1bcbc library_account_action
+Routine 0x1bd38 Foodville_action rarg:rarg
+Routine 0x1bd88 Open_in_morning_only local1Routine 0x1be38 routine114232
+Routine 0x1bf38 routine114488 local1 local2
+Routine 0x1bf8c note_action
+Routine 0x1bfa4 supermarket_action
+Routine 0x1c060 soy_patty_action
+Routine 0x1c130 routine114992
+Routine 0x1c1d4 Southway_Underpass_action rarg:rarg
+Routine 0x1c288 Firehouse_action rarg:rarg
+Routine 0x1c32c fire_station_action
+Routine 0x1c368 firecopter_action
+Routine 0x1c418 Elm_and_University_action rarg:rarg
+Routine 0x1c4b4 University_Heights_2_action
+Routine 0x1c500 University_Heights_action rarg:rarg
+Routine 0x1c51c Elm_Underpass_action rarg:rarg
+Routine 0x1c62c old_Chinese_man_action
+Routine 0x1c698 Elm_Underpass_s_to:object
+Routine 0x1c6b8 Roys_Pagoda_action rarg:rarg
+Routine 0x1c77c Elm_Underpass_n_to:object
+Routine 0x1c79c Ezzis_Bar_action rarg:rarg
+Routine 0x1c844 Ezzis_Bar_out_to:object
+Routine 0x1c858 Rockvil_University_ne_to:object
+Routine 0x1c86c Rockvil_University_se_to:object
+Routine 0x1c880 Rockvil_University_w_to:object
+Routine 0x1c920 Rockvil_University_action rarg:rarg
+Routine 0x1ca0c campus_action
+Routine 0x1ca88 Dorm_action rarg:rarg
+Routine 0x1cc98 dormitory_action
+Routine 0x1cd04 lounge_action
+Routine 0x1cd30 lecture_hall_action
+Routine 0x1cd84 Lecture_Hall_action rarg:rarg
+Routine 0x1cdf4 office_action
+Routine 0x1ce24 student_union_action
+Routine 0x1ce7c offices_action
+Routine 0x1cea4 Elm_and_Kennedy_action rarg:rarg
+Routine 0x1cf78 Hospital_action rarg:rarg
+Routine 0x1d084 hospital_action
+Routine 0x1d0d8 annex_action
+Routine 0x1d128 Hospital_Annex_action rarg:rarg
+Routine 0x1d1a0 Southway_and_Kennedy_action rarg:rarg
+Routine 0x1d2b4 Southway_and_Kennedy_northwest_to:object
+Routine 0x1d2c4 Construction_Site_action rarg:rarg
+Routine 0x1d35c derricopter_action
+Routine 0x1d3cc Southway_and_River_action rarg:rarg local2
+Routine 0x1d630 Heiman_World2_action rarg:rarg
+Routine 0x1d81c Into_mall
+Routine 0x1d850 Rockvil_Mall_action rarg:rarg local2
+Routine 0x1d968 mall_action
+Routine 0x1d9b8 Rockvil_Mall_in_to:object
+Routine 0x1da4c Joybooth_action rarg:rarg local2
+Routine 0x1db60 Joybooth_out_to:object
+Routine 0x1db88 joybooth_action
+Routine 0x1dc18 red_button_action
+Routine 0x1e020 routine122912
+Routine 0x1e024 headset_action
+Routine 0x1e044 Elm_and_River_action rarg:rarg
+Routine 0x1e100 Elm_and_River_nw_to:object
+Routine 0x1e134 Stock_Exchange_2_action rarg:rarg
+Routine 0x1e14c Stock_Exchange_action
+Routine 0x1e1a0 Main_and_River_action rarg:rarg local2
+Routine 0x1e37c Perez_Towers_action
+Routine 0x1e3a4 Heiman_Village_2_action rarg:rarg
+Routine 0x1e740 Heiman_Village_action
+Routine 0x1e794 Heiman_World_action
+Routine 0x1e7f8 Church_Street_City_action
+Routine 0x1e860 no_exit_in_dir
+Routine 0x1e8ac Church_Street_Park_room_action rarg:rarg
+Routine 0x1ea08 dried_up_fountain_action
+Routine 0x1ea14 Main_and_Church_action rarg:rarg local2
+Routine 0x1ec0c Main_and_Church_southwest_to:object
+Routine 0x1ec1c Main_and_Church_northwest_to:object
+Routine 0x1ec2c Church_Street_Apartments_action rarg:rarg
+Routine 0x1ec48 routine126024
+Routine 0x1ecac Main_and_Wicker_action rarg:rarg local2
+Routine 0x1ef34 unshaven_man_action
+Routine 0x1ef94 strip_joint_advertisement_action
+Routine 0x1f0f0 train_tracks_action
+Routine 0x1f188 railroad_bridge_action
+Routine 0x1f1c0 street_bridge_action
+Routine 0x1f234 Main_and_Wicker_w_to:object
+Routine 0x1f24c Foodville_2_action rarg:rarg
+Routine 0x1f30c pile_of_mold_action
+Routine 0x1f3e4 Main_and_Wicker_se_to:object
+Routine 0x1f404 The_Coachman_action rarg:rarg
+Routine 0x1f614 blackened_timbers_action
+Routine 0x1f624 table_2_action
+Routine 0x1f674 menu_action
+Routine 0x1f6b8 routine128696
+Routine 0x1f740 food_action
+Routine 0x1fcf8 routine130296 local1
+Routine 0x20018 routine131096
+Routine 0x20090 bag_of_groceries_action
+Routine 0x201f0 Main_Street_Bridge_action rarg:rarg
+Routine 0x202d8 Main_Street_Bridge_e_to:object
+Routine 0x20300 sack_action
+Routine 0x20388 barking_action
+Routine 0x203b4 Cemetery_action rarg:rarg
+Routine 0x206bc cemetery_action
+Routine 0x20730 headstones_action
+Routine 0x207b4 Street_by_Vacant_Lot_action rarg:rarg
+Routine 0x20900 routine133376
+Routine 0x20990 Street_by_Vacant_Lot_in_to:object
+Routine 0x209a4 Midland_and_Church_southwest_to:object
+Routine 0x209d8 unnamed_4_action local1
+Routine 0x20ae4 rusty_cross_action
+Routine 0x20b68 Rectory_action rarg:rarg
+Routine 0x20c50 rectory_action
+Routine 0x20cbc Midland_and_Church_action rarg:rarg
+Routine 0x20dbc health_center_action
+Routine 0x20e18 unnamed_2_action local1
+Routine 0x210d4 directory_action
+Routine 0x21114 Skycar_Lot_3_action rarg:rarg
+Routine 0x211a0 Midland_and_River_action rarg:rarg
+Routine 0x21274 ALI_Building_action
+Routine 0x21280 Bodanski_Square_se_to:object
+Routine 0x212a8 train_station_action
+Routine 0x21334 Train_Station_room_e_to:object
+Routine 0x21364 Train_Station_room_action rarg:rarg
+Routine 0x215ac souvenir_action
+Routine 0x21628 glossy_pamphlet_action
+Routine 0x21dc0 rack_action
+Routine 0x21e28 Centre_and_Kennedy_action rarg:rarg local2
+Routine 0x21ebc Huang_Hall_action
+Routine 0x21f34 Huang_Hall_2_action rarg:rarg
+Routine 0x220b8 Halley_and_Park_action rarg:rarg
+Routine 0x221ac Halley_and_Park_southwest_to:object
+Routine 0x221d8 Halley_Museum_action rarg:rarg
+Routine 0x222d0 Halley_and_University_action rarg:rarg
+Routine 0x22438 skycopter_action
+Routine 0x224ec routine140524
+Routine 0x22514 interchange_action
+Routine 0x2255c Halley_and_University_northwest_to:object
+Routine 0x22584 Halley_and_Park_ne_to:object
+Routine 0x225a4 Zoo_s_to:object
+Routine 0x225b8 Halley_Park_West_action rarg:rarg
+Routine 0x22664 mallard_duck_action
+Routine 0x226ac duck_pond_action
+Routine 0x227b0 Halley_Park_East_action rarg:rarg
+Routine 0x228b0 statue_action
+Routine 0x228f8 Zoo_action rarg:rarg
+Routine 0x22b48 cages_action
+Routine 0x22c0c animal_action
+Routine 0x22d60 zoo_action
+Routine 0x22db4 banner_action
+Routine 0x22dec Skycar_Lot_6_action rarg:rarg
+Routine 0x22e70 Aquarium_and_Park_action rarg:rarg
+Routine 0x22f58 Aquarium_and_Park_se_to:object
+Routine 0x22fb0 Aquarium_action
+Routine 0x23038 activity_offices_adjectives local1 local2
+Routine 0x230f0 Aquarium_2_u_to:object
+Routine 0x23130 tank_action
+Routine 0x2328c fish_action
+Routine 0x23318 ramp_action
+Routine 0x23328 service_station_action
+Routine 0x23398 Aquarium_and_Park_ne_to:object
+Routine 0x233b4 Bar_room_action rarg:rarg
+Routine 0x234a0 Bar_room_out_to:object
+Routine 0x234b4 Zoo_Entrance_action rarg:rarg
+Routine 0x23528 Stadium_Lot_A_action rarg:rarg
+Routine 0x2353c ParkingLotMsg dir:string otherway:string
+Routine 0x23588 Stadium_Lot_B_action rarg:rarg
+Routine 0x2359c Water_Tower_action rarg:rarg
+Routine 0x236a0 water_tower_action
+Routine 0x236d4 Rockvil_Reformatory_action rarg:rarg
+Routine 0x23918 prison_action
+Routine 0x239dc Stadium_Lot_C_action rarg:rarg
+Routine 0x239f0 Rockvil_Stadium_action rarg:rarg
+Routine 0x23c8c stadium_action
+Routine 0x23d58 Athletic_Field_action rarg:rarg
+Routine 0x23e14 stone_action
+Routine 0x23e30 routine146992
+Routine 0x23f48 River_and_Kennedy_action rarg:rarg
+Routine 0x24010 Airportway_and_River_w_to:object
+Routine 0x24028 High_School_action rarg:rarg
+Routine 0x24134 Aquarium_and_Kennedy_action rarg:rarg
+Routine 0x241bc office_building_action
+Routine 0x241d8 Aquarium_and_Kennedy_northwest_to:object
+Routine 0x241f0 blackened_timbers_adjectives local1
+Routine 0x242c4 bank_action
+Routine 0x2432c Dental_School_action rarg:rarg
+Routine 0x243e8 gate_adjectives local1
+Routine 0x244a0 Halley_Estates_action
+Routine 0x24520 Skycar_Lot_2_action rarg:rarg
+Routine 0x24600 Church_bldg_action rarg:rarg
+Routine 0x24778 routine149368
+Routine 0x247f0 church_elder_action
+Routine 0x248f0 routine149744
+Routine 0x2491c Bodanski_Square_action rarg:rarg
+Routine 0x24a3c building_name
+Routine 0x24a7c newspaper_dispenser_action local1
+Routine 0x24b54 newspaper_action
+Routine 0x255ac Bodanski_Square_ne_to:object
+Routine 0x255cc Simons_action rarg:rarg
+Routine 0x25618 Aquarium_and_River_action rarg:rarg
+Routine 0x256a0 Pickford_Theatre_2_action
+Routine 0x25704 Pickford_Theatre_action rarg:rarg
+Routine 0x25824 Airportway_and_River_action rarg:rarg local2
+Routine 0x25a10 Wells_Theatre_action
+Routine 0x25a7c Wells_Theatre_2_action rarg:rarg
+Routine 0x25c78 Museum_Entrance_action rarg:rarg
+Routine 0x25d98 Skycar_Lot_5_action rarg:rarg
+Routine 0x25e88 Riverside_Park_southwest_to:object
+Routine 0x25edc Railroad_Museum_action rarg:rarg
+Routine 0x25fac railroad_yard_action
+Routine 0x25fdc Railroad_Museum_e_to:object
+Routine 0x26060 Skycar_Lot_s_to:object
+Routine 0x26080 Cinema_action rarg:rarg
+Routine 0x261c0 Cinema_in_to:object
+Routine 0x26440 water_tower_adjectives
+Routine 0x264ec movie_action
+Routine 0x26538 marquee_action
+Routine 0x26754 ticket_seller_action
+Routine 0x267cc ticket_action
+Routine 0x26984 atrium_action
+Routine 0x269c8 skylight_action
+Routine 0x26a10 Symphony_Hall_action
+Routine 0x26a94 Skycar_Lot_e_to:object
+Routine 0x26ae4 Base_Gate_action rarg:rarg
+Routine 0x26af8 Base_Gate_northwest_to:object
+Routine 0x26b98 BSF_base_action
+Routine 0x26c20 generic_door_name local1 local2
+Routine 0x26f3c Terminal_n_to:object
+Routine 0x26f80 drugs_name
+Routine 0x26f94 airport_gate_action
+Routine 0x26ff4 spaceport_gate_action
+Routine 0x27094 terminal_3_action
+Routine 0x270ec BSF_guard_action
+Routine 0x2710c red_sign_action
+Routine 0x271c0 entertainment_center_name
+Routine 0x271f8 Bend_action rarg:rarg
+Routine 0x272c4 dryers_action
+Routine 0x27314 drug_store_action
+Routine 0x27358 Bend_southwest_to:object
+Routine 0x27370 Drug_Store_action rarg:rarg
+Routine 0x27394 morning_rush_hour_end_name
+Routine 0x273fc milkshake_action
+Routine 0x2746c drugs_action
+Routine 0x274c8 hardware_store_action
+Routine 0x27510 Bend_s_to:object
+Routine 0x27528 Hardware_Store_action rarg:rarg
+Routine 0x275f0 hardware_action
+Routine 0x27668 tool_action
+Routine 0x276a4 Wicker_and_River_n_to:object
+Routine 0x276cc Wicker_and_River_action rarg:rarg local2
+Routine 0x27970 Warehouse_action rarg:rarg
+Routine 0x27a88 Warehouse_northwest_to:object
+Routine 0x27ad4 door_3_action
+Routine 0x27ae8 Closed_Factory_action rarg:rarg
+Routine 0x27be0 firecopter_name
+Routine 0x27c60 soup_action
+Routine 0x27ce0 Tenement_3_action rarg:rarg
+Routine 0x27dc4 warehouse_obj_action
+Routine 0x27e58 Warehouse2_action rarg:rarg
+Routine 0x27eb8 alarm_action
+Routine 0x27edc crate_action
+Routine 0x27f14 industrial_park_action
+Routine 0x27f68 City_Dump_action rarg:rarg
+Routine 0x280b0 waste_action
+Routine 0x280d0 garbage_dump_action
+Routine 0x28118 power_station_action
+Routine 0x28168 Power_Station_action rarg:rarg
+Routine 0x282d4 River_Street_Bridge_action rarg:rarg
+Routine 0x28320 FireBurningWhere dir:string
+Routine 0x28384 Skycar_Factory_action rarg:rarg
+Routine 0x28540 Factory_Entrance_n_to:object
+Routine 0x28558 gun_shop_action
+Routine 0x2859c Gun_Shop_action rarg:rarg
+Routine 0x285c0 firearm_action
+Routine 0x28764 Bar_action rarg:rarg
+Routine 0x288ec Bar_w_to:object
+Routine 0x28900 Bar_ne_to:object
+Routine 0x28914 bar_action
+Routine 0x289f4 stool_action
+Routine 0x28a20 jukebox_action
+Routine 0x28a80 firearm_name
+Routine 0x28af0 Pier_action rarg:rarg
+Routine 0x28bbc Pier_ne_to:object
+Routine 0x28bdc Pool_Hall_action rarg:rarg
+Routine 0x28c34 pool_hall_action
+Routine 0x28c8c pool_table_action
+Routine 0x28cc8 billiards_action
+Routine 0x28d2c headset_name local1
+Routine 0x28ea4 Tenement_action rarg:rarg
+Routine 0x28f24 tenement_obj_action
+Routine 0x28fd0 Wicker_and_Pier_e_to:object
+Routine 0x2902c bookstore_action
+Routine 0x290a8 Bookstore_action rarg:rarg
+Routine 0x290d0 The_Wizard_of_Oz_action
+Routine 0x2912c books_action
+Routine 0x2934c liquor_store_action
+Routine 0x29390 Wicker_and_Pier_s_to:object
+Routine 0x293a8 Liquor_Store_action rarg:rarg
+Routine 0x293cc bottle_of_cheap_scotch_action
+Routine 0x294e0 mug_of_beer_action
+Routine 0x295d8 liquor_2_action
+Routine 0x29680 liquor_action
+Routine 0x29728 Tube_station_action
+Routine 0x297cc Bodanski_Square_d_to:object
+Routine 0x29874 routine170100 local1
+Routine 0x298f0 routine170224
+Routine 0x29920 Tube_Station_action rarg:rarg local2
+Routine 0x29960 Tube_Station_2_action rarg:rarg local2
+Routine 0x299a0 Tube_Station_3_in_to:object
+Routine 0x29a20 Tube_Station_3_action rarg:rarg local2 local3 local4 local5
+Routine 0x29b68 red_tubecar_action
+Routine 0x29bb4 red_tubecar_doors_action
+Routine 0x29bf4 brown_tubecar_action
+Routine 0x29c34 Tubecar_action rarg:rarg
+Routine 0x29cdc brown_tubecar_doors_action
+Routine 0x29d04 sign_action local1
+Routine 0x29eb8 routine171704 local1
+Routine 0x2a0cc Tube_Station_in_to:object
+Routine 0x2a130 Tubecar_out_to:object
+Routine 0x2a168 routine172392 local1
+Routine 0x2a36c Tube_Station_2_in_to:object
+Routine 0x2a3e4 Tubecar_2_out_to:object
+Routine 0x2a41c routine173084
+Routine 0x2a4a8 routine173224 local1
+Routine 0x2a5a0 key_action
+Routine 0x2a5e8 ration_card_action
+Routine 0x2a7bc slot_action
+Routine 0x2abfc unnamed_7_action
+Routine 0x2af3c routine175932
+Routine 0x2afbc routine176060
+Routine 0x2afec routine176108 local1
+Routine 0x2b028 routine176168 local1
+Routine 0x2b0c8 routine176328
+Routine 0x2b1d0 routine176592
+Routine 0x2b2f8 routine176888
+Routine 0x2b330 routine176944 local1
+Routine 0x2b380 routine177024 local1
+Routine 0x2b3b0 routine177072 local1
+Routine 0x2b3e0 routine177120
+Routine 0x2b3f0 routine177136
+Routine 0x2b404 routine177156
+Routine 0x2b42c record_buffer_action
+Routine 0x2b444 MYSTERIOUS_FUNCT ndx:int local2:int
+Routine 0x2b488 enter_library_mode_action rarg:rarg
+Routine 0x2b4d4 play_name
+Routine 0x2b538 routine177464 local1 local2 local3
+Routine 0x2b678 routine177784 local1
+Routine 0x2b698 routine177816 local1
+Routine 0x2b6bc routine177852 local1
+Routine 0x2b7c4 routine178116 local1
+Routine 0x2b834 night_name local1 local2
+Routine 0x2b8b4 chdir
+Routine 0x2b8ec unnamed_3_action cnt:int
+Routine 0x2ba04 unnamed_19_action
+Routine 0x2ba90 email_wnnf_action
+Routine 0x2baa0 email_irs_audit_action
+Routine 0x2bab0 System_func_notification msg:string
+Routine 0x2bb18 Sleep_Mode_action
+Routine 0x2bb48 routine179016 local1Routine 0x2bc9c list_of_communication_outlets_action
+Routine 0x2bd48 Communications_Mode_action
+Routine 0x2bd7c control_center_action
+Routine 0x2bd88 PRISM_Project_Control_Center_action rarg:rarg
+Routine 0x2be50 PRISM_Project_staff_member_action
+Routine 0x2be8c report_action
+Routine 0x2be9c terminal_action
+Routine 0x2beac Research_Center_Rooftop_action rarg:rarg
+Routine 0x2c118 routine180504
+Routine 0x2c134 stadium_adjectives
+Routine 0x2c164 Dr__Perelmans_Office_action rarg:rarg
+Routine 0x2c1fc office_2_action
+Routine 0x2c208 desk_2_action
+Routine 0x2c220 map_action
+Routine 0x2c250 stack_of_papers_action
+Routine 0x2c268 cup_of_coffee_action
+Routine 0x2c2a8 routine180904 local1 local2
+Routine 0x2c7e8 routine182248 local1 local2
+Routine 0x2c8c0 Dr__Perelman_action
+Routine 0x2d580 PRISM_Facility_Cafeteria_action rarg:rarg
+Routine 0x2d658 routine185944
+Routine 0x2d6cc cafeteria_action
+Routine 0x2d6d8 Maintenance_Core_action rarg:rarg
+Routine 0x2d7dc air_conditioning_unit_action
+Routine 0x2d834 vent_action
+Routine 0x2d85c World_News_Network_Feed_action rarg:rarg local2
+Routine 0x2de3c routine187964 local1
+Routine 0x2eee4 routine192228 local1
+Routine 0x30400 tenement_adjectives local1
+Routine 0x31820 routine202784 local1 local2:bool
+Routine 0x31930 routine203056
+Routine 0x31a0c routine203276
+Routine 0x31aec routine203500
+Routine 0x31c18 routine203800
+Routine 0x31d4c routine204108
+Routine 0x31e34 routine204340
+Routine 0x31f1c routine204572
+Routine 0x31fdc routine204764
+Routine 0x320f0 routine205040
+Routine 0x32224 routine205348
+Routine 0x323e4 Interface_Mode_action
+Routine 0x32460 List_of_Active_Ports_action
+Routine 0x324b0 HVAC_Controller_action rarg:rarg local2
+Routine 0x32744 routine206660 local1 local2
+Routine 0x32768 routine206696 local1 local2
+Routine 0x327c4 routine206788
+Routine 0x327d4 TurnOfforOnStr suffix:string
+Routine 0x32804 Janitorial_Controller_action
+Routine 0x32940 routine207168
+Routine 0x32950 routine207184
+Routine 0x3295c routine207196
+Routine 0x32980 Metropolitan_Traffic_Computer_action rarg:rarg
+Routine 0x32ad4 routine207572
+Routine 0x32ae4 Simulation_Controller_action
+Routine 0x32c48 routine207944 local1 local2 local3 local4
+Routine 0x32cd8 National_Weather_Center_Computer_action rarg:rarg local2
+Routine 0x32dec WNN_Feeder_action
+Routine 0x32f9c current_feed_action
+Routine 0x32fb8 IRS_Auditing_System_action rarg:rarg
+Routine 0x33170 routine209264
+Routine 0x33378 Simulation_Mode_action
+Routine 0x33450 routine210000 local1 local2 local3 local4 local5
+Routine 0x33538 routine210232 local1
+Routine 0x3355c routine210268
+Routine 0x338b0 routine211120
+Routine 0x33934 Dr__Grimwold_living local1
+Routine 0x33940 Dr__Grimwold_action
+Routine 0x33a6c routine211564
+Routine 0x33b0c routine211724 local1 local2
+Routine 0x33ba0 routine211872
+Routine 0x33bf0 routine211952 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10
+Routine 0x34598 routine214424 local1 local2
+Routine 0x34600 routine214528 local1 local2
+Routine 0x3461c routine214556 local1 local2 local3 local4
+Routine 0x346a4 routine214692 local1 local2 local3
+Routine 0x346e0 routine214752
+Routine 0x347f8 routine215032
+Routine 0x34924 routine215332
+Routine 0x34bdc maintenance_workers_action
+Routine 0x34d70 routine216432
+Routine 0x34e24 Senator_Richard_Ryder_action
+Routine 0x35000 routine217088
+Routine 0x356b8 routine218808
+Routine 0x35714 routine218900
+Routine 0x35930 routine219440
+Routine 0x35b88 routine220040
+Routine 0x36040 routine221248
+Routine 0x36050 apartment_action
+Routine 0x360a0 living_room_action
+Routine 0x36140 kitchen_action
+Routine 0x36198 bedroom_action
+Routine 0x3622c bathroom_action
+Routine 0x362c8 Parkview_Apartments_2_action
+Routine 0x36314 Parkview_Apartments_action rarg:rarg
+Routine 0x36330 your_buzzer_action
+Routine 0x363b4 your_mailbox_action
+Routine 0x363f0 door_2_action
+Routine 0x3643c Parkview_Apartments_in_to:object
+Routine 0x36550 Hall_Near_Your_Apartment_action rarg:rarg
+Routine 0x365b4 Hall_Near_Your_Apartment_d_to:object
+Routine 0x365dc door_4_action
+Routine 0x36768 Living_Room_action rarg:rarg
+Routine 0x368a0 routine223392
+Routine 0x368dc Living_Room_out_to:object
+Routine 0x36954 word_processor_action
+Routine 0x369d0 easel_action
+Routine 0x36a0c routine223756 local1
+Routine 0x36ab4 painting_action
+Routine 0x36c50 partition_action
+Routine 0x36c6c partition_living local1
+Routine 0x36cd4 Mitchell_living local1
+Routine 0x36d44 Mitchell_action
+Routine 0x36ed0 homework_action
+Routine 0x36f10 electronic_logic_game_action
+Routine 0x36f60 window_action
+Routine 0x37238 Kitchen_action rarg:rarg
+Routine 0x372a0 vegetable_salad_action
+Routine 0x3730c ham_sandwich_action
+Routine 0x37324 bottle_of_baby_formula_action
+Routine 0x3735c sink_action
+Routine 0x373c0 dirty_dishes_action
+Routine 0x37414 can_of_soda_action
+Routine 0x3753c apple_action
+Routine 0x37554 Bedroom_action rarg:rarg
+Routine 0x375e0 bed_action
+Routine 0x375f8 bureau_action
+Routine 0x37680 Bathroom_action rarg:rarg
+Routine 0x376d0 toilet_action
+Routine 0x376f8 shower_stall_action
+Routine 0x37798 Jill_action rarg:rarg
+Routine 0x3827c Jill_living local1
+Routine 0x384a0 routine230560
+Routine 0x385f0 romance_novel_action
+Routine 0x3868c crib_action
+Routine 0x38698 toy_duck_action
+Routine 0x386d8 baby_action
+Routine 0x38964 routine231780 local1
+Routine 0x38984 routine231812
+Routine 0x38d08 sunroom_action
+Routine 0x38d58 terrace_action
+Routine 0x38d9c Patio_action rarg:rarg
+Routine 0x38e64 fireplace_action
+Routine 0x38ebc Living_Room_2_action rarg:rarg
+Routine 0x38ecc dining_room_action
+Routine 0x38f1c tub_action
+Routine 0x38f48 den_action
+Routine 0x38f90 entertainment_center_action
+Routine 0x39048 skycab_action
+Routine 0x39060 viewscreen_action
+Routine 0x390ac receiver_station_action
+Routine 0x390d4 Riverside_Cultural_Center_action
+
+! ------------------------------- Words --------------------------------
+
+

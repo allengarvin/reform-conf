@@ -1,0 +1,1230 @@
+! ----------------------------------------------------
+!   phobos-860325-r118-z3.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 02dc6760631f1c5e67c985f68d2d03f0
+CodeArea 0x5df6 0x1cca5
+StringArea 0x1cca6 0x1f7f4
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 2 attrib2   ! obj35_the_Leather_Goddesses_of_Phobos obj121_female_gorilla
+Attribute 3 attrib3   ! obj9_cage obj25_tree_hole obj96 obj116_royal_barge
+Attribute 4 attrib4   ! obj35_the_Leather_Goddesses_of_Phobos obj127_your_eyes obj133 obj143_pair_of_cotton_balls obj151_sand_dunes obj184_your_ears
+Attribute 5 attrib5   ! obj4_King_Mitre obj6_your_hand obj12 obj16 obj17_yourself obj35_the_Leather_Goddesses_of_Phobos obj41_your_head obj43_her obj46_sleep obj47 obj51_mothballs obj56_it obj60 obj72_love obj74_your_body obj90 obj106_your_kneecaps obj117_Joe obj126_him obj127_your_eyes obj133 obj145_your_mouth obj151_sand_dunes obj165_water obj170_it obj181_sod obj184_your_ears obj192 obj200_dust obj205_your_nose
+Attribute 6 attrib6   ! obj53_GloObj
+Attribute 7 attrib7   ! obj53_GloObj
+Attribute 8 attrib8   ! obj2_huge_purple_button obj6_your_hand obj9_cage obj10_Super_Duper_Anti_Leather_Goddesses_of_Phobos_Attack_Machine obj12 obj21_Ford obj25_tree_hole obj35_the_Leather_Goddesses_of_Phobos obj36_bug_eyed_monster obj38_riddle obj39_coin_return_knob obj44_first_slab obj48_odd_machine obj51_mothballs obj53_GloObj obj54_shelf obj58_wall obj60 obj70_door obj75_wooden_rake obj85_male_gorilla obj87_stallion obj94_huge_red_power_switch obj95 obj112 obj113_bed obj117_Joe obj121_female_gorilla obj122_proprietor obj124_trellis obj135_pile_of_angles obj140_metal_door obj142_headlight obj143_pair_of_cotton_balls obj149_front_stoop obj153_second_slab obj173_coin_return_slot obj178_divan obj181_sod obj182_ceiling obj187_handset obj189_canvas_sack obj197_it obj200_dust obj204_vizicomm obj217_mass_of_penguins obj218_Venus_flytrap obj220_huge_orange_button
+Attribute 9 attrib9   ! obj53_GloObj obj59_igloo_door obj68_front_door obj70_door obj154_back_door
+Attribute 10 attrib10  ! obj3_exit obj24_odor obj48_odd_machine obj50_eighty_two_degree_angle obj53_GloObj obj56_it obj59_igloo_door obj133 obj152_igloo
+Attribute 11 attrib11  ! obj8_Looks_Can_Be_Deceiving obj18_Catacombs obj31_Forgotten_Storehouse obj37_Laundry_Room obj42_Inside_the_Tent obj49_Cell obj53_GloObj obj61_Joe_s_Bar obj67_Ladies__Room obj69_Teensy_Weensy_House obj81_Boudoir obj99_Hold obj104_Well_Bottom obj111_At_Main_Hatch obj119_Long_Corridor obj120_Observation_Room obj125_Exit_Shop obj128_Main_Hall_of_Palace obj129_Laboratory obj136_Inner_Harem obj146_Bedroom obj158_Closet obj159_Gents__Room obj164_Other_Cell obj180_Ladder_Room obj196_Cramped_Space obj208_Orphanage_Foyer obj209_Stable obj211_Burial_Chamber obj215_Throne_Room obj216_Space_Yacht obj221_Harem obj224_Audience_Chamber
+Attribute 12 attrib12  ! obj53_GloObj obj112
+Attribute 13 attrib13  ! obj53_GloObj
+Attribute 14 attrib14  ! obj9_cage obj25_tree_hole obj44_first_slab obj47 obj48_odd_machine obj53_GloObj obj54_shelf obj74_your_body obj85_male_gorilla obj87_stallion obj90 obj96 obj113_bed obj114_stool obj116_royal_barge obj121_female_gorilla obj149_front_stoop obj153_second_slab obj166_wicker_basket obj175_tube obj178_divan obj189_canvas_sack obj190 obj202_tray
+Attribute 15 attrib15  ! obj9_cage obj25_tree_hole obj44_first_slab obj47 obj53_GloObj obj54_shelf obj74_your_body obj85_male_gorilla obj87_stallion obj90 obj96 obj113_bed obj114_stool obj116_royal_barge obj121_female_gorilla obj149_front_stoop obj153_second_slab obj166_wicker_basket obj178_divan obj190 obj202_tray obj222_salesman
+Attribute 16 attrib16  ! obj48_odd_machine obj53_GloObj obj75_wooden_rake obj115_dubious_slice_of_pizza obj124_trellis obj139_whole_bunch_of_leaves obj142_headlight obj143_pair_of_cotton_balls obj155 obj177_mouse obj181_sod obj189_canvas_sack
+Attribute 17 attrib17  ! obj44_first_slab obj53_GloObj obj54_shelf obj113_bed obj114_stool obj149_front_stoop obj153_second_slab obj202_tray
+Attribute 18 attrib18  ! obj6_your_hand obj17_yourself obj43_her obj53_GloObj obj56_it obj58_wall obj126_him obj182_ceiling
+Attribute 19 attrib19  ! obj53_GloObj obj197_it
+Attribute 20 attrib20  ! obj53_GloObj obj133 obj169_white_suit
+Attribute 21 attrib21  ! obj53_GloObj obj133
+Attribute 22 attrib22  ! obj20_secret_map obj28_coin obj52 obj55_matchbook obj65_scrap_of_paper obj97_coin obj130 obj134_coded_message obj141_can_of_black_stain obj147_sign obj183_common_household_blender obj223
+Attribute 23 attrib23  ! obj11 obj20_secret_map obj23_clothes_pin obj28_coin obj48_odd_machine obj50_eighty_two_degree_angle obj52 obj55_matchbook obj57_Cleveland_phone_book obj65_scrap_of_paper obj75_wooden_rake obj77_painting obj86_rubber_hose obj88_stick_of_lip_balm obj96 obj97_coin obj102_flexible_black_circle obj109_flashlight obj114_stool obj124_trellis obj130 obj133 obj134_coded_message obj137_rabbit obj139_whole_bunch_of_leaves obj141_can_of_black_stain obj142_headlight obj143_pair_of_cotton_balls obj155 obj157_blanket obj166_wicker_basket obj169_white_suit obj175_tube obj177_mouse obj179 obj183_common_household_blender obj189_canvas_sack obj190 obj202_tray obj207 obj223
+Attribute 24 attrib24  ! obj9_cage obj25_tree_hole obj44_first_slab obj47 obj48_odd_machine obj53_GloObj obj54_shelf obj74_your_body obj85_male_gorilla obj87_stallion obj90 obj96 obj113_bed obj114_stool obj116_royal_barge obj121_female_gorilla obj149_front_stoop obj153_second_slab obj166_wicker_basket obj173_coin_return_slot obj175_tube obj178_divan obj189_canvas_sack obj190 obj202_tray obj222_salesman
+Attribute 25 attrib25  ! obj53_GloObj obj109_flashlight obj183_common_household_blender
+Attribute 26 attrib26  ! obj53_GloObj obj59_igloo_door obj68_front_door obj70_door obj138_hatch obj140_metal_door obj154_back_door obj174_narrow_cell_door obj199_wide_cell_door
+Attribute 27 attrib27  ! obj20_secret_map obj23_clothes_pin obj52 obj55_matchbook obj57_Cleveland_phone_book obj65_scrap_of_paper obj75_wooden_rake obj124_trellis obj134_coded_message obj139_whole_bunch_of_leaves obj155 obj157_blanket obj175_tube
+Attribute 28 attrib28  ! obj7_Back_Door obj8_Looks_Can_Be_Deceiving obj15_Allusion_Room obj26_Wattz_Upp_Dock obj27_Vizicomm_Booth obj29_Lawn obj32_Cleveland obj37_Laundry_Room obj42_Inside_the_Tent obj49_Cell obj53_GloObj obj61_Joe_s_Bar obj64_Spawning_Ground obj67_Ladies__Room obj69_Teensy_Weensy_House obj73_South_Pole obj76_Canalview_Mall obj78_Eastern_Edge_of_Desert obj80_Martian_Desert obj81_Boudoir obj82_Jungle obj84_Donald_Dock obj89_Oriental_Garden obj92_Roof obj93_Base_of_Tower obj98_Icy_Dock obj99_Hold obj101_Rocky_Clifftop obj103_Front_Door obj110_Clearing obj111_At_Main_Hatch obj119_Long_Corridor obj120_Observation_Room obj123_Oasis obj125_Exit_Shop obj128_Main_Hall_of_Palace obj129_Laboratory obj131_Plaza obj136_Inner_Harem obj144_Fork__Of_Sorts obj146_Bedroom obj148_Hickory___Dickory_Dock obj158_Closet obj159_Gents__Room obj160_End_of_Hallway obj162_Dunetop obj163_Abandoned_Dock obj164_Other_Cell obj168_Minaret obj171_Lost_in_the_Desert obj185_Ruined_Castle obj186_Penguin_Park obj191_Ruined_Castle obj194_Gypsy_Camp obj195_Ruined_Castle obj198_Royal_Docks obj203_Western_Edge_of_Desert obj208_Orphanage_Foyer obj209_Stable obj213_Among_the_Dunes obj214_Edge_of_Polar_Ice_Cap obj215_Throne_Room obj216_Space_Yacht obj219_Basement obj221_Harem obj224_Audience_Chamber obj225_Garden
+Attribute 29 attrib29  ! obj9_cage obj25_tree_hole obj44_first_slab obj53_GloObj obj87_stallion obj96 obj113_bed obj114_stool obj116_royal_barge obj153_second_slab obj178_divan obj210_toilet
+Attribute 30 attrib30  ! obj1_Geronimo_ obj7_Back_Door obj8_Looks_Can_Be_Deceiving obj11 obj15_Allusion_Room obj26_Wattz_Upp_Dock obj27_Vizicomm_Booth obj29_Lawn obj32_Cleveland obj37_Laundry_Room obj42_Inside_the_Tent obj49_Cell obj53_GloObj obj61_Joe_s_Bar obj62_In_Space obj64_Spawning_Ground obj67_Ladies__Room obj69_Teensy_Weensy_House obj73_South_Pole obj76_Canalview_Mall obj78_Eastern_Edge_of_Desert obj80_Martian_Desert obj81_Boudoir obj82_Jungle obj84_Donald_Dock obj89_Oriental_Garden obj92_Roof obj93_Base_of_Tower obj98_Icy_Dock obj99_Hold obj100_Baby_Dock obj101_Rocky_Clifftop obj103_Front_Door obj104_Well_Bottom obj110_Clearing obj111_At_Main_Hatch obj119_Long_Corridor obj120_Observation_Room obj123_Oasis obj125_Exit_Shop obj128_Main_Hall_of_Palace obj129_Laboratory obj131_Plaza obj136_Inner_Harem obj144_Fork__Of_Sorts obj146_Bedroom obj148_Hickory___Dickory_Dock obj159_Gents__Room obj160_End_of_Hallway obj162_Dunetop obj163_Abandoned_Dock obj164_Other_Cell obj168_Minaret obj171_Lost_in_the_Desert obj185_Ruined_Castle obj186_Penguin_Park obj188_My_Kinda_Dock_ obj191_Ruined_Castle obj194_Gypsy_Camp obj195_Ruined_Castle obj198_Royal_Docks obj201_Martian_Canal obj203_Western_Edge_of_Desert obj208_Orphanage_Foyer obj209_Stable obj213_Among_the_Dunes obj214_Edge_of_Polar_Ice_Cap obj215_Throne_Room obj216_Space_Yacht obj219_Basement obj221_Harem obj224_Audience_Chamber obj225_Garden
+Attribute 31 attrib31  ! obj4_King_Mitre obj14_harem_guard obj35_the_Leather_Goddesses_of_Phobos obj45_frog obj47 obj53_GloObj obj74_your_body obj85_male_gorilla obj90 obj91 obj117_Joe obj121_female_gorilla obj122_proprietor obj192 obj193_mad_scientist obj197_it obj212 obj222_salesman
+
+! ----------------------------- Properties -----------------------------
+
+Property 3 prop3:?
+Property 4 prop4:?
+Property 5 prop5:?
+Property 6 prop6:?
+Property 7 prop7:?
+Property 8 prop8:?
+Property 9 prop9:?
+Property 10 prop10:?
+Property 11 prop11:?
+Property 12 prop12:?
+Property 13 prop13:?
+Property 14 prop14:?
+Property 15 prop15:?
+Property 16 prop16:?
+Property 17 prop17:?
+Property 18 prop18:?
+Property 19 out_to:exit
+Property 20 in_to:exit
+Property 21 d_to:exit
+Property 22 u_to:exit
+Property 23 northw_to:exit
+Property 24 w_to:exit
+Property 25 southw_to:exit
+Property 26 s_to:exit
+Property 27 se_to:exit
+Property 28 e_to:exit
+Property 29 ne_to:exit
+Property 30 n_to:exit
+Property 31 prop31:dictwords
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Geronimo_
+Object 2 obj2_huge_purple_button
+Object 3 obj3_exit
+Object 4 obj4_King_Mitre
+Object 5 obj5_WARNING_
+Object 6 obj6_your_hand
+Object 7 obj7_Back_Door
+Object 8 obj8_Looks_Can_Be_Deceiving
+Object 9 obj9_cage
+Object 10 obj10_Super_Duper_Anti_Leather_Goddesses_of_Phobos_Attack_Machine
+Object 11 obj11
+Object 12 obj12
+Object 13 obj13_window
+Object 14 obj14_harem_guard
+Object 15 obj15_Allusion_Room
+Object 16 obj16
+Object 17 obj17_yourself
+Object 18 obj18_Catacombs
+Object 19 obj19_pocket
+Object 20 obj20_secret_map
+Object 21 obj21_Ford
+Object 22 obj22_ladies_restroom
+Object 23 obj23_clothes_pin
+Object 24 obj24_odor
+Object 25 obj25_tree_hole
+Object 26 obj26_Wattz_Upp_Dock
+Object 27 obj27_Vizicomm_Booth
+Object 28 obj28_coin
+Object 29 obj29_Lawn
+Object 30 obj30_gents__restroom
+Object 31 obj31_Forgotten_Storehouse
+Object 32 obj32_Cleveland
+Object 33 obj33_direction
+Object 34 obj34_Rms
+Object 35 obj35_the_Leather_Goddesses_of_Phobos
+Object 36 obj36_bug_eyed_monster
+Object 37 obj37_Laundry_Room
+Object 38 obj38_riddle
+Object 39 obj39_coin_return_knob
+Object 40 obj40_LocGlo
+Object 41 obj41_your_head
+Object 42 obj42_Inside_the_Tent
+Object 43 obj43_her
+Object 44 obj44_first_slab
+Object 45 obj45_frog
+Object 46 obj46_sleep
+Object 47 obj47
+Object 48 obj48_odd_machine
+Object 49 obj49_Cell
+Object 50 obj50_eighty_two_degree_angle
+Object 51 obj51_mothballs
+Object 52 obj52
+Object 53 obj53_GloObj
+Object 54 obj54_shelf
+Object 55 obj55_matchbook
+Object 56 obj56_it
+Object 57 obj57_Cleveland_phone_book
+Object 58 obj58_wall
+Object 59 obj59_igloo_door
+Object 60 obj60
+Object 61 obj61_Joe_s_Bar
+Object 62 obj62_In_Space
+Object 63 obj63_dead_alien
+Object 64 obj64_Spawning_Ground
+Object 65 obj65_scrap_of_paper
+Object 66 obj66_canal
+Object 67 obj67_Ladies__Room
+Object 68 obj68_front_door
+Object 69 obj69_Teensy_Weensy_House
+Object 70 obj70_door
+Object 71 obj71_house
+Object 72 obj72_love
+Object 73 obj73_South_Pole
+Object 74 obj74_your_body
+Object 75 obj75_wooden_rake
+Object 76 obj76_Canalview_Mall
+Object 77 obj77_painting
+Object 78 obj78_Eastern_Edge_of_Desert
+Object 79 obj79
+Object 80 obj80_Martian_Desert
+Object 81 obj81_Boudoir
+Object 82 obj82_Jungle
+Object 83 obj83
+Object 84 obj84_Donald_Dock
+Object 85 obj85_male_gorilla
+Object 86 obj86_rubber_hose
+Object 87 obj87_stallion
+Object 88 obj88_stick_of_lip_balm
+Object 89 obj89_Oriental_Garden
+Object 90 obj90
+Object 91 obj91
+Object 92 obj92_Roof
+Object 93 obj93_Base_of_Tower
+Object 94 obj94_huge_red_power_switch
+Object 95 obj95
+Object 96 obj96
+Object 97 obj97_coin
+Object 98 obj98_Icy_Dock
+Object 99 obj99_Hold
+Object 100 obj100_Baby_Dock
+Object 101 obj101_Rocky_Clifftop
+Object 102 obj102_flexible_black_circle
+Object 103 obj103_Front_Door
+Object 104 obj104_Well_Bottom
+Object 105 obj105_tower
+Object 106 obj106_your_kneecaps
+Object 107 obj107_booth
+Object 108 obj108_passenger_spaceship
+Object 109 obj109_flashlight
+Object 110 obj110_Clearing
+Object 111 obj111_At_Main_Hatch
+Object 112 obj112
+Object 113 obj113_bed
+Object 114 obj114_stool
+Object 115 obj115_dubious_slice_of_pizza
+Object 116 obj116_royal_barge
+Object 117 obj117_Joe
+Object 118 obj118_room
+Object 119 obj119_Long_Corridor
+Object 120 obj120_Observation_Room
+Object 121 obj121_female_gorilla
+Object 122 obj122_proprietor
+Object 123 obj123_Oasis
+Object 124 obj124_trellis
+Object 125 obj125_Exit_Shop
+Object 126 obj126_him
+Object 127 obj127_your_eyes
+Object 128 obj128_Main_Hall_of_Palace
+Object 129 obj129_Laboratory
+Object 130 obj130
+Object 131 obj131_Plaza
+Object 132 obj132_battleship
+Object 133 obj133
+Object 134 obj134_coded_message
+Object 135 obj135_pile_of_angles
+Object 136 obj136_Inner_Harem
+Object 137 obj137_rabbit
+Object 138 obj138_hatch
+Object 139 obj139_whole_bunch_of_leaves
+Object 140 obj140_metal_door
+Object 141 obj141_can_of_black_stain
+Object 142 obj142_headlight
+Object 143 obj143_pair_of_cotton_balls
+Object 144 obj144_Fork__Of_Sorts
+Object 145 obj145_your_mouth
+Object 146 obj146_Bedroom
+Object 147 obj147_sign
+Object 148 obj148_Hickory___Dickory_Dock
+Object 149 obj149_front_stoop
+Object 150 obj150_mug_of_beer
+Object 151 obj151_sand_dunes
+Object 152 obj152_igloo
+Object 153 obj153_second_slab
+Object 154 obj154_back_door
+Object 155 obj155
+Object 156 obj156_stair
+Object 157 obj157_blanket
+Object 158 obj158_Closet
+Object 159 obj159_Gents__Room
+Object 160 obj160_End_of_Hallway
+Object 161 obj161_it
+Object 162 obj162_Dunetop
+Object 163 obj163_Abandoned_Dock
+Object 164 obj164_Other_Cell
+Object 165 obj165_water
+Object 166 obj166_wicker_basket
+Object 167 obj167
+Object 168 obj168_Minaret
+Object 169 obj169_white_suit
+Object 170 obj170_it
+Object 171 obj171_Lost_in_the_Desert
+Object 172 obj172_cell
+Object 173 obj173_coin_return_slot
+Object 174 obj174_narrow_cell_door
+Object 175 obj175_tube
+Object 176 obj176_number
+Object 177 obj177_mouse
+Object 178 obj178_divan
+Object 179 obj179
+Object 180 obj180_Ladder_Room
+Object 181 obj181_sod
+Object 182 obj182_ceiling
+Object 183 obj183_common_household_blender
+Object 184 obj184_your_ears
+Object 185 obj185_Ruined_Castle
+Object 186 obj186_Penguin_Park
+Object 187 obj187_handset
+Object 188 obj188_My_Kinda_Dock_
+Object 189 obj189_canvas_sack
+Object 190 obj190
+Object 191 obj191_Ruined_Castle
+Object 192 obj192
+Object 193 obj193_mad_scientist
+Object 194 obj194_Gypsy_Camp
+Object 195 obj195_Ruined_Castle
+Object 196 obj196_Cramped_Space
+Object 197 obj197_it
+Object 198 obj198_Royal_Docks
+Object 199 obj199_wide_cell_door
+Object 200 obj200_dust
+Object 201 obj201_Martian_Canal
+Object 202 obj202_tray
+Object 203 obj203_Western_Edge_of_Desert
+Object 204 obj204_vizicomm
+Object 205 obj205_your_nose
+Object 206 obj206_dock
+Object 207 obj207
+Object 208 obj208_Orphanage_Foyer
+Object 209 obj209_Stable
+Object 210 obj210_toilet
+Object 211 obj211_Burial_Chamber
+Object 212 obj212
+Object 213 obj213_Among_the_Dunes
+Object 214 obj214_Edge_of_Polar_Ice_Cap
+Object 215 obj215_Throne_Room
+Object 216 obj216_Space_Yacht
+Object 217 obj217_mass_of_penguins
+Object 218 obj218_Venus_flytrap
+Object 219 obj219_Basement
+Object 220 obj220_huge_orange_button
+Object 221 obj221_Harem
+Object 222 obj222_salesman
+Object 223 obj223
+Object 224 obj224_Audience_Chamber
+Object 225 obj225_Garden
+Object 226 obj226_pseudo
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbos'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superb'
+Action 3 Action3  ! 'tame'
+Action 4 Action4  ! 'sugges'
+Action 5 Action5  ! 'dirty'/'lewd'/'naught'
+Action 6 Action6  ! 'diagno'
+Action 7 Action7  ! 'i//'/'invent'
+Action 8 Action8  ! 'q//'/'quit'
+Action 9 Action9  ! 'restar'
+Action 10 Action10 ! 'restor'
+Action 11 Action11 ! 'rescue'/'save'
+Action 12 Action12 ! 'status'
+Action 13 Action13 ! 'script'
+Action 14 Action14 ! 'unscri'
+Action 15 Action15 ! 'versio'
+Action 16 Action16 ! '#rand' object
+Action 17 Action17 ! '#comm'
+Action 18 Action18 ! '#reco'
+Action 19 Action19 ! '#unre'
+Action 20 Action20 ! '$ve' object
+Action 21 Action21 ! '$de'
+Action 22 Action22 ! '$pa'
+Action 23 Action23 ! '$ju'
+Action 24 Action24 ! '$cl'
+Action 25 Action25 ! '$ho'/'$sp'
+Action 26 Action26 ! '$do'/'$ma'/'$ro'
+Action 27 Action27 ! '$ri'/'$su'
+Action 28 Action28 ! '$ic'/'$po'/'$so'
+Action 29 Action29 ! '$sh'/'$st'
+Action 30 Action30 ! '$bo'/'$go'/'$le'/'$lg'/'$pl'
+Action 31 Action31 ! 'answer'/'guess'/'reply'
+Action 32 Action32 ! 'answer'/'guess'/'reply' object
+Action 33 Action33 ! 'applau'/'clap' object
+Action 34 Action34 ! 'apply' object(have)
+Action 35 Action35 ! 'roll' object 'over' object
+Action 36 Action36 ! 'go' 'toward'/'to' object
+Action 37 Action37 ! 'ask' attrib31 'onto'/'on' object
+Action 38 Action38 ! 'ask' attrib31 'for' object
+Action 39 Action39 ! 'ask' 'for' object
+Action 40 Action40 ! 'break'/'crush'/'damage'/'demoli'/'destro'/'smash'/'trampl'/'wreck' 'down'/'d//' object
+Action 41 Action41 ! 'bargai'/'barter'/'exchan'/'swap'/'trade' 'with'/'using' attrib31
+Action 42 Action42 ! 'bargai'/'barter'/'exchan'/'swap'/'trade' object(held,carried,have) 'for' object
+Action 43 Action43 ! 'bend'/'spread' object
+Action 44 Action44 ! 'bite' object
+Action 45 Action45 ! 'blow' object
+Action 46 Action46 ! 'inflat' object
+Action 47 Action47 ! 'close'/'shut' 'off' attrib25(held,carried,in_room,on_ground,take)
+Action 48 Action48 ! 'climb'/'scale' 'into'/'inside'/'in' attrib29(in_room,on_ground)
+Action 49 Action49 ! 'board'/'mount'/'ride' object object
+Action 50 Action50 ! 'breath' 'hard' attrib28
+Action 51 Action51 ! 'burn' 'up'/'u//' attrib27 'with'/'using' object(have)
+Action 52 Action52 ! 'pay' 'for' object
+Action 53 Action53 ! 'buy'/'order'/'purcha' object 'with'/'using' object
+Action 54 Action54 ! 'call' 'toward'/'to' object
+Action 55 Action55 ! 'cast' 'off' attrib28
+Action 56 Action56 ! 'catch'/'trap' object(in_room,on_ground) 'with'/'using' object
+Action 57 Action57 ! 'make' 'happy' object
+Action 58 Action58 ! 'go' 'around'/'along' attrib28
+Action 59 Action59 ! 'click' object
+Action 60 Action60 ! 'climb'/'scale' object(in_room,on_ground)
+Action 61 Action61 ! 'climb'/'scale' 'onto'/'on' attrib29(in_room,on_ground)
+Action 62 Action62 ! 'climb'/'scale' 'up'/'u//' attrib28(in_room,on_ground)
+Action 63 Action63 ! 'climb'/'scale' 'down'/'d//' attrib28(in_room,on_ground)
+Action 64 Action64 ! 'climb'/'scale' 'off' attrib29(in_room,on_ground)
+Action 65 Action65 ! 'climb'/'scale' 'over' object(in_room,on_ground)
+Action 66 Action66 ! 'climb'/'scale' 'thru'/'throug' object
+Action 67 Action67 ! 'climb'/'scale' 'undern'/'under'/'beneat'/'below' object
+Action 68 Action68 ! 'close'/'shut' attrib26(held,carried,in_room,on_ground)
+Action 69 Action69 ! 'close'/'shut' 'up'/'u//' attrib28
+Action 70 Action70 ! 'climax'/'come'/'cum'/'ejacul'
+Action 71 Action71 ! 'go' 'with'/'using' object
+Action 72 Action72 ! 'copula'
+Action 73 Action73 ! 'cover'/'plug' object 'with'/'using' object(held,many)
+Action 74 Action74 ! 'count' object
+Action 75 Action75 ! 'cross' object
+Action 76 Action76 ! 'decode' object
+Action 77 Action77 ! 'deflat' object
+Action 78 Action78 ! 'break'/'crush'/'damage'/'demoli'/'destro'/'smash'/'trampl'/'wreck' 'outsid'/'out' attrib28
+Action 79 Action79 ! 'dig' 'thru'/'throug' object
+Action 80 Action80 ! 'dress' object
+Action 81 Action81 ! 'drink'/'sip'/'swallo' object(held,carried,in_room,on_ground)
+Action 82 Action82 ! 'drink'/'sip'/'swallo' 'from' object(held,carried)
+Action 83 Action83 ! 'drop'/'dump' object(held,many,have)
+Action 84 Action84 ! 'slide' object 'thru'/'throug' object
+Action 85 Action85 ! 'drop'/'dump' object(held,many) 'thru'/'throug' object
+Action 86 Action86 ! 'drop'/'dump' object(held,carried) 'near'/'by'/'before' object
+Action 87 Action87 ! 'devour'/'eat'/'gobble'/'ingest' object(held,carried,in_room,on_ground)
+Action 88 Action88 ! 'empty' object(take) 'toward'/'to' object
+Action 89 Action89 ! 'empty' object(many) 'outsid'/'out' object(take)
+Action 90 Action90 ! 'enter'
+Action 91 Action91 ! 'descri'/'examin'/'inspec'/'observ'/'study'/'watch' object(held,carried,in_room,on_ground)
+Action 92 Action92 ! 'descri'/'examin'/'inspec'/'observ'/'study'/'watch' 'onto'/'on' object(held,carried,in_room,on_ground)
+Action 93 Action93 ! 'descri'/'examin'/'inspec'/'observ'/'study'/'watch' 'for' object
+Action 94 Action94 ! 'depart'/'exit'/'withdr' object
+Action 95 Action95 ! 'feed' attrib31
+Action 96 Action96 ! 'donate'/'give'/'hand'/'offer'/'sell' object(held,many,have) 'back' attrib31(on_ground)
+Action 97 Action97 ! 'donate'/'give'/'hand'/'offer'/'sell' attrib31(on_ground) object(held,many,have)
+Action 98 Action98 ! 'fill' attrib24(held,carried,have) 'with'/'using' object
+Action 99 Action99 ! 'flush' object
+Action 100 Action100 ! 'doze'/'nap'/'sleep'/'snooze' 'with'/'using' attrib31
+Action 101 Action101 ! 'giddap'/'giddya'
+Action 102 Action102 ! 'go' object
+Action 103 Action103 ! 'go' 'behind' object
+Action 104 Action104 ! 'go' 'away' attrib28
+Action 105 Action105 ! 'donate'/'give'/'hand'/'offer'/'sell' 'up'/'u//' attrib28
+Action 106 Action106 ! 'return' object(held,carried,have) 'toward'/'to' object(on_ground)
+Action 107 Action107 ! 'listen' 'toward'/'to' object
+Action 108 Action108 ! 'hello'/'hi' object
+Action 109 Action109 ! 'help'/'hint'/'hints'
+Action 110 Action110 ! 'help'/'hint'/'hints' object
+Action 111 Action111 ! 'hiss' 'at' object
+Action 112 Action112 ! 'jerk' 'off' attrib28
+Action 113 Action113 ! 'dive'/'jump'/'leap'/'vault' 'toward'/'to' object
+Action 114 Action114 ! 'dive'/'jump'/'leap'/'vault' 'outsid'/'out' object
+Action 115 Action115 ! 'rise'/'stand' 'into'/'inside'/'in' object
+Action 116 Action116 ! 'kick' object
+Action 117 Action117 ! 'kiss' attrib31(in_room,on_ground)
+Action 118 Action118 ! 'kiss' attrib31 'onto'/'on' object
+Action 119 Action119 ! 'bow'/'kneel' 'for' attrib31
+Action 120 Action120 ! 'tap' 'onto'/'on' object
+Action 121 Action121 ! 'kweepa'
+Action 122 Action122 ! 'dock'/'land'/'moor' attrib29
+Action 123 Action123 ! 'cackle'/'chuckl'/'giggle'/'laugh' 'at' object
+Action 124 Action124 ! 'launch' object
+Action 125 Action125 ! 'lean' object(have) 'agains' object
+Action 126 Action126 ! 'lick' object
+Action 127 Action127 ! 'lie' 'down'/'d//' attrib28
+Action 128 Action128 ! 'activa'/'start' object
+Action 129 Action129 ! 'limber'/'stretc' 'up'/'u//' attrib28
+Action 130 Action130 ! 'lock' object(in_room,on_ground) 'with'/'using' object
+Action 131 Action131 ! 'l//'/'look' 'around'/'along' attrib28
+Action 132 Action132 ! 'l//'/'look' 'down'/'d//' attrib28
+Action 133 Action133 ! 'l//'/'look' 'up'/'u//' attrib28
+Action 134 Action134 ! 'l//'/'look' 'undern'/'under'/'beneat'/'below' object
+Action 135 Action135 ! 'l//'/'look' 'behind' object
+Action 136 Action136 ! 'l//'/'look' 'over' object
+Action 137 Action137 ! 'l//'/'look' object
+Action 138 Action138 ! 'love' attrib31
+Action 139 Action139 ! 'lower' object
+Action 140 Action140 ! 'make' object
+Action 141 Action141 ! 'make' 'outsid'/'out' attrib28
+Action 142 Action142 ! 'make' object 'with'/'using' object
+Action 143 Action143 ! 'make' object 'toward'/'to' attrib31
+Action 144 Action144 ! 'marry'/'wed' attrib31
+Action 145 Action145 ! 'measur' object
+Action 146 Action146 ! 'moan'
+Action 147 Action147 ! 'lead'/'move'/'pull' object 'toward'/'to' object
+Action 148 Action148 ! 'press'/'push' object object
+Action 149 Action149 ! 'press'/'push' 'up'/'u//' object
+Action 150 Action150 ! 'nah'/'no'/'nope'/'uh-uh'
+Action 151 Action151 ! 'open' attrib26(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 152 Action152 ! 'pass' object
+Action 153 Action153 ! 'leak'/'mictur'/'pee'/'pee-p'/'piddle'/'piss'/'tinkle'/'urinat'/'wee'/'wee-w'
+Action 154 Action154 ! 'leak'/'mictur'/'pee'/'pee-p'/'piddle'/'piss'/'tinkle'/'urinat'/'wee'/'wee-w' 'onto'/'on' object
+Action 155 Action155 ! 'phone' object
+Action 156 Action156 ! 'pick' object 'with'/'using' object
+Action 157 Action157 ! 'pick' 'up'/'u//' attrib23(on_ground,many)
+Action 158 Action158 ! 'play' object
+Action 159 Action159 ! 'rub' object
+Action 160 Action160 ! 'aim'/'point'/'shine' object 'into'/'inside'/'in' object
+Action 161 Action161 ! 'pour'/'spill' object(held,carried) 'outsid'/'out' object
+Action 162 Action162 ! 'slide' object
+Action 163 Action163 ! 'press'/'push' 'off' attrib28
+Action 164 Action164 ! 'slide' object 'undern'/'under'/'beneat'/'below' object
+Action 165 Action165 ! 'rake' object 'with'/'using' object(have)
+Action 166 Action166 ! 'rape' attrib31
+Action 167 Action167 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 168 Action168 ! 'browse'/'read'/'skim' attrib22(take) 'with'/'using' object
+Action 169 Action169 ! 'reliev' object
+Action 170 Action170 ! 'remove'/'unwrap' attrib21
+Action 171 Action171 ! 'remove'/'unwrap' attrib23(carried,in_room,many) 'from' object
+Action 172 Action172 ! 'rip'/'shred'/'tear' 'up'/'u//' object
+Action 173 Action173 ! 'roll' 'up'/'u//' object
+Action 174 Action174 ! 'rub' object 'onto'/'on' object
+Action 175 Action175 ! 'rub' object 'with'/'using' object
+Action 176 Action176 ! 'say'
+Action 177 Action177 ! 'boo'/'scat'/'scram'/'shoo'
+Action 178 Action178 ! 'score' 'with'/'using' object
+Action 179 Action179 ! 'rummag'/'search' 'thru'/'throug' object
+Action 180 Action180 ! 'bounce'/'rock'/'rock-'/'shake' object
+Action 181 Action181 ! 'bounce'/'rock'/'rock-'/'shake' object 'with'/'using' object
+Action 182 Action182 ! 'crap'/'defeca'/'poo-p'/'shit'
+Action 183 Action183 ! 'show' object(held,many) 'toward'/'to' attrib31
+Action 184 Action184 ! 'show' attrib31 object(held,many)
+Action 185 Action185 ! 'sigh'
+Action 186 Action186 ! 'sink' object
+Action 187 Action187 ! 'sit' 'down'/'d//' attrib28(in_room,on_ground)
+Action 188 Action188 ! 'hop'/'skip'
+Action 189 Action189 ! 'doze'/'nap'/'sleep'/'snooze'
+Action 190 Action190 ! 'cut'/'slice' 'thru'/'throug' object 'with'/'using' object(held,carried)
+Action 191 Action191 ! 'smell'/'sniff'/'whiff' object
+Action 192 Action192 ! 'spin'/'whirl' object
+Action 193 Action193 ! 'paint'/'stain' object 'with'/'using' object
+Action 194 Action194 ! 'rise'/'stand' 'up'/'u//' attrib28
+Action 195 Action195 ! 'don'/'wear' attrib20(have)
+Action 196 Action196 ! 'insert'/'lay'/'place'/'put'/'stick'/'stuff' object 'behind' object
+Action 197 Action197 ! 'insert'/'lay'/'place'/'put'/'stick'/'stuff' object 'toward'/'to' object
+Action 198 Action198 ! 'suck' 'off' object
+Action 199 Action199 ! 'suckle' object
+Action 200 Action200 ! 'swim' 'into'/'inside'/'in' object
+Action 201 Action201 ! 'swing' object(held,carried,have) 'at' attrib31
+Action 202 Action202 ! 'carry'/'get'/'grab'/'hold'/'take' 'dresse' attrib28
+Action 203 Action203 ! 'carry'/'get'/'grab'/'hold'/'take' 'undres' attrib28
+Action 204 Action204 ! 'carry'/'get'/'grab'/'hold'/'take' object(carried,in_room,many) 'with'/'using' object(have)
+Action 205 Action205 ! 'carry'/'get'/'grab'/'hold'/'take' 'off' attrib29
+Action 206 Action206 ! 'carry'/'get'/'grab'/'hold'/'take' 'leak' attrib28
+Action 207 Action207 ! 'carry'/'get'/'grab'/'hold'/'take' 'shit' attrib28
+Action 208 Action208 ! 'carry'/'get'/'grab'/'hold'/'take' 'drunk' attrib28
+Action 209 Action209 ! 'speak'/'talk' 'toward'/'to' attrib31(in_room)
+Action 210 Action210 ! 'nibble'/'taste' object
+Action 211 Action211 ! 'tell' attrib31 'about' object
+Action 212 Action212 ! 'tell' object object
+Action 213 Action213 ! 'thank'/'thanks'
+Action 214 Action214 ! 'hurl'/'throw'/'toss' object(held,carried) 'toward'/'to' object(in_room,on_ground)
+Action 215 Action215 ! 'hurl'/'throw'/'toss' object(held,carried) 'overbo' attrib28
+Action 216 Action216 ! 'hurl'/'throw'/'toss' object(held,carried) 'over' object
+Action 217 Action217 ! 'hurl'/'throw'/'toss' 'up'/'u//' attrib28
+Action 218 Action218 ! 'attach'/'fasten'/'secure'/'strap'/'tie' object(held) 'around'/'along' object
+Action 219 Action219 ! 'attach'/'fasten'/'secure'/'strap'/'tie' 'togeth' object
+Action 220 Action220 ! 'dial'/'flick'/'flip'/'rotate'/'set'/'steer'/'switch'/'turn' object object
+Action 221 Action221 ! 'unbloc'/'uncove'/'unpin'/'unplug' object
+Action 222 Action222 ! 'strip'/'undres' object
+Action 223 Action223 ! 'unlock' object 'with'/'using' object(have)
+Action 224 Action224 ! 'unroll' object
+Action 225 Action225 ! 'free'/'unatta'/'unfast'/'unknot'/'unstra'/'untie' object(held,carried,in_room,on_ground)
+Action 226 Action226 ! 'use' object
+Action 227 Action227 ! 'barf'/'puke'/'regurg'/'upchuc'/'vomit'
+Action 228 Action228 ! 'wait'/'z//'
+Action 229 Action229 ! 'wait'/'z//' 'for' object
+Action 230 Action230 ! 'awake'/'rouse'/'wake' 'up'/'u//' attrib28
+Action 231 Action231 ! 'clean'/'wash' 'off' object
+Action 232 Action232 ! 'what'/'what^'/'whats' object
+Action 233 Action233 ! 'where'/'wheres' object
+Action 234 Action234 ! 'crack'/'snap'/'whip' object 'with'/'using' object(have)
+Action 235 Action235 ! 'who'/'whos' object
+Action 236 Action236 ! 'wrap' object(held,many) 'around'/'along' object
+Action 237 Action237 ! 'wrap' object 'into'/'inside'/'in' object(held,many)
+Action 238 Action238 ! 'scream'/'shout'/'yell' 'toward'/'to' object
+Action 239 Action239 ! 'ok'/'okay'/'sure'/'y//'/'yes'/'yup'
+Action 240 Action240 ! 'zzmgck' object
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x5c72 routine23666:?
+
+! ------------------------------- Words --------------------------------
+
+Word $bo $bo
+Word $cl $cl
+Word $de $de
+Word $do $do
+Word $go $go
+Word $ho $ho
+Word $ic $ic
+Word $ju $ju
+Word $le $le
+Word $lg $lg
+Word $ma $ma
+Word $pa $pa
+Word $pl $pl
+Word $po $po
+Word $ri $ri
+Word $ro $ro
+Word $sh $sh
+Word $so $so
+Word $sp $sp
+Word $st $st
+Word $su $su
+Word $ve $ve
+Word #comm #comm
+Word #rand #rand
+Word #reco #reco
+Word #unre #unre
+Word abando abando
+Word across across
+Word activa activa
+Word addres addres
+Word agains agains
+Word angles angles
+Word answer answer
+Word applau applau
+Word approa approa
+Word around around
+Word assass assass
+Word asshol asshol
+Word attach attach
+Word attack attack
+Word bargai bargai
+Word barred barred
+Word barten barten
+Word barter barter
+Word basket basket
+Word bastar bastar
+Word bathro bathro
+Word battle battle
+Word before before
+Word behind behind
+Word beneat beneat
+Word bigger bigger
+Word bikini bikini
+Word blanke blanke
+Word blende blende
+Word bluepr bluepr
+Word bookle bookle
+Word bounce bounce
+Word bracki bracki
+Word brassi brassi
+Word breath breath
+Word browse browse
+Word bug-e bug-e
+Word button button
+Word cackle cackle
+Word canvas canvas
+Word cardbo cardbo
+Word cedarw cedarw
+Word ceilin ceilin
+Word chapst chapst
+Word chocol chocol
+Word chuckl chuckl
+Word circle circle
+Word clevel clevel
+Word climax climax
+Word clohes clohes
+Word closet closet
+Word clothe clothe
+Word cluste cluste
+Word coated coated
+Word cocksu cocksu
+Word comfor comfor
+Word common common
+Word compar compar
+Word contro contro
+Word copula copula
+Word cotton cotton
+Word couchm couchm
+Word creamy creamy
+Word creatu creatu
+Word crumpl crumpl
+Word damage damage
+Word damned damned
+Word daught daught
+Word deacti deacti
+Word debark debark
+Word decode decode
+Word defeca defeca
+Word defens defens
+Word deflat deflat
+Word degree degree
+Word demoli demoli
+Word depart depart
+Word descen descen
+Word descri descri
+Word destro destro
+Word device device
+Word devour devour
+Word diagno diagno
+Word differ differ
+Word direct direct
+Word discar discar
+Word disemb disemb
+Word dismou dismou
+Word donate donate
+Word door- door-
+Word doorst doorst
+Word doorwa doorwa
+Word dougla dougla
+Word dresse dresse
+Word drowsy drowsy
+Word dubiou dubiou
+Word egress egress
+Word eighty eighty
+Word ejacul ejacul
+Word elysia elysia
+Word elysiu elysiu
+Word enchan enchan
+Word engrav engrav
+Word entert entert
+Word everyt everyt
+Word examin examin
+Word except except
+Word exchan exchan
+Word excite excite
+Word exting exting
+Word fairba fairba
+Word famili famili
+Word fashio fashio
+Word fasten fasten
+Word female female
+Word figure figure
+Word finger finger
+Word fittin fittin
+Word flagsh flagsh
+Word flashl flashl
+Word flexib flexib
+Word flower flower
+Word flowin flowin
+Word flytra flytra
+Word follow follow
+Word fondle fondle
+Word forlor forlor
+Word form- form-
+Word fornic fornic
+Word founta founta
+Word frenzi frenzi
+Word frog' frog'
+Word fucked fucked
+Word fuckin fuckin
+Word gent' gent'
+Word giddap giddap
+Word giddya giddya
+Word gigant gigant
+Word giggle giggle
+Word gleami gleami
+Word gliste gliste
+Word gobble gobble
+Word goddes goddes
+Word golden golden
+Word gondol gondol
+Word gorill gorill
+Word ground ground
+Word handse handse
+Word harlow harlow
+Word hatchw hatchw
+Word headli headli
+Word hersel hersel
+Word himsel himsel
+Word househ househ
+Word humano humano
+Word husban husban
+Word impass impass
+Word infant infant
+Word inflat inflat
+Word ingest ingest
+Word insert insert
+Word inside inside
+Word inspec inspec
+Word invent invent
+Word jockst jockst
+Word king' king'
+Word kitche kitche
+Word kneeca kneeca
+Word kweepa kweepa
+Word ladder ladder
+Word ladies ladies
+Word larger larger
+Word lattic lattic
+Word launch launch
+Word laundr laundr
+Word leathe leathe
+Word leaves leaves
+Word lifera lifera
+Word limber limber
+Word listen listen
+Word little little
+Word locati locati
+Word loincl loincl
+Word loomin loomin
+Word lotion lotion
+Word luscio luscio
+Word machbo machbo
+Word maches maches
+Word machin machin
+Word magnif magnif
+Word mailin mailin
+Word man-e man-e
+Word marsmi marsmi
+Word marsmo marsmo
+Word martia martia
+Word massiv massiv
+Word mastur mastur
+Word matchb matchb
+Word matche matche
+Word measur measur
+Word men's men's
+Word messag messag
+Word mictur mictur
+Word mighti mighti
+Word mighty mighty
+Word minare minare
+Word monkey monkey
+Word monste monste
+Word mothba mothba
+Word murder murder
+Word myself myself
+Word narrow narrow
+Word naught naught
+Word nibble nibble
+Word northe northe
+Word northw northw
+Word nostri nostri
+Word number number
+Word observ observ
+Word ointme ointme
+Word orange orange
+Word orphan orphan
+Word outsid outsid
+Word overal overal
+Word overbo overbo
+Word painin painin
+Word painti painti
+Word passen passen
+Word pee-p pee-p
+Word pengui pengui
+Word petite petite
+Word phobos phobos
+Word phoneb phoneb
+Word pictur pictur
+Word piddle piddle
+Word pissed pissed
+Word plasti plasti
+Word please please
+Word pocket pocket
+Word poo-p poo-p
+Word portab portab
+Word potent potent
+Word pounds pounds
+Word prince prince
+Word prison prison
+Word procee procee
+Word propri propri
+Word protag protag
+Word purcha purcha
+Word purple purple
+Word pursue pursue
+Word rabbit rabbit
+Word ragged ragged
+Word rectan rectan
+Word reddis reddis
+Word reflec reflec
+Word regurg regurg
+Word reliab reliab
+Word reliev reliev
+Word rellis rellis
+Word remove remove
+Word rescue rescue
+Word restar restar
+Word restor restor
+Word restro restro
+Word return return
+Word ricket ricket
+Word riddle riddle
+Word roboti roboti
+Word rock- rock-
+Word rotate rotate
+Word rubber rubber
+Word rummag rummag
+Word rusted rusted
+Word salesm salesm
+Word sand- sand-
+Word scient scient
+Word scratc scratc
+Word scream scream
+Word script script
+Word sculpt sculpt
+Word search search
+Word second second
+Word secret secret
+Word secure secure
+Word shadow shadow
+Word shapes shapes
+Word shithe shithe
+Word shitty shitty
+Word simple simple
+Word slende slende
+Word smalle smalle
+Word snooze snooze
+Word southe southe
+Word southw southw
+Word spaces spaces
+Word splatt splatt
+Word spooky spooky
+Word spread spread
+Word square square
+Word stagna stagna
+Word staine staine
+Word stairs stairs
+Word stairw stairw
+Word stalli stalli
+Word status status
+Word stimul stimul
+Word strang strang
+Word straps straps
+Word stretc stretc
+Word strike strike
+Word strips strips
+Word stroke stroke
+Word strong strong
+Word struct struct
+Word suckle suckle
+Word sugges sugges
+Word sultan sultan
+Word superb superb
+Word swallo swallo
+Word swayin swayin
+Word switch switch
+Word t-rem t-rem
+Word tatter tatter
+Word tea-r tea-r
+Word tee-r tee-r
+Word teensy teensy
+Word teleph teleph
+Word tentac tentac
+Word thanks thanks
+Word therma therma
+Word thorba thorba
+Word throug throug
+Word tiff' tiff'
+Word tiffan tiffan
+Word tinier tinier
+Word tinkle tinkle
+Word togeth togeth
+Word toilet toilet
+Word toward toward
+Word toweri toweri
+Word trampl trampl
+Word tree- tree-
+Word trelli trelli
+Word tremen tremen
+Word uh-uh uh-uh
+Word unangl unangl
+Word unatta unatta
+Word unbloc unbloc
+Word uncove uncove
+Word undern undern
+Word undres undres
+Word unfast unfast
+Word unknot unknot
+Word unlock unlock
+Word unmade unmade
+Word unplug unplug
+Word unreli unreli
+Word unroll unroll
+Word unscri unscri
+Word unstra unstra
+Word untang untang
+Word unused unused
+Word unwrap unwrap
+Word upchuc upchuc
+Word urinat urinat
+Word velvet velvet
+Word verbos verbos
+Word versio versio
+Word viewpo viewpo
+Word vizico vizico
+Word waddli waddli
+Word warnin warnin
+Word wealth wealth
+Word wee-w wee-w
+Word weensy weensy
+Word what' what'
+Word wheres wheres
+Word wicker wicker
+Word windin windin
+Word window window
+Word withdr withdr
+Word wooden wooden
+Word zzmgck zzmgck
+

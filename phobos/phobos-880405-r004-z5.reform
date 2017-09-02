@@ -1,0 +1,844 @@
+! ----------------------------------------------------
+!   LGOP_4_880405.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  A2915D33DFA3E029B727684E734DE303
+CodeArea  0x7b14  0x1ec73
+StringArea  0x1ec74  0x270b8
+
+Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_SEVEN=7 M_EIGHT=8 M_NINE=9 OTHER=100
+
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+GlobalArray 167 Actions:array(233*routine)
+GlobalArray 168 Preactions:array(233*routine)
+Global      169 Verbs:^array
+LastGlobal  169
+
+
+
+! ----------------------------- Attributes -----------------------------
+
+
+
+! ----------------------------- Properties -----------------------------
+
+
+
+! ------------------------------ Objects -------------------------------
+
+
+
+! ------------------------------ Actions -------------------------------
+
+
+
+! ------------------------------ Routines ------------------------------
+
+Routine  0x7b58 routine31576 local1 
+Routine  0x7ba0 routine31648 
+Routine  0x7ba8 routine31656 local1 
+Routine  0x7bcc routine31692 local1 
+Routine  0x7be4 routine31716 
+Routine  0x7bec routine31724 
+Routine  0x7bf4 routine31732 local1 
+Routine  0x7c00 routine31744 local1 
+Routine  0x7c0c routine31756 
+Routine  0x7ee0 routine32480 local1 
+Routine  0x7eec routine32492 local1 
+Routine  0x7ef4 routine32500 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x8148 routine33096 
+Routine  0x8160 routine33120 local1 local2 
+Routine  0x81e0 routine33248 
+Routine  0x8210 routine33296 local1 local2 local3 
+Routine  0x828c routine33420 local1 local2 
+Routine  0x8298 routine33432 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x83c4 routine33732 local1 local2 local3 local4 
+Routine  0x83d8 routine33752 local1 
+Routine  0x83e8 routine33768 local1 local2 local3 
+Routine  0x8410 routine33808 local1 local2 local3 
+Routine  0x843c routine33852 local1 local2 local3 local4 local5 
+Routine  0x84b8 routine33976 local1 local2 local3 local4 local5 local6 
+Routine  0x854c routine34124 local1 
+Routine  0x857c routine34172 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0x8af0 routine35568 local1 local2 local3 local4 local5 local6 
+Routine  0x8b3c routine35644 local1 local2 local3 local4 local5 local6 
+Routine  0x8b94 routine35732 local1 local2 local3 
+Routine  0x8bac routine35756 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x8c00 routine35840 local1 local2 local3 local4 local5 
+Routine  0x8c28 routine35880 local1 local2 
+Routine  0x8c44 routine35908 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x8e4c routine36428 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x8f68 routine36712 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x8fb4 routine36788 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x919c routine37276 local1 
+Routine  0x91e4 routine37348 local1 local2 
+Routine  0x91f8 routine37368 local1 local2 local3 
+Routine  0x923c routine37436 local1 local2 local3 local4 
+Routine  0x929c Syntax_Check syn:int len num:int obj drive1:bool drive2:bool prep vrb:action local9 local10 
+Routine  0x9438 routine37944 local1 local2 
+Routine  0x9474 routine38004 
+Routine  0x9494 routine38036 local1 local2 local3 
+Routine  0x9528 routine38184 local1 local2 local3 local4 
+Routine  0x9544 routine38212 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x9610 routine38416 local1 
+Routine  0x963c routine38460 local1 local2 
+Routine  0x9674 routine38516 local1 local2 
+Routine  0x9690 routine38544 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x975c routine38748 local1 local2 local3 
+Routine  0x9780 routine38784 local1 local2 local3 
+Routine  0x97a0 routine38816 local1 
+Routine  0x97ac routine38828 local1 local2 local3 local4 
+Routine  0x9810 routine38928 local1 
+Routine  0x9878 routine39032 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x98bc routine39100 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x9a24 routine39460 local1 
+Routine  0x9a8c routine39564 local1 
+Routine  0x9aa4 routine39588 local1 local2 
+Routine  0x9ac8 routine39624 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x9c78 routine40056 
+Routine  0x9c8c routine40076 local1 local2 local3 local4 local5 local6 
+Routine  0x9cd0 routine40144 local1 local2 local3 local4 local5 
+Routine  0x9d44 routine40260 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x9d94 routine40340 local1 local2 local3 local4 
+Routine  0x9dc0 routine40384 local1 local2 local3 local4 local5 
+Routine  0x9e20 routine40480 local1 local2 local3 
+Routine  0x9e38 routine40504 
+Routine  0x9e54 routine40532 local1 local2 local3 local4 local5 
+Routine  0x9f9c routine40860 local1 local2 local3 local4 
+Routine  0xa058 routine41048 local1 local2 local3 local4 
+Routine  0xa0b8 routine41144 local1 
+Routine  0xa0e4 routine41188 local1 
+Routine  0xa110 routine41232 local1 local2 local3 
+Routine  0xa150 Action0Sub 
+Routine  0xa16c Action1Sub 
+Routine  0xa180 Action2Sub 
+Routine  0xa198 Action3Sub 
+Routine  0xa1bc Action4Sub 
+Routine  0xa1dc Action5Sub local1 
+Routine  0xa300 Action9Sub 
+Routine  0xa318 Action12Sub local1 
+Routine  0xa394 Action11Sub 
+Routine  0xa3a4 routine41892 
+Routine  0xa410 Action14Sub 
+Routine  0xa428 Action15Sub 
+Routine  0xa440 routine42048 local1 
+Routine  0xa46c Action6Sub 
+Routine  0xa560 Action7Sub 
+Routine  0xa5d0 Action8Sub 
+Routine  0xa5e8 Action10Sub 
+Routine  0xa60c routine42508 local1 
+Routine  0xa630 routine42544 
+Routine  0xa67c routine42620 local1 local2 
+Routine  0xa760 Action13Sub 
+Routine  0xa7cc routine42956 
+Routine  0xa7f0 Action16Sub local1 local2 
+Routine  0xa8a0 Action18Sub 
+Routine  0xa8a8 Action17Sub 
+Routine  0xa8c4 Action19Sub 
+Routine  0xa8cc Action20Sub 
+Routine  0xa8d4 Action21Sub 
+Routine  0xa908 Action22Sub 
+Routine  0xa9a8 Action222Sub 
+Routine  0xa9c4 Action23Sub 
+Routine  0xaa28 Action230Sub 
+Routine  0xaa44 routine43588 
+Routine  0xaa94 Action25Sub 
+Routine  0xaaac Action26Sub 
+Routine  0xaad8 PreAction29Sub 
+Routine  0xab48 Action29Sub local1 
+Routine  0xab88 Action30Sub 
+Routine  0xaba8 Action31Sub local1 
+Routine  0xabc4 Action33Sub 
+Routine  0xabec Action34Sub 
+Routine  0xabf4 Action35Sub 
+Routine  0xac14 Action36Sub 
+Routine  0xac20 Action37Sub 
+Routine  0xac34 PreAction40Sub 
+Routine  0xac60 Action40Sub local1 
+Routine  0xad58 Action41Sub 
+Routine  0xad60 Action43Sub 
+Routine  0xae44 Action44Sub 
+Routine  0xae60 Action45Sub 
+Routine  0xaea0 Action46Sub 
+Routine  0xaec4 Action47Sub 
+Routine  0xaedc Action48Sub 
+Routine  0xaef8 Action129Sub 
+Routine  0xaf78 Action49Sub 
+Routine  0xafa0 Action223Sub 
+Routine  0xafbc Action51Sub 
+Routine  0xafc8 Action52Sub 
+Routine  0xafe8 Action55Sub 
+Routine  0xb018 Action53Sub 
+Routine  0xb050 Action57Sub 
+Routine  0xb064 Action54Sub 
+Routine  0xb084 Action60Sub 
+Routine  0xb0d0 Action62Sub 
+Routine  0xb0ec Action64Sub local1 
+Routine  0xb108 Action66Sub 
+Routine  0xb110 Action59Sub 
+Routine  0xb120 Action67Sub 
+Routine  0xb128 Action183Sub 
+Routine  0xb158 Action68Sub 
+Routine  0xb16c Action69Sub 
+Routine  0xb174 Action71Sub 
+Routine  0xb17c Action56Sub 
+Routine  0xb228 Action72Sub 
+Routine  0xb258 Action73Sub 
+Routine  0xb264 Action74Sub 
+Routine  0xb26c Action75Sub 
+Routine  0xb29c routine45724 
+Routine  0xb320 Action79Sub 
+Routine  0xb3b0 Action80Sub local1 local2 
+Routine  0xb494 Action81Sub 
+Routine  0xb4b4 Action58Sub 
+Routine  0xb4f8 Action83Sub 
+Routine  0xb5f0 routine46576 
+Routine  0xb63c Action84Sub 
+Routine  0xb65c routine46684 local1 
+Routine  0xb678 Action85Sub 
+Routine  0xb69c Action88Sub 
+Routine  0xb6d8 Action89Sub local1 local2 
+Routine  0xb78c Action90Sub 
+Routine  0xb7a0 Action63Sub 
+Routine  0xb7dc routine47068 
+Routine  0xb7e4 PreAction91Sub 
+Routine  0xb800 Action91Sub 
+Routine  0xb8c4 PreAction86Sub 
+Routine  0xb8dc Action194Sub 
+Routine  0xb8f0 Action200Sub 
+Routine  0xb918 Action195Sub 
+Routine  0xb92c Action92Sub 
+Routine  0xb93c Action86Sub 
+Routine  0xb974 Action96Sub 
+Routine  0xb984 Action99Sub 
+Routine  0xb9c8 Action94Sub 
+Routine  0xb9dc Action101Sub 
+Routine  0xba74 Action82Sub local1 
+Routine  0xba7c Action38Sub 
+Routine  0xba84 Action42Sub 
+Routine  0xbaa8 Action107Sub 
+Routine  0xbab4 Action32Sub 
+Routine  0xbabc Action108Sub 
+Routine  0xbac8 Action109Sub 
+Routine  0xbad0 Action110Sub 
+Routine  0xbaf0 Action111Sub 
+Routine  0xbb10 Action112Sub 
+Routine  0xbba4 Action113Sub 
+Routine  0xbbc0 Action114Sub 
+Routine  0xbbcc Action115Sub 
+Routine  0xbbdc Action104Sub 
+Routine  0xbc2c Action105Sub 
+Routine  0xbc40 Action95Sub 
+Routine  0xbc64 Action117Sub 
+Routine  0xbc78 Action118Sub 
+Routine  0xbc98 Action120Sub 
+Routine  0xbcbc PreAction98Sub 
+Routine  0xbcf4 Action98Sub 
+Routine  0xbd1c Action121Sub 
+Routine  0xbd24 PreAction83Sub 
+Routine  0xbd3c Action122Sub 
+Routine  0xbd68 routine48488 local1 local2 
+Routine  0xbdb8 Action127Sub 
+Routine  0xbdd8 Action123Sub 
+Routine  0xbdec Action125Sub 
+Routine  0xbec0 Action128Sub 
+Routine  0xbec8 Action126Sub 
+Routine  0xbef4 Action124Sub 
+Routine  0xbf3c Action130Sub 
+Routine  0xbf70 Action131Sub 
+Routine  0xbf78 Action132Sub 
+Routine  0xbf84 Action135Sub 
+Routine  0xbf98 Action133Sub local1 
+Routine  0xbfbc Action134Sub 
+Routine  0xbfc4 Action136Sub 
+Routine  0xbfe0 Action102Sub 
+Routine  0xc018 Action137Sub 
+Routine  0xc044 Action138Sub 
+Routine  0xc054 Action139Sub 
+Routine  0xc09c Action70Sub 
+Routine  0xc0c0 Action142Sub 
+Routine  0xc0e8 routine49384 local1 
+Routine  0xc0fc Action39Sub 
+Routine  0xc130 Action119Sub 
+Routine  0xc180 routine49536 local1 
+Routine  0xc194 Action143Sub 
+Routine  0xc224 Action144Sub 
+Routine  0xc240 Action145Sub 
+Routine  0xc270 Action146Sub 
+Routine  0xc2dc Action147Sub 
+Routine  0xc2f4 Action148Sub 
+Routine  0xc30c Action149Sub 
+Routine  0xc318 Action150Sub 
+Routine  0xc324 Action151Sub 
+Routine  0xc348 Action153Sub 
+Routine  0xc358 PreAction154Sub 
+Routine  0xc36c Action154Sub 
+Routine  0xc374 Action155Sub 
+Routine  0xc380 Action140Sub 
+Routine  0xc390 Action156Sub 
+Routine  0xc3b0 PreAction27Sub 
+Routine  0xc480 Action76Sub local1 local2 local3 
+Routine  0xc5a0 Action116Sub 
+Routine  0xc5a8 Action188Sub 
+Routine  0xc5b0 Action78Sub 
+Routine  0xc5b8 Action27Sub 
+Routine  0xc5e4 Action77Sub 
+Routine  0xc61c Action189Sub 
+Routine  0xc624 Action157Sub 
+Routine  0xc62c Action141Sub 
+Routine  0xc638 PreAction158Sub 
+Routine  0xc648 Action158Sub 
+Routine  0xc66c Action159Sub 
+Routine  0xc688 Action160Sub local1 
+Routine  0xc6d8 Action161Sub 
+Routine  0xc6f0 Action162Sub 
+Routine  0xc6f8 Action163Sub 
+Routine  0xc728 Action97Sub local1 
+Routine  0xc75c Action165Sub 
+Routine  0xc778 Action166Sub 
+Routine  0xc794 Action167Sub 
+Routine  0xc7a0 Action100Sub 
+Routine  0xc7bc Action169Sub local1 
+Routine  0xc898 Action170Sub local1 
+Routine  0xc8f0 Action171Sub local1 
+Routine  0xc924 Action172Sub 
+Routine  0xc964 Action212Sub 
+Routine  0xc9a4 Action87Sub 
+Routine  0xc9b0 Action173Sub 
+Routine  0xc9d0 Action174Sub 
+Routine  0xc9fc Action175Sub local1 
+Routine  0xca28 Action176Sub 
+Routine  0xca48 Action61Sub 
+Routine  0xca70 Action178Sub 
+Routine  0xca80 Action179Sub 
+Routine  0xca88 Action180Sub local1 
+Routine  0xcaa0 Action181Sub 
+Routine  0xcac0 Action182Sub 
+Routine  0xcacc PreAction184Sub 
+Routine  0xcaf0 Action184Sub 
+Routine  0xcb04 routine51972 local1 
+Routine  0xcb28 Action65Sub 
+Routine  0xcb34 Action168Sub 
+Routine  0xcb40 Action177Sub 
+Routine  0xcb4c Action185Sub 
+Routine  0xcb80 Action186Sub 
+Routine  0xcbfc Action106Sub 
+Routine  0xcc10 Action204Sub 
+Routine  0xcc18 Action208Sub 
+Routine  0xcc24 Action190Sub 
+Routine  0xcc54 Action191Sub 
+Routine  0xcc5c Action192Sub 
+Routine  0xcc90 Action193Sub 
+Routine  0xcca8 Action227Sub 
+Routine  0xccb4 PreAction150Sub 
+Routine  0xcdf8 Action164Sub 
+Routine  0xce28 Action198Sub 
+Routine  0xce38 Action199Sub 
+Routine  0xce48 Action197Sub 
+Routine  0xcecc Action196Sub 
+Routine  0xcef0 Action202Sub 
+Routine  0xcefc Action201Sub 
+Routine  0xcfb4 Action203Sub 
+Routine  0xcfc8 Action205Sub 
+Routine  0xcff8 Action206Sub 
+Routine  0xd028 Action207Sub 
+Routine  0xd040 Action209Sub 
+Routine  0xd054 Action210Sub 
+Routine  0xd0e0 Action211Sub 
+Routine  0xd0e8 PreAction39Sub 
+Routine  0xd0fc Action152Sub 
+Routine  0xd118 Action213Sub 
+Routine  0xd168 routine53608 local1 
+Routine  0xd184 Action214Sub 
+Routine  0xd1a0 Action215Sub 
+Routine  0xd1e8 Action216Sub 
+Routine  0xd1f0 Action217Sub 
+Routine  0xd1f8 Action218Sub 
+Routine  0xd21c Action24Sub 
+Routine  0xd230 Action219Sub 
+Routine  0xd274 Action93Sub local1 local2 local3 local4 local5 local6 local7 
+Routine  0xd420 routine54304 local1 
+Routine  0xd454 Action50Sub 
+Routine  0xd47c Action28Sub 
+Routine  0xd490 Action220Sub local1 
+Routine  0xd4b8 Action221Sub 
+Routine  0xd4e0 Action187Sub 
+Routine  0xd518 Action224Sub 
+Routine  0xd528 Action225Sub 
+Routine  0xd530 Action103Sub 
+Routine  0xd550 Action226Sub 
+Routine  0xd558 Action228Sub 
+Routine  0xd564 routine54628 
+Routine  0xd56c Action229Sub 
+Routine  0xd724 routine55076 local1 
+Routine  0xd738 routine55096 local1 
+Routine  0xd750 routine55120 local1 local2 
+Routine  0xd7bc PreAction75Sub 
+Routine  0xd8f4 routine55540 local1 local2 local3 
+Routine  0xd908 routine55560 local1 local2 local3 
+Routine  0xd928 routine55592 local1 local2 local3 
+Routine  0xd9dc routine55772 local1 local2 local3 local4 
+Routine  0xdaa0 routine55968 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0xdcd4 routine56532 local1 local2 
+Routine  0xdd10 routine56592 local1 local2 
+Routine  0xdd34 routine56628 
+Routine  0xdd70 routine56688 
+Routine  0xdd84 routine56708 local1 local2 local3 
+Routine  0xde3c routine56892 
+Routine  0xdeb8 routine57016 
+Routine  0xdecc routine57036 local1 
+Routine  0xdefc routine57084 local1 local2 
+Routine  0xdf3c routine57148 local1 local2 
+Routine  0xdf60 routine57184 local1 
+Routine  0xdff4 routine57332 local1 
+Routine  0xe00c routine57356 local1 local2 local3 
+Routine  0xe02c routine57388 local1 local2 
+Routine  0xe04c routine57420 local1 
+Routine  0xe060 routine57440 local1 local2 local3 
+Routine  0xe078 routine57464 local1 local2 local3 local4 local5 
+Routine  0xe0b0 routine57520 
+Routine  0xe0d4 routine57556 
+Routine  0xe0ec routine57580 local1 
+Routine  0xe108 routine57608 local1 
+Routine  0xe114 routine57620 
+Routine  0xe120 routine57632 local1 local2 local3 local4 
+Routine  0xe138 routine57656 local1 local2 local3 
+Routine  0xe1e0 routine57824 local1 
+Routine  0xe1ec routine57836 
+Routine  0xe1f8 routine57848 
+Routine  0xe204 routine57860 
+Routine  0xe210 routine57872 
+Routine  0xe21c routine57884 
+Routine  0xe274 routine57972 
+Routine  0xe2fc routine58108 local1 local2 
+Routine  0xe31c routine58140 local1 
+Routine  0xe380 routine58240 local1 local2 local3 local4 local5 
+Routine  0xe3ac routine58284 
+Routine  0xe3d8 routine58328 
+Routine  0xe474 routine58484 
+Routine  0xe488 routine58504 
+Routine  0xe4bc routine58556 local1 
+Routine  0xe570 routine58736 
+Routine  0xe5c4 routine58820 
+Routine  0xe610 routine58896 local1 local2 local3 local4 
+Routine  0xe8ac routine59564 
+Routine  0xe8d0 routine59600 
+Routine  0xe8dc routine59612 local1 local2 local3 local4 
+Routine  0xe920 routine59680 local1 local2 
+Routine  0xe95c routine59740 local1 
+Routine  0xe984 routine59780 
+Routine  0xe9a8 routine59816 
+Routine  0xea7c routine60028 
+Routine  0xeaec routine60140 
+Routine  0xeba8 routine60328 local1 
+Routine  0xebec routine60396 local1 
+Routine  0xec2c routine60460 
+Routine  0xed1c routine60700 local1 
+Routine  0xee2c routine60972 local1 local2 
+Routine  0xee48 routine61000 
+Routine  0xee78 routine61048 
+Routine  0xeec4 routine61124 local1 
+Routine  0xeed8 routine61144 
+Routine  0xeee8 routine61160 
+Routine  0xef14 routine61204 
+Routine  0xef4c routine61260 
+Routine  0xefa0 routine61344 
+Routine  0xeff4 routine61428 
+Routine  0xf180 routine61824 
+Routine  0xf1d4 routine61908 
+Routine  0xf25c routine62044 local1 
+Routine  0xf33c routine62268 
+Routine  0xf378 routine62328 
+Routine  0xf614 routine62996 
+Routine  0xf630 routine63024 local1 
+Routine  0xf870 routine63600 
+Routine  0xf88c routine63628 
+Routine  0xf8ec routine63724 
+Routine  0xf96c routine63852 local1 
+Routine  0xf9e0 routine63968 
+Routine  0xf9f0 routine63984 
+Routine  0xfa04 routine64004 local1 local2 
+Routine  0xfa54 routine64084 local1 
+Routine  0xfa64 routine64100 
+Routine  0xfa7c routine64124 local1 
+Routine  0xfa9c routine64156 
+Routine  0xfac0 routine64192 local1 local2 
+Routine  0xfadc routine64220 local1 local2 
+Routine  0xfaec routine64236 local1 
+Routine  0xfafc routine64252 local1 
+Routine  0xfb10 routine64272 
+Routine  0xfb28 routine64296 local1 
+Routine  0xfb38 routine64312 
+Routine  0xfb50 routine64336 local1 
+Routine  0xfb68 routine64360 local1 
+Routine  0xfb80 routine64384 
+Routine  0xfb8c routine64396 
+Routine  0xfb98 routine64408 local1 
+Routine  0xfbbc routine64444 local1 
+Routine  0xfbe0 routine64480 local1 
+Routine  0xfc04 routine64516 
+Routine  0xfc20 routine64544 local1 
+Routine  0xfc38 routine64568 local1 
+Routine  0xfc50 routine64592 
+Routine  0xfc68 routine64616 local1 local2 
+Routine  0xfc80 routine64640 
+Routine  0xfcb4 routine64692 
+Routine  0xfcc8 routine64712 local1 
+Routine  0xfcdc routine64732 local1 
+Routine  0xfcf4 routine64756 
+Routine  0xfd14 routine64788 
+Routine  0xfd3c routine64828 
+Routine  0xfd68 routine64872 local1 
+Routine  0xfd8c routine64908 local1 
+Routine  0xfda0 routine64928 local1 
+Routine  0xfdf8 routine65016 
+Routine  0xfe18 routine65048 local1 
+Routine  0xfe8c routine65164 
+Routine  0xfeb8 routine65208 
+Routine  0xfee4 routine65252 
+Routine  0xff20 routine65312 
+Routine  0xff60 routine65376 
+Routine  0xffec routine65516 
+Routine  0x1001c routine65564 
+Routine  0x10188 routine65928 
+Routine  0x101b0 routine65968 
+Routine  0x10210 routine66064 
+Routine  0x10270 routine66160 local1 
+Routine  0x102a0 routine66208 local1 
+Routine  0x103c4 routine66500 
+Routine  0x1043c routine66620 
+Routine  0x104a4 routine66724 
+Routine  0x104cc routine66764 
+Routine  0x10518 routine66840 
+Routine  0x10528 routine66856 
+Routine  0x1058c routine66956 
+Routine  0x108f0 routine67824 
+Routine  0x10958 routine67928 
+Routine  0x109a0 routine68000 
+Routine  0x10b24 routine68388 
+Routine  0x10b50 routine68432 
+Routine  0x10bbc routine68540 local1 
+Routine  0x10c2c routine68652 local1 
+Routine  0x10de0 routine69088 
+Routine  0x10e00 routine69120 
+Routine  0x10e0c routine69132 local1 
+Routine  0x11110 routine69904 
+Routine  0x112b0 routine70320 local1 
+Routine  0x112d8 routine70360 
+Routine  0x11300 routine70400 
+Routine  0x11318 routine70424 
+Routine  0x11320 routine70432 
+Routine  0x11394 routine70548 
+Routine  0x113a8 routine70568 local1 
+Routine  0x11430 routine70704 local1 
+Routine  0x1144c routine70732 
+Routine  0x116f0 routine71408 
+Routine  0x119f8 routine72184 
+Routine  0x11af0 routine72432 local1 
+Routine  0x11b5c routine72540 
+Routine  0x11c64 routine72804 
+Routine  0x11c94 routine72852 local1 
+Routine  0x11da4 routine73124 local1 
+Routine  0x1201c routine73756 
+Routine  0x12020 routine73760 
+Routine  0x1203c routine73788 local1 
+Routine  0x1211c routine74012 local1 
+Routine  0x1214c routine74060 local1 
+Routine  0x121c8 routine74184 
+Routine  0x12208 routine74248 
+Routine  0x12218 routine74264 
+Routine  0x12258 routine74328 
+Routine  0x124a8 routine74920 local1 local2 
+Routine  0x125bc routine75196 
+Routine  0x1260c routine75276 local1 local2 local3 
+Routine  0x12894 routine75924 
+Routine  0x128b4 routine75956 local1 
+Routine  0x128e8 routine76008 local1 
+Routine  0x12950 routine76112 local1 local2 
+Routine  0x12b50 routine76624 local1 
+Routine  0x12b80 routine76672 local1 
+Routine  0x12d80 routine77184 
+Routine  0x12dec routine77292 local1 local2 local3 
+Routine  0x12e6c routine77420 local1 
+Routine  0x12e98 routine77464 local1 
+Routine  0x12ebc routine77500 local1 
+Routine  0x12ee4 routine77540 local1 local2 
+Routine  0x12f08 routine77576 
+Routine  0x12f84 routine77700 
+Routine  0x1307c routine77948 local1 
+Routine  0x13090 routine77968 
+Routine  0x13134 routine78132 local1 
+Routine  0x13148 routine78152 
+Routine  0x13370 routine78704 
+Routine  0x1338c routine78732 
+Routine  0x133bc routine78780 local1 
+Routine  0x13434 routine78900 
+Routine  0x136a8 routine79528 
+Routine  0x1371c routine79644 local1 
+Routine  0x137a4 routine79780 local1 
+Routine  0x138ec routine80108 
+Routine  0x1392c routine80172 local1 
+Routine  0x13a64 routine80484 
+Routine  0x13b04 routine80644 
+Routine  0x13b6c routine80748 
+Routine  0x13bc8 routine80840 
+Routine  0x13c00 routine80896 local1 
+Routine  0x13ce4 routine81124 
+Routine  0x13f34 routine81716 
+Routine  0x13f5c routine81756 
+Routine  0x13f84 routine81796 
+Routine  0x13fb0 routine81840 local1 
+Routine  0x14068 routine82024 local1 local2 
+Routine  0x141d8 routine82392 local1 
+Routine  0x14418 routine82968 
+Routine  0x1443c routine83004 
+Routine  0x145a8 routine83368 local1 
+Routine  0x145bc routine83388 
+Routine  0x145c8 routine83400 
+Routine  0x1465c routine83548 
+Routine  0x146dc routine83676 local1 
+Routine  0x147cc routine83916 
+Routine  0x14820 routine84000 
+Routine  0x14908 routine84232 
+Routine  0x1494c routine84300 
+Routine  0x149ac routine84396 local1 
+Routine  0x14a6c routine84588 
+Routine  0x14a94 routine84628 local1 
+Routine  0x151a8 routine86440 
+Routine  0x15210 routine86544 
+Routine  0x15228 routine86568 
+Routine  0x15274 routine86644 
+Routine  0x15288 routine86664 
+Routine  0x153b0 routine86960 local1 
+Routine  0x154e0 routine87264 local1 local2 
+Routine  0x15694 routine87700 
+Routine  0x156dc routine87772 
+Routine  0x156ec routine87788 
+Routine  0x156f8 routine87800 
+Routine  0x157b4 routine87988 
+Routine  0x157c4 routine88004 local1 local2 
+Routine  0x15b64 routine88932 
+Routine  0x15c1c routine89116 local1 
+Routine  0x15d00 routine89344 
+Routine  0x15d24 routine89380 local1 
+Routine  0x15d78 routine89464 
+Routine  0x15da8 routine89512 
+Routine  0x15db4 routine89524 
+Routine  0x15dc0 routine89536 
+Routine  0x15dcc routine89548 local1 
+Routine  0x15f2c routine89900 local1 
+Routine  0x16034 routine90164 local1 
+Routine  0x160b0 routine90288 local1 
+Routine  0x161b4 routine90548 
+Routine  0x16280 routine90752 local1 
+Routine  0x163f4 routine91124 
+Routine  0x16418 routine91160 
+Routine  0x16448 routine91208 local1 
+Routine  0x16458 routine91224 
+Routine  0x164bc routine91324 local1 
+Routine  0x1685c routine92252 
+Routine  0x16884 routine92292 local1 
+Routine  0x16960 routine92512 local1 
+Routine  0x16974 routine92532 
+Routine  0x16998 routine92568 
+Routine  0x169f4 routine92660 
+Routine  0x16a18 routine92696 local1 
+Routine  0x16a50 routine92752 
+Routine  0x16ab0 routine92848 local1 
+Routine  0x16b24 routine92964 
+Routine  0x16b38 routine92984 
+Routine  0x16b78 routine93048 
+Routine  0x16c58 routine93272 
+Routine  0x16ca4 routine93348 
+Routine  0x16cbc routine93372 local1 
+Routine  0x16ddc routine93660 
+Routine  0x16e1c routine93724 
+Routine  0x16eb4 routine93876 
+Routine  0x16f94 routine94100 
+Routine  0x17208 routine94728 
+Routine  0x1723c routine94780 local1 
+Routine  0x172e8 routine94952 
+Routine  0x1753c routine95548 local1 
+Routine  0x17664 routine95844 
+Routine  0x17794 routine96148 local1 
+Routine  0x177ec routine96236 
+Routine  0x17860 routine96352 
+Routine  0x17910 routine96528 local1 
+Routine  0x17994 routine96660 
+Routine  0x179cc routine96716 local1 
+Routine  0x179dc routine96732 
+Routine  0x17c74 routine97396 
+Routine  0x17d2c routine97580 local1 
+Routine  0x17f64 routine98148 
+Routine  0x180cc routine98508 local1 local2 
+Routine  0x181dc routine98780 local1 
+Routine  0x1829c routine98972 
+Routine  0x18484 routine99460 local1 
+Routine  0x185f0 routine99824 
+Routine  0x185f8 routine99832 
+Routine  0x18610 routine99856 
+Routine  0x18620 routine99872 
+Routine  0x18710 routine100112 
+Routine  0x187ac routine100268 
+Routine  0x187b8 routine100280 
+Routine  0x188fc routine100604 
+Routine  0x18ab4 routine101044 
+Routine  0x18ac0 routine101056 
+Routine  0x18ad8 routine101080 local1 
+Routine  0x18be4 routine101348 
+Routine  0x18c08 routine101384 
+Routine  0x18c34 routine101428 
+Routine  0x18c48 routine101448 
+Routine  0x18c58 routine101464 
+Routine  0x18d78 routine101752 
+Routine  0x18e40 routine101952 local1 
+Routine  0x18f44 routine102212 
+Routine  0x18f5c routine102236 
+Routine  0x18fb0 routine102320 local1 
+Routine  0x1900c routine102412 
+Routine  0x19034 routine102452 
+Routine  0x1904c routine102476 
+Routine  0x19074 routine102516 
+Routine  0x19098 routine102552 local1 
+Routine  0x190bc routine102588 local1 
+Routine  0x19108 routine102664 
+Routine  0x1910c routine102668 
+Routine  0x19144 routine102724 local1 
+Routine  0x19234 routine102964 
+Routine  0x19258 routine103000 
+Routine  0x1929c routine103068 
+Routine  0x193e0 routine103392 local1 
+Routine  0x1949c routine103580 
+Routine  0x194c8 routine103624 
+Routine  0x1956c routine103788 local1 
+Routine  0x195a8 routine103848 local1 
+Routine  0x19784 routine104324 
+Routine  0x197a8 routine104360 
+Routine  0x197c4 routine104388 
+Routine  0x197e8 routine104424 
+Routine  0x19830 routine104496 
+Routine  0x19878 routine104568 local1 
+Routine  0x198c4 routine104644 
+Routine  0x19920 routine104736 local1 
+Routine  0x19ca8 routine105640 
+Routine  0x19cb4 routine105652 
+Routine  0x19f3c routine106300 
+Routine  0x19f64 routine106340 
+Routine  0x19f8c routine106380 local1 
+Routine  0x1a100 routine106752 
+Routine  0x1a12c routine106796 
+Routine  0x1a138 routine106808 local1 
+Routine  0x1a1c0 routine106944 
+Routine  0x1a1d0 routine106960 
+Routine  0x1a2b8 routine107192 local1 
+Routine  0x1a398 routine107416 
+Routine  0x1a3b0 routine107440 
+Routine  0x1a3e4 routine107492 local1 
+Routine  0x1a4d8 routine107736 local1 
+Routine  0x1a590 routine107920 
+Routine  0x1a5b0 routine107952 
+Routine  0x1a5d0 routine107984 
+Routine  0x1a5e8 routine108008 local1 
+Routine  0x1a718 routine108312 
+Routine  0x1a760 routine108384 
+Routine  0x1a7ac routine108460 
+Routine  0x1a7b4 routine108468 
+Routine  0x1a808 routine108552 
+Routine  0x1a9dc routine109020 
+Routine  0x1a9f8 routine109048 
+Routine  0x1ae18 routine110104 
+Routine  0x1ae24 routine110116 local1 
+Routine  0x1b2ac routine111276 
+Routine  0x1b2b8 routine111288 
+Routine  0x1b2cc routine111308 local1 
+Routine  0x1b51c routine111900 
+Routine  0x1b5a4 routine112036 
+Routine  0x1b610 routine112144 
+Routine  0x1b6b0 routine112304 local1 
+Routine  0x1b850 routine112720 
+Routine  0x1b8b0 routine112816 
+Routine  0x1bb50 routine113488 
+Routine  0x1bbc8 routine113608 
+Routine  0x1bcd0 routine113872 local1 
+Routine  0x1be34 routine114228 
+Routine  0x1be54 routine114260 
+Routine  0x1bf34 routine114484 
+Routine  0x1bf64 routine114532 
+Routine  0x1bf94 routine114580 
+Routine  0x1c050 routine114768 
+Routine  0x1c07c routine114812 local1 
+Routine  0x1c1d0 routine115152 
+Routine  0x1c214 routine115220 local1 
+Routine  0x1c828 routine116776 
+Routine  0x1c8b8 routine116920 
+Routine  0x1c8d0 routine116944 
+Routine  0x1c944 routine117060 
+Routine  0x1ca0c routine117260 local1 
+Routine  0x1ca6c routine117356 
+Routine  0x1cb0c routine117516 
+Routine  0x1cb2c routine117548 local1 
+Routine  0x1cbcc routine117708 local1 
+Routine  0x1cd1c routine118044 
+Routine  0x1cdb4 routine118196 
+Routine  0x1ce14 routine118292 
+Routine  0x1ce20 routine118304 local1 
+Routine  0x1ce98 routine118424 local1 
+Routine  0x1cf98 routine118680 
+Routine  0x1cfb8 routine118712 
+Routine  0x1d020 routine118816 
+Routine  0x1d038 routine118840 
+Routine  0x1d0ac routine118956 local1 
+Routine  0x1d0d0 routine118992 
+Routine  0x1d0fc routine119036 local1 
+Routine  0x1d268 routine119400 
+Routine  0x1d294 routine119444 
+Routine  0x1d328 routine119592 
+Routine  0x1d368 routine119656 
+Routine  0x1d490 routine119952 
+Routine  0x1d4b4 routine119988 local1 
+Routine  0x1d564 routine120164 
+Routine  0x1d59c routine120220 local1 
+Routine  0x1d73c routine120636 
+Routine  0x1d97c routine121212 local1 local2 
+Routine  0x1da18 routine121368 local1 
+Routine  0x1e694 routine124564 local1 
+Routine  0x1e6c0 routine124608 local1 
+Routine  0x1e6f4 Action232Sub 
+Routine  0x1e734 Action231Sub local1 local2 local3 local4 local5 
+Routine  0x1e8b4 routine125108 local1 local2 local3 
+Routine  0x1e948 routine125256 local1 
+Routine  0x1e960 routine125280 local1 
+Routine  0x1e978 routine125304 local1 
+Routine  0x1e98c routine125324 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x1eaf0 routine125680 local1 local2 local3 local4 
+Routine  0x1eb44 routine125764 local1 local2 local3 local4 
+Routine  0x1eb88 routine125832 local1 
+Routine  0x1ebe4 routine125924 local1 local2 local3 local4 
+Routine  0x1ec20 routine125984 local1 local2 local3 
+Routine  0x1ec3c routine126012 local1 local2 local3 local4 
+
+
+! ------------------------------- Words --------------------------------
+
+

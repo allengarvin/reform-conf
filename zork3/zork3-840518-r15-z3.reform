@@ -1,0 +1,1198 @@
+! ----------------------------------------------------
+!   Zork3_15_840518.reform
+!   ATG Release 3 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  AD7A7CF17049A5842C6B48329BD58C33
+CodeArea  0x484e  0x11210
+StringArea  0x11210  0x142d2
+FalseEnd  0xd3c4  1
+
+Enum  rarg  M_BEGIN=1 M_ENTER=2 M_LOOK=3
+Enum  wall_type W_SANDSTONE=2 W_MARBLE=1 W_NO_WALL=0
+
+! Used by Do_SL and Search_List (DO-SL and SEARCH-LIST)
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+
+! Args to Do_SL (DO-SL)
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+
+! Used in Clause_Copy (CLAUSE-COPY)
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+
+! Used by Wt (WT?)
+Enum p_p1off P_P1OFF=5
+
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global        0 location:object
+Global        1 score:int
+Global        2 turns:int
+Global        3 Sword_in_stone:bool
+Global        4 Invisible:bool
+Global        5 Ship_gone:bool
+Global        6 Ship_spotted:bool
+GlobalArray   7 Random_key:table(string)
+Global        8 Manhole_removed:bool
+Global        9 Arch_intact:bool
+Global       10 Repellent_empty:bool
+Global       11 Grue_repellent:bool
+Global       12 Empty_handed:bool
+GlobalArray  13 Zorks_table:table(string)
+GlobalArray  14 Zorks_destination:table(object)
+Global       15 Zorks_num:int
+GlobalArray  16 Vistatitle:table(?)
+Global       17 Vista_score:int
+Global       18 Time_in_water:int
+Global       19 Light_src:object
+Global       20 Lake_scored:bool
+Global       21 current_turn
+Global       22 Rope_hanging:bool
+Global       23 Chest_solved:bool
+Global       24 ManWaits_num:int
+Global       25 Rope_grabbed:bool
+Global       26 Chest_tied:bool
+Global       27 Friend_Gone:bool
+Global       28 Ledge_scored:bool
+Global       29 Seen_by_friend:bool
+Global       30 Friend_turns:int
+GlobalArray  31 Friend_table:table(string)
+Global       32 Friend_appeared:bool
+Global       33 Chest_raised:bool
+Global       34 Fight_scored:bool
+Global       35 Sword_scored:bool
+Global       36 Crawlway_blocked
+GlobalArray  37 Player_strength:array(6*string)
+GlobalArray  38 Hooded_combat_miss:table(string)
+GlobalArray  39 Hooded_combat_hit:table(string)
+GlobalArray  40 Player_combat_miss:table(string)
+GlobalArray  41 Player_combat_hit:table(string)
+Global       42 Figure_defeated:bool
+Global       43 Fight_flag:bool
+Global       44 Hood_strnum:int
+Global       45 My_strength:int
+GlobalArray  46 Hooded_strength:array(6*string)
+GlobalArray  47 Dirs_to_go:table(?)
+GlobalArray  48 Shadow_blocked:array(int,10*(property,string))
+GlobalArray  49 Guard_conversation:table(string)
+Global       50 Guards_here:bool
+Global       51 Museum_mystery:bool
+Global       52 Failed_theft:bool
+Global       53 Jewel_theft:bool
+Global       54 Dimwit_gone:bool
+GlobalArray  55 Captured_table:table(string)
+Global       56 Timetravel_loc:object
+Global       57 Time_scored:bool
+Global       58 Ring_hidden:bool
+Global       59 year_setting:int
+Global       60 Museum_open:bool
+Global       61 Downfall_year:int
+Global       62 year:int
+Global       63 Timemachine_broken:bool
+Global       64 OldmanAwake:bool
+Global       65 Stair_msg:string
+Global       66 Oldman_gone
+Global       67 Secret_door_found:bool
+Global       68 Bronzedoor_locked:bool
+GlobalArray  69 CellItems:array(50*object)
+Global       70 Sundial_num:int
+Global       71 Bronze_location:int
+Global       72 DM_following:bool
+GlobalArray  73 TasksDone:array(7*string)
+Global       74 Final_puzzle:bool
+Global       75 Followed:bool
+GlobalArray  76 Compass_dirs:array(8*string)
+Global       77 Pole_raised:int
+Global       78 Degrees:int
+Global       79 Panel_close:bool
+Global       80 In_beam:object
+GlobalArray  81 Directions:array(int,8*(property,int))
+Global       82 Guardians_desc:string
+Global       83 Guardians_in_view:bool
+GlobalArray  84 To_west:table(object)
+GlobalArray  85 To_east:table(object)
+GlobalArray  86 Going_north:table(object)
+GlobalArray  87 Going_south:table(object)
+Global       88 Mirror_open:bool
+Global       89 Pine_panel_open:bool
+Global       90 Mrswpush:bool
+Global       91 Mirror2_unbroken:bool
+Global       92 Mirror1_unbroken:bool
+Global       93 Box_location:object
+Global       94 Puzzle_blocked:bool
+Global       95 Puzzle_entered:bool
+Global       96 Puzzle_scored:bool
+Global       97 w_offset:int
+Global       98 northern_border:int
+Global       99 ne_offset:int
+Global      100 nw_offset:int
+Global      101 Puzzle_movement_finished:bool
+GlobalArray 102 Dir_offsets:array(int,8*(property,int))
+GlobalArray 103 Wall_offsets:array(int,4*(object,int))
+GlobalArray 104 Puzzle_array:array(10*int)
+GlobalArray 105 Puzzle_ob_array:array(576*int)
+Global      106 Puzzle_room:int
+GlobalArray 107 Lamp_messages:array(3*(int,string))
+GlobalArray 108 Yuks_table:table(string)
+GlobalArray 109 Ho_hum_table:table(string)
+GlobalArray 110 Dive_msg:table(string)
+GlobalArray 111 Hop_msg:table(string)
+GlobalArray 112 Hello_table:table(string)
+Global      113 Global113_unused
+Global      114 Transcript_msg:string
+Global      115 Max_held_mult:int
+Global      116 Maximum_held:int
+GlobalArray 117 Indents:array(6*string)
+GlobalArray 118 Main_dungeon:table(object)
+Global      119 Lucky:bool
+Global      120 Deaths:int
+Global      122 Maximum_score:int
+Global      125 Desc_object:object
+Global      126 Lit:bool
+Global      127 superbrief:bool
+Global      128 verbose:bool
+Global      129 Sword_glow:int
+Global      130 P_ceptr
+Global      131 P_csptr
+Global      132 P_getflags:int
+Global      133 P_matchlen
+GlobalArray 134 P_oclause:array(50*int)
+GlobalArray 135 P_merge:array(50*int)
+GlobalArray 136 P_buts:array(50*?)
+GlobalArray 137 P_prsi:array(50*int)
+GlobalArray 138 P_prso:array(50*int)
+Global      139 P_adjn
+Global      140 P_adverb
+Global      141 P_adj
+Global      142 P_name
+Global      143 P_gwimbit:attribute0
+Global      144 P_slocbits:int
+Global      145 Pushdir
+Global      146 P_number:int
+Global      147 Direction:property
+Global      148 P_quote_flag:bool
+Global      149 P_ncn:int
+GlobalArray 150 P_vtbl:array(4*?)
+GlobalArray 151 P_otbl:array(10*int)
+GlobalArray 152 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+Global      153 P_aadj
+Global      154 P_anam:dictword
+Global      155 P_aclause:p_partsofspeech
+Global      156 P_global156:bool
+Global      157 P_oflag:bool
+Global      158 LastNounPlace:object
+Global      159 P_it_objectobject
+Global      160 P_cont:int
+GlobalArray 161 P_inbuf:array(~int,n*~char)
+GlobalArray 162 P_lexv:array(~int,~int,119*dictword)
+Global      163 player:object
+Global      164 P_dir:int
+Global      165 P_len
+Global      166 P_cctbl
+Global      167 P_syntax:^array(*~?)
+Global      168 P_oneobj
+Global      169 P_table
+Global      170 noun:object
+Global      171 second:object
+Global      172 action:action
+Global      174 prev_second:object
+Global      175 prev_noun:object
+Global      176 prev_verb:action
+Global      177 P_won:bool
+Global      178 actor
+Global      179 Clock_wait:bool
+Global      180 C_ints:int
+Global      181 C_ints2:int
+GlobalArray 182 C_table:array(60*(bool,?,^routine))
+Global      183 Puzzle_door:bool
+Global      184 Load_max:int
+Global      185 Load_allowed:int
+Global      186 Low_direction:int
+Global      187 Ten_thousand_unused:int
+GlobalArray 188 Prepositions:table(dictword,int)
+GlobalArray 189 Actions:array(130*routine)
+GlobalArray 190 Preactions:array(130*routine)
+Global      191 Verbs:^array
+
+LastGlobal  191
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute  4 clothing
+Attribute  5 edible
+Attribute  6 flame
+Attribute  7 vehicle
+Attribute  8 turnable
+Attribute  9 door
+Attribute 10 container
+Attribute 11 npc
+Attribute 12 open
+Attribute 13 flammable
+Attribute 14 readable
+Attribute 15 light
+Attribute 16 dry_land
+Attribute 17 trytakebit
+Attribute 18 weapon
+Attribute 19 switchable
+Attribute 20 takeable
+Attribute 21 animate
+Attribute 22 drinkable
+Attribute 23 toolbit
+Attribute 24 climbable
+Attribute 25 scenery
+Attribute 26 supporter
+Attribute 27 visited
+Attribute 28 concealed
+Attribute 29 rmungbig
+Attribute 30 transparent
+Attribute 31 scope_inside
+! ----------------------------- Properties -----------------------------
+
+Property  3  enter_to:exit
+Property  4  description:thing
+Property  5  capacity:int
+Property  6  text_string:thing
+Property  7  contains:objbytes
+Property  8  value:int
+Property  9  initial:thing
+Property 10  size:int
+Property 11  strength:int
+Property 12  adjectives:adjbytes
+Property 13  action:^routine(int,rarg)
+Property 14  action2:^routine(int,rarg)
+Property 15  vtype:int
+Property 16  pseudo:pseudo
+Property 17  name:dictwords
+Property 20  out_to:exit
+Property 21  in_to:exit
+Property 22  d_to:exit
+Property 23  u_to:exit
+Property 24  sw_to:exit
+Property 25  se_to:exit
+Property 26  nw_to:exit
+Property 27  ne_to:exit
+Property 28  s_to:exit
+Property 29  w_to:exit
+Property 30  e_to:exit
+Property 31  n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1  Flathead_Ocean1
+Object 2  invisibility_liquid
+Object 3  vial
+Object 4  sailor
+Object 5  Viking_Ship
+Object 6  indicator
+Object 7  strange_key
+Object 8  manhole_cover
+Object 9  Water_Slide
+Object 10  High_Arch
+Object 11  Aqueduct_Room
+Object 12  Key_Room
+Object 13  Dark_Place1
+Object 14  Dark_Place2
+Object 15  Southern_Shore
+Object 16  Sacrificial_Altar
+Object 17  Frobozz_Magic_Grue_Repellent
+Object 18  Room_8
+Object 19  Machine_Room
+Object 20  Drafty_Room
+Object 21  Dead_End2
+Object 22  Ladder_Bottom
+Object 23  wooden_ladder
+Object 24  Ladder_Top
+Object 25  Timber_Room
+Object 26  broken_timber
+Object 27  friend
+Object 28  valuables
+Object 29  chest
+Object 30  broken_staff
+Object 31  wooden_staff
+Object 32  tree
+Object 33  tied_rope
+Object 34  piece_of_waybread
+Object 35  shiny_object
+Object 36  plants_and_algae
+Object 37  wet_lamp
+Object 38  sand
+Object 39  golden_amulet
+Object 40  burned_out_torch
+Object 41  wooden_torch
+Object 42  viewing_table
+Object 43  Scenic_Vista
+Object 44  reeds
+Object 45  Western_Shore
+Object 46  Underwater
+Object 47  fish
+Object 48  On_the_Lake
+Object 49  aqueduct
+Object 50  Aqueduct_View
+Object 51  underground_lake
+Object 52  Lake_Shore
+Object 53  Foggy_Room
+Object 54  end_of_rope
+Object 55  Cliff_Ledge
+Object 56  cliff
+Object 57  remote_man
+Object 58  Cliff_Room
+Object 59  ledge
+Object 60  Cliff_Base
+Object 61  Hairpin_Loop
+Object 62  Barren_Area
+Object 63  Junction
+Object 64  Endless_Stair
+Object 65  cloak
+Object 66  hood
+Object 67  hooded_figure
+Object 68  Flathead_Ocean2
+Object 69  Land_of_Shadow1
+Object 70  Land_of_Shadow2
+Object 71  Land_of_Shadow3
+Object 72  Land_of_Shadow4
+Object 73  Land_of_Shadow5
+Object 74  Land_of_Shadow6
+Object 75  stone_wall
+Object 76  Land_of_Shadow7
+Object 77  Land_of_Shadow8
+Object 78  Creepy_Crawl
+Object 79  bronze_plaque
+Object 80  plaque
+Object 81  steel_cage
+Object 82  golden_ring
+Object 83  jewelled_knife
+Object 84  pedestal
+Object 85  royal_sceptre
+Object 86  dial
+Object 87  seat
+Object 88  button
+Object 89  black_machine
+Object 90  grey_machine
+Object 91  gold_machine
+Object 92  Museum_Entrance2
+Object 93  Jewel_Room2
+Object 94  robot
+Object 95  Technology_Museum2
+Object 96  Technology_Museum3
+Object 97  Jewel_Room3
+Object 98  Museum_Entrance3
+Object 99  Side_Room2
+Object 100  Royal_Puzzle_Entrance1
+Object 101  Technology_Museum1
+Object 102  Jewel_Room1
+Object 103  wooden_door1
+Object 104  stone_door
+Object 105  Museum_Entrance1
+Object 106  cleft
+Object 107  iron_door
+Object 108  Great_Door
+Object 109  Royal_Seal_of_Dimwit_Flathead
+Object 110  Royal_Hall
+Object 111  rock_structure
+Object 112  Crystal_Grotto
+Object 113  Tight_Squeeze
+Object 114  voices
+Object 115  hole
+Object 116  old_man
+Object 117  wooden_bar
+Object 118  white_panel
+Object 119  yellow_panel
+Object 120  sundial
+Object 121  short_pole
+Object 122  red_panel
+Object 123  red_button
+Object 124  red_beam_of_light
+Object 125  pine_panel
+Object 126  mahogany_panel
+Object 127  long_pole
+Object 128  large_button
+Object 129  compass_arrow
+Object 130  black_panel
+Object 131  T_bar
+Object 132  runes
+Object 133  Treasury_of_Zork
+Object 134  cell_door2
+Object 135  Prison_Cell1
+Object 136  cell_door1
+Object 137  Prison_Cell2
+Object 138  Prison_Cell3
+Object 139  Parapet_Room
+Object 140  flaming_pit
+Object 141  parapet
+Object 142  cell_door3
+Object 143  North_Corridor
+Object 144  Dungeon_Entrance
+Object 145  wooden_door2
+Object 146  bronze_door
+Object 147  South_Corridor
+Object 148  West_Corridor
+Object 149  East_Corridor
+Object 150  channel
+Object 151  moss_and_lichen
+Object 152  Damp_Passage
+Object 153  Dead_End1
+Object 154  Engravings_Room
+Object 155  Beam_Room
+Object 156  secret_door
+Object 157  Button_Room
+Object 158  Inside_Mirror
+Object 159  Narrow_Room1
+Object 160  Narrow_Room2
+Object 161  Narrow_Room3
+Object 162  Narrow_Room4
+Object 163  Narrow_Room5
+Object 164  Narrow_Room6
+Object 165  Narrow_Room7
+Object 166  Narrow_Room8
+Object 167  Narrow_Room9
+Object 168  Narrow_Room10
+Object 169  Hallway1
+Object 170  Hallway2
+Object 171  Hallway3
+Object 172  Hallway4
+Object 173  wooden_wall
+Object 174  Hallway5
+Object 175  stone_channel
+Object 176  panel
+Object 177  mirror
+Object 178  Narrow_Corridor
+Object 179  dungeon_master1
+Object 180  dungeon_master2
+Object 181  compass_rose
+Object 182  Guardians_of_Zork
+Object 183  direction
+Object 184  number
+Object 185  very_ancient_book
+Object 186  small_slot
+Object 187  warning_note
+Object 188  southern_wall1
+Object 189  northern_wall1
+Object 190  western_wall1
+Object 191  eastern_wall1
+Object 192  ladder
+Object 193  Room_in_a_Puzzle
+Object 194  steel_door
+Object 195  Side_Room1
+Object 196  great_rock
+Object 197  sword
+Object 198  lamp
+Object 199  broken_brass_lantern
+Object 200  you
+Object 201  Royal_Puzzle_Entrance2
+Object 202  cretin
+Object 203  water
+Object 204  northern_wall2
+Object 205  western_wall2
+Object 206  southern_wall2
+Object 207  eastern_wall2
+Object 208  pair_of_hands
+Object 209  lurking_grue
+Object 210  ground
+Object 211  tunnel
+Object 212  way
+Object 213  chasm
+Object 214  dust_and_debris
+Object 215  rubble
+Object 216  stairs
+Object 217  blessings
+Object 218  it_object
+Object 219  pseudo
+Object 220  Room_Holder
+Object 221  unnamed2
+Object 222  local
+
+! ------------------------------ Actions -------------------------------
+
+Action 0  Brief
+Action 1  Superbrief
+Action 2  Diagnose
+Action 3  Inventory
+Action 4  Quit
+Action 5  Restart
+Action 6  Restore
+Action 7  Save
+Action 8  Score
+Action 9  Verify
+Action 10  Version
+Action 11  Verbose
+Action 12  Again
+Action 13  Answer
+Action 14  AnswerObj
+Action 15  Insert
+Action 16  Attack
+Action 17  Back
+Action 18  BlowUp
+Action 19  Board
+Action 20  Bug
+Action 21  Burn
+Action 22  Vomit
+Action 23  ClimbUp
+Action 24  ClimbDown
+Action 25  Climb
+Action 26  ClimbOn
+Action 27  Close
+Action 28  Count
+Action 29  Cross
+Action 30  Cut
+Action 31  Curse
+Action 32  Deflate
+Action 33  Dig
+Action 34  Disembark
+Action 35  Drink
+Action 36  DrinkFrom
+Action 37  Pour
+Action 38  LeanOn
+Action 39  Eat
+Action 40  Enter
+Action 41  EnterObj
+Action 42  Exit
+Action 43  Examine
+Action 44  LookIn
+Action 45  Banish
+Action 46  Extinguish
+Action 47  Fill
+Action 48  Find
+Action 49  Follow
+Action 50  Give
+Action 51  GiveReverse
+Action 52  Hello
+Action 53  Inflate
+Action 54  Dive
+Action 55  Bite
+Action 56  Kill
+Action 57  Kiss
+Action 58  Knock
+Action 59  Launch
+Action 60  Leave
+Action 61  SwitchOn
+Action 62  Listen
+Action 63  Lock
+Action 64  Look
+Action 65  LookUnder
+Action 66  LookBehind
+Action 67  Read
+Action 68  Search
+Action 69  Lower
+Action 70  Make
+Action 71  Melt
+Action 72  Move
+Action 73  Play
+Action 74  Mumble
+Action 75  Poke
+Action 76  Grease
+Action 77  Open
+Action 78  Pick
+Action 79  Take
+Action 80  Fix
+Action 81  Plugh
+Action 82  Pour
+Action 83  Pray
+Action 84  PumpUp
+Action 85  Push
+Action 86  PushDir
+Action 87  PutUnder
+Action 88  PutOn
+Action 89  Wear
+Action 90  Hide
+Action 91  Raise
+Action 92  Molest
+Action 93  Repent
+Action 94  Touch
+Action 95  Script
+Action 96  Unscript
+Action 97  SendFor
+Action 98  Shake
+Action 99  Hop
+Action 100  Smell
+Action 101  Spin
+Action 102  Spray
+Action 103  SprayReverse
+Action 104  Squeeze
+Action 105  Stand
+Action 106  Stay
+Action 107  Swim
+Action 108  Swing
+Action 109  TalkTo
+Action 110  Say
+Action 111  Chant
+Action 112  ThrowOver
+Action 113  ThrowAt
+Action 114  Tie
+Action 115  TieUp
+Action 116  Turn
+Action 117  Unlock
+Action 118  Untie
+Action 119  Wait
+Action 120  Wa
+Action 121  Wake
+Action 122  Go
+Action 123  WalkAround
+Action 124  WalkTo
+Action 125  Wave
+Action 126  Win
+Action 127  WindUp
+Action 128  Scream
+Action 129  Zork
+Action 130  IsOn
+
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x484e Probability chance:int
+Routine 0x4868 PickOne tbl
+Routine 0x4878 Queue_Daemon:^array(bool) rtn:routine ticks:int cint
+Routine 0x488e Queue:^array(bool) rtn:routine ticks:int cint
+Routine 0x48a2 QueueInterrupt:^array(bool) rtn:routine int2flag:bool end c int
+Routine 0x48e0 Clocker c end tick flag:bool
+Routine 0x493e Main
+Routine 0x4b34 CommandLoop icnt:bool ocnt:int num cnt:int obj:object tbl v:act_result ptbl:bool obj1:object temp:bool
+Routine 0x4cb2 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp objtmp indtmp
+Routine 0x4d94 Parser:bool ptr:p_lexv word:dictword val vrb:verbnum len:int dir nw:dictword tmpword num UNUSED cnt:int
+Routine 0x5068 Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
+Routine 0x508e Clause:int ptr val word:dictword off num flag:bool flag:bool wd:dictword tmpword cnt:int
+Routine 0x524e ParseNumber:dictword ptr len nptr digit:int num clocknum mult
+Routine 0x52d8 Orphan_Merge cnt:int temp verb beg end adj:bool word:dictword UNUSED
+Routine 0x53d0 NClauseWin otbl
+Routine 0x53f0 Word_Print cnt:int buf:int
+Routine 0x5406 Unknown_Word ptr buf word
+Routine 0x5442 Cant_Use ptr buf word:dictword
+Routine 0x5480 Syntax_Check syn:int len:int bits:int local4 local5 local6 local7 vrb:verbnum local9 local10 local11
+Routine 0x561a Orphan d1 d2 cnt:int
+Routine 0x5676 Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech beginning
+Routine 0x568e Buffer_Print beg end cp:bool nosp:bool wrd:dictword first:bool
+Routine 0x56fc Capitalize ptr n:int
+Routine 0x5728 Prep_Print ndx:int prep:dictword
+Routine 0x573c Clause_Copy bptr:int eptr:int insrt beg end
+Routine 0x57a0 Clause_Add word:dictword len:int
+Routine 0x57c2 Prep_Find prep cnt len
+Routine 0x57e8 Syntax_Found syn
+Routine 0x57f4 GWim:object gbit:attribute lbit:int prep:dictword obj:object
+Routine 0x5844 Snarf_Objects ptr
+Routine 0x58a6 But_Merge tbl len butlen cnt:int matches obj ntbl
+Routine 0x58f4 Snarfem ptr eptr tbl but UNUSED wv word:dictword nw:dictword
+Routine 0x5a36 Get_Object tbl:^array(int) vrb:bool bits len:int xbits tlen gcheck:bool tmp UNUSED
+Routine 0x5c34 Which_Print num cnt:int list obj total:int
+Routine 0x5c82 Global_Check tbl ptr rmg rmg_len cnt obj obits foo
+Routine 0x5d50 Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
+Routine 0x5d84 Search_List obj:object tbl lvl:p_searchlevels fls nobj:object
+Routine 0x5dec Obj_Found obj:object tbl ptr
+Routine 0x5e0a Take_Check
+Routine 0x5e26 ITake_Check tbl bits ptr obj:object taken:bool
+Routine 0x5e9a Many_Check loss:int tmp word
+Routine 0x5f22 ZMemQ itm:dictword tbl size:int cnt:int
+Routine 0x5f4a ZMemQB itm:object tbl size cnt
+Routine 0x5f62 LitP:bool room:object oldroom:object islit:bool
+Routine 0x5fb0 Prso_Print ptr:^array(dictword)
+Routine 0x5fd8 Prsi_Print ptr:^array(dictword)
+Routine 0x6000 SwordDaemon q:bool evil_flag:int hownear:int prop propsize:int
+Routine 0x60de Infested room:object obj:object
+Routine 0x60fa This_It_P obj UNUSED syns UNUSED2
+Routine 0x6148 LampDaemon
+Routine 0x6154 VerboseSub:int
+Routine 0x616a BriefSub:int
+Routine 0x6180 SuperbriefSub:int
+Routine 0x619a LookSub:int
+Routine 0x61ac FirstLook
+Routine 0x61be ExamineSub:int
+Routine 0x61f0 Describe_Room look:bool v:bool text environment:object
+Routine 0x62de Describe_Objects v:bool
+Routine 0x630e DescribeOb:bool obj:object v:bool level:int text av
+Routine 0x63a8 PrintCont:bool obj:object v level:int itm:object first:bool environment text pv:bool inv:bool
+Routine 0x64bc Firster obj:object level:int
+Routine 0x6502 ScoreSub:int UNUSED:bool
+Routine 0x6542 LeaveGame
+Routine 0x654a QuitSub:int ask:bool
+Routine 0x658c Ask
+Routine 0x65a4 VersionSub:int offset:int
+Routine 0x663e InRoom itm:object
+Routine 0x664e AgainSub:int
+Routine 0x66a2 JigsUp:int deathmsg:string
+Routine 0x69ba RandomizeObjects UNUSED itm:object sib:object UNUSED
+Routine 0x69de KillTimers
+Routine 0x6a10 RestoreSub:int
+Routine 0x6a26 SaveSub:int
+Routine 0x6a36 RestartSub:int
+Routine 0x6a7a WalkAroundSub:int
+Routine 0x6a92 LaunchSub:int
+Routine 0x6aca GoNext tbl:^array(object) room:object
+Routine 0x6ae0 SearchArray obj tbl cnt len
+Routine 0x6b08 GoSub:int prop propsize:int str obj room
+Routine 0x6c32 SetPronoun it:object
+Routine 0x6c3c InventorySub:int
+Routine 0x6c56 PreTakeSub:int
+Routine 0x6cc4 TakeSub:int
+Routine 0x6cec ITake:act_result vb:bool num_items:int sib:object weight:int
+Routine 0x6dc6 PutOnSub:int
+Routine 0x6dec PrePutOnSub:int
+Routine 0x6e02 InsertSub:int weight:int
+Routine 0x6ea6 PreDropSub
+Routine 0x6eb6 PreGiveSub:int
+Routine 0x6ee0 PreGiveReverseSub:int
+Routine 0x6eea ThingInPlayer obj:object
+Routine 0x6f06 GiveSub:int
+Routine 0x6f34 GiveReverseSub:int
+Routine 0x6f40 DropSub:int
+Routine 0x6f52 ThrowAtSub:int
+Routine 0x6f62 Idrop
+Routine 0x6fa8 OpenSub:int obj:object revealmsg:bool
+Routine 0x7060 PrintContents obj:object itm:object nextitm:object first:bool
+Routine 0x7090 CloseSub:int
+Routine 0x7108 CCount:int obj:object cnt:int x:object
+Routine 0x7120 QueryWeight obj:object cont wt:int
+Routine 0x7150 BugSub:int
+Routine 0x719a ScriptSub:int
+Routine 0x71b6 UnscriptSub:int
+Routine 0x71d4 PreMoveSub:int
+Routine 0x71ee MoveSub:int
+Routine 0x721a SwitchOnSub:int
+Routine 0x725a ExtinguishSub:int
+Routine 0x72b0 WaSub
+Routine 0x72ca WaitSub:int turns:int
+Routine 0x72f6 PreBoardSub:int env:object
+Routine 0x7340 BoardSub:int UNUSED
+Routine 0x7360 DisembarkSub:int
+Routine 0x73c0 BlowUpSub:int
+Routine 0x73d6 Goto room:object v:bool lb:bool environment:object av:attribute0 old_lit
+Routine 0x74ec BackSub:int
+Routine 0x7516 PrePourSub:int
+Routine 0x7528 PourSub:int
+Routine 0x752e SpraySub:int
+Routine 0x7536 SprayReverseSub:int
+Routine 0x7540 SqueezeSub:int
+Routine 0x7574 PreGreaseSub:int
+Routine 0x7592 GreaseSub:int
+Routine 0x75a2 PreFillSub paddr
+Routine 0x75de FillSub:int
+Routine 0x7624 PlughSub:int
+Routine 0x763c DrinkSub:int
+Routine 0x7644 EatSub:int can_eat:bool can_drink:bool env:object
+Routine 0x7730 CurseSub:int
+Routine 0x7786 ListenSub:int
+Routine 0x779a FollowSub:int
+Routine 0x77a6 StaySub:int
+Routine 0x77b8 PraySub:int
+Routine 0x77d8 DiveSub:int paddr plen:int
+Routine 0x7868 HopSub:int
+Routine 0x7874 LeaveSub:int
+Routine 0x787c HelloSub:int
+Routine 0x78d2 PreReadSub:int
+Routine 0x790a ReadSub:int
+Routine 0x792a LookUnderSub:int
+Routine 0x793a LookBehindSub:int
+Routine 0x794c LookInSub:int
+Routine 0x79ec SeeInside obj:object
+Routine 0x79fc RepentSub:int
+Routine 0x7a10 PreBurnSub:int
+Routine 0x7a2a BurnSub:int
+Routine 0x7a7e PreTurnSub:int
+Routine 0x7a8e TurnSub:int
+Routine 0x7a9a PumpUpSub:int
+Routine 0x7aa8 InflateSub:int
+Routine 0x7aba DeflateSub:int
+Routine 0x7ac6 LockSub:int
+Routine 0x7ad4 PickSub:int
+Routine 0x7ae0 UnlockSub:int
+Routine 0x7ae8 CutSub:int
+Routine 0x7b88 KillSub:int
+Routine 0x7b92 ReallAttackSub dowhat:string
+Routine 0x7c42 AttackSub:int
+Routine 0x7c4c SwingSub:int
+Routine 0x7c60 BiteSub:int
+Routine 0x7c6a WaveSub:int
+Routine 0x7c74 RaiseSub:int
+Routine 0x7c7e LowerSub:int
+Routine 0x7c88 TouchSub:int
+Routine 0x7c92 PushSub:int
+Routine 0x7c9c PushDirSub:int
+Routine 0x7cae PrePokeSub:int
+Routine 0x7d18 PokeSub:int
+Routine 0x7d22 HackHack str:string
+Routine 0x7d4a WordType obj:object word:dictword addr UNUSED
+Routine 0x7d6c KnockSub:int
+Routine 0x7d9e VomitSub:int
+Routine 0x7dbc FrobozzSub_orphaned
+Routine 0x7dea WinSub:int
+Routine 0x7df4 ScreamSub:int
+Routine 0x7e0a FixSub:int
+Routine 0x7e16 BanishSub:int
+Routine 0x7e28 ShakeSub:int itm:object
+Routine 0x7eba PreDigSub:int
+Routine 0x7edc DigSub:int
+Routine 0x7eec SmellSub:int
+Routine 0x7f02 InRoomContains itm:object room:object addr
+Routine 0x7f20 SwimSub:int
+Routine 0x7f7a UntieSub:int
+Routine 0x7f90 PreTieSub:int
+Routine 0x7fa6 TieSub:int
+Routine 0x7fba TieUpSub:int
+Routine 0x7fd6 MeltSub:int
+Routine 0x7ff2 MumbleSub:int
+Routine 0x8016 WakeSub:int
+Routine 0x804c ZorkSub:int
+Routine 0x8058 MungeRoom room:object str:string
+Routine 0x8066 CommandSub_orphaned
+Routine 0x808c ClimbOnSub:int
+Routine 0x80ac ClimbSub:int
+Routine 0x80c4 ClimbUpSub:int dir:property obj:object paddr UNUSED
+Routine 0x8120 ClimbDownSub:int
+Routine 0x8128 SendForSub:int
+Routine 0x814e WindUpSub:int
+Routine 0x8160 CountSub:int
+Routine 0x8194 PutUnderSub:int
+Routine 0x81a0 PlaySub:int
+Routine 0x81ee MakeSub:int
+Routine 0x81fa EnterSub:int
+Routine 0x8202 ExitSub:int
+Routine 0x820a CrossSub:int
+Routine 0x8218 SearchSub:int
+Routine 0x8226 FindSub:int env:object
+Routine 0x82d0 TalkToSub:int
+Routine 0x82f6 AnswerSub:int
+Routine 0x8316 AnswerObjSub:int
+Routine 0x833e IsOnSub:int
+Routine 0x836c KissSub:int
+Routine 0x8380 MolestSub:int
+Routine 0x8394 FindIn rm:object attr:attribute obj:object
+Routine 0x83ae SaySub:int
+Routine 0x8448 ChantSub:int
+Routine 0x8474 SpinSub:int
+Routine 0x8480 EnterObjSub:int UNUSED
+Routine 0x84f0 WearSub:int
+Routine 0x850c ThrowOverSub:int
+Routine 0x851e VerifySub:int
+Routine 0x8558 StandSub:int
+Routine 0x857e HideSub:int
+Routine 0x8596 Go_direction:int prop:property
+Routine 0x85a4 WalkToSub:int
+Routine 0x85d4 OtherSide door:object prop:property addr
+Routine 0x85fa DrinkFromSub:int
+Routine 0x8606 LeanOnSub:int
+Routine 0x861a SwordAction
+Routine 0x8688 LampAction
+Routine 0x8756 GoDark obj:object daemon_rtn:routine len:int ndx:int still_on:bool
+Routine 0x87c0 YouAction
+Routine 0x8854 ChasmAction
+Routine 0x88c2 PseudoAction
+Routine 0x88f6 TunnelAction
+Routine 0x8910 GroundAction
+Routine 0x893c GrueAction
+Routine 0x8a68 PuzzleMovement:object offset newroom
+Routine 0x8baa DetermineBorder roomnum offset
+Routine 0x8bde ToNextPuzzleRoom newroom
+Routine 0x8bfe EnterPuzzle:object
+Routine 0x8c26 PuzzleEntranceDesc rarg:rarg
+Routine 0x8d02 LadderAction exit_available:bool
+Routine 0x8d78 PuzzleWallAction roomtype:int nexttype roomnum nextroom:bool ptr ob_array_ptr ob_flag:bool
+Routine 0x8fb8 PuzzleMoveObjects roomnum obj:object sib ndx ptr
+Routine 0x9036 CanMoveWall roomnum wallobj offset
+Routine 0x9054 SteelDoorAction
+Routine 0x9110 PuzzleRoomAction rarg:rarg
+Routine 0x916c N_S_WallThere roomnum:int
+Routine 0x917c E_W_WallThere roomnum:int border:bool
+Routine 0x918e DescribePuzzleRoom n_wall:int s_wall:int e_wall:int w_wall:int
+Routine 0x933e PrintWall wtype:wall_type
+Routine 0x9358 PrintCornerWall offset:int corner1:wall_type corner2:wall_type roomnum
+Routine 0x93ae SlotAction
+Routine 0x94cc SideRoom2Action rarg:rarg
+Routine 0x952a HallwayMovement:object nextroom:object
+Routine 0x9598 Mirror_blockage angle:int
+Routine 0x95e6 RoomAroundBox nextroom
+Routine 0x9600 DescribeSideHall obj:object south_p:bool mirror1:bool mirror2:bool
+Routine 0x96a0 NarrowRoom9Action rarg:rarg
+Routine 0x96c0 NarrowRoom5Action rarg:rarg
+Routine 0x96e0 NarrowRoom3Action rarg:rarg
+Routine 0x96fe NarrowRoomAction rarg:rarg
+Routine 0x971a DescribeChannel north_hall:object south_hall:object flag:bool north_open:bool south_open:bool mir_flag:bool sideways_flag:bool dir_prefix:string
+Routine 0x99a2 Hallway5Action rarg:rarg
+Routine 0x99b2 Hallway3Action rarg:rarg
+Routine 0x99c2 Hallway2Action rarg:rarg
+Routine 0x99d2 Hallway1Action rarg:rarg
+Routine 0x99e2 GuardianHere obj:object
+Routine 0x99f8 NarrowRoom7Action rarg:rarg
+Routine 0x9b70 Pushable:int dir:property local2 next_hall
+Routine 0x9bb6 WoodenWallAction
+Routine 0x9bf2 CheckPanelHere:bool obj:object push_ability:int
+Routine 0x9c50 MirrorObjAction mirror_here:bool
+Routine 0x9dd0 PanelObjAction panel_p:bool
+Routine 0x9e8a InsideBoxMovement outflag:bool dirs:bool
+Routine 0x9f56 QueryNextRoom north_p:bool flag:bool plen:int paddr
+Routine 0x9fa2 WhichSideRoom
+Routine 0x9fb6 EnterBox:object panal_open:bool
+Routine 0xa006 BeamRoomAction rarg:rarg obj:object
+Routine 0xa0ea CheckBeam obj:object
+Routine 0xa102 BeamAction obj:object ind_obj:object
+Routine 0xa286 RedButtonAction
+Routine 0xa2ca MirrorDaemon
+Routine 0xa314 InsideMirrorAction rarg:rarg
+Routine 0xa792 PanelAction next_angle
+Routine 0xa87a PinePanelAction 
+Routine 0xa9c4 PinePanelDaemon
+Routine 0xa9de StructureMoves north_p:bool where:object pole_raised:bool mirrors_not_working:bool
+Routine 0xaa66 ShortpoleAction
+Routine 0xab36 Master1Action rarg:rarg
+Routine 0xae0a Master2Action
+Routine 0xae88 NarrowCorridorAction rarg:rarg
+Routine 0xaeec DungeonEntranceAction rarg:rarg
+Routine 0xaf36 PlayerReady
+Routine 0xaf54 WoodenDoor2Action
+Routine 0xb320 Player_accomplished cnt
+Routine 0xb352 DMFollowDaemon
+Routine 0xb3b6 MoveItemsInCells cnt:int cntplusone:int itm:object sib:object
+Routine 0xb41c PushButton
+Routine 0xb486 ParapetAction rarg:rarg
+Routine 0xb5fe SundialAction
+Routine 0xb6b8 LargeButtonAction cell3_closed:bool
+Routine 0xb71c PrisonCell3Action rarg:rarg
+Routine 0xb85e PrisonCell1Action rarg:rarg
+Routine 0xb8c4 DescribeDoor obj:object
+Routine 0xb8d8 NorthCoridorAction rarg:rarg
+Routine 0xb976 SouthCorridorAction rarg:rarg
+Routine 0xba06 BronzeDoorAction
+Routine 0xba60 CelldoorAction
+Routine 0xba7a TreasuryAction rarg:rarg
+Routine 0xbc66 South_Corridor_north_dir:object
+Routine 0xbc90 SecretDoorAction
+Routine 0xbcb8 EngravingsRoomAction rarg:rarg
+Routine 0xbd60 CheckSay obj:object
+Routine 0xbd8a OldManAction rarg:rarg
+Routine 0xc160 SleepDaemon
+Routine 0xc184 RunesAction
+Routine 0xc1d6 TBarAction
+Routine 0xc218 PitAction
+Routine 0xc2ba ParapetObjAction
+Routine 0xc308 CompassRoseAction
+Routine 0xc34c Celldoor3Action
+Routine 0xc386 BookAction
+Routine 0xc496 HoleAction
+Routine 0xc4a2 PseudoTorchAction
+Routine 0xc4b4 WaterAction UNUSED nothing_to_fill:bool
+Routine 0xc536 Wall2Action
+Routine 0xc56e IronDoorAction
+Routine 0xc5ae EarthquakeDaemon
+Routine 0xc722 CleftAction
+Routine 0xc738 GreatDoorAction rarg:rarg
+Routine 0xc7fc RoomWithDoor prefix:string obj:object suffix:string
+Routine 0xc81a Entrance3Action rarg:rarg
+Routine 0xc9f2 TimeMachineAction rarg:rarg
+Routine 0xccc2 SeatAction
+Routine 0xcd8a DialAction
+Routine 0xcdf6 ButtonAction
+Routine 0xd06c TimeTravel
+Routine 0xd102 ReturnToPresentTimer
+Routine 0xd17c ReturnJewels
+Routine 0xd1b2 Timetravel_fix obj:object flag:bool
+Routine 0xd2da DisappearDuringReturntoFuture itm:object anything_in_machine:bool anything_in_player:bool sib:object
+Routine 0xd3a8 PlayerShot
+Routine 0xd3ba PlayerCaught
+Routine 0xd3c4 JigsReallyUp deathmsg:string
+Routine 0xd3ea Dimwit_speaks
+Routine 0xd584 Entrance2Action rarg:rarg
+Routine 0xd83c GuardsAway
+Routine 0xd8b8 GuardsCaught
+Routine 0xd8c2 RobotAction
+Routine 0xd8f2 JewelRoom3Action rarg:rarg
+Routine 0xdb1a JewelsAction
+Routine 0xdb94 TechMuseumAction rarg:rarg
+Routine 0xdbb6 OldPlaqueAction
+Routine 0xdf1c WoodenDoorAction
+Routine 0xdf52 StoneDoorAction
+Routine 0xdfb6 CageAction
+Routine 0xdfdc VoicesAction
+Routine 0xe050 OtherMachineAction rarg:rarg
+Routine 0xe266 PlaqueAction
+Routine 0xe2f0 PedestalAction
+Routine 0xe32a FindExit loc:object prop:property cnt:int ndx:int
+Routine 0xe35e HoodedfigureAction rarg:rarg
+Routine 0xe466 HoodedRecoverDaemon
+Routine 0xe484 HoodedFigureBlow chance
+Routine 0xe554 CombatDaemon
+Routine 0xe688 HoodedDeath
+Routine 0xe70a HoodAction
+Routine 0xe888 CloakAction
+Routine 0xe8ea DiagnoseSub:int
+Routine 0xe8f4 LandofShadowAction rarg:rarg
+Routine 0xe9e6 EncounterHooded
+Routine 0xea4c CrawlAction rarg:rarg
+Routine 0xea58 LedgeObjAction
+Routine 0xea9c BreadAction
+Routine 0xeadc StaffAction
+Routine 0xeaf0 ChestDaemon
+Routine 0xecc4 ManWaitsDaemon
+Routine 0xed50 Orphaned_Action rarg:rarg
+Routine 0xed6a CliffLedgeAction rarg:rarg
+Routine 0xee94 CliffRoomAction rarg:rarg
+Routine 0xf0be Rope2Action
+Routine 0xf35c FriendDaemon
+Routine 0xf3ee FriendHelpDaemon
+Routine 0xf5ac ChestAction
+Routine 0xf658 ManAtCliffDaemon
+Routine 0xf6e0 ManAction
+Routine 0xf8a6 ValuablesAction
+Routine 0xf922 Rope1Action
+Routine 0xf99e Man2Action
+Routine 0xfb3a LakeObjAction
+Routine 0xfbaa UnderwaterAction rarg:rarg
+Routine 0xfd22 HoldBreathDaemon
+Routine 0xfd48 LakeAction rarg:rarg
+Routine 0xfd72 EnterLake obj:object sib:object dropflag:bool
+Routine 0xfe40 LakeDaemon
+Routine 0xff4c RocDaemon
+Routine 0xff6c AmuletAction
+Routine 0xffea SandAction
+Routine 0x10042 AlgaeAction
+Routine 0x10050 WetlampAction
+Routine 0x1007c TransportDaemon
+Routine 0x100a2 ViewingTableAction
+Routine 0x10140 VistaDaemon
+Routine 0x10188 ScenicVistaAction rarg:rarg
+Routine 0x102ba CliffObjAction
+Routine 0x103a2 TreeAction
+Routine 0x103f6 WettorchAction
+Routine 0x10412 TorchAction
+Routine 0x1046c DraftyRoomAction rarg:rarg
+Routine 0x10494 GrueRepellAction
+Routine 0x10574 RepellentDaemon
+Routine 0x10598 EnchanterRoomAction rarg:rarg
+Routine 0x105a8 AqueductAction
+Routine 0x105f4 ChannelAction
+Routine 0x10676 MossAction
+Routine 0x1068a ArchAction rarg:rarg
+Routine 0x107b4 SlideAction rarg:rarg
+Routine 0x108b0 ManholeAction
+Routine 0x1090a KeyroomAction rarg:rarg
+Routine 0x109a2 KeyAction
+Routine 0x10aa8 IndicatorAction
+Routine 0x10ac8 OceanAction rarg:rarg
+Routine 0x10c90 SailorAction
+Routine 0x10db0 Boat_away
+Routine 0x10dda Statue_invis_timer
+Routine 0x10dee InvisibilityAction
+Routine 0x10f08 VialAction
+Routine 0x1100a FlatheadOceanAction
+Routine 0x11068 RockDescription
+Routine 0x1109c RockAction
+Routine 0x11112 FishAction
+Routine 0x11126 PseudoQuicksandAction
+Routine 0x11168 PseudoSwampAction
+Routine 0x11174 PseudoMistAction
+Routine 0x111a0 PseudoBeachAction
+Routine 0x111b4 PseudoWaterfallAction
+Routine 0x111cc PseudoArchAction
+
+! ------------------------------- Words --------------------------------
+
+Word  advent  adventurer
+Word  antiqu  antique
+Word  aquedu  aqueduct
+Word  assort  assortment
+Word  beneat  beneath
+Word  blessi  blessings
+Word  boulde  boulder
+Word  brandi  brandish
+Word  carvin  carving
+Word  channe  channel
+Word  cloake  cloaked
+Word  compas  compass
+Word  consol  console
+Word  consum  consume
+Word  conten  contents
+Word  crawlw  crawlway
+Word  crysta  crystal
+Word  dangli  dangling
+Word  deflat  deflate
+Word  descri  describe
+Word  destro  destroy
+Word  diagno  diagnose
+Word  disemb  disembark
+Word  dispat  dispatch
+Word  displa  display
+Word  dungeo  dungeon
+Word  easter  eastern
+Word  engrav  engravings
+Word  examin  examine
+Word  exorci  exorcise
+Word  exting  extinguish
+Word  flamin  flaming
+Word  flathe  flathead
+Word  glamdr  glamdring
+Word  guardi  guardians
+Word  handgr  handgrip
+Word  incine  incinerate
+Word  indica  indicator
+Word  inflat  inflate
+Word  invent  invention
+Word  invisi  invisible
+Word  jewell  jewelled
+Word  lanter  lantern
+Word  liquif  liquify
+Word  lubric  lubricte
+Word  lurkin  lurking
+Word  machin  machine
+Word  mahoga  mahogany
+Word  manhol  manhole
+Word  massiv  massive
+Word  northe  northeast
+Word  northw  northwest
+Word  offici  official
+Word  orcris  orcrist
+Word  parape  parapet
+Word  passag  passage
+Word  pedest  pedestal
+Word  pointe  pointed
+Word  pressu  pressure
+Word  procee  proceed
+Word  quanti  quantity
+Word  quicks  quicksand
+Word  releas  release
+Word  render  rendering
+Word  restar  restart
+Word  restor  restore
+Word  ricket  ricketty
+Word  sceptr  sceptre
+Word  sinist  sinister
+Word  smelli  smelling
+Word  southe  southeast
+Word  southw  southwest
+Word  squeez  squeeze
+Word  stairc  staircase
+Word  stalag  stalagmite
+Word  startl  startle
+Word  strang  strange
+Word  struct  structure
+Word  sundia  sundial
+Word  surfac  surface
+Word  surpri  surprise
+Word  swallo  swallow
+Word  tempor  temporal
+Word  throug  through
+Word  torche  torches
+Word  treasu  treasure
+Word  unatta  unattach
+Word  undern  underneath
+Word  unscri  unscript
+Word  valuab  valuables
+Word  verbos  verbose
+Word  versio  version
+Word  viewin  viewing
+Word  warnin  warning
+Word  washin  washing
+Word  waterf  waterfall
+Word  waybre  waybread
+Word  wester  western
+Word  windin  winding
+Word  winnag  winnage

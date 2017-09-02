@@ -1,0 +1,1236 @@
+! ----------------------------------------------------
+!   sherlock-871026-r97-z5.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 625c0da3e8b9b2c26382aac7c2a2bb91
+CodeArea 0xb4f4 0x2c03d
+StringArea 0x2c040 0x30a50
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 0 attrib0   ! obj120
+Attribute 1 attrib1   ! obj120
+Attribute 2 attrib2   ! obj120
+Attribute 3 attrib3   ! obj120
+Attribute 4 attrib4   ! obj120
+Attribute 5 attrib5   ! obj15_hands obj116_lapel obj120 obj135_clothes obj146_hat obj181_ears obj189_foot obj275_feet obj292_breath obj315_heart obj346_head obj379_pocket obj418_coat
+Attribute 6 attrib6   ! obj15_hands obj120 obj252_it
+Attribute 7 attrib7   ! obj15_hands obj120
+Attribute 8 attrib8   ! obj103_lamp obj120
+Attribute 9 attrib9   ! obj75_knife obj120
+Attribute 10 attrib10  ! obj120 obj163_Moriarty_s_key
+Attribute 11 attrib11  ! obj120
+Attribute 12 attrib12  ! obj75_knife obj120
+Attribute 13 attrib13  ! obj15_hands obj120
+Attribute 14 attrib14  ! obj15_hands obj118_that_part_of_your_body obj120 obj181_ears obj189_foot obj275_feet obj292_breath obj315_heart obj346_head
+Attribute 15 attrib15  ! obj1_Chamber_of_Horrors obj11_Vestibule obj27_North_Transept obj37_Jericho_Parlour obj45_Houses_of_Parliament obj48_Nave obj52_Sherman_s_House obj53_Sanctuary obj57_British_Museum obj62_South_Ambulatory obj67_Poets__Corner obj70_The_Black_Museum obj73_Diogenes_Club obj104_The_Sign_of_the_Red_Herring obj120 obj122_Bank_of_England obj128_Jerusalem_Chamber obj131_Bowyer_Tower obj138_Holmes_s_bedroom obj144_Henry_VII_Chapel obj148_Parlour obj162_Bar_of_Gold obj207_North_Chapel_Aisle obj211_Manuscript_Room obj220_Confessor_Chapel obj221_Bloody_Tower obj235_Scotland_Yard obj236_Evangelist_Chapel obj237_Jewel_Room obj246_Bank_Vault obj254_Innocents_Corner obj273_Lair obj288_Madame_Tussaud_s obj290_Wakefield_Tower obj310_Clock_Tower obj327_South_Chapel_Aisle obj343_Holmes_s_study obj344_White_Tower obj350_Dungeon obj365_North_Ambulatory obj382_Torture_Room obj401_Buckingham_Palace obj407_Entry_hall obj428_North_Cloister obj432_South_Transept obj434_South_Aisle
+Attribute 16 attrib16  ! obj120 obj397_Wiggins
+Attribute 17 attrib17  ! obj14_girl obj52_Sherman_s_House obj60_Mycroft_Holmes obj103_lamp obj120 obj147_ash obj395_Holmes
+Attribute 18 attrib18  ! obj14_girl obj31_her obj120 obj140_Mrs__Hudson obj410_Queen_Victoria
+Attribute 19 attrib19  ! obj17_Geoffrey_Chaucer_s_tomb obj18_Marylebone_Road obj24_Hyde_Park_Corner obj25_Audley_Street obj29_Victoria_Square obj30_Cheapside obj31_her obj32_right obj34_myself obj38_Kensington_Gardens obj43_Mary__Queen_of_Scots__tomb obj47_New_Oxford_Street obj52_Sherman_s_House obj54_that obj56_Sherman obj60_Mycroft_Holmes obj61_Swan_Lane obj67_Poets__Corner obj70_The_Black_Museum obj71_Victoria_Street obj72_Whitehall obj74_Queens_Gardens obj77_rooms obj84_Birdcage_Walk obj90_Edward_the_Confessor_s_tomb obj94_Swan_Lane obj97_The_Mall obj99_Blind_Alley obj104_The_Sign_of_the_Red_Herring obj106_yourself obj110_Sir_Francis_Vere_s_tomb obj115_Birdcage_Walk obj118_that_part_of_your_body obj120 obj126_Lower_Thames_Street obj127_the_Prime_Minister obj138_Holmes_s_bedroom obj140_Mrs__Hudson obj152_Tottenham_Court_Rd obj153_221_B_Baker_Street obj154_Victoria_Street obj155_Captain_Bligh_s_oar obj156_Captain_Bligh_s_boat obj161_Covent_Garden obj163_Moriarty_s_key obj165_Fleet_Street obj169_Alexander_Pope_s_tomb obj170_him obj188_On_the_Thames obj194_Oxford_Street obj197_Grosvenor_Place obj200_King_William_Street obj201_King_William_Street obj204_Buckingham_Palace_Road obj206_The_Embankment obj215_Akbar obj219_Whitehall obj225_York_Place obj226_Orchard_Street obj228_that_part_of_the_statue obj229_Henry_VII_s_tomb obj231_that_part_of_the_statue obj233_Scotland_Yard obj234_New_Oxford_Street obj235_Scotland_Yard obj240_Madame_Tussaud_s obj241_Cheapside obj244_you obj245_Oxford_Street obj247_Orchard_Street obj248_Broad_Sanctuary obj250_Broad_Sanctuary obj252_it obj253_Parliament_Square obj254_Innocents_Corner obj260_On_the_Thames obj263_Wiggins obj266_Buckingham_Palace_Road obj271_Blind_Alley obj277_Kensington_Gardens obj279_St_Giles_Circus obj280_Parliament_Square obj281_Pitt_the_Younger_s_tomb obj284_Covent_Garden obj285_York_Place obj286_The_Embankment obj287_Holmes obj288_Madame_Tussaud_s obj289_Hyde_Park_Corner obj294_The_Mall obj299_Pinchin_Lane obj306_Elizabeth_I_s_tomb obj308_Baker_Street obj309_Moriarty obj313_Upper_Thames_Street obj314_Threadneedle_Street obj320_Lower_Thames_Street obj321_Mrs__Hudson obj324_Tottenham_Court_Road obj325_London_Bridge obj326_The_Monument obj328_Nelson_s_blind_eye obj329_Inside_Traitors_Gate obj333_St_Giles_Circus obj336_Buckingham_Palace obj338_Sherman_s_house obj339_On_the_Thames obj342_Sir_Isaac_Newton_s_tomb obj343_Holmes_s_study obj352_Victoria_Square obj358_Nelson_s_Column obj359_Big_Ben obj363_Charles_Dickens__tomb obj366_Henry_V_s_tomb obj367_Audley_Street obj368_Upper_Thames_Street obj369_them obj372_Marylebone_Road obj383_Lestrade obj387_Trafalgar_Square obj388_Great_Russell_Street obj392_The_Strand obj395_Holmes obj396_On_the_Thames obj397_Wiggins obj401_Buckingham_Palace obj402_On_the_Thames obj408_Trafalgar_Square obj410_Queen_Victoria obj411_Grosvenor_Place obj420_Outside_Traitors_Gate obj424_Pinchin_Lane obj429_London_Bridge obj433_Fleet_Street obj435_Anne_of_Cleve_s_tomb obj437_Threadneedle_Street obj438_Great_Russell_Street obj439_left
+Attribute 20 attrib20  ! obj15_hands obj32_right obj54_that obj68_ground obj77_rooms obj86_floor obj100_direction obj112_black_bag obj116_lapel obj118_that_part_of_your_body obj120 obj135_clothes obj146_hat obj181_ears obj189_foot obj252_it obj268_sky obj275_feet obj283_room obj292_breath obj300_ceiling obj315_heart obj330_number obj346_head obj379_pocket obj418_coat obj439_left
+Attribute 21 attrib21  ! obj8_gas_light obj13_fire obj21_yellow_piece_of_paper obj55_orange_piece_of_paper obj93_torch obj101_clue_paper obj102_blue_piece_of_paper obj120 obj179_mail obj185_old_book obj190_book_page obj193_cigarette obj216_bank_of_candles obj242_match obj258_matchbook obj282_tobacco obj311_green_piece_of_paper obj384_newspaper obj390_white_piece_of_paper obj427_brown_piece_of_paper
+Attribute 22 attrib22  ! obj10_Entry_Hall obj25_Audley_Street obj44_etherium obj51_ampoule_of_etherium obj59_anchor_chain obj83_allegorical_figures obj90_Edward_the_Confessor_s_tomb obj120 obj125_Outer_Ward obj143_old_pub obj147_ash obj173_wall_to_your_east obj174_Abbey obj175_old_boat obj184_opal_s_scratch obj188_On_the_Thames obj194_Oxford_Street obj224_emerald obj226_Orchard_Street obj236_Evangelist_Chapel obj238_orange_pill obj245_Oxford_Street obj247_Orchard_Street obj249_entrance_to_the_Tower obj251_east_wall obj252_it obj254_Innocents_Corner obj260_On_the_Thames obj301_anchor obj306_Elizabeth_I_s_tomb obj307_axe obj313_Upper_Thames_Street obj329_Inside_Traitors_Gate obj339_On_the_Thames obj340_Agra_treasure obj367_Audley_Street obj368_Upper_Thames_Street obj370_arch obj396_On_the_Thames obj402_On_the_Thames obj404_emerald_s_scratch obj406_opium obj407_Entry_hall obj420_Outside_Traitors_Gate obj431_opal obj435_Anne_of_Cleve_s_tomb
+Attribute 23 attrib23  ! obj50_produce obj120 obj139_telescope obj217_trinkets obj406_opium
+Attribute 24 attrib24  ! obj19_phial obj44_etherium obj114_window obj120 obj123_pool_of_wax obj139_telescope obj213_melted_axe obj341_magnifying_glass obj355_streetlight obj360_portcullis obj406_opium
+Attribute 25 attrib25  ! obj4_door obj9_door obj33_door_to_the_Jericho_Parlour obj36_brown_bottle obj41_safety_deposit_box obj51_ampoule_of_etherium obj75_knife obj105_prams obj112_black_bag obj114_window obj120 obj141_front_door obj168_pacquet_of_paper obj172_vault_door obj177_blue_bottle obj179_mail obj185_old_book obj214_safety_deposit_boxes obj258_matchbook obj265_girl_s_mouth obj278_study_door obj317_door obj360_portcullis obj361_Abbey_door obj375_parlour_door obj381_bedroom_door obj423_morocco_case
+Attribute 26 attrib26  ! obj4_door obj9_door obj33_door_to_the_Jericho_Parlour obj120 obj141_front_door obj172_vault_door obj278_study_door obj317_door obj360_portcullis obj361_Abbey_door obj375_parlour_door obj381_bedroom_door
+Attribute 27 attrib27  ! obj7_pistol obj75_knife obj120 obj307_axe obj312_mace
+Attribute 28 attrib28  ! obj66_pound_note obj76_garnet obj120 obj130_ruby obj224_emerald obj230_Crown_Jewels obj269_sapphire obj302_topaz obj319_shilling obj340_Agra_treasure obj347_sixpence obj431_opal
+Attribute 29 attrib29  ! obj3_statue_of_Charles_I obj17_Geoffrey_Chaucer_s_tomb obj21_yellow_piece_of_paper obj22_statue_of_Guy_Fawkes obj43_Mary__Queen_of_Scots__tomb obj55_orange_piece_of_paper obj66_pound_note obj68_ground obj76_garnet obj86_floor obj87_desk obj90_Edward_the_Confessor_s_tomb obj98_statue_of_King_John obj102_blue_piece_of_paper obj110_Sir_Francis_Vere_s_tomb obj120 obj130_ruby obj169_Alexander_Pope_s_tomb obj181_ears obj185_old_book obj190_book_page obj199_railing obj202_table obj208_statue_of_Saint_Thomas_Becket obj224_emerald obj229_Henry_VII_s_tomb obj256_statue_of_William_the_Conqueror obj259_sign obj261_tomb_of_the_Little_Princes_in_the_Tower obj262_sofa obj264_workbench obj269_sapphire obj281_Pitt_the_Younger_s_tomb obj291_clapper obj297_water obj302_topaz obj304_bed obj306_Elizabeth_I_s_tomb obj311_green_piece_of_paper obj342_Sir_Isaac_Newton_s_tomb obj346_head obj349_bedside_table obj358_Nelson_s_Column obj363_Charles_Dickens__tomb obj364_statue_of_Sir_Francis_Drake obj366_Henry_V_s_tomb obj376_Drawbridge obj380_statue_of_Sir_Walter_Raleigh obj384_newspaper obj390_white_piece_of_paper obj394_mantelpiece obj421_figure_of_Queen_Elizabeth obj427_brown_piece_of_paper obj429_London_Bridge obj431_opal obj435_Anne_of_Cleve_s_tomb
+Attribute 30 attrib30  ! obj16_rubbings obj17_Geoffrey_Chaucer_s_tomb obj20_garnet_s_scratch obj21_yellow_piece_of_paper obj36_brown_bottle obj43_Mary__Queen_of_Scots__tomb obj51_ampoule_of_etherium obj55_orange_piece_of_paper obj66_pound_note obj76_garnet obj90_Edward_the_Confessor_s_tomb obj101_clue_paper obj102_blue_piece_of_paper obj110_Sir_Francis_Vere_s_tomb obj120 obj130_ruby obj168_pacquet_of_paper obj169_Alexander_Pope_s_tomb obj176_things_in_the_library obj177_blue_bottle obj179_mail obj184_opal_s_scratch obj185_old_book obj190_book_page obj195_sapphire_s_scratch obj224_emerald obj229_Henry_VII_s_tomb obj238_orange_pill obj239_marquees obj257_yellow_pill obj258_matchbook obj261_tomb_of_the_Little_Princes_in_the_Tower obj269_sapphire obj281_Pitt_the_Younger_s_tomb obj302_topaz obj303_topaz_s_scratch obj306_Elizabeth_I_s_tomb obj311_green_piece_of_paper obj316_ruby_s_scratch obj342_Sir_Isaac_Newton_s_tomb obj358_Nelson_s_Column obj363_Charles_Dickens__tomb obj366_Henry_V_s_tomb obj384_newspaper obj390_white_piece_of_paper obj393_broken_ampoule obj404_emerald_s_scratch obj405_dial obj427_brown_piece_of_paper obj431_opal obj435_Anne_of_Cleve_s_tomb
+Attribute 31 attrib31  ! obj65_malmsey obj120 obj238_orange_pill obj257_yellow_pill obj332_pool_of_malmsey
+Attribute 32 attrib32  ! obj50_produce obj65_malmsey obj120 obj147_ash obj179_mail obj282_tobacco obj371_armour obj406_opium
+Attribute 33 attrib33  ! obj12_flowers obj15_hands obj16_rubbings obj46_tombs obj49_supports obj50_produce obj65_malmsey obj69_statues obj83_allegorical_figures obj105_prams obj109_walls obj120 obj133_shops obj147_ash obj150_pictures obj160_pigeons obj164_keys obj176_things_in_the_library obj179_mail obj180_instruments_of_torture obj181_ears obj183_knights obj196_women obj214_safety_deposit_boxes obj217_trinkets obj218_crowds obj227_nannies obj230_Crown_Jewels obj239_marquees obj270_statues obj275_feet obj276_laboratory_equipment obj282_tobacco obj298_ravens obj305_urchins obj337_members obj369_them obj371_armour obj391_columns obj406_opium obj416_walls obj425_flowers obj440_cotton_balls
+Attribute 34 attrib34  ! obj9_door obj41_safety_deposit_box obj60_Mycroft_Holmes obj120 obj132_beefeater obj141_front_door obj172_vault_door obj223_Byward_Tower obj317_door obj361_Abbey_door obj381_bedroom_door obj405_dial
+Attribute 35 attrib35  ! obj111_whistle obj120 obj135_clothes obj146_hat obj418_coat
+Attribute 36 attrib36  ! obj111_whistle obj120 obj135_clothes obj146_hat obj318_stethoscope obj400_ring obj403_carnation obj413_suit_of_armour obj418_coat
+Attribute 37 attrib37  ! obj7_pistol obj12_flowers obj21_yellow_piece_of_paper obj35_crayon obj36_brown_bottle obj39_bung obj51_ampoule_of_etherium obj55_orange_piece_of_paper obj63_weathered_old_oar obj66_pound_note obj75_knife obj76_garnet obj93_torch obj101_clue_paper obj102_blue_piece_of_paper obj103_lamp obj111_whistle obj112_black_bag obj119_rope obj120 obj121_key obj124_wax_head obj130_ruby obj139_telescope obj142_red_piece_of_glass obj146_hat obj147_ash obj155_Captain_Bligh_s_oar obj163_Moriarty_s_key obj164_keys obj168_pacquet_of_paper obj177_blue_bottle obj179_mail obj185_old_book obj187_violin obj212_pipe obj224_emerald obj230_Crown_Jewels obj232_persian_slipper obj238_orange_pill obj242_match obj243_clump_of_moss obj257_yellow_pill obj258_matchbook obj269_sapphire obj282_tobacco obj293_dead_pigeon obj301_anchor obj302_topaz obj307_axe obj311_green_piece_of_paper obj312_mace obj318_stethoscope obj319_shilling obj341_magnifying_glass obj347_sixpence obj374_paddle obj384_newspaper obj389_pigeon obj390_white_piece_of_paper obj393_broken_ampoule obj400_ring obj403_carnation obj413_suit_of_armour obj414_burnt_match obj417_burnt_torch obj418_coat obj423_morocco_case obj427_brown_piece_of_paper obj431_opal obj440_cotton_balls
+Attribute 38 attrib38  ! obj8_gas_light obj11_Vestibule obj13_fire obj27_North_Transept obj37_Jericho_Parlour obj45_Houses_of_Parliament obj48_Nave obj52_Sherman_s_House obj53_Sanctuary obj57_British_Museum obj62_South_Ambulatory obj67_Poets__Corner obj73_Diogenes_Club obj104_The_Sign_of_the_Red_Herring obj120 obj122_Bank_of_England obj128_Jerusalem_Chamber obj131_Bowyer_Tower obj138_Holmes_s_bedroom obj144_Henry_VII_Chapel obj148_Parlour obj153_221_B_Baker_Street obj162_Bar_of_Gold obj193_cigarette obj207_North_Chapel_Aisle obj211_Manuscript_Room obj216_bank_of_candles obj220_Confessor_Chapel obj221_Bloody_Tower obj223_Byward_Tower obj235_Scotland_Yard obj236_Evangelist_Chapel obj237_Jewel_Room obj246_Bank_Vault obj254_Innocents_Corner obj273_Lair obj288_Madame_Tussaud_s obj290_Wakefield_Tower obj310_Clock_Tower obj327_South_Chapel_Aisle obj343_Holmes_s_study obj344_White_Tower obj350_Dungeon obj365_North_Ambulatory obj382_Torture_Room obj398_hansom_cab obj401_Buckingham_Palace obj407_Entry_hall obj408_Trafalgar_Square obj412_growler_cab obj428_North_Cloister obj432_South_Transept obj434_South_Aisle
+Attribute 39 attrib39  ! obj4_door obj12_flowers obj59_anchor_chain obj75_knife obj91_oarlock obj107_butt_of_malmsey obj116_lapel obj120 obj123_pool_of_wax obj156_Captain_Bligh_s_boat obj175_old_boat obj181_ears obj210_jewel_case obj212_pipe obj213_melted_axe obj232_persian_slipper obj243_clump_of_moss obj265_girl_s_mouth obj278_study_door obj297_water obj322_lock obj357_guard_s_pocket obj359_Big_Ben obj379_pocket obj398_hansom_cab obj409_empty_butt_of_malmsey obj412_growler_cab obj413_suit_of_armour obj418_coat obj419_fireplace obj423_morocco_case
+Attribute 40 attrib40  ! obj12_flowers obj19_phial obj36_brown_bottle obj41_safety_deposit_box obj51_ampoule_of_etherium obj59_anchor_chain obj91_oarlock obj105_prams obj107_butt_of_malmsey obj112_black_bag obj116_lapel obj120 obj123_pool_of_wax obj146_hat obj156_Captain_Bligh_s_boat obj168_pacquet_of_paper obj175_old_boat obj177_blue_bottle obj181_ears obj185_old_book obj210_jewel_case obj212_pipe obj213_melted_axe obj214_safety_deposit_boxes obj232_persian_slipper obj243_clump_of_moss obj258_matchbook obj265_girl_s_mouth obj297_water obj322_lock obj335_statue_of_Admiral_Lord_Nelson obj357_guard_s_pocket obj359_Big_Ben obj379_pocket obj398_hansom_cab obj409_empty_butt_of_malmsey obj412_growler_cab obj413_suit_of_armour obj418_coat obj419_fireplace obj423_morocco_case obj436_shaft
+Attribute 41 attrib41  ! obj120 obj175_old_boat obj398_hansom_cab obj412_growler_cab
+Attribute 42 attrib42  ! obj3_statue_of_Charles_I obj5_guard obj8_gas_light obj13_fire obj14_girl obj15_hands obj17_Geoffrey_Chaucer_s_tomb obj19_phial obj20_garnet_s_scratch obj22_statue_of_Guy_Fawkes obj28_window obj43_Mary__Queen_of_Scots__tomb obj46_tombs obj49_supports obj50_produce obj56_Sherman obj60_Mycroft_Holmes obj63_weathered_old_oar obj64_dog obj69_statues obj78_south_wall obj80_Palace_guard obj82_guard obj83_allegorical_figures obj87_desk obj90_Edward_the_Confessor_s_tomb obj93_torch obj98_statue_of_King_John obj108_vendor obj109_walls obj110_Sir_Francis_Vere_s_tomb obj114_window obj116_lapel obj117_wall_to_your_south obj118_that_part_of_your_body obj119_rope obj120 obj124_wax_head obj127_the_Prime_Minister obj129_pedestal obj132_beefeater obj135_clothes obj136_stairway obj140_Mrs__Hudson obj147_ash obj151_butler obj155_Captain_Bligh_s_oar obj156_Captain_Bligh_s_boat obj166_denkeeper obj167_statue_of_Sir_Isaac_Newton obj169_Alexander_Pope_s_tomb obj173_wall_to_your_east obj176_things_in_the_library obj181_ears obj183_knights obj184_opal_s_scratch obj189_foot obj190_book_page obj195_sapphire_s_scratch obj196_women obj198_growler_cabbie obj199_railing obj205_turban obj208_statue_of_Saint_Thomas_Becket obj210_jewel_case obj215_Akbar obj217_trinkets obj227_nannies obj228_that_part_of_the_statue obj229_Henry_VII_s_tomb obj231_that_part_of_the_statue obj239_marquees obj251_east_wall obj255_north_wall obj256_statue_of_William_the_Conqueror obj259_sign obj261_tomb_of_the_Little_Princes_in_the_Tower obj262_sofa obj264_workbench obj270_statues obj274_lonely_librarian obj275_feet obj276_laboratory_equipment obj281_Pitt_the_Younger_s_tomb obj282_tobacco obj292_breath obj296_wall_to_your_north obj303_topaz_s_scratch obj304_bed obj305_urchins obj306_Elizabeth_I_s_tomb obj307_axe obj309_Moriarty obj315_heart obj316_ruby_s_scratch obj328_Nelson_s_blind_eye obj335_statue_of_Admiral_Lord_Nelson obj337_members obj342_Sir_Isaac_Newton_s_tomb obj345_hansom_cabbie obj346_head obj355_streetlight obj358_Nelson_s_Column obj359_Big_Ben obj362_wall_to_your_west obj363_Charles_Dickens__tomb obj364_statue_of_Sir_Francis_Drake obj366_Henry_V_s_tomb obj370_arch obj371_armour obj377_cherubs obj379_pocket obj380_statue_of_Sir_Walter_Raleigh obj383_Lestrade obj391_columns obj394_mantelpiece obj395_Holmes obj397_Wiggins obj400_ring obj404_emerald_s_scratch obj410_Queen_Victoria obj415_west_wall obj416_walls obj419_fireplace obj421_figure_of_Queen_Elizabeth obj423_morocco_case obj435_Anne_of_Cleve_s_tomb obj436_shaft
+Attribute 43 attrib43  ! obj2_chain obj3_statue_of_Charles_I obj5_guard obj6_uninteresting_object obj14_girl obj17_Geoffrey_Chaucer_s_tomb obj19_phial obj22_statue_of_Guy_Fawkes obj28_window obj39_bung obj43_Mary__Queen_of_Scots__tomb obj46_tombs obj50_produce obj56_Sherman obj60_Mycroft_Holmes obj64_dog obj65_malmsey obj69_statues obj78_south_wall obj80_Palace_guard obj82_guard obj87_desk obj90_Edward_the_Confessor_s_tomb obj98_statue_of_King_John obj107_butt_of_malmsey obj108_vendor obj110_Sir_Francis_Vere_s_tomb obj114_window obj116_lapel obj117_wall_to_your_south obj120 obj124_wax_head obj127_the_Prime_Minister obj129_pedestal obj132_beefeater obj136_stairway obj140_Mrs__Hudson obj150_pictures obj151_butler obj156_Captain_Bligh_s_boat obj160_pigeons obj166_denkeeper obj167_statue_of_Sir_Isaac_Newton obj169_Alexander_Pope_s_tomb obj173_wall_to_your_east obj176_things_in_the_library obj180_instruments_of_torture obj183_knights obj193_cigarette obj196_women obj198_growler_cabbie obj199_railing obj202_table obj208_statue_of_Saint_Thomas_Becket obj210_jewel_case obj215_Akbar obj216_bank_of_candles obj217_trinkets obj227_nannies obj228_that_part_of_the_statue obj229_Henry_VII_s_tomb obj230_Crown_Jewels obj231_that_part_of_the_statue obj243_clump_of_moss obj251_east_wall obj255_north_wall obj256_statue_of_William_the_Conqueror obj259_sign obj261_tomb_of_the_Little_Princes_in_the_Tower obj262_sofa obj264_workbench obj270_statues obj274_lonely_librarian obj276_laboratory_equipment obj281_Pitt_the_Younger_s_tomb obj291_clapper obj292_breath obj296_wall_to_your_north obj298_ravens obj301_anchor obj304_bed obj305_urchins obj306_Elizabeth_I_s_tomb obj309_Moriarty obj328_Nelson_s_blind_eye obj332_pool_of_malmsey obj335_statue_of_Admiral_Lord_Nelson obj337_members obj342_Sir_Isaac_Newton_s_tomb obj345_hansom_cabbie obj349_bedside_table obj355_streetlight obj357_guard_s_pocket obj358_Nelson_s_Column obj359_Big_Ben obj362_wall_to_your_west obj363_Charles_Dickens__tomb obj364_statue_of_Sir_Francis_Drake obj366_Henry_V_s_tomb obj371_armour obj377_cherubs obj380_statue_of_Sir_Walter_Raleigh obj383_Lestrade obj391_columns obj394_mantelpiece obj395_Holmes obj397_Wiggins obj398_hansom_cab obj409_empty_butt_of_malmsey obj410_Queen_Victoria obj412_growler_cab obj415_west_wall obj416_walls obj421_figure_of_Queen_Elizabeth obj425_flowers obj435_Anne_of_Cleve_s_tomb
+Attribute 44 attrib44  ! obj5_guard obj14_girl obj31_her obj34_myself obj56_Sherman obj60_Mycroft_Holmes obj80_Palace_guard obj82_guard obj106_yourself obj108_vendor obj120 obj127_the_Prime_Minister obj132_beefeater obj140_Mrs__Hudson obj151_butler obj166_denkeeper obj170_him obj196_women obj198_growler_cabbie obj215_Akbar obj227_nannies obj244_you obj274_lonely_librarian obj305_urchins obj309_Moriarty obj337_members obj345_hansom_cabbie obj383_Lestrade obj395_Holmes obj397_Wiggins obj410_Queen_Victoria
+Attribute 45 attrib45  ! obj5_guard obj14_girl obj31_her obj34_myself obj56_Sherman obj60_Mycroft_Holmes obj64_dog obj80_Palace_guard obj82_guard obj106_yourself obj108_vendor obj120 obj127_the_Prime_Minister obj132_beefeater obj140_Mrs__Hudson obj151_butler obj160_pigeons obj166_denkeeper obj170_him obj196_women obj198_growler_cabbie obj215_Akbar obj227_nannies obj244_you obj274_lonely_librarian obj298_ravens obj305_urchins obj309_Moriarty obj337_members obj345_hansom_cabbie obj383_Lestrade obj389_pigeon obj395_Holmes obj397_Wiggins obj410_Queen_Victoria
+Attribute 46 attrib46  ! obj2_chain obj3_statue_of_Charles_I obj5_guard obj6_uninteresting_object obj8_gas_light obj13_fire obj14_girl obj15_hands obj16_rubbings obj17_Geoffrey_Chaucer_s_tomb obj20_garnet_s_scratch obj22_statue_of_Guy_Fawkes obj32_right obj39_bung obj41_safety_deposit_box obj43_Mary__Queen_of_Scots__tomb obj44_etherium obj49_supports obj50_produce obj54_that obj56_Sherman obj59_anchor_chain obj60_Mycroft_Holmes obj64_dog obj68_ground obj77_rooms obj79_upstream obj82_guard obj83_allegorical_figures obj86_floor obj87_desk obj90_Edward_the_Confessor_s_tomb obj91_oarlock obj93_torch obj98_statue_of_King_John obj100_direction obj105_prams obj107_butt_of_malmsey obj108_vendor obj109_walls obj110_Sir_Francis_Vere_s_tomb obj116_lapel obj118_that_part_of_your_body obj120 obj124_wax_head obj127_the_Prime_Minister obj132_beefeater obj135_clothes obj147_ash obj150_pictures obj151_butler obj156_Captain_Bligh_s_boat obj159_theft obj160_pigeons obj166_denkeeper obj167_statue_of_Sir_Isaac_Newton obj169_Alexander_Pope_s_tomb obj176_things_in_the_library obj180_instruments_of_torture obj181_ears obj182_Jubilee obj183_knights obj184_opal_s_scratch obj189_foot obj190_book_page obj191_sesame obj195_sapphire_s_scratch obj196_women obj198_growler_cabbie obj199_railing obj202_table obj203_boats obj205_turban obj208_statue_of_Saint_Thomas_Becket obj210_jewel_case obj214_safety_deposit_boxes obj216_bank_of_candles obj217_trinkets obj227_nannies obj228_that_part_of_the_statue obj229_Henry_VII_s_tomb obj231_that_part_of_the_statue obj239_marquees obj243_clump_of_moss obj244_you obj252_it obj256_statue_of_William_the_Conqueror obj261_tomb_of_the_Little_Princes_in_the_Tower obj262_sofa obj263_Wiggins obj264_workbench obj265_girl_s_mouth obj268_sky obj269_sapphire obj274_lonely_librarian obj275_feet obj281_Pitt_the_Younger_s_tomb obj283_room obj287_Holmes obj291_clapper obj292_breath obj295_shaft_of_light obj297_water obj298_ravens obj300_ceiling obj303_topaz_s_scratch obj304_bed obj305_urchins obj306_Elizabeth_I_s_tomb obj307_axe obj315_heart obj316_ruby_s_scratch obj321_Mrs__Hudson obj322_lock obj328_Nelson_s_blind_eye obj330_number obj331_marble obj334_chariot obj335_statue_of_Admiral_Lord_Nelson obj337_members obj342_Sir_Isaac_Newton_s_tomb obj345_hansom_cabbie obj346_head obj348_watermark obj349_bedside_table obj351_diagram obj357_guard_s_pocket obj358_Nelson_s_Column obj359_Big_Ben obj363_Charles_Dickens__tomb obj364_statue_of_Sir_Francis_Drake obj366_Henry_V_s_tomb obj370_arch obj371_armour obj373_girl_s_heart obj377_cherubs obj379_pocket obj380_statue_of_Sir_Walter_Raleigh obj394_mantelpiece obj397_Wiggins obj399_downstream obj404_emerald_s_scratch obj405_dial obj406_opium obj409_empty_butt_of_malmsey obj419_fireplace obj421_figure_of_Queen_Elizabeth obj425_flowers obj429_London_Bridge obj430_girl obj435_Anne_of_Cleve_s_tomb obj436_shaft obj439_left
+Attribute 47 attrib47  ! obj120
+
+! ----------------------------- Properties -----------------------------
+
+Property 28 prop28:?
+Property 29 prop29:?
+Property 30 prop30:?
+Property 31 prop31:?
+Property 32 prop32:?
+Property 33 prop33:?
+Property 34 prop34:?
+Property 35 prop35:?
+Property 36 prop36:?
+Property 37 prop37:?
+Property 38 prop38:?
+Property 39 prop39:?
+Property 40 prop40:dictwords
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:dictwords
+Property 44 out_to:exit
+Property 45 in_to:exit
+Property 46 d_to:exit
+Property 47 u_to:exit
+Property 48 northwest_to:exit
+Property 49 w_to:exit
+Property 50 southwest_to:exit
+Property 51 s_to:exit
+Property 52 se_to:exit
+Property 53 e_to:exit
+Property 54 ne_to:exit
+Property 55 n_to:exit
+Property 56 prop56:?
+Property 57 prop57:?
+Property 58 prop58:?
+Property 59 prop59:?
+Property 60 prop60:?
+Property 61 prop61:?
+Property 62 prop62:?
+Property 63 prop63:?
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Chamber_of_Horrors
+Object 2 obj2_chain
+Object 3 obj3_statue_of_Charles_I
+Object 4 obj4_door
+Object 5 obj5_guard
+Object 6 obj6_uninteresting_object
+Object 7 obj7_pistol
+Object 8 obj8_gas_light
+Object 9 obj9_door
+Object 10 obj10_Entry_Hall
+Object 11 obj11_Vestibule
+Object 12 obj12_flowers
+Object 13 obj13_fire
+Object 14 obj14_girl
+Object 15 obj15_hands
+Object 16 obj16_rubbings
+Object 17 obj17_Geoffrey_Chaucer_s_tomb
+Object 18 obj18_Marylebone_Road
+Object 19 obj19_phial
+Object 20 obj20_garnet_s_scratch
+Object 21 obj21_yellow_piece_of_paper
+Object 22 obj22_statue_of_Guy_Fawkes
+Object 23 obj23_Chamber_of_Horrors
+Object 24 obj24_Hyde_Park_Corner
+Object 25 obj25_Audley_Street
+Object 26 obj26_hour
+Object 27 obj27_North_Transept
+Object 28 obj28_window
+Object 29 obj29_Victoria_Square
+Object 30 obj30_Cheapside
+Object 31 obj31_her
+Object 32 obj32_right
+Object 33 obj33_door_to_the_Jericho_Parlour
+Object 34 obj34_myself
+Object 35 obj35_crayon
+Object 36 obj36_brown_bottle
+Object 37 obj37_Jericho_Parlour
+Object 38 obj38_Kensington_Gardens
+Object 39 obj39_bung
+Object 40 obj40_Monument
+Object 41 obj41_safety_deposit_box
+Object 42 obj42_study
+Object 43 obj43_Mary__Queen_of_Scots__tomb
+Object 44 obj44_etherium
+Object 45 obj45_Houses_of_Parliament
+Object 46 obj46_tombs
+Object 47 obj47_New_Oxford_Street
+Object 48 obj48_Nave
+Object 49 obj49_supports
+Object 50 obj50_produce
+Object 51 obj51_ampoule_of_etherium
+Object 52 obj52_Sherman_s_House
+Object 53 obj53_Sanctuary
+Object 54 obj54_that
+Object 55 obj55_orange_piece_of_paper
+Object 56 obj56_Sherman
+Object 57 obj57_British_Museum
+Object 58 obj58_syringe
+Object 59 obj59_anchor_chain
+Object 60 obj60_Mycroft_Holmes
+Object 61 obj61_Swan_Lane
+Object 62 obj62_South_Ambulatory
+Object 63 obj63_weathered_old_oar
+Object 64 obj64_dog
+Object 65 obj65_malmsey
+Object 66 obj66_pound_note
+Object 67 obj67_Poets__Corner
+Object 68 obj68_ground
+Object 69 obj69_statues
+Object 70 obj70_The_Black_Museum
+Object 71 obj71_Victoria_Street
+Object 72 obj72_Whitehall
+Object 73 obj73_Diogenes_Club
+Object 74 obj74_Queens_Gardens
+Object 75 obj75_knife
+Object 76 obj76_garnet
+Object 77 obj77_rooms
+Object 78 obj78_south_wall
+Object 79 obj79_upstream
+Object 80 obj80_Palace_guard
+Object 81 obj81_Tower_of_London_entrance
+Object 82 obj82_guard
+Object 83 obj83_allegorical_figures
+Object 84 obj84_Birdcage_Walk
+Object 85 obj85_minute
+Object 86 obj86_floor
+Object 87 obj87_desk
+Object 88 obj88_parlour
+Object 89 obj89_Duke_of_Wellington
+Object 90 obj90_Edward_the_Confessor_s_tomb
+Object 91 obj91_oarlock
+Object 92 obj92_British_Museum
+Object 93 obj93_torch
+Object 94 obj94_Swan_Lane
+Object 95 obj95
+Object 96 obj96_bedroom
+Object 97 obj97_The_Mall
+Object 98 obj98_statue_of_King_John
+Object 99 obj99_Blind_Alley
+Object 100 obj100_direction
+Object 101 obj101_clue_paper
+Object 102 obj102_blue_piece_of_paper
+Object 103 obj103_lamp
+Object 104 obj104_The_Sign_of_the_Red_Herring
+Object 105 obj105_prams
+Object 106 obj106_yourself
+Object 107 obj107_butt_of_malmsey
+Object 108 obj108_vendor
+Object 109 obj109_walls
+Object 110 obj110_Sir_Francis_Vere_s_tomb
+Object 111 obj111_whistle
+Object 112 obj112_black_bag
+Object 113 obj113_Bar_of_Gold
+Object 114 obj114_window
+Object 115 obj115_Birdcage_Walk
+Object 116 obj116_lapel
+Object 117 obj117_wall_to_your_south
+Object 118 obj118_that_part_of_your_body
+Object 119 obj119_rope
+Object 120 obj120
+Object 121 obj121_key
+Object 122 obj122_Bank_of_England
+Object 123 obj123_pool_of_wax
+Object 124 obj124_wax_head
+Object 125 obj125_Outer_Ward
+Object 126 obj126_Lower_Thames_Street
+Object 127 obj127_the_Prime_Minister
+Object 128 obj128_Jerusalem_Chamber
+Object 129 obj129_pedestal
+Object 130 obj130_ruby
+Object 131 obj131_Bowyer_Tower
+Object 132 obj132_beefeater
+Object 133 obj133_shops
+Object 134 obj134_vestibule
+Object 135 obj135_clothes
+Object 136 obj136_stairway
+Object 137 obj137_Queens_Gardens
+Object 138 obj138_Holmes_s_bedroom
+Object 139 obj139_telescope
+Object 140 obj140_Mrs__Hudson
+Object 141 obj141_front_door
+Object 142 obj142_red_piece_of_glass
+Object 143 obj143_old_pub
+Object 144 obj144_Henry_VII_Chapel
+Object 145 obj145
+Object 146 obj146_hat
+Object 147 obj147_ash
+Object 148 obj148_Parlour
+Object 149 obj149_Houses_of_Parliament
+Object 150 obj150_pictures
+Object 151 obj151_butler
+Object 152 obj152_Tottenham_Court_Rd
+Object 153 obj153_221_B_Baker_Street
+Object 154 obj154_Victoria_Street
+Object 155 obj155_Captain_Bligh_s_oar
+Object 156 obj156_Captain_Bligh_s_boat
+Object 157 obj157_Strand
+Object 158 obj158_Bank_of_England
+Object 159 obj159_theft
+Object 160 obj160_pigeons
+Object 161 obj161_Covent_Garden
+Object 162 obj162_Bar_of_Gold
+Object 163 obj163_Moriarty_s_key
+Object 164 obj164_keys
+Object 165 obj165_Fleet_Street
+Object 166 obj166_denkeeper
+Object 167 obj167_statue_of_Sir_Isaac_Newton
+Object 168 obj168_pacquet_of_paper
+Object 169 obj169_Alexander_Pope_s_tomb
+Object 170 obj170_him
+Object 171 obj171_Drawbridge
+Object 172 obj172_vault_door
+Object 173 obj173_wall_to_your_east
+Object 174 obj174_Abbey
+Object 175 obj175_old_boat
+Object 176 obj176_things_in_the_library
+Object 177 obj177_blue_bottle
+Object 178 obj178
+Object 179 obj179_mail
+Object 180 obj180_instruments_of_torture
+Object 181 obj181_ears
+Object 182 obj182_Jubilee
+Object 183 obj183_knights
+Object 184 obj184_opal_s_scratch
+Object 185 obj185_old_book
+Object 186 obj186_password
+Object 187 obj187_violin
+Object 188 obj188_On_the_Thames
+Object 189 obj189_foot
+Object 190 obj190_book_page
+Object 191 obj191_sesame
+Object 192 obj192_Toby
+Object 193 obj193_cigarette
+Object 194 obj194_Oxford_Street
+Object 195 obj195_sapphire_s_scratch
+Object 196 obj196_women
+Object 197 obj197_Grosvenor_Place
+Object 198 obj198_growler_cabbie
+Object 199 obj199_railing
+Object 200 obj200_King_William_Street
+Object 201 obj201_King_William_Street
+Object 202 obj202_table
+Object 203 obj203_boats
+Object 204 obj204_Buckingham_Palace_Road
+Object 205 obj205_turban
+Object 206 obj206_The_Embankment
+Object 207 obj207_North_Chapel_Aisle
+Object 208 obj208_statue_of_Saint_Thomas_Becket
+Object 209 obj209_Tower
+Object 210 obj210_jewel_case
+Object 211 obj211_Manuscript_Room
+Object 212 obj212_pipe
+Object 213 obj213_melted_axe
+Object 214 obj214_safety_deposit_boxes
+Object 215 obj215_Akbar
+Object 216 obj216_bank_of_candles
+Object 217 obj217_trinkets
+Object 218 obj218_crowds
+Object 219 obj219_Whitehall
+Object 220 obj220_Confessor_Chapel
+Object 221 obj221_Bloody_Tower
+Object 222 obj222_Tower_Green
+Object 223 obj223_Byward_Tower
+Object 224 obj224_emerald
+Object 225 obj225_York_Place
+Object 226 obj226_Orchard_Street
+Object 227 obj227_nannies
+Object 228 obj228_that_part_of_the_statue
+Object 229 obj229_Henry_VII_s_tomb
+Object 230 obj230_Crown_Jewels
+Object 231 obj231_that_part_of_the_statue
+Object 232 obj232_persian_slipper
+Object 233 obj233_Scotland_Yard
+Object 234 obj234_New_Oxford_Street
+Object 235 obj235_Scotland_Yard
+Object 236 obj236_Evangelist_Chapel
+Object 237 obj237_Jewel_Room
+Object 238 obj238_orange_pill
+Object 239 obj239_marquees
+Object 240 obj240_Madame_Tussaud_s
+Object 241 obj241_Cheapside
+Object 242 obj242_match
+Object 243 obj243_clump_of_moss
+Object 244 obj244_you
+Object 245 obj245_Oxford_Street
+Object 246 obj246_Bank_Vault
+Object 247 obj247_Orchard_Street
+Object 248 obj248_Broad_Sanctuary
+Object 249 obj249_entrance_to_the_Tower
+Object 250 obj250_Broad_Sanctuary
+Object 251 obj251_east_wall
+Object 252 obj252_it
+Object 253 obj253_Parliament_Square
+Object 254 obj254_Innocents_Corner
+Object 255 obj255_north_wall
+Object 256 obj256_statue_of_William_the_Conqueror
+Object 257 obj257_yellow_pill
+Object 258 obj258_matchbook
+Object 259 obj259_sign
+Object 260 obj260_On_the_Thames
+Object 261 obj261_tomb_of_the_Little_Princes_in_the_Tower
+Object 262 obj262_sofa
+Object 263 obj263_Wiggins
+Object 264 obj264_workbench
+Object 265 obj265_girl_s_mouth
+Object 266 obj266_Buckingham_Palace_Road
+Object 267 obj267_Diogenes_Club
+Object 268 obj268_sky
+Object 269 obj269_sapphire
+Object 270 obj270_statues
+Object 271 obj271_Blind_Alley
+Object 272 obj272_house
+Object 273 obj273_Lair
+Object 274 obj274_lonely_librarian
+Object 275 obj275_feet
+Object 276 obj276_laboratory_equipment
+Object 277 obj277_Kensington_Gardens
+Object 278 obj278_study_door
+Object 279 obj279_St_Giles_Circus
+Object 280 obj280_Parliament_Square
+Object 281 obj281_Pitt_the_Younger_s_tomb
+Object 282 obj282_tobacco
+Object 283 obj283_room
+Object 284 obj284_Covent_Garden
+Object 285 obj285_York_Place
+Object 286 obj286_The_Embankment
+Object 287 obj287_Holmes
+Object 288 obj288_Madame_Tussaud_s
+Object 289 obj289_Hyde_Park_Corner
+Object 290 obj290_Wakefield_Tower
+Object 291 obj291_clapper
+Object 292 obj292_breath
+Object 293 obj293_dead_pigeon
+Object 294 obj294_The_Mall
+Object 295 obj295_shaft_of_light
+Object 296 obj296_wall_to_your_north
+Object 297 obj297_water
+Object 298 obj298_ravens
+Object 299 obj299_Pinchin_Lane
+Object 300 obj300_ceiling
+Object 301 obj301_anchor
+Object 302 obj302_topaz
+Object 303 obj303_topaz_s_scratch
+Object 304 obj304_bed
+Object 305 obj305_urchins
+Object 306 obj306_Elizabeth_I_s_tomb
+Object 307 obj307_axe
+Object 308 obj308_Baker_Street
+Object 309 obj309_Moriarty
+Object 310 obj310_Clock_Tower
+Object 311 obj311_green_piece_of_paper
+Object 312 obj312_mace
+Object 313 obj313_Upper_Thames_Street
+Object 314 obj314_Threadneedle_Street
+Object 315 obj315_heart
+Object 316 obj316_ruby_s_scratch
+Object 317 obj317_door
+Object 318 obj318_stethoscope
+Object 319 obj319_shilling
+Object 320 obj320_Lower_Thames_Street
+Object 321 obj321_Mrs__Hudson
+Object 322 obj322_lock
+Object 323 obj323_Black_Museum
+Object 324 obj324_Tottenham_Court_Road
+Object 325 obj325_London_Bridge
+Object 326 obj326_The_Monument
+Object 327 obj327_South_Chapel_Aisle
+Object 328 obj328_Nelson_s_blind_eye
+Object 329 obj329_Inside_Traitors_Gate
+Object 330 obj330_number
+Object 331 obj331_marble
+Object 332 obj332_pool_of_malmsey
+Object 333 obj333_St_Giles_Circus
+Object 334 obj334_chariot
+Object 335 obj335_statue_of_Admiral_Lord_Nelson
+Object 336 obj336_Buckingham_Palace
+Object 337 obj337_members
+Object 338 obj338_Sherman_s_house
+Object 339 obj339_On_the_Thames
+Object 340 obj340_Agra_treasure
+Object 341 obj341_magnifying_glass
+Object 342 obj342_Sir_Isaac_Newton_s_tomb
+Object 343 obj343_Holmes_s_study
+Object 344 obj344_White_Tower
+Object 345 obj345_hansom_cabbie
+Object 346 obj346_head
+Object 347 obj347_sixpence
+Object 348 obj348_watermark
+Object 349 obj349_bedside_table
+Object 350 obj350_Dungeon
+Object 351 obj351_diagram
+Object 352 obj352_Victoria_Square
+Object 353 obj353_Jerusalem_Chamber
+Object 354 obj354_kidnapping
+Object 355 obj355_streetlight
+Object 356 obj356_bullet_hole
+Object 357 obj357_guard_s_pocket
+Object 358 obj358_Nelson_s_Column
+Object 359 obj359_Big_Ben
+Object 360 obj360_portcullis
+Object 361 obj361_Abbey_door
+Object 362 obj362_wall_to_your_west
+Object 363 obj363_Charles_Dickens__tomb
+Object 364 obj364_statue_of_Sir_Francis_Drake
+Object 365 obj365_North_Ambulatory
+Object 366 obj366_Henry_V_s_tomb
+Object 367 obj367_Audley_Street
+Object 368 obj368_Upper_Thames_Street
+Object 369 obj369_them
+Object 370 obj370_arch
+Object 371 obj371_armour
+Object 372 obj372_Marylebone_Road
+Object 373 obj373_girl_s_heart
+Object 374 obj374_paddle
+Object 375 obj375_parlour_door
+Object 376 obj376_Drawbridge
+Object 377 obj377_cherubs
+Object 378 obj378_vault
+Object 379 obj379_pocket
+Object 380 obj380_statue_of_Sir_Walter_Raleigh
+Object 381 obj381_bedroom_door
+Object 382 obj382_Torture_Room
+Object 383 obj383_Lestrade
+Object 384 obj384_newspaper
+Object 385 obj385_Henry_IV
+Object 386 obj386_lair
+Object 387 obj387_Trafalgar_Square
+Object 388 obj388_Great_Russell_Street
+Object 389 obj389_pigeon
+Object 390 obj390_white_piece_of_paper
+Object 391 obj391_columns
+Object 392 obj392_The_Strand
+Object 393 obj393_broken_ampoule
+Object 394 obj394_mantelpiece
+Object 395 obj395_Holmes
+Object 396 obj396_On_the_Thames
+Object 397 obj397_Wiggins
+Object 398 obj398_hansom_cab
+Object 399 obj399_downstream
+Object 400 obj400_ring
+Object 401 obj401_Buckingham_Palace
+Object 402 obj402_On_the_Thames
+Object 403 obj403_carnation
+Object 404 obj404_emerald_s_scratch
+Object 405 obj405_dial
+Object 406 obj406_opium
+Object 407 obj407_Entry_hall
+Object 408 obj408_Trafalgar_Square
+Object 409 obj409_empty_butt_of_malmsey
+Object 410 obj410_Queen_Victoria
+Object 411 obj411_Grosvenor_Place
+Object 412 obj412_growler_cab
+Object 413 obj413_suit_of_armour
+Object 414 obj414_burnt_match
+Object 415 obj415_west_wall
+Object 416 obj416_walls
+Object 417 obj417_burnt_torch
+Object 418 obj418_coat
+Object 419 obj419_fireplace
+Object 420 obj420_Outside_Traitors_Gate
+Object 421 obj421_figure_of_Queen_Elizabeth
+Object 422 obj422_Manuscript_Room
+Object 423 obj423_morocco_case
+Object 424 obj424_Pinchin_Lane
+Object 425 obj425_flowers
+Object 426 obj426_clear__colourless_liquid
+Object 427 obj427_brown_piece_of_paper
+Object 428 obj428_North_Cloister
+Object 429 obj429_London_Bridge
+Object 430 obj430_girl
+Object 431 obj431_opal
+Object 432 obj432_South_Transept
+Object 433 obj433_Fleet_Street
+Object 434 obj434_South_Aisle
+Object 435 obj435_Anne_of_Cleve_s_tomb
+Object 436 obj436_shaft
+Object 437 obj437_Threadneedle_Street
+Object 438 obj438_Great_Russell_Street
+Object 439 obj439_left
+Object 440 obj440_cotton_balls
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'xgetlit'
+Action 1 Action1  ! '$gonav'
+Action 2 Action2  ! 'xgolair'
+Action 3 Action3  ! 'xgobar'
+Action 4 Action4  ! 'xgobank'
+Action 5 Action5  ! '$goclu'
+Action 6 Action6  ! '$goliz'
+Action 7 Action7  ! '$gotow'
+Action 8 Action8  ! '$refre'
+Action 9 Action9  ! '#command'
+Action 10 Action10 ! '$verif' object
+Action 11 Action11 ! 'clue'/'clues'/'help'/'hint'/'hints'/'invisiclu'
+Action 12 Action12 ! 'clue'/'clues'/'help'/'hint'/'hints'/'invisiclu' 'off' attrib47
+Action 13 Action13 ! 'swordfish'
+Action 14 Action14 ! 'boleyn'
+Action 15 Action15 ! 'cleves'
+Action 16 Action16 ! 'howard'
+Action 17 Action17 ! 'parr'
+Action 18 Action18 ! 'aragon'
+Action 19 Action19 ! 'seymour'
+Action 20 Action20 ! 'y//'/'yes'
+Action 21 Action21 ! 'n//'/'no'
+Action 22 Action22 ! 'q//'/'quit'
+Action 23 Action23 ! 'restart'
+Action 24 Action24 ! 'brief'
+Action 25 Action25 ! 'version'
+Action 26 Action26 ! 'i//'/'inventory'
+Action 27 Action27 ! 'notify'
+Action 28 Action28 ! 'score'
+Action 29 Action29 ! 'save'
+Action 30 Action30 ! 'restore'
+Action 31 Action31 ! 'script'
+Action 32 Action32 ! 'focus' object(held,carried)
+Action 33 Action33 ! 'point' 'at' object 'with'/'using' object
+Action 34 Action34 ! 'point' object 'towards'/'toward'/'to' object
+Action 35 Action35 ! 'answer' attrib44
+Action 36 Action36 ! 'go' 'towards'/'toward'/'to' object
+Action 37 Action37 ! 'arrest'/'detain' object(in_room,on_ground)
+Action 38 Action38 ! 'climb' 'up'/'u//' attrib47(in_room,on_ground)
+Action 39 Action39 ! 'ask'/'interroga'/'query'/'question'/'quiz' 'about' object
+Action 40 Action40 ! 'ask'/'interroga'/'query'/'question'/'quiz' 'for' object
+Action 41 Action41 ! 'ask'/'interroga'/'query'/'question'/'quiz' attrib44
+Action 42 Action42 ! 'ask'/'interroga'/'query'/'question'/'quiz' object(in_room,on_ground) 'about' object
+Action 43 Action43 ! 'ask'/'interroga'/'query'/'question'/'quiz' object(in_room,on_ground) 'for' object
+Action 44 Action44 ! 'dispatch'/'kill'/'murder'/'punch'/'slay'/'stab'/'wound' object(in_room,on_ground) 'with'/'using' attrib13(held,carried,have)
+Action 45 Action45 ! 'go' 'beyond'/'behind' object
+Action 46 Action46 ! 'go' 'from' object
+Action 47 Action47 ! 'inflate' object
+Action 48 Action48 ! 'detonate'/'explode' object
+Action 49 Action49 ! 'close'/'slam' 'off' object(held,carried,in_room,on_ground)
+Action 50 Action50 ! 'climb' 'within'/'into'/'inside'/'in'/'between' attrib47(in_room,on_ground)
+Action 51 Action51 ! 'bounce'/'dribble' 'around'/'along' attrib47(held,carried,have)
+Action 52 Action52 ! 'bow'/'genuflect'/'grovel'/'kneel' 'before' attrib44
+Action 53 Action53 ! 'kick' 'within'/'into'/'inside'/'in'/'between' object
+Action 54 Action54 ! 'breathe' 'within'/'into'/'inside'/'in'/'between' attrib47
+Action 55 Action55 ! 'breathe' 'outside'/'out' attrib47
+Action 56 Action56 ! 'get' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 57 Action57 ! 'get' object(in_room,on_ground) object
+Action 58 Action58 ! 'burn'/'char'/'combust'/'cremate'/'ignite'/'incinerat'/'kindle'/'scorch' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried)
+Action 59 Action59 ! 'buy' object 'with'/'using' object(held,carried,have)
+Action 60 Action60 ! 'buy' object 'from' object
+Action 61 Action61 ! 'bye'/'farewell'/'goodbye' attrib47
+Action 62 Action62 ! 'call'/'hail' object 'with'/'using' object
+Action 63 Action63 ! 'cast' 'off' attrib47
+Action 64 Action64 ! 'brush'/'clean'/'polish'/'smear'/'sweep'/'wipe' 'off' object
+Action 65 Action65 ! 'brush'/'clean'/'polish'/'smear'/'sweep'/'wipe' 'off' object(held,carried,have) 'over'/'across' object
+Action 66 Action66 ! 'climb' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 67 Action67 ! 'climb' 'down'/'d//' attrib47(in_room,on_ground)
+Action 68 Action68 ! 'climb' 'over'/'across' attrib47(in_room,on_ground)
+Action 69 Action69 ! 'climb' 'thru'/'through' object(in_room,on_ground)
+Action 70 Action70 ! 'climb' 'outside'/'out' attrib47
+Action 71 Action71 ! 'close'/'slam' attrib25(held,carried,in_room,on_ground)
+Action 72 Action72 ! 'conceal' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 73 Action73 ! 'conceal' object(held,carried,have) 'beyond'/'behind' object(in_room,on_ground)
+Action 74 Action74 ! 'conceal' object(held,carried,have) 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 75 Action75 ! 'attach'/'connect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 76 Action76 ! 'count'/'tabulate'/'tally' object
+Action 77 Action77 ! 'block'/'cover'/'shield' 'over'/'across' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 78 Action78 ! 'go' 'over'/'across' object
+Action 79 Action79 ! 'fell' object 'with'/'using' attrib9(held,carried,take,have)
+Action 80 Action80 ! 'diagnose' object(held,carried,in_room,on_ground) 'with'/'using' attrib13
+Action 81 Action81 ! 'dig'/'excavate' 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground) 'with'/'using' attrib13(held,carried,have)
+Action 82 Action82 ! 'dig'/'excavate' 'with'/'using' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 83 Action83 ! 'bathe'/'swim'/'wade' 'underneat'/'under'/'beneath'/'below' object
+Action 84 Action84 ! 'dive' 'over'/'across' object
+Action 85 Action85 ! 'dress' attrib47
+Action 86 Action86 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' object(held,carried,in_room,on_ground)
+Action 87 Action87 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' 'from' object(held,carried)
+Action 88 Action88 ! 'drive' 'towards'/'toward'/'to' attrib47
+Action 89 Action89 ! 'drop'/'dump' object(held,many)
+Action 90 Action90 ! 'leave' object(held,carried,many) 'upon'/'onto'/'on'/'aboard' object(carried,in_room,on_ground)
+Action 91 Action91 ! 'duck'
+Action 92 Action92 ! 'get' 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 93 Action93 ! 'bite'/'eat'/'swallow' object(held,carried,in_room,on_ground)
+Action 94 Action94 ! 'clear'/'empty' 'off' object(held,carried,have)
+Action 95 Action95 ! 'remove' object(in_room,on_ground,many) 'within'/'into'/'inside'/'in'/'between' object
+Action 96 Action96 ! 'clear'/'empty' 'outside'/'out' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object
+Action 97 Action97 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 98 Action98 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 99 Action99 ! 'check'/'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'for' object
+Action 100 Action100 ! 'observe'/'watch' object(held,carried,in_room,on_ground) 'with'/'using' object
+Action 101 Action101 ! 'feed' object(in_room,on_ground) attrib31(held,carried,have)
+Action 102 Action102 ! 'feed' object(held,carried,have) 'towards'/'toward'/'to' attrib45(in_room,on_ground)
+Action 103 Action103 ! 'pet' object
+Action 104 Action104 ! 'feel' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 105 Action105 ! 'fill' object(held,carried,in_room,on_ground) 'at' object
+Action 106 Action106 ! 'fix' 'up'/'u//' object 'with'/'using' attrib13(held,carried,have)
+Action 107 Action107 ! 'flash' object(held,carried,have) 'over'/'across' object(in_room,on_ground)
+Action 108 Action108 ! 'retract' object
+Action 109 Action109 ! 'flip' object
+Action 110 Action110 ! 'fly' 'over'/'across' object
+Action 111 Action111 ! 'focus' object 'at' object
+Action 112 Action112 ! 'fold'/'wrap' object(held,carried,have) 'around'/'along' object(in_room,on_ground)
+Action 113 Action113 ! 'fold'/'wrap' 'up'/'u//' object(in_room,on_ground) 'within'/'into'/'inside'/'in'/'between' object(held,carried,have)
+Action 114 Action114 ! 'extend'/'unflatten'/'unfold' object(held,carried,have)
+Action 115 Action115 ! 'chase'/'follow'/'pursue' object
+Action 116 Action116 ! 'rent' object
+Action 117 Action117 ! 'get' 'up'/'u//' attrib47(in_room,on_ground)
+Action 118 Action118 ! 'get' 'down'/'d//' attrib47(in_room,on_ground)
+Action 119 Action119 ! 'remove' object 'with'/'using' object(held,carried,have)
+Action 120 Action120 ! 'remove' attrib35(held,carried)
+Action 121 Action121 ! 'gin'
+Action 122 Action122 ! 'go' object
+Action 123 Action123 ! 'go' 'upon'/'onto'/'on'/'aboard' object
+Action 124 Action124 ! 'guess' attrib47
+Action 125 Action125 ! 'bargain'/'deal'/'dicker'/'haggle'/'negotiate' 'with'/'using' attrib44(in_room,on_ground)
+Action 126 Action126 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer' object(held,carried,take,many,have) 'towards'/'toward'/'to' attrib44(in_room,on_ground)
+Action 127 Action127 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer' object(in_room,on_ground) object(held,carried,take,many,have)
+Action 128 Action128 ! 'haul' 'up'/'u//' object
+Action 129 Action129 ! 'listen' 'towards'/'toward'/'to' object(held,carried,in_room,on_ground) 'thru'/'through' object
+Action 130 Action130 ! 'heat'/'warm' object(held,carried,in_room,on_ground,take,have) 'over'/'across' object(held,carried,in_room,on_ground)
+Action 131 Action131 ! 'heel' attrib47
+Action 132 Action132 ! 'greet'/'greetings'/'hello'/'hi'/'salute' attrib47
+Action 133 Action133 ! 'save' object
+Action 134 Action134 ! 'hide' 'beyond'/'behind' object
+Action 135 Action135 ! 'hit'/'slap'/'swat'/'whack' 'at' object(in_room,on_ground) 'with'/'using' attrib13(held,carried,have)
+Action 136 Action136 ! 'hold' object(held,carried,have) 'over'/'across' object
+Action 137 Action137 ! 'hold' object(held,carried,have) 'up'/'u//' object
+Action 138 Action138 ! 'hold' 'apart' object(in_room,on_ground)
+Action 139 Action139 ! 'hush'/'quiet'/'shh'/'shhh'/'shhhh'/'shush'/'sshh'/'sshhh'
+Action 140 Action140 ! 'illuminat' object(in_room,on_ground) 'with'/'using' attrib38(held,carried,have)
+Action 141 Action141 ! 'jostle'/'rattle' object 'with'/'using' attrib13(held,carried,have)
+Action 142 Action142 ! 'kick' 'down'/'d//' object
+Action 143 Action143 ! 'kiss'/'smooch' attrib44(in_room,on_ground)
+Action 144 Action144 ! 'knock'/'pound'/'rap'/'tap' 'upon'/'onto'/'on'/'aboard' object
+Action 145 Action145 ! 'land' attrib47
+Action 146 Action146 ! 'launch' attrib47
+Action 147 Action147 ! 'lean' 'upon'/'onto'/'on'/'aboard' object
+Action 148 Action148 ! 'free'/'release'/'unjam' object(held,carried,in_room,on_ground) 'from' attrib13
+Action 149 Action149 ! 'nap'/'rest'/'sleep'/'snooze' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 150 Action150 ! 'light' 'up'/'u//' object(in_room,on_ground) 'from' attrib13(held,carried,have)
+Action 151 Action151 ! 'lock' object(in_room,on_ground) 'with'/'using' attrib13
+Action 152 Action152 ! 'loo'
+Action 153 Action153 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'around'/'along' attrib47
+Action 154 Action154 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'down'/'d//' attrib47
+Action 155 Action155 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'up'/'u//' attrib47
+Action 156 Action156 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' object(held,carried,in_room,on_ground)
+Action 157 Action157 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'thru'/'through' object 'at' object
+Action 158 Action158 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'underneat'/'under'/'beneath'/'below' object
+Action 159 Action159 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'beyond'/'behind' object
+Action 160 Action160 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 161 Action161 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'outside'/'out' attrib47
+Action 162 Action162 ! 'force'/'wedge' 'up'/'u//' object 'with'/'using' object(held,carried,have)
+Action 163 Action163 ! 'make' object object
+Action 164 Action164 ! 'chico'/'echo'/'groucho'/'gummo'/'harpo'/'hum'/'marx'/'punt'/'sing'/'whistle'/'zeppo'
+Action 165 Action165 ! 'melt' object(held,carried,have) 'with'/'using' attrib38(held,carried,have)
+Action 166 Action166 ! 'slide' object
+Action 167 Action167 ! 'slide' object 'towards'/'toward'/'to' object
+Action 168 Action168 ! 'wave' 'towards'/'toward'/'to' attrib44
+Action 169 Action169 ! 'disassemb'/'open'/'unseal' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 170 Action170 ! 'paddle' object
+Action 171 Action171 ! 'paddle' object 'with'/'using' object(held,carried,have)
+Action 172 Action172 ! 'password' object
+Action 173 Action173 ! 'bribe'/'entice'/'pay'/'renumerat' object 'with'/'using' attrib28(held,carried,take,have)
+Action 174 Action174 ! 'pick' object 'with'/'using' attrib13(held,carried,have)
+Action 175 Action175 ! 'cavort'/'fiddle'/'play'/'toy' 'with'/'using' object
+Action 176 Action176 ! 'point' 'outside'/'out' object 'towards'/'toward'/'to' attrib45
+Action 177 Action177 ! 'pour'/'spill'/'sprinkle' 'outside'/'out' object(held,carried,have)
+Action 178 Action178 ! 'shake' 'outside'/'out' object 'from' object(held,carried,have)
+Action 179 Action179 ! 'pocket' object(held,carried)
+Action 180 Action180 ! 'pray'
+Action 181 Action181 ! 'drag'/'pull'/'tug'/'yank' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 182 Action182 ! 'detach'/'disconnec'/'disengage'/'unattach'/'unplug' object 'from' object(in_room,on_ground)
+Action 183 Action183 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 184 Action184 ! 'don'/'wear' object
+Action 185 Action185 ! 'defile'/'hump'/'molest'/'rape'/'ravish' attrib45
+Action 186 Action186 ! 'grope'/'reach' 'towards'/'toward'/'to' object 'with'/'using' attrib7
+Action 187 Action187 ! 'rotate'/'toggle'/'turn'/'twist' 'thru'/'through' object
+Action 188 Action188 ! 'browse'/'leaf'/'read'/'skim' object(held,carried,in_room,on_ground,take) 'towards'/'toward'/'to' attrib44
+Action 189 Action189 ! 'browse'/'leaf'/'read'/'skim' object attrib30(held,carried,in_room,on_ground,take)
+Action 190 Action190 ! 'refuse' object
+Action 191 Action191 ! 'replace' object
+Action 192 Action192 ! 'ride' 'upon'/'onto'/'on'/'aboard' object
+Action 193 Action193 ! 'ring' object
+Action 194 Action194 ! 'rip'/'tear' 'down'/'d//' object 'with'/'using' attrib13(held,carried,take,have)
+Action 195 Action195 ! 'rob' object
+Action 196 Action196 ! 'rob' object 'from' object
+Action 197 Action197 ! 'row' object
+Action 198 Action198 ! 'rub' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 199 Action199 ! 'maybe'/'proclaim'/'say'/'speak'/'talk'/'utter' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 200 Action200 ! 'tell' attrib44(in_room)
+Action 201 Action201 ! 'screw'/'tighten' 'within'/'into'/'inside'/'in'/'between' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 202 Action202 ! 'screw'/'tighten' 'down'/'d//' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 203 Action203 ! 'frisk'/'ransack'/'rummage'/'search'/'sift' 'thru'/'through' object
+Action 204 Action204 ! 'sell' object(held,carried,have) 'towards'/'toward'/'to' attrib44(in_room,on_ground)
+Action 205 Action205 ! 'sell' object(in_room,on_ground) object(held,carried,take,have)
+Action 206 Action206 ! 'rotate'/'toggle'/'turn'/'twist' object object
+Action 207 Action207 ! 'fire'/'shoot' object(held,carried,in_room,on_ground) 'with'/'using' attrib27(held,carried,take,have)
+Action 208 Action208 ! 'fire'/'shoot' object(held,carried,take,have) 'at' object(held,carried,in_room,on_ground)
+Action 209 Action209 ! 'display'/'show' object(held,carried,in_room,on_ground) 'towards'/'toward'/'to' attrib44(held,carried,in_room,on_ground)
+Action 210 Action210 ! 'display'/'show' object object(held,carried,in_room,on_ground)
+Action 211 Action211 ! 'crouch'/'settle'/'sit'/'squat' 'at' object
+Action 212 Action212 ! 'smell'/'sniff'/'whiff' attrib47
+Action 213 Action213 ! 'smoke' object(held,carried,have)
+Action 214 Action214 ! 'rotate'/'toggle'/'turn'/'twist' 'around'/'along' attrib47
+Action 215 Action215 ! 'crumple'/'crush'/'squash'/'squeeze'/'squish' object
+Action 216 Action216 ! 'rise'/'stand' 'up'/'u//' attrib47
+Action 217 Action217 ! 'start' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 218 Action218 ! 'strike' object(held,carried,take) 'with'/'using' attrib13(held,carried,have)
+Action 219 Action219 ! 'suck'
+Action 220 Action220 ! 'bathe'/'swim'/'wade' 'over'/'across' object
+Action 221 Action221 ! 'wave' object
+Action 222 Action222 ! 'lick'/'taste' object
+Action 223 Action223 ! 'tell' object(in_room) 'about' object
+Action 224 Action224 ! 'tell' 'about' object
+Action 225 Action225 ! 'thank'/'thanks'
+Action 226 Action226 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,many,have) 'over'/'across' object
+Action 227 Action227 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(in_room,on_ground) object(held,carried,many,have)
+Action 228 Action228 ! 'fasten'/'secure'/'tie' object(in_room,on_ground,many) 'towards'/'toward'/'to' attrib47
+Action 229 Action229 ! 'fasten'/'secure'/'tie' 'up'/'u//' object(in_room,on_ground,many) 'with'/'using' attrib47(held,carried,in_room,on_ground)
+Action 230 Action230 ! 'tip' object
+Action 231 Action231 ! 'translate' object
+Action 232 Action232 ! 'rotate'/'toggle'/'turn'/'twist' object 'with'/'using' attrib13(held,carried,take,have)
+Action 233 Action233 ! 'rotate'/'toggle'/'turn'/'twist' 'towards'/'toward'/'to' object
+Action 234 Action234 ! 'rotate'/'toggle'/'turn'/'twist' 'down'/'d//' object
+Action 235 Action235 ! 'rotate'/'toggle'/'turn'/'twist' 'up'/'u//' object
+Action 236 Action236 ! 'disrobe'/'strip'/'undress' attrib47
+Action 237 Action237 ! 'unlock' object(in_room,on_ground) 'with'/'using' attrib13
+Action 238 Action238 ! 'unscrew' object(held,carried,in_room,on_ground) 'with'/'using' attrib7(held,carried,take,have)
+Action 239 Action239 ! 'unscrew' object(held,carried,in_room,on_ground) 'outside'/'out' object
+Action 240 Action240 ! 'undo'/'unfasten'/'unhook'/'untie' object
+Action 241 Action241 ! 'employ'/'exploit'/'operate'/'use' object
+Action 242 Action242 ! 'employ'/'exploit'/'operate'/'use' object 'upon'/'onto'/'on'/'aboard' object
+Action 243 Action243 ! 'loiter'/'wait'/'z//' attrib47
+Action 244 Action244 ! 'loiter'/'wait'/'z//' 'until'/'till'/'til' object
+Action 245 Action245 ! 'awake'/'awaken'/'revive'/'rouse'/'wake' 'up'/'u//' attrib47
+Action 246 Action246 ! 'observe'/'watch' attrib47(held,carried,in_room,on_ground)
+Action 247 Action247 ! 'force'/'wedge' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object
+Action 248 Action248 ! 'weigh' object
+Action 249 Action249 ! 'what'/'what^s'/'whats' 'about' object
+Action 250 Action250 ! 'where'/'where^s'/'wheres' object
+Action 251 Action251 ! 'who'/'who^s'/'whos' object
+Action 252 Action252 ! 'wind' 'up'/'u//' object
+Action 253 Action253 ! 'cry'/'howl'/'scream'/'shout'/'yell' 'towards'/'toward'/'to' object
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0xaa50 routine43600:?
+
+! ------------------------------- Words --------------------------------
+
+Word $getli $getli
+Word $goban $goban
+Word $gobar $gobar
+Word $goclu $goclu
+Word $gogol $gogol
+Word $golai $golai
+Word $goliz $goliz
+Word $gonav $gonav
+Word $gotow $gotow
+Word $refre $refre
+Word $verif $verif
+Word 221-b 221-b
+Word #command #command
+Word abduction abduction
+Word allegoric allegoric
+Word atmospher atmospher
+Word bartender bartender
+Word becket's becket's
+Word beefeater beefeater
+Word bloodhoun bloodhoun
+Word bookshelv bookshelv
+Word buckingha buckingha
+Word captain' captain'
+Word carefully carefully
+Word carelessl carelessl
+Word carnation carnation
+Word cautiousl cautiousl
+Word celebrati celebrati
+Word charles' charles'
+Word chaucer' chaucer'
+Word cheapside cheapside
+Word cigarette cigarette
+Word clockwise clockwise
+Word cocksucke cocksucke
+Word colourles colourles
+Word companion companion
+Word confessor confessor
+Word conqueror conqueror
+Word cottonbal cottonbal
+Word countercl countercl
+Word criminals criminals
+Word crossbars crossbars
+Word daffodils daffodils
+Word denkeeper denkeeper
+Word detective detective
+Word dickens' dickens'
+Word direction direction
+Word disassemb disassemb
+Word disconnec disconnec
+Word disembark disembark
+Word disengage disengage
+Word dislocate dislocate
+Word doolittle doolittle
+Word downstrea downstrea
+Word drawbridg drawbridg
+Word edward's edward's
+Word elizabeth elizabeth
+Word embankmen embankmen
+Word emerald' emerald'
+Word emporiums emporiums
+Word equipment equipment
+Word everythin everythin
+Word execution execution
+Word experimen experimen
+Word extinguis extinguis
+Word fireplace fireplace
+Word garnet's garnet's
+Word gas-ligh gas-ligh
+Word genuflect genuflect
+Word goddamned goddamned
+Word greetings greetings
+Word grosvenor grosvenor
+Word groupings groupings
+Word gunpowder gunpowder
+Word heartbeat heartbeat
+Word holmes's holmes's
+Word housekeep housekeep
+Word housewive housewive
+Word hudson's hudson's
+Word hurriedly hurriedly
+Word hypervent hypervent
+Word hypodermi hypodermi
+Word illuminat illuminat
+Word incinerat incinerat
+Word inscripti inscripti
+Word inspector inspector
+Word instrumen instrumen
+Word interroga interroga
+Word introduct introduct
+Word inventory inventory
+Word invisiclu invisiclu
+Word jackknife jackknife
+Word jerusalem jerusalem
+Word kensingto kensingto
+Word kidnappin kidnappin
+Word laborator laborator
+Word librarian librarian
+Word magnifyin magnifyin
+Word mantelpie mantelpie
+Word mantlepie mantlepie
+Word manuscrip manuscrip
+Word marigolds marigolds
+Word marylebon marylebon
+Word matchbook matchbook
+Word meerschau meerschau
+Word negotiate negotiate
+Word nelson's nelson's
+Word newspaper newspaper
+Word newton's newton's
+Word nightstan nightstan
+Word northeast northeast
+Word northwest northwest
+Word panelling panelling
+Word parliamen parliamen
+Word perambula perambula
+Word portculli portculli
+Word princes' princes'
+Word privately privately
+Word professor professor
+Word proprieto proprieto
+Word raleigh' raleigh'
+Word recklessl recklessl
+Word renumerat renumerat
+Word sanctuary sanctuary
+Word sarcophag sarcophag
+Word sculpture sculpture
+Word seventeen seventeen
+Word sherman' sherman'
+Word shoulders shoulders
+Word southeast southeast
+Word southwest southwest
+Word stethosco stethosco
+Word street-l street-l
+Word streetlam streetlam
+Word streetlig streetlig
+Word superbrie superbrie
+Word superstru superstru
+Word swordfish swordfish
+Word tapestrie tapestrie
+Word taxidermi taxidermi
+Word telescope telescope
+Word themselve themselve
+Word threadnee threadnee
+Word tottenham tottenham
+Word trafalgar trafalgar
+Word traitor' traitor'
+Word translate translate
+Word trichinop trichinop
+Word tussaud' tussaud'
+Word underneat underneat
+Word unflatten unflatten
+Word uninteres uninteres
+Word vegetable vegetable
+Word vestibule vestibule
+Word walter's walter's
+Word watermark watermark
+Word weathered weathered
+Word wellingto wellingto
+Word westminst westminst
+Word whitehall whitehall
+Word wiggins' wiggins'
+Word william' william'
+Word wishbring wishbring
+Word workbench workbench
+

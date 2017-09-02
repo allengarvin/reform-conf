@@ -1,0 +1,1500 @@
+! ----------------------------------------------------
+!   Stationfall_107_870430.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  9d7be423f2517eed0feebc42e47a75a9
+CodeArea  0x560c  0x1a5b4
+StringArea  0x1a5b4  0x1f7a6
+FalseEnd  0x92bc  1
+
+! -- Stationfall Specific enums --
+Enum rarg M_END=0 M_ONE=1 M_END=2 M_ENTER=3 M_LEAVE=4 M_LOOK=5 M_SIX=6 M_INITIAL=7 M_EIGHT=8 M_NINE=9
+Enum elevator_level LVL_1=1 LVL_2=2 LVL_3=3 LVL_4=4 LVL_5=5 LVL_6=6 LVL_7=7 LVL_8=8 LVL_9=9
+Enum question_ndx RHETORICAL_QUESTION=1 FLOYD_WANTS_TO_LAUNCH_SHIP=2 FLOYD_WANTS_TO_PLAY_GAME=3 FLOYD_WANTS_TO_PLAY_HUCKA_BUCKA_BEANSTALK=4
+Enum gravndx PLAYER_HAS_NO_GRAV_AND_OTHER_DOES=1 PLAYER_HAS_GRAVITY_AND_OTHER_DOESNT=2
+
+! -- Standard enums --
+Enum vbs SUPERBRIEF=0 BRIEF=1 VERBOSE=2
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=8
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global        0 location:object
+Global        1 score:int
+Global        3 P_end_on_prep:bool
+Global        6 Haveto_msg:string
+GlobalArray   7 Floyd_happy_table:table(string)
+Global        8 Bubble_msg:string
+Global        9 Reject_msg:string
+Global       10 Huh_msg:string
+GLobal       11 Footnote_9_displayed:bool
+GlobalArray  12 P_buts:array(50*int)
+Global       13 Welder_cnt:int
+Global       14 Current_rank:int
+Global       15 End_msg:string
+Global       16 Budge_msg:string
+Global       18 LastAnimate:object
+Global       19 Floyd_off_msg:string
+GlobalArray  21 Ho_hum_table:table(string)
+Global       23 Number_msg:string
+Global       24 P_slocbits:int
+Global       25 Zerog_msg:string
+Global       26 P_matchlen:int
+Global       27 P_adverb
+Global       28 Exhaustion_cnt:int
+GlobalArray  30 P_noun_names:array(2*dictword)
+Global       33 Auth_msg:string
+Global       34 P_nam:dictword
+Global       36 Bin_msg:string
+Global       37 Floyd_seen_ostrich:bool
+Global       38 P_xnam:dictword
+Global       41 P_walk_dir:property
+Global       44 Dan_msg:string
+GlobalArray  45 Space_navy_ranks:array(10*string)
+Global       47 Assignment_cancelled:bool
+Global       48 Accuracy_msg:string
+Global       49 Alreadydone_msg:string
+Global       50 Lt1_msg:string
+Global       52 Gravity_border:gravndx
+Global       54 Footnote_15_displayed:bool
+Global       55 Request_msg:string
+Global       56 Spore_can_cnt:int
+Global       57 Mirror_broken:bool
+Global       58 P_cont:int
+GlobalArray  59 P_prsi:array(50*int)
+Global       61 Zapgun_setting:int
+Global       62 Verbosity:vbs
+Global       64 Drier_on_for_time:int
+Global       66 Nogo_msg:string
+Global       67 Time_platinum_detector_on:int
+GlobalArray  68 Yuks2_table:table(string)
+Global       69 Nothungry_msg:string
+Global       70 Ostrich_msg:string
+Global       71 Tank_msg:string
+Global       72 Lit:bool
+Global       73 No_noun_msg:string
+Global       75 Hidden_casino_rooms_revealed:bool
+GlobalArray  76 P_vtbl:array(4*?)                       ! STANDARDIZED
+Global       78 Headlamp_energy:bool
+Global       78 P_xadjn
+GlobalArray  79 P_adjectives:array(2*dictword)
+Global       84 P_adj:dictword
+Global       85 P_len
+GlobalArray  88 P_cctbl:array(4*p_partsofspeech)                ! STANDARDIZED
+GlobalArray  89 P_lexv:array(~int,~int,119*dictword)    ! STANDARDIZED
+GlobalArray  90 Floyd_rude_table:table(string)
+Global       91 Ladder_up_down_msg:string
+Global       93 Chosen_robot:object
+Global       94 Village_entry_form_validated:bool
+Global       96 Overload_msg:string
+Global       97 Frezone_msg:string
+Global       98 Center_msg:string
+Global       99 Rockets_msg:string
+Global      100 Pyramid_launch_cnt:int
+GlobalArray 101 Bad_things_table:table(string)
+Global      102 Dark_msg:string
+Global      103 noun:object
+Global      104 Suspended_by_Arcturian:bool
+Global      105 Tape_counter:int
+Global      106 Eternalflame_out_msg:string
+Global      107 P_merged:bool
+Global      109 P_gwimbit:attribute0
+Global      110 P_merged:bool
+Global      111 Dome_msg:string
+Global      112 Youcant_msg:string
+Global      114 Detonator_msg:string
+Global      115 Log_reader_on_cnt:int
+Global      116 Failed_msg:string
+GlobalArray 117 Floyd_msg_table:table(string)
+Global      118 Air_shaft_position_cnt:int
+Global      119 P_syntax
+Global      121 Floyd_no_have_msg:string
+Global      125 Evil_plato_cnt:int
+Global      126 You_shot_floyd:bool
+Global      128 Hungriness_cnt:int
+Global      129 Ellipsis_msg:string
+Global      130 action:action
+Global      132 Can_see_msg:string
+Global      133 Exercise_machine_attack_cnt:int
+Global      134 Floyd_killed_Plato:bool
+Global      135 Space_journey_cnt:int
+Global      136 Safe_scored_flag:bool
+GlobalArray 137 P_prso:array(50*int)
+Global      138 Form_taken_msg:string
+Global      139 ID_card_scrambled:bool
+Global      140 Wlder_msg:string
+Global      141 Not_holding_msg:string
+Global      143 Drill_stopped_working:bool
+Global      145 Elevator_on_floor:elevator_level
+Global      147 Nothing_msg:string
+Global      148 Detonator_attach_msg:string
+Global      149 Floyd_fun_msg:string
+GlobalArray 152 P_inbuf:array(~char,n*~dictword)
+Global      153 Floyd_sad_msg:string
+Global      154 Seems_that_msg:string
+GLobal      155 Footnote_14_displayed:bool
+GlobalArray 157 P_merge:array(50*int)                   ! STANDARDIZED
+Global      158 P_won:bool
+GlobalArray 159 Adventure_msg_table:table(string)
+GlobalArray 162 P_ovtbl:array(4*?)                      ! STANDARDIZED
+Global      163 Chance_of_meeting_Blather:int
+Global      164 Lookaround_msg:string
+Global      167 Floyd_angry_cnt:int
+GlobalArray 168 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+Global      170 P_quote_flag:bool
+Global      171 Soup_hotness_counter:int
+Global      172 P_table                                 ! STANDARDIZED
+Global      174 Day_number:int
+Global      174 P_oflag:bool
+Global      175 Form_destruct_msg:string
+Global      179 P_number:int
+Global      180 Planetfall_msg:string
+GlobalArray 181 Dream_table:table(string)
+Global      182 P_oflag:bool                            ! STANDARDIZED
+Global      183 player:object
+Global      184 Presser_turns_evil:bool
+Global      186 Holding_it_msg:string
+Global      188 Floyd_mad_msg:string
+GlobalArray 190 Radio_table:table(string)
+GlobalArray 191 Useless_table:table(string)
+Global      192 Nothing_happens_msg:string
+Global      195 question_cnt:question_ndx
+Global      196 Fromitz_msg:string
+Global      197 P_it_objectobject
+Global      199 Have_met_plato:bool
+Global      200 second:object
+Global      203 Some_sort_of_wearing_variable:int
+Global      204 Toolong_wait_msg:string
+Global      206 Blackness_msg:string
+Global      207 Forklift_attack_cnt:int
+Global      208 Already_is_msg:string
+Global      209 Exercise_msg:string
+Global      212 On_the_floor_msg:string
+Global      215 You_asked_floyd_for_help:bool
+Global      216 Mode_msg:string
+Global      217 Okay_msg:string
+GlobalArray 220 Yuks_table:table(string)
+Global      221 Drilled_hole:object
+GlobalArray 222 Prepositions:table(dictword,int)
+GlobalArray 223 Actions:array(179*routine)
+GlobalArray 224 Preactions:array(179*routine)
+GlobalArray 225 Verbs:array(2*int)
+LastGlobal  225
+
+! ------------------------------- Arrays --------------------------------
+
+Array 0x5604 Shady_Dans_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x55fc Doc_Schusters_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x55f4 Travel_Agency_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x55ec Barber_Shop_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x55e4 Recruitment_Office_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x55dc Computer_Control_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5506 Shipping_Room_pseudo:array(int,2*(dictword,dictword,routine))
+Array 0x55c8 Alien_Ship_pseudo:array(int,3*(dictword,dictword,routine))
+Array 0x55b4 Docking_Bay_1_pseudo:array(int,3*(dictword,dictword,routine))
+Array 0x55ac Dome_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5598 Theatre_pseudo:array(int,3*(dictword,dictword,routine))
+Array 0x555e South_Connection_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5590 Commanders_Quarters_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5588 Commanders_Office_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5574 File_Room_pseudo:array(int,3*(dictword,dictword,routine))
+Array 0x5566 Comm_Center_pseudo:array(int,2*(dictword,dictword,routine))
+Array 0x555e East_Connection_pseudo:array(int,1*(dictword,dictword,routine))
+Array 0x5550 Brig_pseudo:array(int,2*(dictword,dictword,routine))
+Array 0x553c PX_pseudo:array(int,3*(dictword,dictword,routine))
+Array 0x552e Space_Truck_pseudo:array(int,2*(dictword,dictword,routine))
+Array 0x5514 Robot_Pool_pseudo:array(int,4*(dictword,dictword,routine))
+Array 0x5506 Forms_Storage_Room_pseudo:array(int,2*(dictword,dictword,routine))
+Array 0x54f8 Deck_Twelve_pseudo:array(int,2*(dictword,dictword,routine))
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute  4 zero_gee
+Attribute  8 contianer
+Attribute  9 plural
+Attribute 10 treasure
+Attribute 13 transparent
+Attribute 15 open
+Attribute 17 supporter
+Attribute 18 visited
+Attribute 19 concealed
+Attribute 21 worn
+Attribute 22 readable
+Attribute 23 takeable
+Attribute 26 on
+Attribute 29 vehicle
+Attribute 30 light
+Attribute 31 animate
+
+! ----------------------------- Properties -----------------------------
+
+Property  3 value:int
+Property  4 Deck_level:int
+Property  6 referred_to:^routine(object)
+Property  7 initial2:^routine(?,rarg)
+Property  8 contains:objbytes
+Property  9 description:string
+Property 11 text_string:thing
+Property 12 size:int
+Property 13 pseudo:^array
+Property 14 initial:string
+Property 15 floyd_reaction:string
+Property 16 plato_reaction:string
+Property 17 action:^routine(int,rarg)
+Property 18 adjectives:adjbytes
+Property 19 name:dictwords
+Property 20 out_to:exit
+Property 21 in_to:exit
+Property 22 d_to:exit
+Property 23 u_to:exit
+Property 24 nw_to:exit
+Property 25 w_to:exit
+Property 26 sw_to:exit
+Property 27 s_to:exit
+Property 28 se_to:exit
+Property 29 e_to:exit
+Property 30 ne_to:exit
+Property 31 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object   1 chronometer
+Object   2 air
+Object   3 game
+Object   4 timer
+Object   5 Auxiliary_Barracks
+Object   6 Rec_Shop
+Object   7 South_Junction
+Object   8 your_hand
+Object   9 cage
+Object  10 key
+Object  11 Paper_Recycling_Plant
+Object  12 Level_Three
+Object  13 mauve_nanofilm_spool
+Object  14 window
+Object  15 hull_welder
+Object  16 space_suit
+Object  17 spray_can
+Object  18 Sick_Bay
+Object  19 Officers_Quarters_B
+Object  20 Theatre
+Object  21 auto_door
+Object  22 Mayors_Office
+Object  23 counter
+Object  24 Meeting_Room_2
+Object  25 pair_of_dice
+Object  26 Floyd
+Object  27 File_Room
+Object  28 yourself
+Object  29 log_reader
+Object  30 Loan_Shark
+Object  31 Pet_Store
+Object  32 Docking_Bay2
+Object  33 Storage
+Object  34 elevator_shaft
+Object  35 ceiling_panel
+Object  36 Officers_Quarters_A
+Object  37 Engineering_Office
+Object  38 direction
+Object  39 Scientists_Quarters
+Object  40 Room_Holder
+Object  41 detonator
+Object  42 system_monitor_board
+Object  43 Auxiliary_SanFac
+Object  44 Grimy_Passage
+Object  45 outer_door
+Object  46 SB_radio
+Object  47 South_Connection
+Object  48 it4
+Object  49 Brig
+Object  50 pilot_seat
+Object  51 Level_Five
+Object  52 Elevator
+Object  53 Factory
+Object  54 Cargo_Bay_Entrance
+Object  55 Platos_poetry
+Object  56 Pawn_Shop
+Object  57 it5
+Object  58 it6
+Object  59 Briefing_Room
+Object  60 locker
+Object  61 wall
+Object  62 small_drill_bit
+Object  63 dryer
+Object  64 Flophouse
+Object  65 platinum_detector
+Object  66 pallets_of_boxes
+Object  67 Station_Control
+Object  68 Food_Unit
+Object  69 presser
+Object  70 pedestal
+Object  71 Astro_Office
+Object  72 Junk_Yard
+Object  73 spacetruck
+Object  74 shrubbery
+Object  75 pattern_of_dots
+Object  76 Docking_Bay1
+Object  77 scrap_sculpture
+Object  78 ID_reader
+Object  79 inner_door
+Object  80 ladder
+Object  81 ID_card
+Object  82 J_hyperdiode
+Object  83 magnetic_boots
+Object  84 equipment
+Object  85 desk
+Object  86 Workshop
+Object  87 Commanders_Office
+Object  88 Oliver
+Object  89 hole2
+Object  90 copilot_seat
+Object  91 explosive
+Object  92 Printing_Plant
+Object  93 Male_Barracks
+Object  94 Recruitment_Office
+Object  95 Saloon
+Object  96 pulpit
+Object  97 Field_Office
+Object  98 Form_HB_56_V
+Object  99 Armory
+Object 100 Chapel
+Object 101 Bio_Lab
+Object 102 ostrich
+Object 103 twenty_ohm_bedistor
+Object 104 North_Junction
+Object 105 switch
+Object 106 Robot_Pool
+Object 107 security_door
+Object 108 Cargo_Bay
+Object 109 Missionary
+Object 110 air_shaft_grating
+Object 111 exercise_machine
+Object 112 puce_nanofilm_spool
+Object 113 Top_of_Air_Shaft
+Object 114 Barbershop
+Object 115 Shady_Dans
+Object 116 Air_Shaft
+Object 117 cup_of_coffee
+Object 118 Comm_Center
+Object 119 bed
+Object 120 Rex
+Object 121 room
+Object 122 twelve_fromitz_board
+Object 123 safe
+Object 124 Mess_Hall
+Object 125 The_PX
+Object 126 Dome
+Object 127 Makeshift_Connector
+Object 128 piece_of_paper
+Object 129 him
+Object 130 Library
+Object 131 magazine
+Object 132 orange_goo
+Object 133 trash_can
+Object 134 Trading_Post
+Object 135 Helen
+Object 136 crumpled_form
+Object 137 Forms_Storage_Room
+Object 138 seven_pointed_star
+Object 139 twenty_fromitz_board
+Object 140 heating_chamber
+Object 141 headlamp
+Object 142 vacuum_taffy
+Object 143 Airlock_Room
+Object 144 East_Junction
+Object 145 nanofilm_reader
+Object 146 Opium_Den
+Object 147 button
+Object 148 Doc_Schusters
+Object 149 note
+Object 150 stun_ray
+Object 151 keypad
+Object 152 Level_Six
+Object 153 Docking_Bay4
+Object 154 plastic_bag
+Object 155 cup_of_nectar
+Object 156 sanfac_fixture
+Object 157 Alien_Ship
+Object 158 Arcturian_creature
+Object 159 instruction_sheet
+Object 160 Thermos_bottle
+Object 161 sign
+Object 162 East_Connection
+Object 163 Computer_Control
+Object 164 lurking_grue
+Object 165 Astro_Lab
+Object 166 log_tape
+Object 167 Female_Barracks
+Object 168 Shipping_Room
+Object 169 simulation_booth
+Object 170 Main_Storage
+Object 171 Fortune_Teller
+Object 172 strong_box
+Object 173 alien_skeleton
+Object 174 Grocery
+Object 175 floor
+Object 176 spacetruck_hatch
+Object 177 Officers_SanFac
+Object 178 Engineering_Lab
+Object 179 Greasy_Straw
+Object 180 Commanders_Quarters
+Object 181 In_Space
+Object 182 not_here_object
+Object 183 wardrobe
+Object 184 gray_goo
+Object 185 large_drill_bit
+Object 186 Tube
+Object 187 forklift
+Object 188 number
+Object 189 survival_kit
+Object 190 textbook
+Object 191 garbage
+Object 192 Holding_Tank_Level
+Object 193 Barracks_SanFac
+Object 194 sleep
+Object 195 village
+Object 196 dispenser
+Object 197 crystal_ball
+Object 198 Deck_Twelve
+Object 199 elevator
+Object 200 drilled_hole
+Object 201 Warehouse
+Object 202 ceiling
+Object 203 diary
+Object 204 Bio_Office
+Object 205 eternal_flame
+Object 206 reflective_foil
+Object 207 Bank
+Object 208 Travel_Agency
+Object 209 Form_FW_83_Q
+Object 210 Form_QX_17_T
+Object 211 Meeting_Room_1
+Object 212 rank_reprogrammer
+Object 213 Docking_Bay3
+Object 214 Level_Four
+Object 215 Alley
+Object 216 Robot_Shop
+Object 217 roulette_wheel
+Object 218 cretin
+Object 219 M_series_hyperdiode
+Object 220 Shaft_at_Level_Nine
+Object 221 Studio
+Object 222 pyramid
+Object 223 holding_tank
+Object 224 Main_Street
+Object 225 airlock
+Object 226 lilac_nanofilm_spool
+Object 227 Gym
+Object 228 cubicle
+Object 229 Patrol_uniform
+Object 230 Space_Truck
+Object 231 North_Connection
+Object 232 Casino
+Object 233 jammer
+Object 234 fusor_beam_zapgun
+Object 235 stick_of_ostrich_nip
+Object 236 everyone
+Object 237 blue_soup
+Object 238 Broadway
+Object 239 leash
+Object 240 letter
+Object 241 drill
+Object 242 validation_stamp
+Object 243 iris_hatch
+Object 244 storage_bin
+Object 245 End_of_Corridor
+Object 246 medium_drill_bit
+Object 247 Plato
+Object 248 Form_JZ_59_G
+Object 249 Officers_Quarters_C
+Object 250 your_tongue
+Object 251 coin
+Object 252 blackened_hyperdiode
+Object 253 Bottom_of_Air_Shaft
+Object 254 pseudo
+Object 255 Laundry
+
+! ------------------------------ Actions -------------------------------
+
+Action   0 Verbose
+Action   1 Brief
+Action   2 Superbrief
+Action   3 Diagnose
+Action   4 Inventory
+Action   5 Quit
+Action   6 Restart
+Action   7 Restore
+Action   8 Save
+Action   9 Score
+Action  10 Script
+Action  11 Unscript
+Action  12 Version
+Action  13 DebugRandom
+Action  14 DebugComm
+Action  15 DebugReco
+Action  16 DebugUnre
+Action  17 Verify
+Action  18 Answer
+Action  19 Applaud
+Action  20 Apply
+Action  21 InsertOn
+Action  22 Approach
+Action  23 AskAbout
+Action  24 AskFor
+Action  25 Attack
+Action  26 Attract
+Action  27 Bite
+Action  28 SwitchOff
+Action  29 EnterObj
+Action  30 Burn
+Action  31 Call
+Action  32 Catch
+Action  33 WalkAround
+Action  34 Climb
+Action  35 ClimbOn
+Action  36 ClimbDown
+Action  37 Disembark
+Action  38 ClimbUnder
+Action  39 Close
+Action  40 Follow
+Action  41 Comfort
+Action  42 Compare
+Action  43 Attach
+Action  44 Cover
+Action  45 Count
+Action  46 Cross
+Action  47 Crumple
+Action  48 Destroy
+Action  49 Dig
+Action  50 Detach
+Action  51 Dress
+Action  52 Drill
+Action  53 DrillReverse
+Action  54 Drop
+Action  55 Insert
+Action  56 Eat
+Action  57 EatFrom
+Action  58 Empty
+Action  59 EmptyFrom
+Action  60 Enter
+Action  61 Examine
+Action  62 Exercise
+Action  63 Depart
+Action  64 Feed
+Action  65 Give
+Action  66 GiveReverse
+Action  67 Fill
+Action  68 Find
+Action  69 Repair
+Action  70 Flatter
+Action  71 Footnote
+Action  72 Greet
+Action  73 Go
+Action  74 Hide
+Action  75 Leave
+Action  76 GiveUp
+Action  77 Listen
+Action  78 Hello
+Action  79 Help
+Action  80 Rescue
+Action  81 Hug
+Action  82 Jump
+Action  83 JumpOut
+Action  84 JumpOn
+Action  85 Kick
+Action  86 Kiss
+Action  87 Knock
+Action  88 Launch
+Action  89 LieOn
+Action  90 SwitchOn
+Action  91 Lock
+Action  92 Look
+Action  93 LookDown
+Action  94 LookUp
+Action  95 LookIn
+Action  96 LookUnder
+Action  97 LookBehind
+Action  98 LookOver
+Action  99 LookObj
+Action 100 Lower
+Action 101 Maybe
+Action 102 Measure
+Action 103 Lead
+Action 104 LeadDir
+Action 105 Boost
+Action 106 No
+Action 107 Open
+Action 108 Pick
+Action 109 PickUp
+Action 110 PlayWith
+Action 111 Play
+Action 112 Aim
+Action 113 Pour
+Action 114 Pray
+Action 115 Type
+Action 116 PutUnder
+Action 117 ReachIn
+Action 118 Browse
+Action 119 Remove
+Action 120 Take
+Action 121 Roll
+Action 122 Say
+Action 123 Scare
+Action 124 Scold
+Action 125 Search
+Action 126 Shake
+Action 127 ShakeWith
+Action 128 Blast
+Action 129 BlastReverse
+Action 130 Show
+Action 131 ShowReverse
+Action 132 SitDown
+Action 133 Hop
+Action 134 Doze
+Action 135 Cut
+Action 136 Smell
+Action 137 Spray
+Action 138 SprayReverse
+Action 139 Raise
+Action 140 Wrap
+Action 141 Wear
+Action 142 PutBehind
+Action 143 Swing
+Action 144 GetDressed
+Action 145 GetUndressed
+Action 146 GetWith
+Action 147 GetOff
+Action 148 Tell
+Action 149 Touch
+Action 150 Lick
+Action 151 TellAbout
+Action 152 TellObj
+Action 153 Thank
+Action 154 Throw
+Action 155 ThrowTo
+Action 156 ThrowObjObj
+Action 157 Tickle
+Action 158 Tie
+Action 159 Time
+Action 160 Turn
+Action 161 TypeIn
+Action 162 Undress
+Action 163 Unlock
+Action 164 Untie
+Action 165 Use
+Action 166 Stamp
+Action 167 Wait
+Action 168 WaitFor
+Action 169 WaitUntil
+Action 170 Wake
+Action 171 WalkOver
+Action 172 Clean
+Action 173 What
+Action 174 Where
+Action 175 WrapIn
+Action 176 Yell
+Action 177 Yes
+Action 178 Sneeze
+
+! ------------------------------ Routines ------------------------------
+
+! MISC.ZIL
+Routine  0x560c ComplexPickOne tbl len offset ndx choice msg_tbl
+Routine  0x565a APrint obj:object
+Routine  0x5678 TPrint obj:object
+Routine  0x568c TPrint_Prso
+Routine  0x5694 TPrint_Prsi
+Routine  0x569c ARPrint
+Routine  0x56a8 TRPrint
+Routine  0x56b4 Main
+Routine  0x580c MainLoop res
+Routine  0x5818 Main_Loop_1 icnt:bool ocnt:int num cnt:int obj:object tbl v:act_result ptbl:bool obj1:object temp:bool tmp_obj
+Routine  0x5ac0 Dont_All obj:object env:object
+Routine  0x5b44 Clocker_VerbP
+Routine  0x5b72 Fake_Orphan it_was_used:bool it_was_used:bool compiler_tmp
+Routine  0x5bf4 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp:action objtmp:object indtmp:object
+Routine  0x5d06 D_Apply str_UNUSED fcn:routine rarg:rarg result
+Routine  0x5d22 Dequeue:bool rtn:^routine
+Routine  0x5d34 QueuedP rtn:routine cnt:int end:int
+Routine  0x5d60 RunningP rtn:routine cnt:int end:int
+Routine  0x5d92 Queue:^array(bool) rtn:routine ticks:int c end intr
+Routine  0x5e02 Clocker end tick:int rtn:routine executed_p:bool break_loop:bool player_tmp:object
+
+! PARSER.ZIL 
+Routine  0x5ea4 This_Is_It obj:object
+Routine  0x5ed0 Parser:int ptr:p_lexv word:dictword val:int vrb:verbnum omerged:bool owinner olen len:int dir nw:dictword lw:dictword cnt:int compiler_tmp1 compiler_tmp2
+Routine  0x6512 Change_Lexv ptr wrd ptrs x y v
+Routine  0x656a Stuff dest src max:int ptr:p_lexv ctr:int
+Routine  0x65be Inbuf_Stuff dest src cnt:int
+Routine  0x65d6 Inbuf_Add len beg slot dbg ctr:int tmp compiler_tmp1
+Routine  0x6636 Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
+Routine  0x6660 Next_Word ptr
+Routine  0x6670 Clause ptr val wrd off num andflag:bool firstp:bool nw lw
+Routine  0x6876 NumberP:dictword ptr cnt bptr chr sum:int cctr tmp xptr
+Routine  0x69a6 After_Comma_Check ptr cnt bptr cctr chr sum:int
+Routine  0x69fe Orphan_Merge cnt:int temp verbn beg end adj vrb wrd
+Routine  0x6c18 Clause_Win adj
+Routine  0x6c62 Word_Print cnt buf
+Routine  0x6c78 Unknown_Word ptr buf compiler_tmp
+Routine  0x6cc8 Cant_Use ptr buf compiler_tmp
+Routine  0x6d12 Syntax_Check syn:int len num:int obj drive1:bool drive2:bool prep vrb:action compiler_tmp1 compiler_tmp2
+Routine  0x6ee4 Verb_Print tmp compiler_tmp
+Routine  0x6f26 Orphan d1 d2 cnt:int
+Routine  0x6fbe Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool beginning
+Routine  0x6fd8 Buffer_Print beg end cp nosp:bool wrd firstp:bool pn
+Routine  0x709e NameP wrd:dictword
+Routine  0x70ac Capitalize ptr compiler_tmp
+Routine  0x70e6 Prep_Print ndx:int prep:dictword
+Routine  0x7106 Clause_Copy src dest insrt ocl beg end bb ee obeg cnt b e
+Routine  0x71f4 Clause_Add wrd oclause len
+Routine  0x721c Prep_Find prep cnt:int size
+Routine  0x7242 Syntax_Found syn
+Routine  0x724e GWim:object gbit:attribute lbit:int prep:dictword obj:object
+Routine  0x72b6 Snarf_Objects ptr
+Routine  0x731e But_Merge tbl len butlen cnt:int matches obj ntbl
+Routine  0x7366 Snarfem ptr eptr tbl but len wv wrd nw was_all:bool
+Routine  0x74e8 Naughty_Word:bool w:dictword
+Routine  0x7550 Adj_Check w:dictword flag:bool UNUSED
+Routine  0x757a Get_Object tbl:^array(int) vrb:bool bits len xbits tlen gcheck:bool olen:int obj
+Routine  0x774c Put_Adj_Nam
+Routine  0x775e Moby_Find list objloopcnt:object len foo nam adj
+Routine  0x77aa Which_Print tlen len tbl obj rlen
+Routine  0x7876 Global_Check tbl len rmg rmgl cnt:int obj obits foo
+Routine  0x7954 Do_Sl obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
+Routine  0x7988 Search_List obj:object tbl lvl:p_searchlevels fls nobj:object
+Routine  0x79f2 Obj_Found obj:object tbl ptr
+Routine  0x7a10 Take_Check
+Routine  0x7a2c ITake_Check tbl bits ptr obj:object taken:bool
+Routine  0x7b5e Many_Check local1:int loss:int tmp word:dictword
+Routine  0x7c1a ZMemQ itm:dictword tbl size:int cnt:int
+Routine  0x7c42 ZMemQB itm:object tbl size cnt
+Routine  0x7c5a LitP rm:object roombit:bool oldroom:object islit:bool
+Routine  0x7cbe Prso_Print ptr
+Routine  0x7ce6 Prsi_Print ptr
+Routine  0x7d0e This_It_P obj:object syns UNUSED
+
+! INTERRUPTS.ZIL
+Routine  0x7d5a I_Welder
+Routine  0x7e0e I_Headlamp
+Routine  0x7e78 I_Platinum_Detector compiler_tmp
+Routine  0x7f20 I_Dryer
+Routine  0x7f3c I_Radio
+Routine  0x7fb0 I_Floyd obj:object compiler_tmp
+Routine  0x8a02 I_Explosive_Melt obj_melt_counter:int
+Routine  0x8a78 I_Timer compiler_tmp
+Routine  0x8c30 I_Log_Reader
+
+! SYNTAX.ZIL
+! (no routines)
+
+! VERBS.ZIL 
+Routine  0x8cdc VerboseSub
+Routine  0x8cfe BriefSub
+Routine  0x8d18 SuperbriefSub
+Routine  0x8d36 SaveSub
+Routine  0x8d90 RestoreSub
+Routine  0x8dec Continue_Rtn
+Routine  0x8e18 Tell_Score
+Routine  0x8f22 ScriptSub
+Routine  0x8faa UnscriptSub
+Routine  0x902c Corp_Notice what:string
+Routine  0x905c DiagnoseSub
+Routine  0x914a InventorySub
+Routine  0x9184 QuitSub
+Routine  0x91d2 RestartSub
+Routine  0x9250 Do_You_Wish what:string
+Routine  0x9276 YesP
+Routine  0x92bc Finish pscore:bool wordcnt:int
+Routine  0x93d2 ScoreSub
+Routine  0x9416 VersionSub offset:int release:int
+Routine  0x955a DebugCommSub
+Routine  0x9560 DebugRandomSub
+Routine  0x9574 DebugRecoSub
+Routine  0x957a DebugUnreSub
+Routine  0x9580 VerifySub
+Routine  0x95b0 WakeSub
+Routine  0x95d0 AnswerSub
+Routine  0x961e ApplaudSub
+Routine  0x9638 ApplySub
+Routine  0x966c AskAboutSub
+Routine  0x96a6 AskForSub
+Routine  0x96c0 AttractSub
+Routine  0x96ce BiteSub
+Routine  0x96d8 BurnSub
+Routine  0x96fc CallSub
+Routine  0x9716 CatchSub
+Routine  0x9732 LookObjSub
+Routine  0x97b2 CleanSub
+Routine  0x97d4 ClimbDownSub
+Routine  0x97f2 ClimbOnSub
+Routine  0x9824 ClimbSub
+Routine  0x9842 CloseSub
+Routine  0x990e ComfortSub
+Routine  0x9936 CompareSub
+Routine  0x9948 AttachSub
+Routine  0x9950 CountSub
+Routine  0x9958 ClimbUnderSub
+Routine  0x996a CrossSub
+Routine  0x9972 CrumpleSub
+Routine  0x997c CutSub
+Routine  0x99ae DigSub
+Routine  0x99b6 DetachSub
+Routine  0x99e0 DisembarkSub
+Routine  0x9a5c DressSub
+Routine  0x9a70 PreDrillSub
+Routine  0x9af6 DrillSub
+Routine  0x9b42 DrillReverseSub
+Routine  0x9b5c DropSub
+Routine  0x9bbe PreEatSub
+Routine  0x9bf0 EatSub
+Routine  0x9c68 EatFromSub
+Routine  0x9ca4 EmptySub
+Routine  0x9d64 EmptyFromSub
+Routine  0x9d84 PreEnterObjSub
+Routine  0x9da8 EnterObjSub
+Routine  0x9e5e ExamineSub
+Routine  0x9f42 ExerciseSub
+Routine  0x9fc6 Nothing_Special
+Routine  0xa010 DepartSub
+Routine  0xa028 FeedSub
+Routine  0xa03c FillSub
+Routine  0xa054 FindSub
+Routine  0xa118 RepairSub
+Routine  0xa162 FlatterSub
+Routine  0xa166 FollowSub
+Routine  0xa1a6 FootnoteSub
+Routine  0xa70a PreGiveSub
+Routine  0xa728 GetDressedSub
+Routine  0xa75e GetUndressedSub
+Routine  0xa772 GiveSub
+Routine  0xa7ae GiveUpSub
+Routine  0xa7c0 GreetSub
+Routine  0xa7da HelloSub
+Routine  0xa820 HelpSub
+Routine  0xa91c HideSub
+Routine  0xa930 HugSub
+Routine  0xa938 EnterSub
+Routine  0xa942 KickSub
+Routine  0xa94c AttackSub
+Routine  0xa9b4 KissSub
+Routine  0xa9d6 KnockSub
+Routine  0xa9f4 LaunchSub
+Routine  0xaa08 JumpSub
+Routine  0xaac2 JumpOutSub
+Routine  0xaad8 LeaveSub
+Routine  0xaafe LieOnSub
+Routine  0xab38 ListenSub
+Routine  0xab5a LockSub
+Routine  0xab62 PreBrowseSub
+Routine  0xab72 LookSub
+Routine  0xab86 LookBehindSub
+Routine  0xaba8 LookDownSub
+Routine  0xabbe LookInSub
+Routine  0xac84 LookOverSub
+Routine  0xac8c LookUnderSub
+Routine  0xacba LookUpSub
+Routine  0xacda LowerSub
+Routine  0xace2 MaybeSub
+Routine  0xacec MeasureSub
+Routine  0xad16 LeadSub
+Routine  0xad62 PreDestroySub
+Routine  0xad84 DestroySub
+Routine  0xad9e NoSub
+Routine  0xadce No_Word w:dictword
+Routine  0xade2 SwitchOffSub
+Routine  0xae1c SwitchOnSub
+Routine  0xae56 Cant_Turn how:string
+Routine  0xae68 OpenSub
+Routine  0xaeee PickSub
+Routine  0xaef8 PickUpSub
+Routine  0xaf02 PlayWithSub
+Routine  0xaf14 AimSub
+Routine  0xaf24 PourSub
+Routine  0xaf7c PraySub
+Routine  0xaf9c TypeSub
+Routine  0xafde LeadDirSub
+Routine  0xaff0 PreInsertSub
+Routine  0xb0ac InsertSub
+Routine  0xb198 PutBehindSub
+Routine  0xb1a0 InsertOnSub
+Routine  0xb1f8 PutUnderSub
+Routine  0xb200 BoostSub
+Routine  0xb20a ReachInSub
+Routine  0xb25a BrowseSub
+Routine  0xb270 RemoveSub
+Routine  0xb286 RollSub
+Routine  0xb290 WalkOverSub
+Routine  0xb294 RescueSub
+Routine  0xb2b0 SaySub
+Routine  0xb318 ScareSub
+Routine  0xb344 ScoldSub
+Routine  0xb348 SearchSub
+Routine  0xb38e TurnSub
+Routine  0xb3b8 GiveReverseSub
+Routine  0xb3c2 ShakeSub
+Routine  0xb3e2 ShakeWithSub
+Routine  0xb418 PreBlastSub
+Routine  0xb4b8 BlastSub
+Routine  0xb650 BlastReverseSub
+Routine  0xb660 ShowSub
+Routine  0xb67c SitDownSub
+Routine  0xb6c2 HopSub
+Routine  0xb6ca DozeSub
+Routine  0xb724 PreSmellSub
+Routine  0xb764 SmellSub
+Routine  0xb828 Sense_Object verb_str:string
+Routine  0xb850 PlaySub
+Routine  0xb85a SpraySub
+Routine  0xb880 CoverSub
+Routine  0xb88a ShowReverseSub
+Routine  0xb894 SprayReverseSub
+Routine  0xb89e RaiseSub
+Routine  0xb8de JumpOnSub
+Routine  0xb8e6 TellObjSub
+Routine  0xb8f0 ThrowObjObjSub
+Routine  0xb8fa SwingSub
+Routine  0xb912 WrapSub
+Routine  0xb91c PreTakeSub
+Routine  0xb9fe TakeSub
+Routine  0xba3a GetOffSub
+Routine  0xbab6 GetWithSub
+Routine  0xbada LickSub
+Routine  0xbaf8 TellSub
+Routine  0xbb6e TellAboutSub
+Routine  0xbb96 ThankSub
+Routine  0xbbcc ThrowSub
+Routine  0xbc1c ThrowToSub
+Routine  0xbc34 TickleSub
+Routine  0xbc44 TieSub
+Routine  0xbc52 TimeSub local1:bool
+Routine  0xbcd4 PreTurnSub
+Routine  0xbcf8 TouchSub
+Routine  0xbd0a TypeInSub
+Routine  0xbde2 Robot_Type
+Routine  0xbea8 Spacetruck_Type
+Routine  0xbf0e Elevator_Type
+Routine  0xc072 Dispenser_Type
+Routine  0xc0f0 Recording str:string
+Routine  0xc14a UndressSub
+Routine  0xc15e UnlockSub
+Routine  0xc1e8 UntieSub
+Routine  0xc1f0 UseSub
+Routine  0xc214 PreStampSub
+Routine  0xc24c StampSub
+Routine  0xc264 GoSub
+Routine  0xc47a Describe_Auto_Door
+Routine  0xc5d4 WalkAroundSub
+Routine  0xc600 ApproachSub
+Routine  0xc62e WaitSub turns:int
+Routine  0xc654 WaitForSub
+Routine  0xc67c WaitUntilSub
+Routine  0xc680 WearSub
+Routine  0xc6b8 WhatSub
+Routine  0xc6c6 WhereSub
+Routine  0xc6ce WrapInSub
+Routine  0xc6d8 YellSub
+Routine  0xc6fc ResetQuestion
+Routine  0xc702 YesSub
+Routine  0xc7a8 You_Sound str:string
+Routine  0xc7be Yes_Word w:dictword
+Routine  0xc7d6 SneezeSub
+Routine  0xc7e2 ITake:act_result vb:bool itm:object weight:int
+Routine  0xc8ce Score_Obj val:int
+Routine  0xc8f0 IDrop
+Routine  0xc9b6 CCount obj:object cnt:int x:object
+Routine  0xc9d0 QueryWeight obj:object cont:object wt:int
+Routine  0xca00 Describe_Room verb_is_look:bool first_visit:bool points:int
+Routine  0xcb08 Describe_Objects o:object str:string first:bool av:object
+Routine  0xcbd6 Describe_Contents obj:object lvl:int allp f n first:bool itp twop startp parap db
+Routine  0xcdba Describe_Start obj:object
+Routine  0xce18 DescribableP obj:object can_look_inside:bool
+Routine  0xce50 Simple_DescP obj:object initial_action:^routine(?,rarg)
+Routine  0xce78 Describe_Vehicle
+Routine  0xcea8 Describe_Nothing
+Routine  0xceba Goto where:object old_location:object
+Routine  0xd118 JigsUp deathmsg:string
+Routine  0xd14a AccessibleP obj:object env:object
+Routine  0xd196 VisibleP obj:object env:object
+Routine  0xd1be UntouchableP obj:object
+Routine  0xd232 Meta_Loc obj:object
+Routine  0xd250 Other_Side door_obj:object prop:property addr
+Routine  0xd276 Ultimately_InP obj:object cont:object
+Routine  0xd298 SeeInside obj:object
+Routine  0xd2ac Global_InP obj:object room:object addr
+Routine  0xd2ca Find_In rm:object attr:attribute str:string itm:object local5
+Routine  0xd30c Now_DarkP
+Routine  0xd33e Now_LitP
+Routine  0xd356 Loc_Closed l:object
+Routine  0xd372 Do_Walk dir:property
+Routine  0xd380 Clear_itbl:act_result
+Routine  0xd38a Rob who:object dest:object sib:object itm:object
+Routine  0xd3b4 HackHack prefix:string
+Routine  0xd3c4 HoHumPrint
+Routine  0xd3d0 YukYuk
+Routine  0xd3dc Impossibles
+Routine  0xd3e8 Wastes
+
+! GLOBALS.ZIL 
+Routine  0xd3f4 Intdir_F:act_result 
+Routine  0xd42e Intnum_F:act_result 
+Routine  0xd584 Not_here_object_F:act_result tbl prso_p:bool obj:object x
+Routine  0xd668 Prso_Moby_VerbP
+Routine  0xd67e Prsi_Moby_VerbP
+Routine  0xd688 Find_Not_Here:object tbl prso_p:bool m_f:int obj:object
+Routine  0xd6d6 Not_Here_Print obj ptr
+Routine  0xd714 Ground_F:act_result 
+Routine  0xd78c Walls_F:act_result 
+Routine  0xd79a Ceiling_F:act_result 
+Routine  0xd840 Global_Room_F:act_result 
+Routine  0xd90a Window_F:act_result 
+Routine  0xdaa8 Sign_F:act_result 
+Routine  0xde98 Equipment_F:act_result 
+Routine  0xdf20 fixtures_F:act_result 
+Routine  0xdf58 Hole_F:act_result 
+Routine  0xdf8a Ladder_F:act_result 
+Routine  0xdfa2 Hands_F:act_result local1 
+Routine  0xe052 Tongue_F:act_result 
+Routine  0xe070 Me_F:act_result 
+Routine  0xe166 Grue_F:act_result 
+Routine  0xe282 Form_slot_F
+Routine  0xe434 Both_Seats_not_Occupied
+Routine  0xe446 Keypad_F:act_result 
+Routine  0xe46e Furnishings_F:act_result 
+Routine  0xe4d2 Village_F:act_result 
+Routine  0xe50c Bed_F:act_result 
+Routine  0xe65e Sleep_F:act_result 
+Routine  0xe66c I_Sleep_Warnings
+Routine  0xe860 I_Fall_Asleep
+Routine  0xe892 Waking_Up UNUSED1 UNUSED2 chance_of_nastiness:int
+Routine  0xef1a I_Hunger_Warnings
+Routine  0xf01c Welder_F:act_result 
+Routine  0xf2b0 TouchingP
+Routine  0xf31c Cant_See obj:object
+Routine  0xf364 Cant_Verb_a_Prso what:string
+Routine  0xf374 Tell_Hit_Head
+Routine  0xf398 Remove_Carefully obj:object other:bool
+Routine  0xf400 Noun_Used w:dictword obj:object
+Routine  0xf41e Adj_Used n1:object n2:object
+Routine  0xf43c Open_Closed obj:object
+Routine  0xf450 Wee
+Routine  0xf46e Cant_Reach obj:object
+Routine  0xf4d2 Do_First:act_result dowhat:string towhat:object
+Routine  0xf4f2 Doesnt_Fit what:string
+Routine  0xf514 Not_In
+Routine  0xf548 Cant_Use_That_Way what:string
+Routine  0xf560 Recognize
+Routine  0xf582 Pronoun_rtn
+Routine  0xf5a4 Referring him_her:bool
+Routine  0xf5ca Ant_Litter obj:object
+Routine  0xf614 Mess what:string
+
+! SHIP.ZIL 
+Routine  0xf6b6 Fake_Door_Enter_F
+Routine  0xf6c4 Fake_Door_F
+Routine  0xf6f8 Form_F:act_result 
+Routine  0xf76c Chronometer_F:act_result 
+Routine  0xf81c Patrol_uniform_F:act_result 
+Routine  0xf920 I_Blather
+Routine  0xf99e Boxed_Forms_F
+Routine  0xf9cc Pallets_F:act_result cnt
+Routine  0xfb0a Robot_Pool_F:act_result rarg:rarg 
+Routine  0xfb8a Bin_F
+Routine  0xfc0e Floyd_F:act_result rarg:rarg x n txt
+Routine 0x10b10 Describe_Floyd examined:bool
+Routine 0x10cd2 Floyd_Take_Leash
+Routine 0x10d3a MovE_Floyd_to_Factory
+Routine 0x10d9c Helen_F:act_result 
+Routine 0x10e5a Rex_F:act_result 
+Routine 0x10ef0 I_Other_Robot
+Routine 0x10f20 Confetti form_name:object
+Routine 0x10f76 Pick_Robot
+Routine 0x10fae Cargo_Bay_F:act_result rarg:rarg 
+Routine 0x1106a Spacetruck_Object_F:act_result 
+Routine 0x1110c Spacetruck_F:act_result rarg:rarg 
+Routine 0x11200 Spacetruck_exit_dir:object
+Routine 0x11226 Spacetruck_hatch_F:act_result 
+Routine 0x1124e Pilot_Seat_F:act_result local1 
+Routine 0x112fa Generic_Seat_F:object
+Routine 0x11310 Radio_F:act_result 
+Routine 0x11378 Red_Button_F 
+Routine 0x113c0 I_Spacetruck
+Routine 0x116c8 I_Suffocate
+Routine 0x116d2 Foot_Kit_F:act_result compiler_tmp
+Routine 0x11712 In_vacuumP:bool
+Routine 0x11720 Space_Liquid obj:object
+Routine 0x11770 Space_Food
+Routine 0x1179c Thermos_F:act_result 
+Routine 0x11898 I_Thermos
+Routine 0x118c6 Soup_F:act_result 
+Routine 0x11928 Describe_Soup_Temperature
+Routine 0x11980 Goo_F:act_result 
+
+! STATION.ZIL
+Routine 0x11a0a Docking_Bay2_F:act_result rarg:rarg 
+Routine 0x11a5c Level_Five_F:act_result rarg:rarg 
+Routine 0x11ad8 Jammer_F:act_result 
+Routine 0x11cea Dispenser_F:act_result 
+Routine 0x11e6e Coin_Slot_F
+Routine 0x11ea0 Dispenser_screen_F
+Routine 0x11ff2 Dispenser_hole_F
+Routine 0x120fe Ostrich_into_Dispenser
+Routine 0x12158 Timer_F:act_result 
+Routine 0x122f2 Destroy_Explosive_Container obj:object env:object
+Routine 0x12312 Cell_F
+Routine 0x12350 Brig_Lock_F
+Routine 0x1237e East_Connection_F:act_result rarg:rarg 
+Routine 0x1245c Station_Control_F:act_result rarg:rarg 
+Routine 0x124d6 System_Monitors_F:act_result 
+Routine 0x12660 Comm_Center_F:act_result rarg:rarg 
+Routine 0x127aa Comm_button_F
+Routine 0x1283e Screen_F describe_screen:bool
+Routine 0x12940 I_Message
+Routine 0x129c4 Files_F
+Routine 0x129fa Commanders_Office_F:act_result rarg:rarg 
+Routine 0x12a7e Log_reader_F:act_result 
+Routine 0x12b98 Log_reader_button_F
+Routine 0x12be2 Read_Log
+Routine 0x133a0 Dial_F
+Routine 0x133e8 Safe_F:act_result 
+Routine 0x134a2 Describe_Bit_Size bit_size:object
+Routine 0x134d6 Drilled_Hole_F:act_result hole_in_what:object
+Routine 0x13566 Make_Hole_With_Drill what:object
+Routine 0x13624 Stamp_F:act_result 
+Routine 0x1364a Zapgun_F:act_result 
+Routine 0x1368e South_Connection_F:act_result rarg:rarg 
+Routine 0x13784 Level_Four_F:act_result rarg:rarg 
+Routine 0x137fa Level_Three_F:act_result rarg:rarg 
+Routine 0x13868 Gym_F:act_result rarg:rarg
+Routine 0x138c8 Exercise_Machine_F:act_result rarg:rarg
+Routine 0x1396a Laundry_F:act_result rarg:rarg
+Routine 0x13a24 Dryer_F:act_result 
+Routine 0x13b3c Describe_Dryer_Heat
+Routine 0x13bb6 Presser_F:act_result rarg:rarg
+Routine 0x13c7e Describe_Presser
+Routine 0x13cba I_Presser
+Routine 0x13d20 Chapel_F:act_result rarg:rarg
+Routine 0x13e16 Star_F:act_result 
+Routine 0x13f18 Eternal_flame_F:act_result 
+Routine 0x14034 Pulpit_F:act_result 
+Routine 0x140d4 Switch_F:act_result 
+Routine 0x1413c Theater_seat_F
+Routine 0x1414c Projector_booth_F
+Routine 0x1417a Mess_Hall_F:act_result rarg:rarg 
+Routine 0x14216 FPU_F:act_result 
+Routine 0x143de Coffee_F:act_result local1 
+Routine 0x144e0 Detonator_F:act_result 
+Routine 0x146c8 Blackened_Diode_F:act_result 
+Routine 0x14778 Magazine_F:act_result 
+Routine 0x14824 Nanofilm_Reader_F:act_result local1 
+Routine 0x14bb2 Dome_objecT_F
+Routine 0x14bc8 Dome_F:act_result local1 
+Routine 0x14ce4 Shrubbery_F:act_result 
+Routine 0x14dd6 Housing_F:act_result 
+Routine 0x14fb6 Grating_F:act_result 
+Routine 0x1515e Level_Six_F:act_result rarg:rarg 
+Routine 0x151e4 Alien_ship_pseudo_F
+Routine 0x1525e Alien_Hatch_F
+Routine 0x15270 Alien_Ship_F:act_result rarg:rarg 
+Routine 0x153e2 Pattern_of_dots_F:act_result 
+Routine 0x15610 Pedestal_F:act_result 
+Routine 0x15698 Skeleton_F:act_result 
+Routine 0x15700 Robot_Shop_F:act_result rarg:rarg 
+Routine 0x157f2 Heating_chamber_F:act_result 
+Routine 0x158f6 Bit_F:act_result 
+Routine 0x15948 Oliver_F:act_result 
+Routine 0x15a4a Printing_Plant_F:act_result rarg:rarg 
+Routine 0x15b28 Trash_can_F:act_result 
+Routine 0x15b54 Village_Form_F:act_result 
+Routine 0x15bea Paper_Recycling_Plant_F:act_result rarg:rarg 
+Routine 0x15bf8 Below_Deck_Noises
+Routine 0x15d0e Drill_F:act_result 
+Routine 0x15dd6 Elevator_F:act_result 
+Routine 0x15e42 Generic_Shaft_F:object
+Routine 0x15e46 Elevator_Object_F:act_result local1 
+Routine 0x15ec6 Elevator_Exit_F:object
+Routine 0x15eee Enter_Elevator_F:object top_of_elevator:int
+Routine 0x160b2 Call_Button_F:act_result local1 
+Routine 0x16132 Auto_door_F:act_result 
+Routine 0x16176 Security_door_F:act_result 
+Routine 0x161e4 I_Security_Door
+Routine 0x16210 ID_reader_F:act_result 
+Routine 0x162be Diary_F:act_result 
+Routine 0x162d8 Twenty_Prong_fromitz_board_F:act_result 
+Routine 0x16368 N_prong_board
+Routine 0x1638a Generic_Fromitz_Board_F:object
+Routine 0x16398 Holding_Tank_Level_F:act_result rarg:rarg 
+Routine 0x1644c Plato_F:act_result local1 
+Routine 0x1696e I_Plato not_called_as_int:bool
+Routine 0x16b22 Volume_F:act_result 
+Routine 0x16bca I_Robot_Evilness
+Routine 0x16be6 I_Plato_Attack paddr plen:int prop:property
+Routine 0x17448 Youre_Stunned movewhat:string
+Routine 0x17470 Stun_Gun_F:act_result 
+Routine 0x174cc I_Lights_Out while_asleep:bool room:object here_islit:bool
+Routine 0x17558 I_Announcement
+Routine 0x1761a I_Launch
+Routine 0x176f4 Air_Shaft_Movement_F
+Routine 0x17716 Bottom_Air_Shaft_exit_F
+Routine 0x17720 Computer_F
+Routine 0x17766 I_Exercise_Machine
+Routine 0x178a4 Forklift_F:act_result local1 
+Routine 0x17922 I_Forklift
+Routine 0x179dc Computer_Control_exit:object
+Routine 0x17a14 Factory_F:act_result rarg:rarg
+Routine 0x17ba6 I_Factory
+Routine 0x17bba Pyramid_F:act_result 
+Routine 0x18154 Back_Off str:string
+
+! VILLAGE.ZIL
+Routine 0x18184 Village_Boundary_F:object dest:object
+Routine 0x18262 Iris_hatch_F:act_result 
+Routine 0x182f0 Crystal_ball_F:act_result 
+Routine 0x1838c Recruitment_Posters_pseudo_action
+Routine 0x1840e Simulation_booth_F:act_result rarg:rarg
+Routine 0x184e0 Headlamp_F:act_result 
+Routine 0x1858e Barbershop_F:act_result rarg:rarg
+Routine 0x1865a Mirror_Action_Continued
+Routine 0x1875e Foil_F:act_result 
+Routine 0x187e4 Taffy_F:act_result 
+Routine 0x187fc Cage_F:act_result 
+Routine 0x1889e Balloon_F:act_result 
+Routine 0x18a88 Leash_F:act_result 
+Routine 0x18d12 Panel_F:act_result 
+Routine 0x18d26 Ostrich_nip_F:act_result 
+Routine 0x18d3e Twelve_prong_fromitz_board_F:act_result 
+Routine 0x18d6e Studio_F:act_result local1 
+Routine 0x18dea Diode_J_F:act_result 
+Routine 0x18e2c Sculpture_F:act_result 
+Routine 0x18e6a Casino_F:act_result local1 
+Routine 0x18f2a Roulette_Wheel_F:act_result 
+Routine 0x18f78 Dice_F:act_result num compiler_tmp
+Routine 0x18ff2 Flophouse_F:act_result rarg:rarg
+Routine 0x19066 Spacesuit_F:act_result 
+Routine 0x1907e Vacuum_Death
+Routine 0x19088 Greasy_Straw_F:act_result rarg:rarg 
+Routine 0x190f0 Counter_F:act_result 
+Routine 0x19124 Nectar_F:act_result 
+Routine 0x19196 Generic_Food_F:object
+Routine 0x191ae Book_F:act_result 
+Routine 0x19232 Platinum_Detector_F:act_result 
+Routine 0x1931a Travel_Agency_Poster_F
+Routine 0x193a4 Warehouse_F:act_result rarg:rarg
+Routine 0x1940e Inner_Airlock_Door_F:act_result 
+Routine 0x1941e Outer_Airlock_Door_F:act_result x n obj_flushed:bool
+Routine 0x195d2 Generic_airlock_door:object
+Routine 0x195e4 Airlock_F:act_result rarg:rarg 
+Routine 0x19640 Airlock_Object_F:act_result 
+Routine 0x196b4 Lost_in_Space
+Routine 0x196be Vacuum_Storage:act_result rarg:rarg 
+Routine 0x1980a Explosives_F:act_result 
+Routine 0x19890 Describe_Explosive
+Routine 0x198d8 Spray_can_F:act_result 
+Routine 0x19b94 Generic_Can_F:object
+Routine 0x19b9c Next_RoomP what:object no_connect:bool dir:property paddr plen:int
+Routine 0x19c40 Strong_box_F:act_result 
+Routine 0x19d1a Doc_Schusters_F:act_result rarg:rarg 
+Routine 0x19d4a Doc_Hole_F
+Routine 0x19e02 Ostrich_F:act_result 
+Routine 0x1a130 Shady_Dans_F:act_result rarg:rarg 
+Routine 0x1a19a ID_Changer_Slot_F
+Routine 0x1a1ca ID_Changer_F
+Routine 0x1a332 ID_Changer_Type
+Routine 0x1a3ea Junk_Yard_F:act_result rarg:rarg 
+Routine 0x1a472 Boots_F:act_result 
+Routine 0x1a546 Garbage_F:act_result 
+
+! ------------------------------- Words --------------------------------
+
+Word activa activate
+Word airloc airlock
+Word applau applaud
+Word approa approach
+Word aprico apricot
+Word asshol asshole
+Word assign assignment
+Word attrac attract
+Word balloo balloon
+Word bastar bastard
+Word bathtu bathtub
+Word beauti beautiful
+Word beneat beneath
+Word blacke blackened
+Word blinki blinking
+Word carniv carnival
+Word ceilin ceiling
+Word chambe chamber
+Word chrono chronometer
+Word cocksu cocksucker
+Word comfor comfort
+Word compar compare
+Word comple complete
+Word comput computer
+Word connec connect
+Word copilo copilot
+Word counte counter
+Word creatu creature
+Word crumpl crumple
+Word crysta crystal
+Word cubicl cubicle
+Word custar custard
+Word cylind cylinder
+Word deacti deactivate
+Word demoli demolish
+Word descen descend
+Word descri describe
+Word destro destroy
+Word detona detonate
+Word diagno diagnose
+Word discon disconnect
+Word disemb disembark
+Word dismou dismount
+Word dispen dispense
+Word downst downstairs
+Word dresse dressed
+Word elevat elevate
+Word equipm equipment
+Word eterna eternal
+Word everyb everybody
+Word everyo everyone
+Word everyt everythign
+Word examin examine
+Word exerci exercise
+Word explos explosion
+Word exting extinguish
+Word featur feature
+Word flatte flatten
+Word floati floating
+Word footno footnote
+Word forkli forklift
+Word freque frequency
+Word fucked fucked
+Word fuckin fucking
+Word garbag garbage
+Word gigant gigantic
+Word gratin grating
+Word headla headlamp
+Word heatin heating
+Word hersel herself
+Word himsel himself
+Word holdin holding
+Word identi identify
+Word illega illegal
+Word innocu innoculate
+Word inspec inspect
+Word instru instrument
+Word intoxi intoxicating
+Word invent inventory
+Word isolat isolated
+Word lukewa lukewarm
+Word lurkin lurking
+Word machin machine
+Word magazi magazine
+Word massiv massive
+Word measur measurement
+Word messag message
+Word metall metallic
+Word monito monitor
+Word multip multiply
+Word northe northeast
+Word northw northwest
+Word notati notation
+Word notebo noteboook
+Word observ observe
+Word ostric ostrich
+Word outsid outside
+Word pedest pedestal
+Word plasti plastic
+Word platin plating
+Word pointe pointer
+Word presse pressed
+Word procee proceed
+Word proces process
+Word projec project
+Word pronge pronged
+Word protag protagonist
+Word purpos purpose
+Word pyrami pyramid
+Word reflec reflection
+Word releas release
+Word restar restart
+Word restor restore
+Word roulet roulette
+Word rummag rummage
+Word scratc scratch
+Word sculpt sculpture
+Word securi security
+Word shithe shither
+Word shrubb shrubbed
+Word simula simulation
+Word skelet skeleton
+Word smalle smaller
+Word southe southeast
+Word southw southwest
+Word spindl spindle
+Word starbo starboard
+Word steami steaming
+Word storag storage
+Word straig straight
+Word superb superbrief
+Word surviv survivor
+Word swallo swallow
+Word textbo textbook
+Word thermo thermos
+Word throug through
+Word toweri towering
+Word transl translate
+Word transp transport
+Word tremen tremendous
+Word trotti trotting
+Word unauth unauthorized
+Word undern underneath
+Word undres undress
+Word unifor uniform
+Word unscri unscript
+Word upstai upstairs
+Word valida validate
+Word vendin vending
+Word verbos verbose
+Word versio version
+Word viciou vicious
+Word viewpo viewport
+Word villag village
+Word wardro wardrobe
+Word withdr withdraw
+Word wristw wristwatch
+! arctur
+! bedist
+! bluebe
+! frezon
+! fromit
+! galakm
+! hyperd
+! megakr
+! mighti
+! nanofi
+! nautil
+! nonreg
+! ramosi
+! spaceb
+! spacec
+! spacet
+! uncrea
+! uncrum

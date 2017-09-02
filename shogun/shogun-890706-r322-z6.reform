@@ -1,0 +1,2499 @@
+! ----------------------------------------------------
+!   Shogun_322_890706.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  e60d3b3e6af96913d99642fa49fd4411
+CodeArea  0xc480  0x4b55e
+StringArea  0x4b560  0x542f0
+FalseEnd  0xee84  1
+FalseEnd  0xf440  1
+
+Enum scene_enum Scene_Erasmus=1 Scene_Anjiro=2 Scene_Yabu=3 Scene_Pit=4 Scene_Rodrigues=5 Scene_Voyage=6 Scene_Toranaga=7 Scene_Prison=8 Scene_Mariko=9 Scene_Escape=10 Scene_Quake=11 Scene_Journey=11 Scene_Ochiba=12 Scene_Departure=13 Scene_Seppuku=14 Scene_Ninja=15 Scene_Yokohama=16 Scene_Aftermath=17 Scene_Epilogue=18
+
+Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_SEVEN=7 M_EIGHT=8 M_NINE=9 OTHER=100
+
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global 0        global0:?
+Global 1        global1:?
+Global 2        global2:?
+Global 3        global3:?
+Global 4        global4:?
+Global 5        global5:?
+Global 6        global6:?
+Global 7        global7:?
+Global 8        global8:?
+Global 9        global9:?
+Global 10       location:object
+Global 11       global11:?
+Global 12       global12:?
+Global 13       global13:?
+Global 14       global14:?
+Global 15       global15:?
+Global 16       global16:?
+Global 17       global17:?
+Global 18       global18:?
+Global 19       global19:?
+Global 20       global20:?
+Global 21       global21:?
+Global 22       global22:?
+Global 23       global23:?
+Global 24       global24:?
+Global 25       global25:?
+Global 26       global26:?
+Global 27       global27:?
+Global 28       global28:?
+Global 29       global29:?
+Global 30       global30:?
+Global 31       global31:?
+Global 32       global32:?
+Global 33       global33:?
+Global 34       global34:?
+Global 35       global35:?
+Global 36       global36:?
+Global 37       global37:?
+Global 38       global38:?
+Global 39       global39:?
+Global 40       global40:?
+Global 41       global41:?
+Global 42       global42:?
+Global 43       global43:?
+Global 44       global44:?
+Global 45       global45:?
+Global 46       global46:?
+Global 47       global47:?
+Global 48       global48:?
+Global 49       global49:?
+Global 50       global50:?
+Global 51       global51:?
+Global 52       global52:?
+Global 53       global53:?
+Global 54       global54:?
+Global 55       global55:?
+Global 56       global56:?
+Global 57       global57:?
+Global 58       global58:?
+Global 59       global59:?
+Global 60       global60:?
+Global 61       global61:?
+Global 62       global62:?
+Global 63       global63:?
+Global 64       global64:?
+Global 65       global65:?
+Global 66       global66:?
+Global 67       global67:?
+Global 68       global68:?
+Global 69       global69:?
+Global 70       global70:?
+Global 71       global71
+Global 72       global72:?
+Global 73       noun:object
+Global 74       global74:?
+Global 75       global75:?
+Global 76       second:object
+Global 77       global77:?
+Global 78       global78:?
+Global 79       global79:?
+Global 80       Verb:action
+Global 81       global81:?
+Global 82       period:string
+Global 83       global83:?
+Global 84       global84:?
+Global 85       global85:?
+Global 86       global86:?
+Global 87       global87:?
+Global 88       global88:?
+Global 89       global89:?
+Global 90       global90:?
+Global 91       global91:?
+Global 92       global92:?
+Global 93       global93:?
+Global 94       global94:?
+Global 95       global95:?
+Global 96       global96:?
+Global 97       global97:?
+Global 98       global98:?
+Global 99       global99:?
+Global 100      global100:?
+Global 101      global101:?
+Global 102      global102:?
+Global 103      global103:?
+Global 104      global104:?
+Global 105      global105:?
+Global 106      global106:?
+Global 107      global107:?
+Global 108      global108:?
+Global 109      global109:?
+Global 110      global110:?
+Global 111      global111:?
+Global 112      global112:?
+Global 113      global113:?
+Global 114      global114:?
+Global 115      global115:?
+Global 116      global116:?
+Global 117      global117:?
+Global 118      global118:?
+Global 119      global119:?
+Global 120      global120:?
+Global 121      global121:?
+Global 122      global122:?
+Global 123      global123:?
+Global 124      global124:?
+Global 125      global125:?
+Global 126      global126:?
+Global 127      global127:?
+Global 128      global128:?
+Global 129      global129:?
+Global 130      global130:?
+Global 131      global131:?
+Global 132      global132:?
+Global 133      global133:?
+Global 134      global134:?
+Global 135      global135:?
+Global 136      global136:?
+Global 137      global137:?
+Global 138      global138:?
+Global 139      global139:?
+Global 140      global140:?
+Global 141      global141:?
+Global 142      you_dont_have:string
+Global 143      global143:?
+Global 144      global144:?
+Global 145      global145:?
+Global 146      global146:?
+Global 147      global147:?
+Global 148      global148:?
+Global 149      global149:?
+Global 150      global150:?
+Global 151      global151:?
+Global 152      global152:?
+Global 153      global153:?
+Global 154      global154:?
+Global 155      global155:?
+Global 156      global156:?
+Global 157      global157:?
+Global 158      global158:?
+Global 159      global159:?
+Global 160      global160:?
+Global 161      global161:?
+Global 162      global162:?
+Global 163      global163:?
+Global 164      global164:?
+Global 165      global165:?
+Global 166      global166:?
+Global 167      global167:?
+Global 168      global168:?
+Global 169      global169:?
+Global 170      global170:?
+Global 171      global171:?
+Global 172      global172:?
+Global 173      global173:?
+Global 174      global174:?
+Global 175      global175:?
+Global 176      global176:?
+Global 177      global177:?
+Global 178      global178:?
+Global 179      global179:?
+Global 180      global180:?
+Global 181      global181:?
+Global 182      global182:?
+Global 183      global183:?
+Global 184      global184:?
+Global 185      global185:?
+Global 186      global186:?
+Global 187      global187:?
+Global 188      global188:?
+Global 189      global189:?
+Global 190      global190:?
+Global 191      global191:?
+Global 192      global192:?
+Global 193      global193:?
+Global 194      global194:?
+Global 195      global195:?
+Global 196      global196:?
+Global 197      global197:?
+Global 198      global198:?
+Global 199      global199:?
+Global 200      global200:?
+Global 201      global201:?
+Global 202      global202:?
+Global 203      global203:?
+Global 204      global204:?
+Global 205      global205:?
+Global 206      global206:?
+Global 207      global207:?
+Global 208      global208:?
+Global 209      global209:?
+Global 210      global210:?
+Global 211      global211:?
+Global 212      global212:?
+Global 213      global213:?
+Global 214      global214:?
+Global 215      global215:?
+Global 216      global216:?
+Global 217      global217:?
+Global 218      global218:?
+Global 219      global219:?
+Global 220      global220:?
+Global 221      global221:?
+Global 222      global222:?
+Global 223      global223:?
+Global 224      global224:?
+Global 225      global225:?
+Global 226      global226:?
+Global 227      global227:?
+Global 228      global228:?
+Global 229      global229:?
+Global 230      global230:?
+Global 231      global231:?
+Global 232      global232:?
+Global 233      global233:?
+Global 234      global234:?
+Global 235      global235:?
+Global 236      global236:?
+Global 237      global237:?
+Global 238      global238:?
+Global 239      global239:?
+
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 1     cant_hold
+Attribute 2     abstractbit
+Attribute 3     worn
+Attribute 4     trytakebit
+Attribute 5     transparent
+Attribute 6     touchbit
+Attribute 7     the_bit
+Attribute 8     surface
+Attribute 9     spanish
+Attribute 10    sitting
+Attribute 11    searchbit
+Attribute 12    scored
+Attribute 13    rmungbit
+Attribute 14    portugese
+Attribute 15    pluralname
+Attribute 16    outside
+Attribute 17    open
+Attribute 18    openable
+Attribute 19    light
+Attribute 20    proper
+Attribute 21    scenery
+Attribute 22    locked
+Attribute 23    lockable
+Attribute 24    japanese
+Attribute 25    concealed
+Attribute 26    female
+Attribute 27    english
+Attribute 28    dutch
+Attribute 29    dont_it
+Attribute 30    dont_all
+Attribute 31    dead
+Attribute 32    body_part
+Attribute 33    vowelbit
+Attribute 34    no_the_bit
+Attribute 35    door
+Attribute 36    readable
+Attribute 37    firebit
+Attribute 38    takebit
+Attribute 39    food
+Attribute 40    clothing
+Attribute 41    toolbit
+Attribute 42    container
+Attribute 43    furniture
+Attribute 44    enterable
+Attribute 45    weapon
+Attribute 46    animate
+Attribute 47    rlandbit
+
+
+
+! ----------------------------- Properties -----------------------------
+
+
+Property 24     prop24:routine
+Property 25     prop25:routine
+Property 26     score_value:int
+Property 27     prop27:?
+Property 28     prop28:string
+Property 29     health:int
+Property 30     scene:scene_enum
+Property 31     owner:object
+Property 32     adjectives:dictwords
+Property 33     generic:routine
+Property 34     capacity:int
+Property 35     prop35:?
+Property 36     prop36:string
+Property 37     size:int
+Property 38     count:int
+Property 39     fdesc:string
+Property 40     ldesc:string
+Property 41     prop41:?
+Property 42     description_function:routine
+Property 43     prop43:?
+Property 44     prop44:thing
+Property 45     name:dictwords
+Property 46     action:routine
+Property 47     prop47:?
+Property 48     prop48:?
+Property 49     prop49:?
+Property 50     prop50:?
+Property 51     prop51:?
+Property 52     out_to:exit
+Property 53     in_to:exit
+Property 54     down_to:exit
+Property 55     up_to:exit
+Property 57     w_to:exit
+Property 59     s_to:exit
+Property 61     e_to:exit
+Property 63     n_to:exit
+
+
+! ------------------------------ Objects -------------------------------
+
+Object 1        Pebbled_Beach
+Object 2        obj2_Courtyard
+Object 3        obj3_Prison_Courtyard
+Object 4        obj4_Reception_Room
+Object 5        obj5_Mura_s_House
+Object 6        obj6_Cell_Block
+Object 7        obj7_Private_Quarters
+Object 8        obj8_Anjiro
+Object 9        obj9_Beside_the_Erasmus
+Object 10       obj10_Deck
+Object 11       obj11_Garden
+Object 12       obj12_Outer_Corridor
+Object 13       obj13_Below_Decks
+Object 14       obj14_Deep_in_the_Woods
+Object 15       obj15_First_Floor
+Object 16       obj16_City_Street
+Object 17       obj17_Main_Deck
+Object 18       obj18_Glade_of_Maples
+Object 19       obj19_Around_the_Headland
+Object 20       obj20_Gateway
+Object 21       obj21_Ledge
+Object 22       obj22_Stable
+Object 23       obj23_Ledge
+Object 24       obj24_City_of_Osaka
+Object 25       obj25_Mariko_s_Room
+Object 26       obj26_Room_in_the_Inn
+Object 27       obj27_Blackthorne_s_Room
+Object 28       obj28_Tea_House
+Object 29       obj29_Yoshinaka_s_Room
+Object 30       obj30_Gyoko_s_Room
+Object 31       obj31_Room_at_the_Inn
+Object 32       obj32_Winding_Stairs
+Object 33       obj33_Outer_Room
+Object 34       obj34_Plateau
+Object 35       obj35_Mariko_s_Quarters
+Object 36       obj36_Your_Quarters
+Object 37       obj37_Wooded_Area
+Object 38       obj38_South_of_Corridor
+Object 39       obj39_Secret_Redoubt
+Object 40       obj40_Cliff_Path
+Object 41       obj41_Pit
+Object 42       obj42_Bridge
+Object 43       obj43_Toranaga_s_Galley
+Object 44       obj44_Middle_of_Corridor
+Object 45       obj45_Forecourt
+Object 46       obj46_City_Streets
+Object 47       obj47_Main_Deck
+Object 48       obj48_Yokohama
+Object 49       obj49_Wharf
+Object 50       obj50_Secret_Room
+Object 51       obj51_Inner_Corridor
+Object 52       obj52_Audience_Chamber
+Object 53       obj53_In_the_Sea
+Object 54       obj54_Outside_Prison
+Object 55       obj55_Servants__Quarters
+Object 56       obj56_Passageway
+Object 57       obj57_Bridge
+Object 58       obj58_Bath_House
+Object 59       obj59_Warehouse
+Object 60       obj60_Cellars
+Object 61       obj61_Mates__Cabin
+Object 62       obj62_Bath_House
+Object 63       obj63_Village_Square
+Object 64       obj64_Captain_s_Cabin
+Object 65       obj65_Pilot_s_Cabin
+Object 66       obj66_Balcony
+Object 67       obj67_Formal_Garden
+Object 68       obj68_Ledge
+Object 69       obj69_Waterfront
+Object 70       obj70_North_of_Corridor
+Object 71       obj71_Ledge
+Object 72       obj72_Portcullis
+Object 73       obj73_Harbor
+Object 74       obj74_Rocky_Shore
+Object 75       obj75_Sekigahara
+Object 76       obj76_oars
+Object 77       obj77_your_rutter
+Object 78       obj78_offal
+Object 79       obj79_rutters
+Object 80       obj80_Yamazaki
+Object 81       obj81_bolt
+Object 82       obj82_powder_horn
+Object 83       obj83_messenger
+Object 84       obj84_hand
+Object 85       obj85_west_wall
+Object 86       obj86_bandit_leader
+Object 87       obj87_oars
+Object 88       obj88_Mates
+Object 89       obj89_bottom_catch
+Object 90       obj90_Japan
+Object 91       obj91_this
+Object 92       obj92_dim_figures
+Object 93       obj93_Shogun
+Object 94       obj94_Ginsel
+Object 95       obj95_peregrine
+Object 96       obj96_Japanese
+Object 97       obj97_iron_door
+Object 98       obj98_Lady_Etsu
+Object 99       obj99_request
+Object 100      obj100_help
+Object 101      obj101_head
+Object 102      obj102_dirt
+Object 103      obj103_guards
+Object 104      obj104_quotation
+Object 105      obj105_stomach
+Object 106      obj106_England
+Object 107      obj107_cup
+Object 108      obj108_bath_tub
+Object 109      obj109_Vinck
+Object 110      obj110_Ishido
+Object 111      obj111_cauldron
+Object 112      obj112_The_Lizard
+Object 113      obj113_mouth
+Object 114      obj114_rope
+Object 115      obj115_secret_Portuguese_rutter
+Object 116      obj116_them
+Object 117      obj117_pair_of_sticks
+Object 118      obj118_bath_tub
+Object 119      obj119_sea_chest
+Object 120      obj120_English
+Object 121      obj121_Yabu
+Object 122      obj122_Goroda
+Object 123      obj123_gunwale
+Object 124      obj124_quill
+Object 125      obj125_cross
+Object 126      obj126_balcony_door
+Object 127      obj127_heretic
+Object 128      obj128_Captain_General_Spillbergen
+Object 129      obj129_long_straw
+Object 130      obj130_sword
+Object 131      obj131_air
+Object 132      obj132_Yoshinaka
+Object 133      obj133_light
+Object 134      obj134_her
+Object 135      obj135_women
+Object 136      obj136_madman
+Object 137      obj137_plan
+Object 138      obj138_broken_oar
+Object 139      obj139_what
+Object 140      obj140_Jan_Roper
+Object 141      obj141_palanquin
+Object 142      obj142
+Object 143      obj143_Erasmus
+Object 144      obj144_red_lacquered_tray
+Object 145      obj145_young_Gray_samurai
+Object 146      obj146
+Object 147      obj147_servants
+Object 148      obj148_balls
+Object 149      obj149_robe
+Object 150      obj150_rosary
+Object 151      obj151_daimyo
+Object 152      obj152
+Object 153      obj153_gangway
+Object 154      obj154_feet
+Object 155      obj155_focsle_door
+Object 156      obj156_crewmen
+Object 157      obj157_it
+Object 158      obj158_bunk
+Object 159      obj159
+Object 160      lg_bay
+Object 161      obj161_Magellan_s_Pass
+Object 162      obj162_loincloth
+Object 163      obj163_Toranaga
+Object 164      obj164_body
+Object 165      obj165_earthquake
+Object 166      obj166_Kojima
+Object 167      obj167_food
+Object 168      obj168_galley
+Object 169      obj169_Vinck_s_straw
+Object 170      obj170_towel
+Object 171      obj171
+Object 172      obj172_Yabu
+Object 173      obj173_manicured_path
+Object 174      obj174_Kiritsubo_s_curtained_litter
+Object 175      obj175_barbarian
+Object 176      obj176_sleep
+Object 177      obj177_veil
+Object 178      obj178_inner_shoji
+Object 179      obj179_wind
+Object 180      obj180
+Object 181      obj181_fingers
+Object 182      obj182_short_straw
+Object 183      obj183_anchor
+Object 184      obj184_pseudoxxx
+Object 185      obj185
+Object 186      obj186_leader
+Object 187      obj187_stream
+Object 188      obj188_Gyoko
+Object 189      obj189_world
+Object 190      obj190_silk_ribbon
+Object 191      obj191_guest
+Object 192      obj192
+Object 193      obj193_food
+Object 194      obj194_fortified_gate
+Object 195      obj195_Satan
+Object 196      obj196_Buntaro
+Object 197      obj197_large_knife
+Object 198      obj198_ninja
+Object 199      obj199_Kiritsubo
+Object 200      obj200_kimono
+Object 201      obj201_east_wall
+Object 202      obj202_noise
+Object 203      obj203_yourself
+Object 204      obj204_official
+Object 205      obj205
+Object 206      obj206_passageway_door
+Object 207      obj207_north_wall
+Object 208      obj208_ninja
+Object 209      obj209_outer_shoji
+Object 210      obj210_eta
+Object 211      obj211_crates__barrels__and_boxes
+Object 212      obj212_green_silk_ribbon
+Object 213      obj213_Kiyama
+Object 214      obj214_vase
+Object 215      obj215_swords
+Object 216      obj216_Portugal
+Object 217      obj217_pirate
+Object 218      obj218_small_knife
+Object 219      obj219_small_bridge
+Object 220      obj220_Spanish
+Object 221      obj221_gruel
+Object 222      lg_sea
+Object 223      obj223
+Object 224      obj224_flagon
+Object 225      obj225_hatamoto
+Object 226      obj226_Mates__cabin_door
+Object 227      obj227_samurai_guards
+Object 228      obj228_west_shoji
+Object 229      obj229_old_priest
+Object 230      obj230_severed_head
+Object 231      obj231_voyage
+Object 232      obj232_narrow_ledge
+Object 233      obj233_west_shoji
+Object 234      obj234_caltrops
+Object 235      obj235_ceiling
+Object 236      obj236_cliff
+Object 237      Blackthorne
+Object 238      obj238_villagers
+Object 239      obj239_fire_bomb
+Object 240      obj240_ground
+Object 241      obj241_west_shoji
+Object 242      obj242_prison_gate
+Object 243      obj243_archers
+Object 244      obj244_severed_heads
+Object 245      obj245_your_boots
+Object 246      obj246_quilt
+Object 247      obj247_Gray_Captain
+Object 248      obj248_seawater
+Object 249      obj249_skiff
+Object 250      obj250_Kiku
+Object 251      obj251_ninja_leader
+Object 252      obj252_roll_of_parchment
+Object 253      obj253
+Object 254      obj254_straw
+Object 255      obj255_Osaka_castle
+Object 256      obj256_plant
+Object 257      obj257_outer_door
+Object 258      obj258_kimono
+Object 259      obj259_samurai_guards
+Object 260      obj260_garden_gate
+Object 261      obj261_trapdoor
+Object 262      obj262_Rodrigues
+Object 263      obj263_iron_bar
+Object 264      obj264_myself
+Object 265      obj265_Taiko
+Object 266      obj266_men
+Object 267      obj267_Church
+Object 268      obj268_him
+Object 269      obj269_wheel
+Object 270      party_kimonos
+Object 271      obj271_Queen_Elizabeth
+Object 272      obj272_side_fissure
+Object 273      obj273_pedestal
+Object 274      obj274_camellia_blossom
+Object 275      obj275_Zataki
+Object 276      obj276_small_boat
+Object 277      obj277_top_catch
+Object 278      obj278_your_clothes
+Object 279      obj279_Salamon
+Object 280      obj280_reef
+Object 281      obj281_Sazuko
+Object 282      obj282_Sumiyori
+Object 283      obj283_Latin
+Object 284      obj284_Maetsukker
+Object 285      obj285_gate
+Object 286      obj286
+Object 287      obj287_bandits
+Object 288      obj288_smoke
+Object 289      obj289_pistol
+Object 290      obj290_number
+Object 291      obj291_Lady_Ochiba
+Object 292      obj292_detachment_of_ronin
+Object 293      obj293_Brown_uniformed_samurai
+Object 294      obj294_guest
+Object 295      obj295_Chimmoko
+Object 296      obj296_house
+Object 297      obj297_wall
+Object 298      obj298_Achiko
+Object 299      obj299_Pilot_s_cabin_door
+Object 300      obj300_Spain
+Object 301      obj301_crowd_of_villagers
+Object 302      obj302_main_fissure
+Object 303      obj303_high_wall
+Object 304      obj304_latitude
+Object 305      obj305_Captain_s_cabin_door
+Object 306      obj306_Japanese_dictionary
+Object 307      obj307_Gray_Leader
+Object 308      obj308_tiny_bruised_apple
+Object 309      obj309_bed
+Object 310      obj310_Trinity_House
+Object 311      obj311_secret_door
+Object 312      obj312_head
+Object 313      obj313_rusty_key
+Object 314      obj314_rock
+Object 315      obj315_galley
+Object 316      obj316_hanase_masen
+Object 317      obj317_slippers
+Object 318      obj318_Portuguese
+Object 319      obj319_God
+Object 320      obj320_Pope
+Object 321      obj321_swords
+Object 322      obj322_safety_line
+Object 323      obj323_Holland
+Object 324      obj324_priest_s_henchmen
+Object 325      obj325_crack
+Object 326      obj326_fishing_village
+Object 327      obj327_Baccus_van_Nekk
+Object 328      obj328_Yoshinaka
+Object 329      obj329_foresails
+Object 330      obj330_eyes
+Object 331      obj331_desk
+Object 332      obj332_Croocq
+Object 333      obj333_traitor
+Object 334      obj334_Dutch
+Object 335      obj335_course
+Object 336      obj336_line
+Object 337      obj337
+Object 338      obj338_attacking_Grays
+Object 339      obj339_protective_lashing
+Object 340      obj340_prep_phrase
+Object 341      obj341_Pacific_Ocean
+Object 342      obj342_Sonk
+Object 343      obj343_oarsmen
+Object 344      obj344_hole
+Object 345      obj345_here
+Object 346      obj346_land
+Object 347      obj347_Gray_uniformed_samurai
+Object 348      obj348_crucifix
+Object 349      obj349_pair_of_sandals
+Object 350      obj350_socks
+Object 351      obj351_sea_chair
+Object 352      obj352_compass
+Object 353      obj353
+Object 354      obj354_desk
+Object 355      obj355_lily_pond
+Object 356      obj356_rope
+Object 357      prophecy
+Object 358      obj358_helm
+Object 359      obj359_suicide
+Object 360      bulldog
+Object 361      obj361_secret_drawer
+Object 362      obj362_wooden_life_ring
+Object 363      obj363_samurai
+Object 364      obj364_Hendrik_Specz
+Object 365      losing_samurai
+Object 366      obj366_sane
+Object 367      obj367_water
+Object 368      obj368_Mura
+Object 369      local_globals
+Object 370      obj370_dagger
+Object 371      obj371_deck
+Object 372      obj372_iron_bound_door
+Object 373      obj373_little_waterfall
+Object 374      obj374_small_boat
+Object 375      obj375_ship
+Object 376      obj376_bell
+Object 377      obj377
+Object 378      obj378_teki
+Object 379      obj379_portcullis
+Object 380      obj380_Pieterzoon
+Object 381      obj381_path
+Object 382      search_party
+Object 383      obj383_iron_barred_inner_door
+Object 384      obj384_south_wall
+Object 385      obj385_crucifix
+Object 386      obj386_Mariko_s_litter
+Object 387      obj387_east_shoji
+Object 388      obj388_crewmen
+Object 389      obj389_cortege
+Object 390      obj390_secret_door
+Object 391      obj391_door
+Object 392      obj392_east_shoji
+Object 393      obj393_adjective
+Object 394      obj394_insane
+Object 395      obj395_Jesuits
+Object 396      obj396_apelike_man
+Object 397      obj397_direction
+Object 398      obj398_passage
+Object 399      obj399_ladder
+Object 400      obj400_anchor
+Object 401      obj401_cherry_blossom
+Object 402      obj402_east_shoji
+Object 403      obj403_dais
+Object 404      obj404_curtains
+Object 405      obj405_Black_Ship
+
+
+
+! ------------------------------ Actions -------------------------------
+
+Action   0 Greet
+Action   1 Dance
+Action   2 Gomen
+Action   3 Board
+Action   4 Unlock
+Action   5 Tie
+Action   6 Explode
+Action   7 Refresh
+Action   8 Leave
+Action   9 Choose
+Action  10 Kneel
+Action  11 Cover
+Action  12 Escape
+Action  13 Let
+Action  14 Erase
+Action  15 Teki
+Action  16 Hai
+Action  17 Cross
+Action  18 Can
+Action  19 Konbanwa
+Action  20 Slide
+Action  21 Urinate
+Action  22 Rinse
+Action  23 Domo
+Action  24 Hint
+Action  25 Pretend
+Action  26 Love
+Action  27 Shout
+Action  28 Smell
+Action  29 Might
+Action  30 Dress
+Action  31 Die
+Action  32 Ring
+Action  33 Credits
+Action  34 Goodbye
+Action  35 Dig
+Action  36 Block
+Action  37 Would
+Action  38 Genki
+Action  39 Konnichi
+Action  40 Ask
+Action  41 Babble
+Action  42 Stow
+Action  43 Buy
+Action  44 Undress
+Action  45 Save
+Action  46 Listen
+Action  47 Annoy
+Action  48 Reach
+Action  49 RandomSeed
+Action  50 Trade
+Action  51 Restart
+Action  52 Raise
+Action  53 Use
+Action  54 Time
+Action  55 Sleep
+Action  56 Be
+Action  57 Commit
+Action  58 Sort
+Action  59 Examine
+Action  60 How
+Action  61 Compare
+Action  62 Keep
+Action  63 Close
+Action  64 Sell
+Action  65 Sheathe
+Action  66 Order
+Action  67 Turn
+Action  68 Aim
+Action  69 Bite
+Action  70 Wedge
+Action  71 BeP
+Action  72 Iye
+Action  73 Unrecord
+Action  74 Paddle
+Action  75 Brief
+Action  76 Go
+Action  77 Kinjiru
+Action  78 Descend
+Action  79 Read
+Action  80 Should
+Action  81 Inventory
+Action  82 Sit
+Action  83 Fuck
+Action  84 Straighten
+Action  85 Wakarimas
+Action  86 Count
+Action  87 Smile
+Action  88 Warn
+Action  90 Replace
+Action  90 Kick
+Action  91 Shoot
+Action  92 Curse
+Action  93 Wave
+Action  94 Move
+Action  95 Load
+Action  96 Bow
+Action  97 Nod
+Action  98 Scare
+Action  99 Beg
+Action 100 Undo
+Action 101 Verify
+Action 102 Untie
+Action 103 Apply
+Action 104 Isogi
+Action 105 Sing
+Action 106 Admire
+Action 107 Lock
+Action 108 Melt
+Action 109 Fill
+Action 110 Find
+Action 111 Point
+Action 112 Destroy
+Action 113 Script
+Action 114 Unscrew
+Action 115 Taste
+Action 116 Rough
+Action 117 Could
+Action 118 Sharpen
+Action 119 Fight
+Action 120 Skip
+Action 121 Quiet
+Action 122 Laugh
+Action 123 Clear
+Action 124 Okay
+Action 125 Resist
+Action 126 Accuse
+Action 127 Lower
+Action 128 Lean
+Action 129 Soothe
+Action 130 Bless
+Action 131 Yawn
+Action 132 Push
+Action 133 Neh
+Action 134 Pray
+Action 135 Follow
+Action 136 Score
+Action 137 Look
+Action 138 Kiss
+Action 139 Shed
+Action 140 Enter
+Action 141 Say
+Action 142 Lie
+Action 143 Tell
+Action 144 Sail
+Action 145 Pry
+Action 146 Torture
+Action 147 Pace
+Action 148 Disembark
+Action 149 Launch
+Action 150 Ship
+Action 151 Thanks
+Action 152 Print
+Action 153 Bargain
+Action 154 Bring
+Action 155 Blow
+Action 156 Must
+Action 157 Will
+Action 158 Stand
+Action 159 Wink
+Action 160 Scale
+Action 161 Leap
+Action 162 Unseal
+Action 163 Thrust
+Action 164 Show
+Action 165 Where
+Action 166 Sip
+Action 167 Extingui
+Action 168 Record
+Action 169 Pitch
+Action 170 Dozo
+Action 171 Blind
+Action 172 Notify
+Action 173 Mizu
+Action 174 May
+Action 175 Who
+Action 176 Eat
+Action 177 Unscript
+Action 178 Construct
+Action 179 Hang
+Action 180 Do
+Action 181 Ignite
+Action 182 Reply
+Action 183 Start
+Action 184 Come
+Action 185 What
+Action 186 #command
+Action 187 Patch
+Action 188 Hold
+Action 189 Bury
+Action 190 Quit
+Action 191 Heat
+Action 192 When
+Action 193 Version
+Action 194 Revive
+Action 195 No
+Action 196 Teach
+Action 197 Speak
+Action 198 Light
+Action 199 Wait
+Action 200 Trip
+Action 201 Superbrie
+Action 202 Why
+Action 203 Give
+Action 204 Define
+Action 205 Avoid
+Action 206 Pour
+Action 207 Hug
+Action 208 Shake
+Action 209 Roll
+Action 210 Sketch
+Action 211 Verbose
+Action 212 Learn
+Action 213 Sorry
+Action 214 Catch
+Action 215 Join
+Action 216 Pat
+Action 217 Clean
+Action 218 Wear
+Action 219 Attend
+Action 220 Dive
+Action 221 Search
+Action 222 Lay
+Action 223 Dry
+Action 224 Restore
+Action 225 Relieve
+Action 226 Shrug
+Action 227 Pick
+Action 228 Cut
+Action 229 Approach
+Action 230 Retch
+Action 231 Plug
+Action 232 Betray
+Action 233 Translate
+Action 234 Diagnose
+Action 235 Wade
+Action 236 Color
+Action 237 Hide
+Action 238 Knock
+Action 239 Know
+Action 240 Murder
+Action 241 Hit
+Action 242 Drop
+Action 243 Duck
+Action 244 Train
+Action 245 Exit
+Action 246 Nihon
+Action 247 Rip
+Action 248 Thou
+Action 249 Tomo
+Action 250 Pull
+
+! ------------------------------ Routines ------------------------------
+
+
+Routine  0xc4a4 routine50340 local1 
+Routine  0xc4b4 routine50356 
+Routine  0xc4d4 routine50388 local1 local2 local3 local4 local5 
+Routine  0xc504 routine50436 local1 
+Routine  0xc548 routine50504 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xc658 routine50776 local1 local2 
+Routine  0xc6c4 routine50884 local1 local2 local3 local4 local5 
+Routine  0xc91c routine51484 local1 local2 local3 local4 local5 
+Routine  0xc984 routine51588 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0xcab0 routine51888 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0xcd68 routine52584 local1 local2 local3 local4 
+Routine  0xcd98 routine52632 local1 local2 local3 
+Routine  0xcdc0 routine52672 local1 local2 
+Routine  0xce18 routine52760 local1 
+Routine  0xce20 routine52768 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0xd1a8 routine53672 local1 local2 local3 local4 
+Routine  0xd1fc routine53756 local1 local2 local3 local4 
+Routine  0xd230 routine53808 local1 local2 
+Routine  0xd25c routine53852 local1 local2 local3 local4 
+Routine  0xd300 routine54016 local1 
+Routine  0xd330 routine54064 local1 local2 local3 local4 
+Routine  0xd384 routine54148 local1 local2 local3 local4 
+Routine  0xd3b0 routine54192 local1 
+Routine  0xd3f0 routine54256 
+Routine  0xd400 routine54272 local1 local2 
+Routine  0xd43c routine54332 local1 local2 local3 
+Routine  0xd460 routine54368 local1 local2 local3 
+Routine  0xd4bc routine54460 local1 local2 local3 local4 
+Routine  0xd570 routine54640 local1 local2 
+Routine  0xd61c routine54812 local1 local2 local3 local4 local5 local6 
+Routine  0xd6a0 routine54944 local1 local2 
+Routine  0xd6a4 routine54948 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xd724 routine55076 local1 local2 local3 local4 local5 
+Routine  0xd750 routine55120 local1 local2 
+Routine  0xd798 routine55192 local1 local2 local3 local4 
+Routine  0xd80c routine55308 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xd850 routine55376 local1 
+Routine  0xd86c routine55404 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0xd9a4 routine55716 local1 local2 local3 local4 local5 local6 
+Routine  0xda00 routine55808 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xdaa4 routine55972 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xdb04 routine56068 local1 local2 local3 
+Routine  0xdb34 routine56116 local1 local2 local3 local4 local5 local6 
+Routine  0xdb80 routine56192 local1 local2 
+Routine  0xdb94 routine56212 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0xdcd4 routine56532 local1 
+Routine  0xdcd8 routine56536 
+Routine  0xdcdc routine56540 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0xdf94 routine57236 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0xe08c routine57484 local1 
+Routine  0xe090 routine57488 local1 local2 
+Routine  0xe0a0 routine57504 local1 local2 local3 local4 
+Routine  0xe0fc routine57596 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0xe188 routine57736 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xe224 routine57892 local1 local2 local3 local4 
+Routine  0xe258 routine57944 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xe2a4 routine58020 local1 local2 local3 local4 local5 local6 
+Routine  0xe364 routine58212 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0xe438 routine58424 local1 local2 local3 
+Routine  0xe468 routine58472 local1 local2 local3 local4 
+Routine  0xe498 routine58520 local1 local2 
+Routine  0xe4c4 routine58564 local1 local2 
+Routine  0xe4e8 routine58600 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xe55c routine58716 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0xe6c8 routine59080 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 
+Routine  0xe8e8 routine59624 local1 local2 local3 local4 local5 local6 
+Routine  0xe974 routine59764 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xe9b8 routine59832 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0xed54 routine60756 local1 local2 local3 
+Routine  0xed8c routine60812 local1 local2 local3 local4 local5 
+Routine  0xedcc routine60876 local1 local2 local3 
+Routine  0xee00 routine60928 local1 local2 local3 
+Routine  0xee28 routine60968 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xee80 routine61056 local1 local2 
+Routine  0xeec4 routine61124 local1 local2 local3 local4 local5 
+Routine  0xef3c routine61244 local1 local2 local3 local4 local5 local6 
+Routine  0xefd8 routine61400 local1 local2 local3 local4 local5 
+Routine  0xf0b4 routine61620 local1 local2 local3 
+Routine  0xf0e8 routine61672 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0xf3c4 routine62404 local1 local2 local3 local4 
+Routine  0xf4c4 routine62660 local1 local2 local3 local4 local5 
+Routine  0xf534 routine62772 local1 local2 local3 local4 local5 local6 
+Routine  0xf5a0 routine62880 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0xf64c routine63052 local1 local2 local3 local4 local5 local6 
+Routine  0xf68c routine63116 local1 local2 local3 local4 
+Routine  0xf6b8 routine63160 local1 local2 
+Routine  0xf6c8 routine63176 local1 local2 
+Routine  0xf6dc routine63196 local1 local2 local3 local4 
+Routine  0xf704 routine63236 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0xf86c routine63596 local1 local2 local3 local4 local5 local6 
+Routine  0xf8b0 routine63664 local1 local2 local3 local4 local5 
+Routine  0xf8e4 routine63716 local1 local2 local3 local4 local5 
+Routine  0xf92c routine63788 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0xfab8 routine64184 local1 local2 local3 local4 
+Routine  0xfb34 routine64308 local1 local2 
+Routine  0xfb48 routine64328 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xfbd8 routine64472 local1 local2 
+Routine  0xfbe4 routine64484 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xfcd0 routine64720 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xfdc8 routine64968 local1 local2 
+Routine  0xfdd4 routine64980 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xfec4 routine65220 local1 local2 
+Routine  0xfed0 routine65232 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xffd8 routine65496 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x10104 routine65796 local1 
+Routine  0x10124 routine65828 local1 
+Routine  0x10134 routine65844 local1 local2 local3 
+Routine  0x10150 routine65872 local1 local2 local3 
+Routine  0x10164 routine65892 local1 local2 local3 
+Routine  0x10178 routine65912 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x103f8 routine66552 local1 local2 
+Routine  0x10420 routine66592 
+Routine  0x1043c routine66620 local1 local2 local3 
+Routine  0x104a0 routine66720 local1 local2 
+Routine  0x104fc routine66812 local1 local2 
+Routine  0x10524 routine66852 
+Routine  0x10534 routine66868 local1 local2 local3 local4 
+Routine  0x1056c routine66924 local1 
+Routine  0x1057c routine66940 
+Routine  0x10590 routine66960 local1 local2 local3 
+Routine  0x105bc routine67004 
+Routine  0x105cc routine67020 
+Routine  0x105ec routine67052 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x107b4 routine67508 
+Routine  0x107bc routine67516 local1 local2 local3 
+Routine  0x1083c routine67644 local1 
+Routine  0x10938 routine67896 local1 local2 
+Routine  0x10990 routine67984 local1 
+Routine  0x109c4 routine68036 local1 local2 local3 
+Routine  0x10a04 routine68100 local1 local2 
+Routine  0x10a30 routine68144 local1 local2 local3 local4 local5 
+Routine  0x10a50 routine68176 local1 local2 local3 local4 local5 local6 
+Routine  0x10aac routine68268 local1 
+Routine  0x10ad4 routine68308 local1 
+Routine  0x10b04 routine68356 local1 
+Routine  0x10b30 routine68400 local1 
+Routine  0x10b5c routine68444 local1 
+Routine  0x10b68 routine68456 local1 
+Routine  0x10b74 routine68468 
+Routine  0x10b80 routine68480 
+Routine  0x10b8c routine68492 local1 
+Routine  0x10b98 routine68504 
+Routine  0x10ba0 routine68512 
+Routine  0x10ba8 routine68520 local1 local2 
+Routine  0x10bc0 routine68544 
+Routine  0x10bcc routine68556 
+Routine  0x10bd4 routine68564 
+Routine  0x10bdc routine68572 local1 local2 
+Routine  0x10c1c routine68636 
+Routine  0x10c24 routine68644 
+Routine  0x10c2c routine68652 local1 local2 local3 local4 
+Routine  0x10ca0 routine68768 local1 local2 
+Routine  0x10cb0 routine68784 local1 local2 local3 local4 local5 local6 
+Routine  0x10cf4 routine68852 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x10d5c routine68956 local1 local2 
+Routine  0x10d94 routine69012 
+Routine  0x10df0 routine69104 
+Routine  0x110e0 routine69856 
+Routine  0x1111c routine69916 local1 local2 local3 
+Routine  0x11144 routine69956 local1 local2 
+Routine  0x11194 routine70036 local1 
+Routine  0x111bc routine70076 local1 local2 
+Routine  0x1125c routine70236 local1 
+Routine  0x11270 routine70256 
+Routine  0x112c4 routine70340 
+Routine  0x112cc routine70348 local1 local2 
+Routine  0x112e4 routine70372 local1 local2 local3 
+Routine  0x1130c routine70412 local1 local2 local3 local4 local5 local6 
+Routine  0x11364 routine70500 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1142c routine70700 local1 local2 local3 local4 local5 
+Routine  0x1145c routine70748 local1 local2 
+Routine  0x11468 routine70760 local1 
+Routine  0x11474 routine70772 local1 
+Routine  0x11480 routine70784 local1 
+Routine  0x1148c routine70796 local1 local2 local3 local4 
+Routine  0x114a0 routine70816 local1 local2 local3 local4 
+Routine  0x114c4 routine70852 local1 
+Routine  0x114d4 routine70868 local1 local2 local3 local4 local5 
+Routine  0x114e4 routine70884 local1 
+Routine  0x114f4 routine70900 local1 
+Routine  0x11504 routine70916 local1 local2 local3 
+Routine  0x11518 routine70936 local1 local2 local3 
+Routine  0x1152c routine70956 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x11554 routine70996 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1157c routine71036 
+Routine  0x11584 routine71044 
+Routine  0x1158c routine71052 
+Routine  0x11594 routine71060 local1 local2 local3 
+Routine  0x115b8 routine71096 local1 local2 
+Routine  0x115d8 routine71128 local1 local2 local3 local4 
+Routine  0x11660 routine71264 local1 
+Routine  0x1167c routine71292 local1 
+Routine  0x11698 routine71320 local1 local2 local3 local4 local5 local6 
+Routine  0x11710 routine71440 local1 local2 local3 local4 
+Routine  0x11748 routine71496 local1 
+Routine  0x11790 routine71568 local1 local2 local3 
+Routine  0x117ec routine71660 local1 local2 local3 local4 local5 local6 
+Routine  0x11864 routine71780 
+Routine  0x11874 routine71796 
+Routine  0x11880 routine71808 local1 
+Routine  0x118b0 routine71856 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x11bf8 routine72696 local1 local2 local3 local4 local5 
+Routine  0x11c44 routine72772 local1 local2 local3 local4 local5 
+Routine  0x11c94 routine72852 local1 local2 local3 local4 local5 local6 
+Routine  0x11cec routine72940 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x11dc4 routine73156 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x11e1c routine73244 
+Routine  0x11e40 routine73280 
+Routine  0x11e64 routine73316 
+Routine  0x11e68 routine73320 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 local15 
+Routine  0x11f98 routine73624 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 
+Routine  0x12170 routine74096 local1 local2 
+Routine  0x12184 routine74116 local1 local2 
+Routine  0x121a0 routine74144 local1 
+Routine  0x121b0 routine74160 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x12200 routine74240 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x122b8 routine74424 local1 local2 
+Routine  0x12308 routine74504 local1 local2 local3 local4 local5 
+Routine  0x124bc routine74940 local1 local2 
+Routine  0x124dc routine74972 local1 local2 
+Routine  0x12594 routine75156 local1 local2 local3 local4 
+Routine  0x12604 routine75268 local1 
+Routine  0x12618 routine75288 local1 
+Routine  0x1262c routine75308 
+Routine  0x12694 routine75412 local1 local2 local3 local4 
+Routine  0x1272c routine75564 local1 local2 local3 local4 
+Routine  0x12778 routine75640 local1 local2 local3 local4 
+Routine  0x127c8 routine75720 local1 
+Routine  0x127dc routine75740 local1 local2 
+Routine  0x127f4 routine75764 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x1298c routine76172 local1 local2 local3 
+Routine  0x129d8 routine76248 
+Routine  0x129f4 routine76276 
+Routine  0x12a00 routine76288 
+Routine  0x12a1c routine76316 local1 local2 local3 local4 local5 local6 
+Routine  0x12a9c routine76444 local1 local2 local3 local4 
+Routine  0x12b30 routine76592 local1 local2 local3 local4 
+Routine  0x12c1c routine76828 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x12dac routine77228 local1 local2 
+Routine  0x12e38 routine77368 local1 
+Routine  0x12e50 routine77392 local1 local2 
+Routine  0x12e84 routine77444 local1 local2 
+Routine  0x12ea8 routine77480 local1 
+Routine  0x12ebc routine77500 local1 
+Routine  0x12ed8 routine77528 
+Routine  0x12ee0 routine77536 
+Routine  0x12f08 routine77576 
+Routine  0x12f10 routine77584 
+
+! verbs.zil
+Routine  0x12f18 Youll_have_to str:string
+Routine  0x12f24 To_a_prso
+Routine  0x12f30 Cant_go
+Routine  0x12f3c Not_holding obj:object
+Routine  0x12f54 Its_empty
+Routine  0x12f64 Its_already_x x:string
+Routine  0x12f74 Already_open
+Routine  0x12f80 Already_closed
+Routine  0x12f8c With_prsi
+Routine  0x12f98 Tell_open_closed obj:object
+Routine  0x12fbc Open_closed obj:object
+Routine  0x12fd0 The_prso
+Routine  0x12fd8 A_prso
+Routine  0x12fe0 A_prso_p
+Routine  0x12fe8 The_prsi
+Routine  0x12ff0 A_prsi_p
+Routine  0x12ff8 You_cant_X_that x:string
+Routine  0x13024 You_cant_X_prso x:string
+Routine  0x13040 Uninterested obj:object
+Routine  0x1306c PluralP obj:object
+Routine  0x13074 Cant_reach_That
+Routine  0x13080 V_Verbose
+Routine  0x13098 V_Brief
+Routine  0x130a8 V_Super_brief
+Routine  0x130bc V_Diagnose
+Routine  0x13110 V_Inventory
+Routine  0x1313c V_Quit askp:bool scorep:bool scor
+Routine  0x13174 V_Choose
+Routine  0x13194 V_Restart
+Routine  0x131bc V_Finish eogp:bool
+Routine  0x131f4 Finish_menu_f which menu
+Routine  0x13254 V_Restore
+Routine  0x13260 V_Save x lcnt:int crc:int
+Routine  0x1330c V_Undo val
+Routine  0x13338 V_Score askp:bool s
+Routine  0x133d4 V_Script
+Routine  0x13404 V_Unscript
+Routine  0x13428 V_Version cp:bool
+Routine  0x135f0 Pcenter str:string str1:string str2:string
+Routine  0x13608 V_Credits
+Routine  0x1366c V_Verify
+Routine  0x136b4 V_Wake
+Routine  0x136d4 V_Answer
+Routine  0x13740 V_Pre_Ask_About p
+Routine  0x13770 V_Ask_About
+Routine  0x13794 Find_in where:object what:object what_not w
+Routine  0x137c0 Pre_Ask_For
+Routine  0x137c8 V_Ask_For
+Routine  0x13800 Pre_Attack w:object
+Routine  0x13818 V_Attack
+Routine  0x13824 V_Hit
+Routine  0x13830 V_Bite
+Routine  0x1383c Pre_Board av dir
+Routine  0x138c8 You_are_in av
+Routine  0x138e4 V_Board av
+Routine  0x13904 V_Burn
+Routine  0x13920 V_Chastise
+Routine  0x1396c V_Climb_down
+Routine  0x1397c V_Climb_foo
+Routine  0x1398c V_Climb_on
+Routine  0x139ac V_Climb_over
+Routine  0x139b4 V_Climb_up
+Routine  0x139c4 V_Close
+Routine  0x13a28 V_Close_a_dor
+Routine  0x13a3c In_darkP diep olit:bool
+Routine  0x13a4c Okay_the_prso_is_now str:string
+Routine  0x13a5c V_Compare_many
+Routine  0x13a8c V_Waste_of_time
+Routine  0x13a90 V_Compare
+Routine  0x13a94 V_Cross
+Routine  0x13aa0 V_Curse
+Routine  0x13b14 V_Cut
+Routine  0x13b60 V_Dig
+Routine  0x13ba0 V_Disembark av
+Routine  0x13c18 V_Drink s
+Routine  0x13c24 V_Drink_From unused
+Routine  0x13c2c Pre_Drop
+Routine  0x13c3c V_Drop
+Routine  0x13c58 V_Eat h
+Routine  0x13cac V_Enter
+Routine  0x13cc0 Pre_Examine p
+Routine  0x13cf0 V_Exmine h
+Routine  0x13d50 Prso_nothing_special
+Routine  0x13d5c V_Exit
+Routine  0x13d9c V_Fill
+Routine  0x13db4 V_Find where l
+Routine  0x13eac V_Follow tmp lp dir
+Routine  0x13f24 Pre_Give
+Routine  0x13f40 V_Give
+Routine  0x13f64 V_Goodbye owinner:object
+Routine  0x13fb0 V_Hello owinner:object
+Routine  0x14004 V_Help
+Routine  0x14058 V_Hide
+Routine  0x140a4 V_Hide_behind
+Routine  0x140d0 V_Hide_under
+Routine  0x140dc V_Hide_from
+Routine  0x140e8 V_Kick
+Routine  0x14130 V_Kill
+Routine  0x14148 IKill str:string
+Routine  0x14268 Not_trained who:object
+Routine  0x142a0 V_Knock
+Routine  0x142d0 V_Kiss
+Routine  0x14360 V_Lamp_off
+Routine  0x14368 V_Lamp_on
+Routine  0x14370 V_Lean_on
+Routine  0x14378 V_Leap
+Routine  0x143c4 V_Leave
+Routine  0x14400 V_Listen
+Routine  0x14460 Cant_X_with_prsi str:string
+Routine  0x14474 V_Lock
+Routine  0x144ac No_lock
+Routine  0x144bc V_Introduce tmp
+Routine  0x144ec V_After tmp rm:object
+Routine  0x14510 Time_passes
+Routine  0x1451c Next_scene
+Routine  0x14528 Failed_scene
+Routine  0x14530 New_scene sc s sa sp
+Routine  0x145c0 I_new_scene sc
+Routine  0x145f4 Score_Have
+Routine  0x14604 Score_Max
+Routine  0x14614 Continue_menu_f which menu
+Routine  0x14638 V_First_look
+Routine  0x14658 V_Look
+Routine  0x14668 V_Look_behind
+Routine  0x146ac V_Look_down
+Routine  0x146dc What_contents
+Routine  0x14700 V_Look_inside
+Routine  0x1478c V_Look_on
+Routine  0x147c0 V_Look_under
+Routine  0x147dc V_Lower
+Routine  0x147fc V_Melt
+Routine  0x14804 V_Move
+Routine  0x14878 Hostile_VerbP
+Routine  0x148a8 routine84136 
+Routine  0x148f4 routine84212 
+Routine  0x14928 routine84264 
+Routine  0x14944 routine84292 local1 
+Routine  0x14954 routine84308 local1 
+Routine  0x149b4 routine84404 
+Routine  0x149c0 Pre_Open
+Routine  0x149e4 V_Open f str
+Routine  0x14ac4 V_Pick
+Routine  0x14ad0 V_Plug
+Routine  0x14ad8 V_Point
+Routine  0x14b20 V_Pour_From
+Routine  0x14b38 PrePour
+Routine  0x14b44 V_Pour
+Routine  0x14b64 Empty_All from to f n r frst
+Routine  0x14bb0 V_Push
+Routine  0x14bbc V_Push_To
+Routine  0x14be0 PrePut l:object
+Routine  0x14c38 Take_Out_First obj:object cont:object
+Routine  0x14c58 V_Put w
+Routine  0x14d08 Prso_too_bigP
+Routine  0x14d2c Inspect_reveals obj:object
+Routine  0x14d54 V_Put_behind
+Routine  0x14d70 V_Put_on
+Routine  0x14dec No_good_surface
+Routine  0x14e04 V_Put_under
+Routine  0x14e10 V_Raise
+Routine  0x14e64 V_Reach_in
+Routine  0x14e9c PreRead
+Routine  0x14ebc How_do_you
+Routine  0x14ecc V_Read
+Routine  0x14ee8 V_Reply
+Routine  0x14f34 Pre_Srub
+Routine  0x14f3c V_Srub
+Routine  0x14f40 V_Rub v
+Routine  0x14f60 V_Say v
+Routine  0x14fec How_to_use_tell who
+Routine  0x15068 V_Search
+Routine  0x150d0 V_Send
+Routine  0x15134 Send_under
+Routine  0x15164 Pre_SGive
+Routine  0x1516c V_SGive
+Routine  0x15170 V_Shake x
+Routine  0x151a0 That_Them obj:object
+Routine  0x151b0 V_Sharpen
+Routine  0x151cc V_Shootwith
+Routine  0x151d8 Pre_Shoot
+Routine  0x1528c V_Shoot
+Routine  0x153b0 V_Show
+Routine  0x153c4 V_Skip
+Routine  0x153e4 V_Sleep
+Routine  0x15428 Like_a_prso v
+Routine  0x15440 V_Smell
+Routine  0x15470 Pre_SShow
+Routine  0x15478 V_SShow
+Routine  0x1547c V_Swing
+Routine  0x15490 V_Swim
+Routine  0x15498 V_Swim_to
+Routine  0x154a0 Pre_Take
+Routine  0x1555c V_Take siz
+Routine  0x155a0 Put_On obj:object who:object
+Routine  0x155b0 Take_off obj:object
+Routine  0x155b8 V_Take_off
+Routine  0x155fc V_hold                                                                                   
+Routine  0x156d0 V_tell 
+Routine  0x1571c V_thank 
+Routine  0x157d8 V_domo 
+Routine  0x157ec V_dozo 
+Routine  0x15804 Pre_through local1 
+Routine  0x15828 V_through local1 local2 local3 local4 local5 local6 
+Routine  0x158c0 Find_door 
+Routine  0x158e4 Pre_throw 
+Routine  0x15924 V_throw 
+Routine  0x1597c V_throw_off 
+Routine  0x159ac V_tie 
+Routine  0x159e8 V_tie_up local1 
+Routine  0x159f0 V_time 
+Routine  0x15a08 V_torture 
+Routine  0x15a18 No_effect 
+Routine  0x15a28 V_turn 
+Routine  0x15a60 V_turn_over 
+Routine  0x15a78 V_turn_around 
+Routine  0x15afc V_unlock 
+Routine  0x15b40 V_untie local1 local2 local3 local4 local5 
+Routine  0x15b48 V_walk 
+Routine  0x15d20 V_walk_around local1 local2 
+Routine  0x15d3c V_walk_to local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x15e0c Next_room local1 
+Routine  0x15e88 V_wait 
+Routine  0x15ec4 V_wait_for 
+Routine  0x15f00 V_wave 
+Routine  0x15f1c You_arent_holding 
+Routine  0x15f2c V_wave_at local1 local2 
+Routine  0x15fc0 V_dress 
+Routine  0x16058 V_wear 
+Routine  0x160a4 V_yawn 
+Routine  0x160ac V_yell_at 
+Routine  0x160e8 V_yell 
+Routine  0x1613c V_laugh local1 local2 local3 local4 
+Routine  0x16178 Itake 
+Routine  0x16300 V_notify local1 local2 
+Routine  0x16344 Score_object local1 
+Routine  0x16374 Score_object 
+Routine  0x1639c Idrop local1 
+Routine  0x163e4 Have_to_take_off local1 local2 local3 local4 
+Routine  0x16400 Ccount local1 local2 local3 local4 
+Routine  0x16414 Weight local1 local2 local3 
+Routine  0x16438 Goto 
+Routine  0x16494 I_stupid_move local1 local2 
+Routine  0x1649c JigsUpP 
+Routine  0x164ec JigsUp str:string
+Routine  0x16604 MoveAll from:object to:object f n first
+Routine  0x1662c This_is_it obj:object
+Routine  0x166b0 Intrinsic obj:object
+Routine  0x166c4 AccessibleP obj:object l:object
+Routine  0x16710 VisibleP obj:object l:object
+Routine  0x16730 HeldP obj:object who:object
+Routine  0x16768 See_Inside obj:object
+Routine  0x1677c Global_inP obj1:object obj2:object tee
+Routine  0x16798 Do_Walk dir:property
+Routine  0x167a4 HackHack str:string
+Routine  0x167b8 Tell_Yucks
+Routine  0x167c4 Pre_Pry
+Routine  0x167ec V_Pry
+Routine  0x167f4 V_Bury
+Routine  0x16844 V_Yes
+Routine  0x16888 V_No
+Routine  0x16890 V_Buy
+Routine  0x16898 Pre_SSell
+Routine  0x168a0 V_SSell
+Routine  0x168a4 V_Sell
+Routine  0x168ac Pre_Tell_About
+Routine  0x168b8 V_Tell_About
+Routine  0x168e0 Difficulty who:object
+Routine  0x16918 V_Tell_Me_About
+Routine  0x16954 V_Trade
+Routine  0x1698c V_Erase
+Routine  0x16994 V_Admire
+Routine  0x169a8 V_Bargain
+Routine  0x169e0 V_Repair
+Routine  0x16a18 V_Look_Up
+Routine  0x16a4c V_Plug_In
+Routine  0x16a58 V_Unplug
+Routine  0x16a64 V_Walk_Under  
+Routine  0x16a8c V_Scare
+Routine  0x16aa8 V_Wedge
+Routine  0x16ac0 Pre_SWedge
+Routine  0x16ac8 V_SWedge
+Routine  0x16acc V_Put_Between
+Routine  0x16ae4 V_Taste
+Routine  0x16b24 V_Die
+Routine  0x16b2c V_Cook
+Routine  0x16b48 V_Drive_On
+Routine  0x16b60 V_Drive_To
+Routine  0x16b78 V_Step_On
+Routine  0x16b88 V_Stop
+Routine  0x16b8c V_Release
+Routine  0x16b94 V_Push_Down
+Routine  0x16ba0 V_Push_Up
+Routine  0x16bac V_Push_Out
+Routine  0x16bb8 Push_Foo dir
+Routine  0x16bf0 V_Pray
+Routine  0x16c50 Pre_Sput_on
+Routine  0x16c58 V_Sput_on
+Routine  0x16c5c V_Love
+Routine  0x16c74 V_Thou
+Routine  0x16c88 V_Write
+Routine  0x16c94 V_Ring
+Routine  0x16ca0 V_Bow w
+Routine  0x16dc4 V_Sorry
+Routine  0x16de4 V_Piss
+Routine  0x16ea4 V_Load
+Routine  0x16ec8 V_Straighten
+Routine  0x16ed8 V_Launch
+Routine  0x16ee8 V_Bless
+Routine  0x16f34 V_Make
+Routine  0x16fac V_Act
+Routine  0x16ff0 V_Dance
+Routine  0x1702c V_Tear
+Routine  0x17038 V_Ship
+Routine  0x17044 V_Sort
+Routine  0x17060 V_Row
+Routine  0x1711c V_Take_over
+Routine  0x17130 V_Shutup
+Routine  0x1714c V_Use
+Routine  0x17168 V_Steer_By
+Routine  0x1717c Formal_SceneP
+Routine  0x17190 V_Strip f:object n first:bool last
+Routine  0x17210 V_Translate
+Routine  0x1724c Setup_Answer str:string
+Routine  0x17274 I_Setup_Answer
+Routine  0x17288 V_Smile
+Routine  0x172b4 V_Wink
+Routine  0x172d4 V_Clear
+Routine  0x17300 V_Turn_Toward
+Routine  0x17308 V_Turn_Away
+Routine  0x17310 V_Reach_For
+Routine  0x17320 V_Hug
+Routine  0x1739c V_Smoothe
+Routine  0x173c8 V_Hai
+Routine  0x173d0 V_Iye
+Routine  0x173ec V_Hold_on
+Routine  0x1740c V_Rinse
+Routine  0x17414 V_Bathe
+Routine  0x17430 V_Replace
+Routine  0x17454 V_Escape
+Routine  0x1747c V_Plead
+Routine  0x174a8 V_Coommit
+Routine  0x174c8 V_Accuse
+Routine  0x174f0 V_Spit
+Routine  0x17500 V_Teki
+Routine  0x17534 Get_Intquote n np len:int
+Routine  0x17564 Pre_SSpeak
+Routine  0x1756c V_SSpeak
+Routine  0x17570 V_Speak
+Routine  0x176dc V_Aim w
+Routine  0x1772c V_Explode
+Routine  0x1775c V_hint 
+Routine  0x17864 V_hints_off 
+Routine  0x178c4 V_pick_up 
+Routine  0x178e8 V_come_from 
+Routine  0x17914 Past_tense local1 local2 
+Routine  0x1793c Pre_come_to_from 
+Routine  0x1794c V_come_to_from 
+Routine  0x17960 V_parry 
+Routine  0x17974 V_teach 
+Routine  0x179a4 V_learn 
+Routine  0x179c8 V_look_out 
+Routine  0x179fc B_stand 
+Routine  0x17a08 B_sitting 
+Routine  0x17a18 B_sit 
+Routine  0x17a24 B_kneeling 
+Routine  0x17a30 B_kneel 
+Routine  0x17a3c B_lying 
+Routine  0x17a48 B_lie_down 
+Routine  0x17a54 V_stand local1 
+Routine  0x17aa4 V_sit 
+Routine  0x17ad4 V_kneel 
+Routine  0x17aec V_kneel_on 
+Routine  0x17b08 V_lie_down 
+Routine  0x17b34 V_lie 
+Routine  0x17b58 V_avoid 
+Routine  0x17b74 V_fuck 
+Routine  0x17bf0 V_know 
+Routine  0x17bfc V_train 
+Routine  0x17c1c V_betray 
+Routine  0x17c40 V_let_in 
+Routine  0x17c5c V_put_away 
+Routine  0x17c84 V_dodge 
+Routine  0x17cd4 V_wakarimasu 
+Routine  0x17ce0 V_mizu 
+Routine  0x17d04 V_quiet 
+Routine  0x17d20 V_color local1 local2 local3 
+Routine  0x17e34 Mac_ii 
+Routine  0x17e48 Do_color 
+Routine  0x17ea8 Pick_color local1 local2 local3 local4 
+Routine  0x17f28 Color_offset local1 
+Routine  0x17f3c Color_menu_f local1 local2 
+Routine  0x17f50 V_shrug 
+Routine  0x17f64 V_sing 
+Routine  0x17fbc V_distract 
+Routine  0x17fcc V_join 
+Routine  0x17fe0 Outside_tub local1 
+Routine  0x1801c V_draw 
+Routine  0x18068 V_dive 
+Routine  0x180ac V_babble 
+Routine  0x180c4 V_trip 
+Routine  0x180d4 V_nihon_go_ga 
+Routine  0x18104 V_genki_desu 
+Routine  0x18130 V_gomen_nasai 
+Routine  0x1815c V_isogi 
+Routine  0x18178 V_konbanwa 
+Routine  0x18184 V_konnichi_wa 
+Routine  0x181b8 V_kinjiru 
+Routine  0x181c8 V_dry 
+Routine  0x181e0 V_warn 
+Routine  0x1822c V_pull_behind 
+Routine  0x18238 V_tomo 
+Routine  0x18248 V_neh 
+
+
+Routine  0x18250 routine98896 local1 
+Routine  0x18270 routine98928 
+Routine  0x18290 routine98960 
+Routine  0x182b0 routine98992 
+Routine  0x182c8 routine99016 local1 local2 
+Routine  0x182f0 routine99056 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1834c routine99148 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x183a4 routine99236 
+Routine  0x183ec routine99308 local1 local2 local3 
+Routine  0x1841c routine99356 local1 local2 local3 local4 local5 local6 
+Routine  0x184f8 routine99576 local1 local2 local3 
+Routine  0x18540 routine99648 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x18690 routine99984 local1 local2 
+Routine  0x186bc routine100028 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x189bc routine100796 local1 local2 local3 
+Routine  0x18a48 routine100936 local1 local2 local3 
+Routine  0x18b78 routine101240 local1 
+Routine  0x18c6c routine101484 local1 
+Routine  0x18c94 routine101524 local1 local2 local3 
+Routine  0x18cc0 routine101568 local1 local2 local3 
+Routine  0x18d24 routine101668 local1 local2 local3 local4 
+Routine  0x18df4 routine101876 local1 
+Routine  0x18df8 routine101880 local1 local2 local3 
+Routine  0x18e14 routine101908 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x18f24 routine102180 local1 local2 local3 local4 local5 local6 
+Routine  0x19060 routine102496 local1 local2 local3 local4 local5 
+Routine  0x190f8 routine102648 local1 
+Routine  0x19124 routine102692 local1 local2 local3 local4 local5 local6 
+Routine  0x1919c routine102812 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x1920c routine102924 local1 local2 local3 
+Routine  0x19274 routine103028 local1 local2 local3 local4 
+Routine  0x19304 routine103172 local1 local2 
+Routine  0x1932c routine103212 local1 local2 local3 local4 
+Routine  0x193e8 routine103400 local1 
+Routine  0x1941c routine103452 
+Routine  0x19428 routine103464 local1 
+Routine  0x1945c routine103516 
+Routine  0x19468 routine103528 local1 local2 local3 local4 local5 local6 
+Routine  0x19800 routine104448 local1 local2 local3 
+Routine  0x19824 routine104484 
+Routine  0x1982c routine104492 
+Routine  0x19858 routine104536 
+Routine  0x19860 routine104544 
+Routine  0x19870 routine104560 
+Routine  0x19880 routine104576 
+Routine  0x19890 routine104592 
+Routine  0x198a0 routine104608 
+Routine  0x198b0 routine104624 local1 
+Routine  0x198b4 routine104628 local1 
+Routine  0x198bc routine104636 local1 
+Routine  0x198cc routine104652 local1 
+Routine  0x198dc routine104668 local1 
+Routine  0x198e8 routine104680 local1 
+Routine  0x198f4 routine104692 local1 
+Routine  0x19900 routine104704 local1 
+Routine  0x1990c routine104716 local1 local2 
+Routine  0x19950 routine104784 local1 
+Routine  0x19968 routine104808 local1 local2 
+Routine  0x1999c routine104860 local1 local2 local3 
+Routine  0x199c0 routine104896 
+Routine  0x199c8 routine104904 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x19b24 routine105252 local1 
+Routine  0x19b64 routine105316 
+Routine  0x19b70 routine105328 
+Routine  0x19b7c routine105340 
+Routine  0x19be0 routine105440 
+Routine  0x19bec routine105452 
+Routine  0x19bf8 routine105464 
+Routine  0x19c04 routine105476 
+Routine  0x19c10 routine105488 
+Routine  0x19c1c routine105500 
+Routine  0x19c28 routine105512 local1 
+Routine  0x19c70 routine105584 
+Routine  0x19c80 routine105600 
+Routine  0x19c94 routine105620 local1 
+Routine  0x19cf8 routine105720 
+Routine  0x19d04 routine105732 
+Routine  0x19d1c routine105756 local1 
+Routine  0x19d98 routine105880 local1 local2 
+Routine  0x19d9c routine105884 
+Routine  0x19db4 routine105908 local1 local2 local3 
+Routine  0x19e1c routine106012 local1 
+Routine  0x19e28 routine106024 
+Routine  0x19e60 routine106080 
+Routine  0x19e84 routine106116 
+Routine  0x19e90 routine106128 
+Routine  0x19f4c routine106316 
+Routine  0x19f6c routine106348 
+Routine  0x19f98 routine106392 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x1a038 routine106552 local1 
+Routine  0x1a07c routine106620 local1 
+Routine  0x1a08c routine106636 local1 
+Routine  0x1a0cc routine106700 local1 
+Routine  0x1a0dc routine106716 local1 
+Routine  0x1a10c routine106764 
+Routine  0x1a130 routine106800 local1 local2 
+Routine  0x1a580 routine107904 
+Routine  0x1a648 routine108104 local1 local2 
+Routine  0x1a64c routine108108 
+Routine  0x1a674 routine108148 
+Routine  0x1a6c8 routine108232 
+Routine  0x1a6d4 routine108244 
+Routine  0x1a6f0 routine108272 
+Routine  0x1a704 routine108292 
+Routine  0x1a738 routine108344 
+Routine  0x1a754 routine108372 
+Routine  0x1a770 routine108400 
+Routine  0x1a79c routine108444 
+Routine  0x1a7c8 routine108488 
+Routine  0x1a7f8 routine108536 
+Routine  0x1a818 routine108568 
+Routine  0x1a84c routine108620 
+Routine  0x1a898 routine108696 
+Routine  0x1a8b4 routine108724 
+Routine  0x1a8e0 routine108768 local1 local2 local3 local4 local5 
+Routine  0x1a970 routine108912 local1 
+Routine  0x1a9a0 routine108960 
+Routine  0x1a9c8 routine109000 
+Routine  0x1aa58 routine109144 
+Routine  0x1ab98 routine109464 
+Routine  0x1abe4 routine109540 local1 
+Routine  0x1abf0 routine109552 
+Routine  0x1ac30 routine109616 
+Routine  0x1ac6c routine109676 
+Routine  0x1ac88 routine109704 local1 local2 
+Routine  0x1ac98 routine109720 local1 local2 local3 local4 local5 local6 
+Routine  0x1acf4 routine109812 
+Routine  0x1ad98 routine109976 
+Routine  0x1ade8 routine110056 
+Routine  0x1ae3c routine110140 local1 local2 
+Routine  0x1ae40 routine110144 local1 local2 
+Routine  0x1ae44 routine110148 local1 local2 
+Routine  0x1ae64 routine110180 local1 local2 
+Routine  0x1ae68 routine110184 local1 local2 
+Routine  0x1ae7c routine110204 local1 local2 
+Routine  0x1ae80 routine110208 local1 local2 
+Routine  0x1ae8c routine110220 local1 local2 
+Routine  0x1aea0 routine110240 
+Routine  0x1af2c routine110380 
+Routine  0x1af90 routine110480 local1 
+Routine  0x1b08c routine110732 local1 
+Routine  0x1b2c0 new_sdesc obj:object d:string local3 
+Routine  0x1b2e0 routine111328 
+Routine  0x1b2fc routine111356 
+Routine  0x1b3bc routine111548 local1 local2 
+Routine  0x1b3c8 routine111560 local1 
+Routine  0x1b534 routine111924 
+Routine  0x1b558 routine111960 
+Routine  0x1b630 routine112176 
+Routine  0x1b858 routine112728 
+Routine  0x1b8d0 routine112848 
+Routine  0x1b93c routine112956 
+Routine  0x1bbf8 routine113656 local1 local2 
+Routine  0x1c148 routine115016 local1 
+Routine  0x1c74c routine116556 
+Routine  0x1c76c routine116588 local1 
+Routine  0x1c7a4 routine116644 local1 local2 
+Routine  0x1c7bc routine116668 local1 
+Routine  0x1c9a4 routine117156 local1 
+Routine  0x1ca0c routine117260 local1 
+Routine  0x1ca80 routine117376 local1 local2 
+Routine  0x1cb24 routine117540 local1 
+Routine  0x1d978 routine121208 
+Routine  0x1d984 routine121220 
+Routine  0x1d9b8 routine121272 
+Routine  0x1d9cc routine121292 local1 local2 
+Routine  0x1da8c routine121484 local1 
+Routine  0x1dcbc routine122044 local1 local2 
+Routine  0x1dcc8 routine122056 local1 
+Routine  0x1de20 routine122400 local1 local2 
+Routine  0x1de58 routine122456 local1 local2 
+Routine  0x1de84 routine122500 local1 
+Routine  0x1e150 routine123216 local1 local2 
+Routine  0x1e15c routine123228 local1 local2 
+Routine  0x1e1b4 routine123316 local1 
+Routine  0x1e314 routine123668 local1 
+Routine  0x1e470 routine124016 local1 local2 
+Routine  0x1e4ac routine124076 local1 
+Routine  0x1e9fc routine125436 local1 
+Routine  0x1ec10 routine125968 local1 local2 
+Routine  0x1ec74 routine126068 local1 
+Routine  0x1f958 routine129368 
+Routine  0x1f9b4 routine129460 local1 
+Routine  0x1fcc8 routine130248 local1 local2 
+Routine  0x1fecc routine130764 local1 local2 
+Routine  0x1fee8 routine130792 local1 local2 local3 
+Routine  0x1ff18 routine130840 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1ff8c routine130956 
+Routine  0x1ffe8 routine131048 
+Routine  0x200c0 routine131264 
+Routine  0x20318 routine131864 
+Routine  0x20344 routine131908 
+Routine  0x20680 routine132736 local1 
+Routine  0x209f4 routine133620 
+Routine  0x20a10 routine133648 
+Routine  0x20a48 routine133704 local1 local2 
+Routine  0x20ae8 routine133864 
+Routine  0x216c4 routine136900 
+Routine  0x216d4 routine136916 local1 
+Routine  0x21798 routine137112 local1 local2 
+Routine  0x21860 routine137312 local1 
+Routine  0x21b0c routine137996 local1 
+Routine  0x21b30 routine138032 local1 
+Routine  0x21b48 routine138056 local1 local2 
+Routine  0x21b88 routine138120 local1 
+Routine  0x21ee0 routine138976 
+Routine  0x222c8 routine139976 
+Routine  0x222e4 routine140004 
+Routine  0x22320 routine140064 local1 
+Routine  0x22624 routine140836 local1 
+Routine  0x22738 routine141112 local1 
+Routine  0x229a0 routine141728 
+Routine  0x229c8 routine141768 
+Routine  0x229dc routine141788 
+Routine  0x22a68 routine141928 local1 local2 
+Routine  0x22b50 routine142160 
+Routine  0x22c54 routine142420 local1 
+Routine  0x22ca8 routine142504 
+Routine  0x22cbc routine142524 local1 
+Routine  0x22e24 routine142884 local1 
+Routine  0x23018 routine143384 local1 local2 
+Routine  0x23078 routine143480 
+Routine  0x23094 routine143508 local1 
+Routine  0x23140 routine143680 
+Routine  0x23160 routine143712 local1 
+Routine  0x231cc routine143820 local1 
+Routine  0x23234 routine143924 local1 
+Routine  0x234b4 routine144564 
+Routine  0x234d4 routine144596 
+Routine  0x23614 routine144916 local1 
+Routine  0x237dc routine145372 
+Routine  0x23964 routine145764 
+Routine  0x23db8 routine146872 
+Routine  0x23ee8 routine147176 local1 
+Routine  0x23fd8 routine147416 
+Routine  0x23ff4 routine147444 
+Routine  0x240b8 routine147640 
+Routine  0x24268 routine148072 
+Routine  0x24304 routine148228 local1 
+Routine  0x2453c routine148796 
+Routine  0x24548 routine148808 
+Routine  0x24554 routine148820 local1 
+Routine  0x24568 routine148840 local1 
+Routine  0x2467c routine149116 
+Routine  0x24698 routine149144 
+Routine  0x246c8 routine149192 
+Routine  0x24704 routine149252 local1 local2 
+Routine  0x24778 routine149368 local1 local2 
+Routine  0x24f98 routine151448 
+Routine  0x24fdc routine151516 
+Routine  0x24fe8 routine151528 
+Routine  0x25008 routine151560 local1 
+Routine  0x2501c routine151580 
+Routine  0x2504c routine151628 
+Routine  0x25060 routine151648 local1 local2 
+Routine  0x250fc routine151804 local1 
+Routine  0x25424 routine152612 local1 
+Routine  0x254e8 routine152808 local1 
+Routine  0x25a34 routine154164 local1 
+Routine  0x25a44 routine154180 local1 
+Routine  0x25aa8 routine154280 local1 
+Routine  0x25b90 routine154512 local1 
+Routine  0x25c48 routine154696 
+Routine  0x25c7c routine154748 local1 local2 
+Routine  0x25cd4 routine154836 local1 
+Routine  0x25d78 routine155000 
+Routine  0x25e08 routine155144 
+Routine  0x25e88 routine155272 
+Routine  0x25f38 routine155448 
+Routine  0x25fbc routine155580 
+Routine  0x25fe4 routine155620 
+Routine  0x26090 routine155792 local1 
+Routine  0x26380 routine156544 
+Routine  0x2639c routine156572 local1 
+Routine  0x264ec routine156908 
+Routine  0x26560 routine157024 local1 
+Routine  0x26900 routine157952 
+Routine  0x2696c routine158060 
+Routine  0x269dc routine158172 local1 
+Routine  0x26a64 routine158308 local1 
+Routine  0x26b08 routine158472 local1 
+Routine  0x26dc4 routine159172 local1 
+Routine  0x26e74 routine159348 local1 
+Routine  0x26fe0 routine159712 local1 
+Routine  0x27030 routine159792 local1 
+Routine  0x270b0 routine159920 
+Routine  0x27444 routine160836 local1 
+Routine  0x2788c routine161932 local1 
+Routine  0x278ec routine162028 
+Routine  0x2794c routine162124 local1 local2 
+Routine  0x27a80 routine162432 local1 
+Routine  0x27b24 routine162596 
+Routine  0x27e10 routine163344 local1 
+Routine  0x27e54 routine163412 
+Routine  0x27ff0 routine163824 
+Routine  0x280e4 routine164068 
+Routine  0x28320 routine164640 
+Routine  0x283cc routine164812 
+Routine  0x28448 routine164936 local1 
+Routine  0x28734 routine165684 
+Routine  0x287a4 routine165796 
+Routine  0x289cc routine166348 
+Routine  0x28a58 routine166488 local1 local2 
+Routine  0x28aac routine166572 local1 
+Routine  0x28db4 routine167348 local1 
+Routine  0x2927c routine168572 
+Routine  0x29780 routine169856 
+Routine  0x297c4 routine169924 
+Routine  0x29ae8 routine170728 
+Routine  0x29b5c routine170844 
+Routine  0x29bbc routine170940 
+Routine  0x29c10 routine171024 
+Routine  0x2a04c routine172108 local1 
+Routine  0x2a070 routine172144 local1 
+Routine  0x2a40c routine173068 
+Routine  0x2a45c routine173148 
+Routine  0x2a478 routine173176 
+Routine  0x2a4bc routine173244 
+Routine  0x2ab04 routine174852 
+Routine  0x2ab7c routine174972 
+Routine  0x2ad3c routine175420 
+Routine  0x2ad90 routine175504 
+Routine  0x2ae54 routine175700 local1 local2 
+Routine  0x2ae64 routine175716 
+Routine  0x2af6c routine175980 
+Routine  0x2afa0 routine176032 
+Routine  0x2afdc routine176092 
+Routine  0x2b060 routine176224 local1 
+Routine  0x2b3ac routine177068 local1 local2 
+Routine  0x2b3f8 routine177144 local1 
+Routine  0x2b45c routine177244 local1 local2 
+Routine  0x2b48c routine177292 local1 
+Routine  0x2b880 routine178304 
+Routine  0x2b89c routine178332 local1 
+Routine  0x2ba18 routine178712 local1 local2 
+Routine  0x2ba54 routine178772 local1 
+Routine  0x2bb8c routine179084 
+Routine  0x2bc74 routine179316 
+Routine  0x2bd04 routine179460 local1 
+Routine  0x2bd4c routine179532 local1 local2 
+Routine  0x2bda4 routine179620 local1 
+Routine  0x2c45c routine181340 
+Routine  0x2c660 routine181856 
+Routine  0x2c694 routine181908 
+Routine  0x2c750 routine182096 local1 
+Routine  0x2caac routine182956 
+Routine  0x2cc8c routine183436 local1 
+Routine  0x2cca4 routine183460 local1 local2 
+Routine  0x2cd00 routine183552 local1 local2 
+Routine  0x2cf28 routine184104 
+Routine  0x2cf48 routine184136 local1 local2 
+Routine  0x2cf7c routine184188 local1 
+Routine  0x2cfc8 routine184264 
+Routine  0x2d1a0 routine184736 local1 local2 
+Routine  0x2d1cc routine184780 local1 
+Routine  0x2d2e4 routine185060 
+Routine  0x2de38 routine187960 local1 
+Routine  0x2dee0 routine188128 
+Routine  0x2df08 routine188168 
+Routine  0x2df14 routine188180 
+Routine  0x2df44 routine188228 
+Routine  0x2df90 routine188304 
+
+! voyage.zil
+Routine  0x2e060 Hiro_matsu_refuses 
+Routine  0x2e0a4 Yabu_boards_skiff 
+Routine  0x2e1c0 I_skiff 
+Routine  0x2e224 In_the_sea_f local1 
+Routine  0x2e4e0 I_drown 
+Routine  0x2e540 Lg_galley_desc local1 local2 
+Routine  0x2e5c0 Lg_galley_f 
+Routine  0x2e620 Frustrated local1 
+Routine  0x2e65c Dress_blackthorne local1 
+Routine  0x2e69c Galley_f local1 
+Routine  0x2e7f8 Galley_wheel_desc local1 local2 
+Routine  0x2e8b0 Galley_wheel_f 
+Routine  0x2ea9c Safety_line_f 
+Routine  0x2ec24 Main_deck_f local1 
+Routine  0x2ee98 Skiff_desc local1 local2 
+Routine  0x2ef28 Skiff_f local1 local2 
+Routine  0x2f3cc Anchor_f 
+Routine  0x2f4dc I_all_on_deck 
+Routine  0x2f52c Oars_f 
+Routine  0x2f548 Oarsmen_f local1 
+Routine  0x2f858 Gunwale_f 
+Routine  0x2f958 I_rodrigues 
+Routine  0x30310 Life_ring_f 
+Routine  0x30468 Oar_f 
+Routine  0x30554 Search_party_follows 
+Routine  0x305ac Pebbled_beach_f local1 
+Routine  0x30684 Lg_path_f 
+Routine  0x306a4 Lg_cliff_f 
+Routine  0x30728 Search_party_desc local1 local2 
+Routine  0x307c0 Search_party_f local1 
+Routine  0x30858 Generic_kimono_f local1 local2 
+Routine  0x30868 Party_kimono_f 
+Routine  0x308f4 Rocky_shore_f local1 
+Routine  0x30914 Yabu_prevents 
+Routine  0x3094c Cliff_path_f local1 
+Routine  0x30f78 Ledge_f 
+Routine  0x310ec Around_headland_f local1 
+Routine  0x31170 I_search 
+Routine  0x312e8 Blackthorne_dallies local1 local2 
+Routine  0x31368 I_yabu_climbs 
+Routine  0x3190c Yabu_kimono_f local1 
+Routine  0x31f20 Loincloth_f 
+Routine  0x3200c Yabu_swords_f 
+Routine  0x3204c I_yabu_returns 
+Routine  0x32384 Voyage_after_f 
+
+! audience.zil
+Routine  0x324fc Stairs_exit local1 local2 
+Routine  0x3252c Outer_corridor_f local1 
+Routine  0x32678 Audience_chamber_f local1 local2 
+Routine  0x32df4 Vase_f 
+Routine  0x32e2c Flower_f 
+Routine  0x32e80 Ishido_vs_toranaga_after_f 
+Routine  0x33118 Falcon_f 
+Routine  0x33150 Toranagas_guards_f local1 
+Routine  0x33160 Alvito_f local1 local2 
+Routine  0x33394 Alvito_speaks 
+Routine  0x33400 I_audience 
+Routine  0x33f50 Lg_line_f 
+Routine  0x34000 Prisoner_pseudo 
+Routine  0x3402c Prison_f local1 local2 
+Routine  0x3436c Cup_f 
+Routine  0x34498 Gruel_f 
+Routine  0x34518 Thug_desc local1 local2 
+Routine  0x34570 Thug_f local1 local2 
+Routine  0x348c0 Start_fight local1 local2 
+Routine  0x34994 I_prison local1 
+Routine  0x34c68 I_bulldog_eats_it local1 
+Routine  0x34cb0 Bulldog_f local1 
+Routine  0x34d04 Domingo_stares 
+Routine  0x34d84 Domingo_f local1 
+Routine  0x35b04 Domingo_offers_help 
+Routine  0x35b74 I_teach local1 local2 
+Routine  0x35efc Madman_f local1 
+Routine  0x35f9c I_madman 
+Routine  0x360c4 I_bulldog 
+Routine  0x361a0 I_out_of_prison 
+Routine  0x362e0 Prison_courtyard_f local1 
+Routine  0x36400 Official_f local1 
+Routine  0x3644c I_leave_prison 
+Routine  0x36be8 Generic_bandit_f local1 local2 
+Routine  0x36bf4 Bandit_leader_f local1 
+Routine  0x36c24 Bandits_f local1 
+Routine  0x36c34 Yabu_palanquin_f local1 
+Routine  0x36d8c Deep_woods_exit local1 local2 
+Routine  0x36dec Deep_woods_f local1 
+Routine  0x36f24 Prison_gate_f 
+Routine  0x36f4c Crowd_pseudo 
+Routine  0x36f5c Outside_prison_f local1 
+Routine  0x36ffc Prison_after_f 
+Routine  0x37190 Maple_glade_f local1 
+Routine  0x376c0 Mariko_tell_mariko_about 
+Routine  0x379a8 How_i_learned 
+Routine  0x37a74 I_yaemon 
+Routine  0x38160 Yaemon_f local1 
+Routine  0x38358 Alvito_after_f 
+
+! osaka.zil
+Routine  0x385b4 Cortege_f 
+Routine  0x3863c Escape_follow_kiri local1 
+Routine  0x38760 Buntaro_f local1 
+Routine  0x38844 Sazuko_f local1 
+Routine  0x388c8 I_ishido 
+Routine  0x38f3c Toranaga_in_drag_f local1 
+Routine  0x390f4 Veil_f 
+Routine  0x39140 Courtyard_f local1 
+Routine  0x3931c I_kiri 
+Routine  0x398b8 Tell_checkpoints 
+Routine  0x39a48 Curtains_f 
+Routine  0x39b10 I_come_back 
+Routine  0x39bec Kiris_litter_desc local1 local2 
+Routine  0x39c70 Kiris_litter_f local1 
+Routine  0x39d00 Marikos_litter_f local1 
+Routine  0x39da0 Get_in_litter local1 
+Routine  0x39e54 Marikos_litter_desc local1 local2 
+Routine  0x39e88 Forecourt_f local1 
+Routine  0x3a14c Fortified_gate_f 
+Routine  0x3a188 Gateway_f local1 local2 
+Routine  0x3a58c Toranaga_closes_curtain 
+Routine  0x3a630 I_ishido_2 
+Routine  0x3ab0c On_bridge_f local1 
+Routine  0x3ab4c At_portcullis_f local1 
+Routine  0x3ac7c Woods_f local1 
+Routine  0x3ad50 I_escape_continues 
+Routine  0x3ae6c I_madness 
+Routine  0x3b318 Move_cortege local1 
+Routine  0x3b330 Parchment_f 
+Routine  0x3b554 City_f local1 
+Routine  0x3b5c8 Warehouse_f local1 
+Routine  0x3b6cc Large_knife_f 
+Routine  0x3b750 Generic_knife_f local1 local2 
+Routine  0x3b768 Small_knife_f 
+Routine  0x3b7e4 I_ruse 
+Routine  0x3c200 Wharf_f local1 
+Routine  0x3c2f0 Main_deck_2_f local1 local2 
+Routine  0x3c648 Gray_leader_f local1 
+Routine  0x3c718 Random_grays_f local1 
+Routine  0x3c788 Generic_gray_f local1 local2 
+Routine  0x3c798 Second_gray_f local1 
+Routine  0x3c834 Hangs_up_on_sleeve 
+Routine  0x3c8c4 Hatamoto_after_f 
+
+! maze.zil
+Routine  0x3c9fc House_f 
+Routine  0x3caa0 Ronin_f local1 
+Routine  0x3cac0 Fish_gate_f 
+Routine  0x3cae8 Ambushers_desc local1 local2 
+Routine  0x3cb18 Ambushers_f local1 
+Routine  0x3cb50 Messenger_f local1 
+Routine  0x3cc14 Ambush_site_f local1 
+Routine  0x3ccbc I_ambush_start 
+Routine  0x3cdc0 I_ambush 
+Routine  0x3d384 I_caught 
+Routine  0x3d41c Maze_f local1 local2 local3 local4 local5 local6 
+Routine  0x3d8a4 Leave_maze local1 local2 
+Routine  0x3d8d4 Maze_mouse_f local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x3d9f4 Mgetb local1 local2 
+Routine  0x3da04 Mputb local1 local2 local3 
+Routine  0x3da14 Display_maze_pic local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x3da44 Maze_pic local1 local2 local3 
+Routine  0x3dabc Maze_move local1 local2 local3 local4 
+Routine  0x3db2c Mputc local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x3dc14 Display_maze local1 local2 local3 local4 
+Routine  0x3dc44 Printm local1 local2 local3 local4 local5 local6 
+Routine  0x3dd80 Buildmaze local1 local2 
+Routine  0x3dd98 Visited local1 local2 
+Routine  0x3ddac Valid local1 local2 local3 local4 local5 local6 local7 
+Routine  0x3ddec Findmove local1 local2 local3 local4 
+Routine  0x3de28 Backup local1 local2 
+
+! quake.zil
+Routine  0x3de84 Plateau_f local1 
+Routine  0x3e5b8 I_quake 
+Routine  0x3eea4 Earthquake_f 
+Routine  0x3eee8 Main_fissure_f local1 
+Routine  0x3f094 Generic_fissure_f local1 local2 
+Routine  0x3f0d4 Fissure_desc local1 local2 
+Routine  0x3f1b4 Side_fissure_f local1 
+Routine  0x3f504 I_crawl 
+Routine  0x3f508 Zataki_after_f 
+Routine  0x3fbec Zataki_f local1 
+Routine  0x3fc74 Yokose_bath_house_f local1 
+Routine  0x3fec0 Journey_after_f 
+Routine  0x4023c Robe_f 
+Routine  0x402c0 Towel_f 
+Routine  0x40338 Yokose_bathtub_desc local1 local2 
+Routine  0x40374 Yokose_bathtub_f local1 local2 
+Routine  0x405e0 Put_down_towel 
+Routine  0x4060c Exhibition 
+Routine  0x406e8 I_yokose_bath local1 
+Routine  0x40998 Yokose_spa_1_f local1 
+Routine  0x40ad8 Yokose_spa_f local1 
+Routine  0x40b0c Yokose_spa_3_f local1 
+Routine  0x40d94 Yokose_guest_f local1 
+Routine  0x40dd8 Lg_yoshinaka_f local1 local2 
+Routine  0x40e40 Yoshinaka_f local1 
+Routine  0x40e68 Debug_yoshi local1 local2 local3 local4 local5 local6 
+Routine  0x41464 I_yoshinaka local1 local2 local3 
+Routine  0x41498 Tell_where local1 local2 local3 
+Routine  0x414d0 Tell_who local1 local2 
+Routine  0x41514 Tell_whose local1 
+Routine  0x41740 Yokose_neighbor 
+
+! mariko.zil
+Routine  0x41778 Ochiba_room_f 
+Routine  0x41978 Not_a_barbarian 
+Routine  0x4213c Ochiba_desc 
+Routine  0x42160 Ochiba_f 
+Routine  0x42490 Departure_after_f local1 local2    
+Routine  0x42694 I_departure local1 
+Routine  0x42d40 Yamazaki_f 
+Routine  0x43010 Kojima_f local1 
+Routine  0x43110 Captain_kills_you local1 
+Routine  0x4311c I_fight 
+Routine  0x43328 Formal_garden_f 
+Routine  0x433c0 Lily_pond_f 
+Routine  0x4342c Seppuku_examine_mariko local1 
+Routine  0x434b0 Seppuku_take_mariko 
+Routine  0x43600 Tea_house_f local1 
+Routine  0x436a0 Green_ribbon_f 
+Routine  0x43728 Sumiyori_f 
+Routine  0x43764 I_seppuku 
+
+! attack.zil
+Routine  0x444b8 Pistol_f
+Routine  0x445b0 Powder_horn_f
+Routine  0x4462c I_load_pistol 
+Routine  0x446c4 Mariko_follow_me 
+Routine  0x44818 Ninja_talk_to_yabu 
+Routine  0x44a50 Ninja_interrupt_yabu 
+Routine  0x44af4 Ninja_follow_yabu local1 
+Routine  0x44d5c Examine_mariko 
+Routine  0x44edc Ninja_take_mariko 
+Routine  0x44f94 Private_quarters_f local1 
+Routine  0x451a4 Chimmoko_f local1 
+Routine  0x45254 I_chimmoko 
+Routine  0x452d8 Etsu_f local1 
+Routine  0x45388 Achiko_f local1 
+Routine  0x45404 I_women local1 
+Routine  0x45538 Choreograph local1 local2 local3 local4 
+Routine  0x456d4 I_mariko_follow 
+Routine  0x4578c Secret_redoubt_f local1 local2 
+Routine  0x45880 Bolt_state local1 
+Routine  0x458cc Bolts_remaining local1 
+Routine  0x45924 Bolts_f local1 
+Routine  0x45b3c Secret_redoubt_door_f local1 
+Routine  0x45bf8 Balcony_door_f 
+Routine  0x45db4 Catch_f 
+Routine  0x45f2c Balcony_f local1 
+Routine  0x45f74 Outer_room_f local1 
+Routine  0x4601c I_yabu_leaves 
+Routine  0x4606c Setup_follow_yabu 
+Routine  0x46098 I_follow_yabu local1 
+Routine  0x460e4 I_yabu 
+Routine  0x46638 Stairs_f local1 
+Routine  0x46650 Servants_quarters_f local1 
+Routine  0x46668 Servants_f local1 
+Routine  0x466f4 Cellars_f local1 
+Routine  0x46954 Barrels_f 
+Routine  0x46994 Cellar_door_f 
+Routine  0x469b8 Inner_corridor_f local1 
+Routine  0x46a08 Yabu_listens 
+Routine  0x46a48 Secret_room_f local1 
+Routine  0x46a68 Inner_door_f 
+Routine  0x46b08 Iron_bar_f 
+Routine  0x46bcc I_attack 
+Routine  0x46ec8 Gray_captain_f local1 
+Routine  0x47010 Guards_desc local1 local2 
+Routine  0x47080 Guards_f local1 
+Routine  0x470d8 Lg_ninja_f local1 local2 local3 
+Routine  0x47290 Generic_ninja_f local1 local2 
+Routine  0x47294 Ninja_desc local1 local2 
+Routine  0x472c0 Ninja_f local1 
+Routine  0x474ec I_captain_returns 
+Routine  0x4757c I_ninja local1 local2 local3 
+Routine  0x47c24 Setup_follow_ninja 
+Routine  0x47c50 I_follow_ninja local1 
+Routine  0x47ce4 I_mariko_struggles 
+Routine  0x47d58 I_ninja_take_mariko local1 local2 
+Routine  0x48028 Caltrops_f 
+Routine  0x480c4 Smoke_bomb_f 
+Routine  0x4810c I_remove_smoke local1 
+Routine  0x48140 Fire_bomb_f 
+Routine  0x48180 I_remove_fire local1 
+Routine  0x481a8 I_ninja_cowed local1 
+Routine  0x4824c I_ninja_vs_inner_door 
+Routine  0x4853c Door_crack_f 
+Routine  0x48578 I_ninja_vs_secret_door local1 local2 local3 
+Routine  0x48bcc Etsu_after_f 
+Routine  0x48d44 Rosary_f 
+Routine  0x48dfc Yokohama_f local1 
+Routine  0x491dc Heads_f 
+Routine  0x49284 I_vinck_nuts 
+Routine  0x4973c Stable_f local1 
+Routine  0x49800 I_stable 
+Routine  0x4a0c4 Toranaga_loses_patience 
+Routine  0x4a130 Build_another_ship 
+Routine  0x4a260 Aftermath_answers 
+Routine  0x4a37c Yabu_betrayed_you 
+Routine  0x4a3e4 Yabu_let_in_ninja 
+Routine  0x4a438 Sealed_scroll_f 
+Routine  0x4a700 Yabu_head_f 
+Routine  0x4a7f0 Never_after_f 
+Routine  0x4a9a0 Sekigahara_f local1 local2 local3 local4 local5 local6 
+
+! clues.zil
+Routine  0x4abc8 Do_hints local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x4ae68 routine306792 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x4b034 routine307252 local1 local2 local3 local4 local5 
+Routine  0x4b090 routine307344 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x4b158 routine307544 local1 local2 local3 
+Routine  0x4b1bc routine307644 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x4b3b0 routine308144 local1 
+Routine  0x4b3bc routine308156 local1 local2 
+Routine  0x4b3d0 routine308176 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x4b428 routine308264 
+Routine  0x4b460 routine308320 
+Routine  0x4b464 routine308324 local1 local2 local3 
+Routine  0x4b4c0 routine308416 local1 local2 local3 
+Routine  0x4b4d8 routine308440 local1 local2 local3 local4 
+Routine  0x4b4e8 routine308456 local1 local2 local3 local4 
+Routine  0x4b4f8 routine308472 local1 local2 local3 local4 local5 
+
+
+! ------------------------------- Words --------------------------------
+
+Word    japanese        japanese
+Word    quarters        quarters
+Word    vegetabl        vegetabl
+Word    villager        villager
+Word    $veri   $veri
+Word    $refre  $refre
+Word    #command        #command
+Word    #unrecor        #unrecor
+Word    ambushers       ambushers
+Word    amsterdam       amsterdam
+Word    anjin-s anjin-s
+Word    apologiz        apologiz
+Word    assistanc       assistanc
+Word    attackers       attackers
+Word    attacking       attacking
+Word    barbarian       barbarian
+Word    blackthor       blackthor
+Word    brown-un        brown-un
+Word    bulldog-        bulldog-
+Word    calvinis        calvinis
+Word    captain-        captain-
+Word    cha-no- cha-no-
+Word    chopstick       chopstick
+Word    christian       christian
+Word    cockroach       cockroach
+Word    commotion       commotion
+Word    companion       companion
+Word    complimen       complimen
+Word    construct       construct
+Word    courtyard       courtyard
+Word    crucifix        crucifix
+Word    curtained       curtained
+Word    danzenj danzenj
+Word    detachmen       detachmen
+Word    dictionar       dictionar
+Word    disconnec       disconnec
+Word    disembark       disembark
+Word    disguised       disguised
+Word    everythi        everythi
+Word    extingui        extingui
+Word    eavesdro        eavesdro
+Word    earthqua        earthqua
+Word    earthenwa       earthenwa
+Word    elizabet        elizabet
+Word    end.of.in       end.of.in
+Word    englishma       englishma
+Word    fishermen       fishermen
+Word    forecastl       forecastl
+Word    forecourt       forecourt
+Word    foresails       foresails
+Word    foreshore       foreshore
+Word    fortified       fortified
+Word    francisca       francisca
+Word    goziemas        goziemas
+Word    gonzale gonzale
+Word    gray-uni        gray-uni
+Word    greetings       greetings
+Word    grizzle grizzle
+Word    guardsmen       guardsmen
+Word    hanase-m        hanase-m
+Word    heavy-s heavy-s
+Word    hiro-mat        hiro-mat
+Word    inventor        inventor
+Word    interpret       interpret
+Word    iron-bar        iron-bar
+Word    iron-bou        iron-bou
+Word    iron-for        iron-for
+Word    kiritsubo       kiritsubo
+Word    lacquere        lacquere
+Word    lean-fac        lean-fac
+Word    lice-rid        lice-ridden
+Word    maximili        maximilian
+Word    maetsukke       maetsukke
+Word    middle-a        middle-a
+Word    netherlan       netherlands
+Word    overboar        overboard
+Word    ornamenta       ornamental
+Word    palanqui        palanquin
+Word    passagewa       passageway
+Word    pieterzo        pieterzo
+Word    pilot-ma        pilot-ma
+Word    portculli       portcullis
+Word    portugues       portuguese
+Word    possessed       possessed
+Word    predictio       predictio
+Word    prisoners       prisoners
+Word    processio       processio
+Word    prostrate       prostrate
+Word    protecti        protecti
+Word    reception       reception
+Word    reef-top        reef-top
+Word    rice-pap        rice-pap
+Word    rodrigues       rodrigues
+Word    rotterdam       rotterdam
+Word    round-fa        round-fa
+Word    spillberg       spillberg
+Word    straighte       straighte
+Word    superbrie       superbrief
+Word    translate       translate
+Word    transluce       translucent
+Word    unconscio       unconscious
+Word    underneat       underneath
+Word    wakarimas       wakarimas
+Word    warehouse       warehouse
+Word    waterfron       waterfront
+Word    worshippe       worshipper
+

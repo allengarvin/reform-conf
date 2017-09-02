@@ -1,0 +1,910 @@
+! ----------------------------------------------------
+!   shogun-890302-r284-z6.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 af57ccd9d83b8cbdc6a9aeb934a60aaa
+CodeArea 0xc450 0x4a3e6
+StringArea 0x4a3e8 0x53070
+FalseEnd     0xede0  1
+FalseEnd     0xf2fc  1
+
+
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 1 attrib1   ! obj107_bath_tub obj117_bath_tub obj268_wheel obj357_helm
+Attribute 2 attrib2   ! obj99_help obj105_England obj124_cross obj175_sleep obj194_Satan obj215_Portugal obj266_Church obj282_Latin obj299_Spain obj309_Trinity_House obj315_hanase_masen obj318_God obj322_Holland obj333_Dutch obj404_Black_Ship
+Attribute 3 attrib3   ! obj148_robe obj149_rosary obj217_small_knife obj352
+Attribute 4 attrib4   ! obj125_balcony_door obj163_body obj213_vase obj229_severed_head obj235_cliff obj241_prison_gate obj320_swords obj345_crucifix obj352 obj384_crucifix obj390_door obj398_ladder obj400_cherry_blossom
+Attribute 5 attrib5   ! obj223_flagon obj352
+Attribute 6 attrib6   ! obj83_hand obj90_this obj115_them obj133_her obj134_women obj153_feet obj156_it obj202_yourself obj234_ceiling obj263_myself obj265_men obj267_him obj343_hole obj352
+Attribute 7 attrib7   ! obj142_Erasmus obj155_crewmen obj170 obj184 obj222 obj239_ground obj258_samurai_guards obj306_Gray_Leader obj323_priest_s_henchmen obj352 obj387_crewmen obj404_Black_Ship
+Attribute 8 attrib8   ! obj143_red_lacquered_tray obj210_crates__barrels__and_boxes obj245_quilt obj330_desk obj352 obj353_desk obj398_ladder
+Attribute 9 attrib9   ! obj228_old_priest obj352
+Attribute 10 attrib10  ! obj352
+Attribute 11 attrib11  ! obj106_cup obj107_bath_tub obj109_Ishido obj110_cauldron obj117_bath_tub obj118_sea_chest obj127_Captain_General_Spillbergen obj139_Jan_Roper obj140_palanquin obj141 obj143_red_lacquered_tray obj146_servants obj151 obj158 obj162_Toranaga obj173_Kiritsubo_s_curtained_litter obj184 obj213_vase obj222 obj223_flagon obj228_old_priest obj236_Blackthorne obj237_villagers obj245_quilt obj248_skiff obj258_samurai_guards obj260_trapdoor obj271_side_fissure obj272_pedestal obj274_Zataki obj275_small_boat obj300_crowd_of_villagers obj301_main_fissure obj330_desk obj336 obj342_oarsmen obj348_sea_chair obj352 obj353_desk obj359_bulldog_like_man obj360_secret_drawer obj364_captured_samurai obj367_Mura obj376 obj381_party_of_samurai obj385_Mariko_s_litter obj395_apelike_man obj398_ladder obj402_dais
+Attribute 12 attrib12  ! obj17_Main_Deck obj18_Glade_of_Maples obj25_Mariko_s_Room obj34_Plateau obj37_Wooded_Area obj47_Yokohama obj51_Audience_Chamber obj59_Cellars obj62_Village_Square obj70_Ledge obj76_your_rutter obj79_Yamazaki obj82_messenger obj95_Japanese obj107_bath_tub obj109_Ishido obj111_The_Lizard obj117_bath_tub obj122_gunwale obj136_plan obj137_broken_oar obj139_Jan_Roper obj141 obj142_Erasmus obj144_young_Gray_samurai obj151 obj158 obj160_Magellan_s_Pass obj161_loincloth obj166_food obj170 obj174_barbarian obj182_anchor obj197_ninja obj210_crates__barrels__and_boxes obj214_swords obj223_flagon obj226_samurai_guards obj228_old_priest obj231_narrow_ledge obj242_archers obj248_skiff obj250_ninja_leader obj251_roll_of_parchment obj257_kimono obj268_wheel obj271_side_fissure obj273_camellia_blossom obj279_reef obj283_Maetsukker obj284_gate obj285 obj286_bandits obj306_Gray_Leader obj307_tiny_bruised_apple obj309_Trinity_House obj312_rusty_key obj323_priest_s_henchmen obj328_foresails obj332_traitor obj335_line obj336 obj337_attacking_Grays obj345_crucifix obj352 obj353_desk obj356_prophecy obj359_bulldog_like_man obj364_captured_samurai obj375_bell obj381_party_of_samurai obj385_Mariko_s_litter obj393_insane obj395_apelike_man obj398_ladder obj402_dais obj403_curtains
+Attribute 13 attrib13  ! obj8_Anjiro obj15_First_Floor obj25_Mariko_s_Room obj26_Room_in_the_Inn obj27_Blackthorne_s_Room obj29_Yoshinaka_s_Room obj30_Gyoko_s_Room obj31_Room_at_the_Inn obj61_Bath_House obj94_peregrine obj352
+Attribute 14 attrib14  ! obj222 obj261_Rodrigues obj336 obj352 obj376
+Attribute 15 attrib15  ! obj75_oars obj91_dim_figures obj102_guards obj116_pair_of_sticks obj134_women obj146_servants obj147_balls obj155_crewmen obj161_loincloth obj179 obj197_ninja obj214_swords obj226_samurai_guards obj233_caltrops obj237_villagers obj242_archers obj244_your_boots obj258_samurai_guards obj265_men obj269_kimonos obj277_your_clothes obj286_bandits obj291_detachment_of_ronin obj300_crowd_of_villagers obj316_slippers obj320_swords obj323_priest_s_henchmen obj342_oarsmen obj349_pair_of_sandals obj350_socks obj352 obj381_party_of_samurai obj387_crewmen
+Attribute 16 attrib16  ! obj2_Courtyard obj8_Anjiro obj9_Beside_the_Erasmus obj10_Deck obj11_Garden obj16_City_Street obj17_Main_Deck obj18_Glade_of_Maples obj20_Gateway obj22_Stable obj24_City_of_Osaka obj28_Tea_House obj34_Plateau obj37_Wooded_Area obj42_Bridge obj43_Toranaga_s_Galley obj45_Forecourt obj46_City_Streets obj47_Yokohama obj48_Wharf obj52_In_the_Sea obj53_Outside_Prison obj56_Bridge obj58_Warehouse obj62_Village_Square obj65_Balcony obj66_Formal_Garden obj68_Waterfront obj71_Portcullis obj72_Harbor obj352
+Attribute 17 attrib17  ! obj80_bolt obj106_cup obj107_bath_tub obj109_Ishido obj110_cauldron obj117_bath_tub obj127_Captain_General_Spillbergen obj139_Jan_Roper obj140_palanquin obj141 obj143_red_lacquered_tray obj146_servants obj151 obj162_Toranaga obj173_Kiritsubo_s_curtained_litter obj184 obj213_vase obj222 obj228_old_priest obj236_Blackthorne obj237_villagers obj245_quilt obj248_skiff obj256_outer_door obj258_samurai_guards obj262_iron_bar obj271_side_fissure obj272_pedestal obj274_Zataki obj275_small_boat obj300_crowd_of_villagers obj301_main_fissure obj330_desk obj336 obj342_oarsmen obj348_sea_chair obj352 obj359_bulldog_like_man obj364_captured_samurai obj367_Mura obj376 obj378_portcullis obj381_party_of_samurai obj382_iron_barred_inner_door obj385_Mariko_s_litter obj395_apelike_man obj398_ladder obj402_dais
+Attribute 18 attrib18  ! obj76_your_rutter obj80_bolt obj88_bottom_catch obj96_iron_door obj114_secret_Portuguese_rutter obj118_sea_chest obj158 obj223_flagon obj262_iron_bar obj276_top_catch obj321_safety_line obj352 obj353_desk obj360_secret_drawer obj403_curtains
+Attribute 19 attrib19  ! obj1_Pebbled_Beach obj2_Courtyard obj3_Prison_Courtyard obj4_Reception_Room obj5_Mura_s_House obj6_Cell_Block obj7_Private_Quarters obj8_Anjiro obj9_Beside_the_Erasmus obj10_Deck obj11_Garden obj12_Outer_Corridor obj13_Below_Decks obj14_Deep_in_the_Woods obj15_First_Floor obj16_City_Street obj17_Main_Deck obj18_Glade_of_Maples obj19_Around_the_Headland obj20_Gateway obj21_Ledge obj22_Stable obj23_Ledge obj24_City_of_Osaka obj25_Mariko_s_Room obj26_Room_in_the_Inn obj27_Blackthorne_s_Room obj28_Tea_House obj29_Yoshinaka_s_Room obj30_Gyoko_s_Room obj31_Room_at_the_Inn obj32_Winding_Stairs obj33_Outer_Room obj34_Plateau obj35_Mariko_s_Quarters obj36_Your_Quarters obj37_Wooded_Area obj38_South_of_Corridor obj39_Secret_Redoubt obj40_Cliff_Path obj41_Pit obj42_Bridge obj43_Toranaga_s_Galley obj44_Middle_of_Corridor obj45_Forecourt obj46_City_Streets obj47_Yokohama obj48_Wharf obj49_Secret_Room obj50_Inner_Corridor obj51_Audience_Chamber obj52_In_the_Sea obj53_Outside_Prison obj54_Servants__Quarters obj55_Passageway obj56_Bridge obj57_Bath_House obj58_Warehouse obj59_Cellars obj60_Mates__Cabin obj61_Bath_House obj62_Village_Square obj63_Captain_s_Cabin obj64_Pilot_s_Cabin obj65_Balcony obj66_Formal_Garden obj67_Ledge obj68_Waterfront obj69_North_of_Corridor obj70_Ledge obj71_Portcullis obj72_Harbor obj73_Rocky_Shore obj74_Sekigahara obj352
+Attribute 20 attrib20  ! obj35_Mariko_s_Quarters obj75_oars obj76_your_rutter obj79_Yamazaki obj83_hand obj89_Japan obj90_this obj93_Ginsel obj95_Japanese obj97_Lady_Etsu obj101_dirt obj102_guards obj104_stomach obj105_England obj108_Vinck obj109_Ishido obj111_The_Lizard obj112_mouth obj115_them obj119_English obj120_Yabu obj127_Captain_General_Spillbergen obj130_air obj131_Yoshinaka obj133_her obj134_women obj139_Jan_Roper obj141 obj144_young_Gray_samurai obj145 obj147_balls obj153_feet obj155_crewmen obj156_it obj160_Magellan_s_Pass obj162_Toranaga obj165_Kojima obj166_food obj168_Vinck_s_straw obj171_Yabu obj173_Kiritsubo_s_curtained_litter obj175_sleep obj179 obj180_fingers obj187_Gyoko obj195_Buntaro obj198_Kiritsubo obj202_yourself obj214_swords obj215_Portugal obj219_Spanish obj222 obj226_samurai_guards obj236_Blackthorne obj242_archers obj244_your_boots obj249_Kiku obj258_samurai_guards obj261_Rodrigues obj263_myself obj265_men obj267_him obj269_kimonos obj274_Zataki obj277_your_clothes obj278_Salamon obj280_Sazuko obj281_Sumiyori obj282_Latin obj283_Maetsukker obj285 obj290_Lady_Ochiba obj292_Brown_uniformed_samurai obj294_Chimmoko obj297_Achiko obj299_Spain obj311_head obj316_slippers obj317_Portuguese obj320_swords obj322_Holland obj323_priest_s_henchmen obj326_Baccus_van_Nekk obj327_Yoshinaka obj329_eyes obj331_Croocq obj333_Dutch obj337_attacking_Grays obj340_Pacific_Ocean obj341_Sonk obj344_here obj347_Gray_uniformed_samurai obj350_socks obj352 obj363_Hendrik_Specz obj366_water obj367_Mura obj379_Pieterzoon obj385_Mariko_s_litter obj387_crewmen
+Attribute 21 attrib21  ! obj77_offal obj80_bolt obj83_hand obj86_oars obj88_bottom_catch obj90_this obj93_Ginsel obj94_peregrine obj107_bath_tub obj108_Vinck obj115_them obj117_bath_tub obj122_gunwale obj129_sword obj133_her obj142_Erasmus obj146_servants obj152_gangway obj153_feet obj156_it obj159_bay obj161_loincloth obj172_manicured_path obj176_veil obj186_stream obj203_official obj210_crates__barrels__and_boxes obj213_vase obj218_small_bridge obj221_sea obj227_west_shoji obj231_narrow_ledge obj232_west_shoji obj234_ceiling obj235_cliff obj238_fire_bomb obj240_west_shoji obj243_severed_heads obj247_seawater obj250_ninja_leader obj255_plant obj258_samurai_guards obj262_iron_bar obj267_him obj269_kimonos obj276_top_catch obj278_Salamon obj279_reef obj283_Maetsukker obj284_gate obj287_smoke obj295_house obj302_high_wall obj307_tiny_bruised_apple obj312_rusty_key obj324_crack obj325_fishing_village obj328_foresails obj331_Croocq obj335_line obj338_protective_lashing obj341_Sonk obj342_oarsmen obj343_hole obj345_crucifix obj346_land obj348_sea_chair obj352 obj354_lily_pond obj359_bulldog_like_man obj360_secret_drawer obj370_deck obj372_little_waterfall obj373_small_boat obj374_ship obj375_bell obj380_path obj386_east_shoji obj388_cortege obj390_door obj391_east_shoji obj400_cherry_blossom obj401_east_shoji obj402_dais obj403_curtains
+Attribute 22 attrib22  ! obj88_bottom_catch obj96_iron_door obj118_sea_chest obj276_top_catch obj352
+Attribute 23 attrib23  ! obj96_iron_door obj118_sea_chest obj125_balcony_door obj154_focsle_door obj205_passageway_door obj225_Mates__cabin_door obj256_outer_door obj298_Pilot_s_cabin_door obj304_Captain_s_cabin_door obj310_secret_door obj352 obj371_iron_bound_door obj382_iron_barred_inner_door obj389_secret_door
+Attribute 24 attrib24  ! obj82_messenger obj85_bandit_leader obj91_dim_figures obj97_Lady_Etsu obj102_guards obj109_Ishido obj120_Yabu obj131_Yoshinaka obj135_madman obj141 obj144_young_Gray_samurai obj145 obj146_servants obj151 obj162_Toranaga obj163_body obj165_Kojima obj170 obj171_Yabu obj179 obj184 obj187_Gyoko obj190_guest obj195_Buntaro obj197_ninja obj198_Kiritsubo obj203_official obj226_samurai_guards obj237_villagers obj242_archers obj249_Kiku obj250_ninja_leader obj258_samurai_guards obj274_Zataki obj280_Sazuko obj285 obj286_bandits obj290_Lady_Ochiba obj291_detachment_of_ronin obj292_Brown_uniformed_samurai obj293_guest obj294_Chimmoko obj297_Achiko obj300_crowd_of_villagers obj306_Gray_Leader obj323_priest_s_henchmen obj327_Yoshinaka obj337_attacking_Grays obj342_oarsmen obj347_Gray_uniformed_samurai obj352 obj359_bulldog_like_man obj364_captured_samurai obj367_Mura obj381_party_of_samurai obj387_crewmen obj395_apelike_man
+Attribute 25 attrib25  ! obj82_messenger obj207_ninja obj242_archers obj310_secret_door obj352 obj360_secret_drawer obj389_secret_door
+Attribute 26 attrib26  ! obj97_Lady_Etsu obj133_her obj134_women obj141 obj142_Erasmus obj151 obj184 obj187_Gyoko obj198_Kiritsubo obj249_Kiku obj280_Sazuko obj290_Lady_Ochiba obj294_Chimmoko obj297_Achiko obj352
+Attribute 27 attrib27  ! obj236_Blackthorne obj352
+Attribute 28 attrib28  ! obj87_Mates obj93_Ginsel obj108_Vinck obj127_Captain_General_Spillbergen obj139_Jan_Roper obj155_crewmen obj278_Salamon obj283_Maetsukker obj326_Baccus_van_Nekk obj331_Croocq obj341_Sonk obj352 obj363_Hendrik_Specz obj379_Pieterzoon obj387_crewmen
+Attribute 29 attrib29  ! obj352 obj365_sane obj393_insane
+Attribute 30 attrib30  ! obj155_crewmen obj176_veil obj269_kimonos obj307_tiny_bruised_apple obj345_crucifix obj352
+Attribute 31 attrib31  ! obj100_head obj163_body obj229_severed_head obj352
+Attribute 32 attrib32  ! obj83_hand obj104_stomach obj112_mouth obj147_balls obj153_feet obj180_fingers obj311_head obj329_eyes obj352
+Attribute 33 attrib33  ! obj90_this obj130_air obj156_it obj182_anchor obj200_east_wall obj209_eta obj228_old_priest obj242_archers obj256_outer_door obj352 obj371_iron_bound_door obj395_apelike_man obj399_anchor
+Attribute 34 attrib34  ! obj35_Mariko_s_Quarters obj76_your_rutter obj79_Yamazaki obj89_Japan obj90_this obj93_Ginsel obj95_Japanese obj97_Lady_Etsu obj105_England obj108_Vinck obj109_Ishido obj111_The_Lizard obj115_them obj119_English obj120_Yabu obj127_Captain_General_Spillbergen obj131_Yoshinaka obj133_her obj138_what obj139_Jan_Roper obj141 obj144_young_Gray_samurai obj145 obj156_it obj160_Magellan_s_Pass obj162_Toranaga obj165_Kojima obj171_Yabu obj173_Kiritsubo_s_curtained_litter obj175_sleep obj187_Gyoko obj195_Buntaro obj198_Kiritsubo obj202_yourself obj215_Portugal obj219_Spanish obj236_Blackthorne obj244_your_boots obj249_Kiku obj261_Rodrigues obj263_myself obj267_him obj274_Zataki obj277_your_clothes obj278_Salamon obj280_Sazuko obj281_Sumiyori obj282_Latin obj283_Maetsukker obj285 obj294_Chimmoko obj297_Achiko obj299_Spain obj317_Portuguese obj322_Holland obj326_Baccus_van_Nekk obj327_Yoshinaka obj331_Croocq obj333_Dutch obj337_attacking_Grays obj340_Pacific_Ocean obj341_Sonk obj344_here obj352 obj363_Hendrik_Specz obj367_Mura obj379_Pieterzoon obj385_Mariko_s_litter
+Attribute 35 attrib35  ! obj96_iron_door obj125_balcony_door obj154_focsle_door obj177_inner_shoji obj193_fortified_gate obj205_passageway_door obj208_outer_shoji obj225_Mates__cabin_door obj227_west_shoji obj232_west_shoji obj240_west_shoji obj241_prison_gate obj256_outer_door obj259_garden_gate obj260_trapdoor obj298_Pilot_s_cabin_door obj304_Captain_s_cabin_door obj310_secret_door obj352 obj371_iron_bound_door obj378_portcullis obj382_iron_barred_inner_door obj386_east_shoji obj389_secret_door obj390_door obj391_east_shoji obj401_east_shoji
+Attribute 36 attrib36  ! obj76_your_rutter obj114_secret_Portuguese_rutter obj158 obj189_silk_ribbon obj251_roll_of_parchment obj305_Japanese_dictionary obj351_compass obj352
+Attribute 37 attrib37  ! obj352
+Attribute 38 attrib38  ! obj75_oars obj76_your_rutter obj81_powder_horn obj100_head obj106_cup obj114_secret_Portuguese_rutter obj116_pair_of_sticks obj118_sea_chest obj122_gunwale obj123_quill obj128_long_straw obj137_broken_oar obj143_red_lacquered_tray obj148_robe obj149_rosary obj158 obj161_loincloth obj163_body obj166_food obj168_Vinck_s_straw obj169_towel obj176_veil obj181_short_straw obj182_anchor obj189_silk_ribbon obj196_large_knife obj199_kimono obj211_green_silk_ribbon obj213_vase obj214_swords obj217_small_knife obj220_gruel obj223_flagon obj229_severed_head obj233_caltrops obj235_cliff obj244_your_boots obj245_quilt obj248_skiff obj251_roll_of_parchment obj253_straw obj257_kimono obj269_kimonos obj272_pedestal obj273_camellia_blossom obj277_your_clothes obj288_pistol obj305_Japanese_dictionary obj307_tiny_bruised_apple obj313_rock obj316_slippers obj320_swords obj345_crucifix obj349_pair_of_sandals obj350_socks obj351_compass obj352 obj361_wooden_life_ring obj369_dagger obj370_deck obj384_crucifix obj398_ladder obj399_anchor obj400_cherry_blossom
+Attribute 39 attrib39  ! obj166_food obj220_gruel obj307_tiny_bruised_apple obj352
+Attribute 40 attrib40  ! obj148_robe obj161_loincloth obj169_towel obj196_large_knife obj199_kimono obj214_swords obj217_small_knife obj244_your_boots obj257_kimono obj269_kimonos obj277_your_clothes obj316_slippers obj320_swords obj321_safety_line obj349_pair_of_sandals obj350_socks obj352
+Attribute 41 attrib41  ! obj83_hand obj116_pair_of_sticks obj123_quill obj153_feet obj169_towel obj352
+Attribute 42 attrib42  ! obj106_cup obj107_bath_tub obj109_Ishido obj110_cauldron obj117_bath_tub obj118_sea_chest obj127_Captain_General_Spillbergen obj139_Jan_Roper obj140_palanquin obj141 obj143_red_lacquered_tray obj146_servants obj151 obj158 obj162_Toranaga obj173_Kiritsubo_s_curtained_litter obj184 obj213_vase obj222 obj223_flagon obj228_old_priest obj236_Blackthorne obj237_villagers obj245_quilt obj248_skiff obj258_samurai_guards obj271_side_fissure obj272_pedestal obj274_Zataki obj275_small_boat obj300_crowd_of_villagers obj301_main_fissure obj330_desk obj336 obj342_oarsmen obj348_sea_chair obj352 obj353_desk obj359_bulldog_like_man obj360_secret_drawer obj364_captured_samurai obj367_Mura obj376 obj381_party_of_samurai obj385_Mariko_s_litter obj395_apelike_man obj398_ladder obj402_dais
+Attribute 43 attrib43  ! obj157_bunk obj210_crates__barrels__and_boxes obj245_quilt obj308_bed obj330_desk obj348_sea_chair obj352 obj353_desk obj360_secret_drawer
+Attribute 44 attrib44  ! obj107_bath_tub obj110_cauldron obj117_bath_tub obj140_palanquin obj142_Erasmus obj157_bunk obj167_galley obj173_Kiritsubo_s_curtained_litter obj186_stream obj210_crates__barrels__and_boxes obj221_sea obj245_quilt obj248_skiff obj271_side_fissure obj275_small_boat obj301_main_fissure obj308_bed obj314_galley obj335_line obj348_sea_chair obj352 obj354_lily_pond obj373_small_boat obj385_Mariko_s_litter obj398_ladder obj402_dais
+Attribute 45 attrib45  ! obj196_large_knife obj214_swords obj217_small_knife obj288_pistol obj320_swords obj352 obj369_dagger
+Attribute 46 attrib46  ! obj79_Yamazaki obj82_messenger obj85_bandit_leader obj87_Mates obj91_dim_figures obj92_Shogun obj93_Ginsel obj97_Lady_Etsu obj100_head obj102_guards obj108_Vinck obj109_Ishido obj120_Yabu obj121_Goroda obj127_Captain_General_Spillbergen obj131_Yoshinaka obj133_her obj134_women obj135_madman obj139_Jan_Roper obj141 obj144_young_Gray_samurai obj145 obj146_servants obj150_daimyo obj151 obj155_crewmen obj162_Toranaga obj163_body obj165_Kojima obj170 obj171_Yabu obj174_barbarian obj179 obj184 obj187_Gyoko obj190_guest obj195_Buntaro obj197_ninja obj198_Kiritsubo obj202_yourself obj203_official obj207_ninja obj212_Kiyama obj222 obj224_hatamoto obj226_samurai_guards obj228_old_priest obj229_severed_head obj236_Blackthorne obj237_villagers obj242_archers obj246_Gray_Captain obj249_Kiku obj250_ninja_leader obj258_samurai_guards obj261_Rodrigues obj263_myself obj264_Taiko obj265_men obj267_him obj274_Zataki obj278_Salamon obj280_Sazuko obj281_Sumiyori obj283_Maetsukker obj285 obj286_bandits obj290_Lady_Ochiba obj291_detachment_of_ronin obj292_Brown_uniformed_samurai obj293_guest obj294_Chimmoko obj297_Achiko obj300_crowd_of_villagers obj306_Gray_Leader obj319_Pope obj323_priest_s_henchmen obj326_Baccus_van_Nekk obj327_Yoshinaka obj331_Croocq obj336 obj337_attacking_Grays obj341_Sonk obj342_oarsmen obj347_Gray_uniformed_samurai obj352 obj359_bulldog_like_man obj362_samurai obj363_Hendrik_Specz obj364_captured_samurai obj367_Mura obj376 obj379_Pieterzoon obj381_party_of_samurai obj387_crewmen obj395_apelike_man
+Attribute 47 attrib47  ! obj1_Pebbled_Beach obj19_Around_the_Headland obj21_Ledge obj23_Ledge obj40_Cliff_Path obj67_Ledge obj70_Ledge obj73_Rocky_Shore obj352
+
+! ----------------------------- Properties -----------------------------
+
+Property 24 prop24:?
+Property 25 prop25:?
+Property 26 prop26:?
+Property 27 prop27:?
+Property 28 prop28:string
+Property 29 prop29:string
+Property 30 prop30:?
+Property 31 prop31:?
+Property 32 prop32:dictwords
+Property 33 prop33:?
+Property 34 prop34:?
+Property 35 prop35:?
+Property 36 prop36:string
+Property 37 prop37:?
+Property 38 prop38:?
+Property 39 prop39:string
+Property 40 prop40:string
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:?
+Property 44 prop44:?
+Property 45 prop45:dictwords
+Property 46 prop46:?
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:?
+Property 52 prop52:?
+Property 53 prop53:?
+Property 54 prop54:?
+Property 55 prop55:?
+Property 57 prop57:?
+Property 59 prop59:?
+Property 61 prop61:?
+Property 63 prop63:?
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Pebbled_Beach
+Object 2 obj2_Courtyard
+Object 3 obj3_Prison_Courtyard
+Object 4 obj4_Reception_Room
+Object 5 obj5_Mura_s_House
+Object 6 obj6_Cell_Block
+Object 7 obj7_Private_Quarters
+Object 8 obj8_Anjiro
+Object 9 obj9_Beside_the_Erasmus
+Object 10 obj10_Deck
+Object 11 obj11_Garden
+Object 12 obj12_Outer_Corridor
+Object 13 obj13_Below_Decks
+Object 14 obj14_Deep_in_the_Woods
+Object 15 obj15_First_Floor
+Object 16 obj16_City_Street
+Object 17 obj17_Main_Deck
+Object 18 obj18_Glade_of_Maples
+Object 19 obj19_Around_the_Headland
+Object 20 obj20_Gateway
+Object 21 obj21_Ledge
+Object 22 obj22_Stable
+Object 23 obj23_Ledge
+Object 24 obj24_City_of_Osaka
+Object 25 obj25_Mariko_s_Room
+Object 26 obj26_Room_in_the_Inn
+Object 27 obj27_Blackthorne_s_Room
+Object 28 obj28_Tea_House
+Object 29 obj29_Yoshinaka_s_Room
+Object 30 obj30_Gyoko_s_Room
+Object 31 obj31_Room_at_the_Inn
+Object 32 obj32_Winding_Stairs
+Object 33 obj33_Outer_Room
+Object 34 obj34_Plateau
+Object 35 obj35_Mariko_s_Quarters
+Object 36 obj36_Your_Quarters
+Object 37 obj37_Wooded_Area
+Object 38 obj38_South_of_Corridor
+Object 39 obj39_Secret_Redoubt
+Object 40 obj40_Cliff_Path
+Object 41 obj41_Pit
+Object 42 obj42_Bridge
+Object 43 obj43_Toranaga_s_Galley
+Object 44 obj44_Middle_of_Corridor
+Object 45 obj45_Forecourt
+Object 46 obj46_City_Streets
+Object 47 obj47_Yokohama
+Object 48 obj48_Wharf
+Object 49 obj49_Secret_Room
+Object 50 obj50_Inner_Corridor
+Object 51 obj51_Audience_Chamber
+Object 52 obj52_In_the_Sea
+Object 53 obj53_Outside_Prison
+Object 54 obj54_Servants__Quarters
+Object 55 obj55_Passageway
+Object 56 obj56_Bridge
+Object 57 obj57_Bath_House
+Object 58 obj58_Warehouse
+Object 59 obj59_Cellars
+Object 60 obj60_Mates__Cabin
+Object 61 obj61_Bath_House
+Object 62 obj62_Village_Square
+Object 63 obj63_Captain_s_Cabin
+Object 64 obj64_Pilot_s_Cabin
+Object 65 obj65_Balcony
+Object 66 obj66_Formal_Garden
+Object 67 obj67_Ledge
+Object 68 obj68_Waterfront
+Object 69 obj69_North_of_Corridor
+Object 70 obj70_Ledge
+Object 71 obj71_Portcullis
+Object 72 obj72_Harbor
+Object 73 obj73_Rocky_Shore
+Object 74 obj74_Sekigahara
+Object 75 obj75_oars
+Object 76 obj76_your_rutter
+Object 77 obj77_offal
+Object 78 obj78_rutters
+Object 79 obj79_Yamazaki
+Object 80 obj80_bolt
+Object 81 obj81_powder_horn
+Object 82 obj82_messenger
+Object 83 obj83_hand
+Object 84 obj84_west_wall
+Object 85 obj85_bandit_leader
+Object 86 obj86_oars
+Object 87 obj87_Mates
+Object 88 obj88_bottom_catch
+Object 89 obj89_Japan
+Object 90 obj90_this
+Object 91 obj91_dim_figures
+Object 92 obj92_Shogun
+Object 93 obj93_Ginsel
+Object 94 obj94_peregrine
+Object 95 obj95_Japanese
+Object 96 obj96_iron_door
+Object 97 obj97_Lady_Etsu
+Object 98 obj98_request
+Object 99 obj99_help
+Object 100 obj100_head
+Object 101 obj101_dirt
+Object 102 obj102_guards
+Object 103 obj103_quotation
+Object 104 obj104_stomach
+Object 105 obj105_England
+Object 106 obj106_cup
+Object 107 obj107_bath_tub
+Object 108 obj108_Vinck
+Object 109 obj109_Ishido
+Object 110 obj110_cauldron
+Object 111 obj111_The_Lizard
+Object 112 obj112_mouth
+Object 113 obj113_rope
+Object 114 obj114_secret_Portuguese_rutter
+Object 115 obj115_them
+Object 116 obj116_pair_of_sticks
+Object 117 obj117_bath_tub
+Object 118 obj118_sea_chest
+Object 119 obj119_English
+Object 120 obj120_Yabu
+Object 121 obj121_Goroda
+Object 122 obj122_gunwale
+Object 123 obj123_quill
+Object 124 obj124_cross
+Object 125 obj125_balcony_door
+Object 126 obj126_heretic
+Object 127 obj127_Captain_General_Spillbergen
+Object 128 obj128_long_straw
+Object 129 obj129_sword
+Object 130 obj130_air
+Object 131 obj131_Yoshinaka
+Object 132 obj132_light
+Object 133 obj133_her
+Object 134 obj134_women
+Object 135 obj135_madman
+Object 136 obj136_plan
+Object 137 obj137_broken_oar
+Object 138 obj138_what
+Object 139 obj139_Jan_Roper
+Object 140 obj140_palanquin
+Object 141 obj141
+Object 142 obj142_Erasmus
+Object 143 obj143_red_lacquered_tray
+Object 144 obj144_young_Gray_samurai
+Object 145 obj145
+Object 146 obj146_servants
+Object 147 obj147_balls
+Object 148 obj148_robe
+Object 149 obj149_rosary
+Object 150 obj150_daimyo
+Object 151 obj151
+Object 152 obj152_gangway
+Object 153 obj153_feet
+Object 154 obj154_focsle_door
+Object 155 obj155_crewmen
+Object 156 obj156_it
+Object 157 obj157_bunk
+Object 158 obj158
+Object 159 obj159_bay
+Object 160 obj160_Magellan_s_Pass
+Object 161 obj161_loincloth
+Object 162 obj162_Toranaga
+Object 163 obj163_body
+Object 164 obj164_earthquake
+Object 165 obj165_Kojima
+Object 166 obj166_food
+Object 167 obj167_galley
+Object 168 obj168_Vinck_s_straw
+Object 169 obj169_towel
+Object 170 obj170
+Object 171 obj171_Yabu
+Object 172 obj172_manicured_path
+Object 173 obj173_Kiritsubo_s_curtained_litter
+Object 174 obj174_barbarian
+Object 175 obj175_sleep
+Object 176 obj176_veil
+Object 177 obj177_inner_shoji
+Object 178 obj178_wind
+Object 179 obj179
+Object 180 obj180_fingers
+Object 181 obj181_short_straw
+Object 182 obj182_anchor
+Object 183 obj183_pseudoxxx
+Object 184 obj184
+Object 185 obj185_leader
+Object 186 obj186_stream
+Object 187 obj187_Gyoko
+Object 188 obj188_world
+Object 189 obj189_silk_ribbon
+Object 190 obj190_guest
+Object 191 obj191
+Object 192 obj192_food
+Object 193 obj193_fortified_gate
+Object 194 obj194_Satan
+Object 195 obj195_Buntaro
+Object 196 obj196_large_knife
+Object 197 obj197_ninja
+Object 198 obj198_Kiritsubo
+Object 199 obj199_kimono
+Object 200 obj200_east_wall
+Object 201 obj201_noise
+Object 202 obj202_yourself
+Object 203 obj203_official
+Object 204 obj204
+Object 205 obj205_passageway_door
+Object 206 obj206_north_wall
+Object 207 obj207_ninja
+Object 208 obj208_outer_shoji
+Object 209 obj209_eta
+Object 210 obj210_crates__barrels__and_boxes
+Object 211 obj211_green_silk_ribbon
+Object 212 obj212_Kiyama
+Object 213 obj213_vase
+Object 214 obj214_swords
+Object 215 obj215_Portugal
+Object 216 obj216_pirate
+Object 217 obj217_small_knife
+Object 218 obj218_small_bridge
+Object 219 obj219_Spanish
+Object 220 obj220_gruel
+Object 221 obj221_sea
+Object 222 obj222
+Object 223 obj223_flagon
+Object 224 obj224_hatamoto
+Object 225 obj225_Mates__cabin_door
+Object 226 obj226_samurai_guards
+Object 227 obj227_west_shoji
+Object 228 obj228_old_priest
+Object 229 obj229_severed_head
+Object 230 obj230_voyage
+Object 231 obj231_narrow_ledge
+Object 232 obj232_west_shoji
+Object 233 obj233_caltrops
+Object 234 obj234_ceiling
+Object 235 obj235_cliff
+Object 236 obj236_Blackthorne
+Object 237 obj237_villagers
+Object 238 obj238_fire_bomb
+Object 239 obj239_ground
+Object 240 obj240_west_shoji
+Object 241 obj241_prison_gate
+Object 242 obj242_archers
+Object 243 obj243_severed_heads
+Object 244 obj244_your_boots
+Object 245 obj245_quilt
+Object 246 obj246_Gray_Captain
+Object 247 obj247_seawater
+Object 248 obj248_skiff
+Object 249 obj249_Kiku
+Object 250 obj250_ninja_leader
+Object 251 obj251_roll_of_parchment
+Object 252 obj252
+Object 253 obj253_straw
+Object 254 obj254_Osaka_castle
+Object 255 obj255_plant
+Object 256 obj256_outer_door
+Object 257 obj257_kimono
+Object 258 obj258_samurai_guards
+Object 259 obj259_garden_gate
+Object 260 obj260_trapdoor
+Object 261 obj261_Rodrigues
+Object 262 obj262_iron_bar
+Object 263 obj263_myself
+Object 264 obj264_Taiko
+Object 265 obj265_men
+Object 266 obj266_Church
+Object 267 obj267_him
+Object 268 obj268_wheel
+Object 269 obj269_kimonos
+Object 270 obj270_Queen_Elizabeth
+Object 271 obj271_side_fissure
+Object 272 obj272_pedestal
+Object 273 obj273_camellia_blossom
+Object 274 obj274_Zataki
+Object 275 obj275_small_boat
+Object 276 obj276_top_catch
+Object 277 obj277_your_clothes
+Object 278 obj278_Salamon
+Object 279 obj279_reef
+Object 280 obj280_Sazuko
+Object 281 obj281_Sumiyori
+Object 282 obj282_Latin
+Object 283 obj283_Maetsukker
+Object 284 obj284_gate
+Object 285 obj285
+Object 286 obj286_bandits
+Object 287 obj287_smoke
+Object 288 obj288_pistol
+Object 289 obj289_number
+Object 290 obj290_Lady_Ochiba
+Object 291 obj291_detachment_of_ronin
+Object 292 obj292_Brown_uniformed_samurai
+Object 293 obj293_guest
+Object 294 obj294_Chimmoko
+Object 295 obj295_house
+Object 296 obj296_wall
+Object 297 obj297_Achiko
+Object 298 obj298_Pilot_s_cabin_door
+Object 299 obj299_Spain
+Object 300 obj300_crowd_of_villagers
+Object 301 obj301_main_fissure
+Object 302 obj302_high_wall
+Object 303 obj303_latitude
+Object 304 obj304_Captain_s_cabin_door
+Object 305 obj305_Japanese_dictionary
+Object 306 obj306_Gray_Leader
+Object 307 obj307_tiny_bruised_apple
+Object 308 obj308_bed
+Object 309 obj309_Trinity_House
+Object 310 obj310_secret_door
+Object 311 obj311_head
+Object 312 obj312_rusty_key
+Object 313 obj313_rock
+Object 314 obj314_galley
+Object 315 obj315_hanase_masen
+Object 316 obj316_slippers
+Object 317 obj317_Portuguese
+Object 318 obj318_God
+Object 319 obj319_Pope
+Object 320 obj320_swords
+Object 321 obj321_safety_line
+Object 322 obj322_Holland
+Object 323 obj323_priest_s_henchmen
+Object 324 obj324_crack
+Object 325 obj325_fishing_village
+Object 326 obj326_Baccus_van_Nekk
+Object 327 obj327_Yoshinaka
+Object 328 obj328_foresails
+Object 329 obj329_eyes
+Object 330 obj330_desk
+Object 331 obj331_Croocq
+Object 332 obj332_traitor
+Object 333 obj333_Dutch
+Object 334 obj334_course
+Object 335 obj335_line
+Object 336 obj336
+Object 337 obj337_attacking_Grays
+Object 338 obj338_protective_lashing
+Object 339 obj339_prep_phrase
+Object 340 obj340_Pacific_Ocean
+Object 341 obj341_Sonk
+Object 342 obj342_oarsmen
+Object 343 obj343_hole
+Object 344 obj344_here
+Object 345 obj345_crucifix
+Object 346 obj346_land
+Object 347 obj347_Gray_uniformed_samurai
+Object 348 obj348_sea_chair
+Object 349 obj349_pair_of_sandals
+Object 350 obj350_socks
+Object 351 obj351_compass
+Object 352 obj352
+Object 353 obj353_desk
+Object 354 obj354_lily_pond
+Object 355 obj355_rope
+Object 356 obj356_prophecy
+Object 357 obj357_helm
+Object 358 obj358_suicide
+Object 359 obj359_bulldog_like_man
+Object 360 obj360_secret_drawer
+Object 361 obj361_wooden_life_ring
+Object 362 obj362_samurai
+Object 363 obj363_Hendrik_Specz
+Object 364 obj364_captured_samurai
+Object 365 obj365_sane
+Object 366 obj366_water
+Object 367 obj367_Mura
+Object 368 obj368
+Object 369 obj369_dagger
+Object 370 obj370_deck
+Object 371 obj371_iron_bound_door
+Object 372 obj372_little_waterfall
+Object 373 obj373_small_boat
+Object 374 obj374_ship
+Object 375 obj375_bell
+Object 376 obj376
+Object 377 obj377_teki
+Object 378 obj378_portcullis
+Object 379 obj379_Pieterzoon
+Object 380 obj380_path
+Object 381 obj381_party_of_samurai
+Object 382 obj382_iron_barred_inner_door
+Object 383 obj383_south_wall
+Object 384 obj384_crucifix
+Object 385 obj385_Mariko_s_litter
+Object 386 obj386_east_shoji
+Object 387 obj387_crewmen
+Object 388 obj388_cortege
+Object 389 obj389_secret_door
+Object 390 obj390_door
+Object 391 obj391_east_shoji
+Object 392 obj392_adjective
+Object 393 obj393_insane
+Object 394 obj394_Jesuits
+Object 395 obj395_apelike_man
+Object 396 obj396_direction
+Object 397 obj397_passage
+Object 398 obj398_ladder
+Object 399 obj399_anchor
+Object 400 obj400_cherry_blossom
+Object 401 obj401_east_shoji
+Object 402 obj402_dais
+Object 403 obj403_curtains
+Object 404 obj404_Black_Ship
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word japanese japanese
+Word quarters quarters
+Word vegetabl vegetabl
+Word villager villager
+Word $veri $veri
+Word $refre $refre
+Word $scene $scene
+Word #command #command
+Word #unrecor #unrecor
+Word ambushers ambushers
+Word amsterdam amsterdam
+Word anjin-s anjin-s
+Word apologiz apologiz
+Word assistanc assistanc
+Word attackers attackers
+Word attacking attacking
+Word barbarian barbarian
+Word blackthor blackthor
+Word brown-un brown-un
+Word bulldog- bulldog-
+Word calvinis calvinis
+Word captain- captain-
+Word cha-no- cha-no-
+Word chopstick chopstick
+Word christian christian
+Word cockroach cockroach
+Word commotion commotion
+Word companion companion
+Word complimen complimen
+Word construct construct
+Word courtyard courtyard
+Word crucifix crucifix
+Word curtained curtained
+Word danzenj danzenj
+Word detachmen detachmen
+Word dictionar dictionar
+Word disconnec disconnec
+Word disembark disembark
+Word disguised disguised
+Word everythi everythi
+Word extingui extingui
+Word eavesdro eavesdro
+Word earthqua earthqua
+Word earthenwa earthenwa
+Word elizabet elizabet
+Word end.of.in end.of.in
+Word englishma englishma
+Word fishermen fishermen
+Word forecastl forecastl
+Word forecourt forecourt
+Word foresails foresails
+Word foreshore foreshore
+Word fortified fortified
+Word francisca francisca
+Word goziemas goziemas
+Word gonzale gonzale
+Word gray-uni gray-uni
+Word greetings greetings
+Word grizzle grizzle
+Word guardsmen guardsmen
+Word hanase-m hanase-m
+Word heavy-s heavy-s
+Word hiro-mat hiro-mat
+Word inventor inventor
+Word interpret interpret
+Word iron-bar iron-bar
+Word iron-bou iron-bou
+Word iron-for iron-for
+Word kazunari kazunari
+Word kiritsubo kiritsubo
+Word lacquere lacquere
+Word lean-fac lean-fac
+Word lice-rid lice-rid
+Word loincloth loincloth
+Word maximili maximili
+Word maetsukke maetsukke
+Word manicured manicured
+Word messenger messenger
+Word middle-a middle-a
+Word netherlan netherlan
+Word northeast northeast
+Word northwest northwest
+Word overboar overboar
+Word ornamenta ornamenta
+Word palanqui palanqui
+Word parchment parchment
+Word passagewa passagewa
+Word peregrine peregrine
+Word pieterzo pieterzo
+Word pilot-ma pilot-ma
+Word portculli portculli
+Word portugues portugues
+Word possessed possessed
+Word predictio predictio
+Word prisoners prisoners
+Word processio processio
+Word prostrate prostrate
+Word protecti protecti
+Word reception reception
+Word reef-top reef-top
+Word rice-pap rice-pap
+Word rodrigues rodrigues
+Word rotterdam rotterdam
+Word round-fa round-fa
+Word squeeze squeeze
+Word servants servants
+Word southeast southeast
+Word southwest southwest
+Word spillberg spillberg
+Word starboard starboard
+Word straighte straighte
+Word superbrie superbrie
+Word testicles testicles
+Word translate translate
+Word transluce transluce
+Word unconscio unconscio
+Word underneat underneat
+Word undressed undressed
+Word unshaven unshaven
+Word wakarimas wakarimas
+Word warehouse warehouse
+Word waterfall waterfall
+Word waterfron waterfron
+Word worshippe worshippe
+Word yamazaki yamazaki
+Word yoshinaka yoshinaka
+

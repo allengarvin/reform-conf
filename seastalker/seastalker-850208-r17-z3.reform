@@ -1,0 +1,331 @@
+! ----------------------------------------------------
+!   seastalker-850208-r17-z3.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 3cae73bd2b7501609445fdd07ea7e616
+CodeArea 0x5926 0x1c1c9
+StringArea 0x1c1ca 0x1c9bc
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 3 attrib3   ! obj206
+Attribute 4 attrib4   ! obj94_Amy_Lowell obj95_Amy_Lowell obj104_Commander_Bly obj105_Commander_Bly obj107_Sharon_Kemp obj180_Sharon_Kemp obj206
+Attribute 5 attrib5   ! obj80_circuit_breaker obj94_Amy_Lowell obj96_Bill_Greenup obj98_Marv_Siegel obj100_Doc_Horvak obj102_Mick_Antrim obj104_Commander_Bly obj180_Sharon_Kemp obj191_Tip obj206
+Attribute 6 attrib6   ! obj193_yourself obj206
+Attribute 7 attrib7   ! obj64_workbench obj66_mechanical_supply_shelf obj69_electronic_supply_shelf obj71_chemical_supply_shelf obj75_Kemp_s_desk obj84_lab_desk obj118_special_hook obj137_Aquadome_sonar_equipment obj156_furniture obj158_furniture obj188_work_counter obj206
+Attribute 8 attrib8   ! obj76_lot_of_business_papers obj200_dart_gun obj206
+Attribute 9 attrib9   ! obj4_SEASTALKER obj5_underwater obj8_your_laboratory obj9_Doc_s_laboratory obj13_Bly_s_plan obj14_Tip_s_idea obj16_more obj25_here obj28_himself_or_herself obj29_him obj30_her obj51_Inventions_Unlimited obj53_it obj75_Kemp_s_desk obj106_Kemp_s_office obj110_your_arm obj111_yourself obj130_Bly_s_desk obj137_Aquadome_sonar_equipment obj153_Horvak_s_key obj154_Horvak_s_locker obj181_Sharon_s_badge obj182_Tip_s_badge obj183_your_badge obj184_Emergency_Oxygen_Gear obj185_Bly_s_Emergency_Oxygen_Gear obj193_yourself obj195_that_thing obj206 obj208_Frobton_Bay obj252_that
+Attribute 10 attrib10  ! obj54_turn obj215_meter obj216_sea_square
+Attribute 11 attrib11  ! obj64_workbench obj66_mechanical_supply_shelf obj69_electronic_supply_shelf obj71_chemical_supply_shelf obj75_Kemp_s_desk obj77_file_drawer obj84_lab_desk obj110_your_arm obj124_Emergency_Survival_Unit obj129_black_box obj130_Bly_s_desk obj152_diary obj154_Horvak_s_locker obj188_work_counter obj192_magazine obj206 obj226_reactor
+Attribute 12 attrib12  ! obj62_microphone obj90_Computestor obj126_docking_tank_electricity obj136_microphone obj184_Emergency_Oxygen_Gear obj206 obj211_brass_search_light obj225_hydrojet obj227_hydrophone obj231_sonarscope obj235_depth_finder
+Attribute 13 attrib13  ! obj109_gash obj115_special_Fram_Bolt_Wrench obj201_Sea_Cat obj202_Snark obj206 obj210_whale obj237_ship
+Attribute 14 attrib14  ! obj114_electrolyte_relay obj120_Air_Supply_System obj200_dart_gun obj206 obj239_voltage_regulator
+Attribute 15 attrib15  ! obj17_evidence obj19_docking_tank_roof obj20_docking_tank_gate obj24_air obj31_open_sea obj45_explosive_charge obj51_Inventions_Unlimited obj53_it obj69_electronic_supply_shelf obj78_office_door obj81_Electrical_Panel obj86_intercom obj87_lab_door obj88_east_part obj94_Amy_Lowell obj95_Amy_Lowell obj106_Kemp_s_office obj113_empty_space obj114_electrolyte_relay obj117_arrow obj119_access_door obj120_Air_Supply_System obj124_Emergency_Survival_Unit obj131_Aquadome_office obj133_office_door obj137_Aquadome_sonar_equipment obj138_alarm_bell obj155_other_locker obj167_Aquadome_crew obj169_Aquadome_crew obj172_emergency_ladder obj173_Air_Supply_System obj176_exercise_track obj178_Aquadome obj184_Emergency_Oxygen_Gear obj187_other_Gear obj190_article obj199_Aquadome_laboratory obj204_instrument_cluster obj206 obj207_extensor_claw obj214_autopilot obj219_off obj233_automatic obj244_engine_starter obj249_access_panel obj251_SCIMITAR
+Attribute 16 attrib16  ! obj154_Horvak_s_locker obj177_window obj206 obj242_viewport
+Attribute 17 attrib17  ! obj177_window obj206 obj242_viewport
+Attribute 18 attrib18  ! obj36_satellite obj37_undersea_coaxial_cable obj38_transmitter obj56_control_gear obj57_control_gear obj59_gangplank obj61_technician obj63_diagram obj64_workbench obj65_bunch_of_mechanical_supplies obj66_mechanical_supply_shelf obj68_bunch_of_electronic_supplies obj69_electronic_supply_shelf obj70_bunch_of_chemicals obj71_chemical_supply_shelf obj75_Kemp_s_desk obj76_lot_of_business_papers obj77_file_drawer obj78_office_door obj80_circuit_breaker obj81_Electrical_Panel obj84_lab_desk obj85_Microwave_Security_Scanner obj89_receiver obj90_Computestor obj92_Doctor_Jerome_Thorpe obj105_Commander_Bly obj107_Sharon_Kemp obj109_gash obj110_your_arm obj117_arrow obj118_special_hook obj119_access_door obj120_Air_Supply_System obj122_fine_grid obj124_Emergency_Survival_Unit obj125_docking_tank_control_panel obj126_docking_tank_electricity obj127_station_monitor obj130_Bly_s_desk obj136_microphone obj137_Aquadome_sonar_equipment obj138_alarm_bell obj140_videophone obj146_workshop_material obj153_Horvak_s_key obj154_Horvak_s_locker obj155_other_locker obj156_furniture obj158_furniture obj159_chair obj169_Aquadome_crew obj172_emergency_ladder obj177_window obj180_Sharon_Kemp obj181_Sharon_s_badge obj182_Tip_s_badge obj183_your_badge obj184_Emergency_Oxygen_Gear obj188_work_counter obj193_yourself obj198_bazooka obj200_dart_gun obj201_Sea_Cat obj202_Snark obj203_control_panel obj204_instrument_cluster obj205_seat obj206 obj208_Frobton_Bay obj210_whale obj211_brass_search_light obj212_temperature_gauge obj213_control_circuit obj214_autopilot obj215_meter obj216_sea_square obj217_depth_control obj218_present_depth obj219_off obj220_slow obj221_medium obj222_fast obj223_throttle obj224_joystick obj225_hydrojet obj227_hydrophone obj228_sonarphone obj229_warning_buzzer obj230_sonarscope_warning_light obj231_sonarscope obj232_manual obj233_automatic obj234_depth_finder_warning_light obj235_depth_finder obj236_reactor_lever obj237_ship obj238_sea_wall obj239_voltage_regulator obj242_viewport obj244_engine_starter obj246_gate_control obj247_tank_control obj248_reactor_starter obj251_SCIMITAR
+Attribute 19 attrib19  ! obj64_workbench obj66_mechanical_supply_shelf obj69_electronic_supply_shelf obj71_chemical_supply_shelf obj72_south_doorway obj75_Kemp_s_desk obj77_file_drawer obj84_lab_desk obj87_lab_door obj132_storage_door obj137_Aquadome_sonar_equipment obj143_galley_door obj144_comm_center_door obj148_laboratory_door obj149_workshop_door obj188_work_counter obj206 obj226_reactor obj250_entry_hatch
+Attribute 20 attrib20  ! obj55_south_walkway obj58_west_walkway obj60_north_walkway obj67_west_part obj73_south_part obj74_limbo obj79_storage_closet obj81_Electrical_Panel obj83_corridor obj88_east_part obj91_north_part obj106_Kemp_s_office obj112_lab_center obj121_dome_center obj126_docking_tank_electricity obj127_station_monitor obj131_Aquadome_office obj134_southeast_deck obj135_galley obj137_Aquadome_sonar_equipment obj142_comm_center obj145_northeast_deck obj147_workshop obj150_northwest_deck obj157_male_dorm obj160_female_dorm obj163_southwest_deck obj168_reception_area obj171_docking_tank_entrance obj175_docking_tank obj197_storage_room obj199_Aquadome_laboratory obj206 obj227_hydrophone obj231_sonarscope obj235_depth_finder obj241_crawl_space obj253_SCIMITAR
+Attribute 21 attrib21  ! obj55_south_walkway obj58_west_walkway obj60_north_walkway obj67_west_part obj73_south_part obj74_limbo obj79_storage_closet obj83_corridor obj88_east_part obj91_north_part obj106_Kemp_s_office obj112_lab_center obj121_dome_center obj131_Aquadome_office obj134_southeast_deck obj135_galley obj142_comm_center obj145_northeast_deck obj147_workshop obj150_northwest_deck obj157_male_dorm obj160_female_dorm obj163_southwest_deck obj168_reception_area obj171_docking_tank_entrance obj175_docking_tank obj197_storage_room obj199_Aquadome_laboratory obj206 obj241_crawl_space obj253_SCIMITAR
+Attribute 22 attrib22  ! obj76_lot_of_business_papers obj120_Air_Supply_System obj152_diary obj190_article obj192_magazine obj194_Logbook obj206 obj231_sonarscope
+Attribute 23 attrib23  ! obj62_microphone obj114_electrolyte_relay obj115_special_Fram_Bolt_Wrench obj122_fine_grid obj123_hypodermic_syringe obj124_Emergency_Survival_Unit obj129_black_box obj136_microphone obj151_photograph obj179_Universal_Tool obj184_Emergency_Oxygen_Gear obj189_catalyst_capsule obj192_magazine obj194_Logbook obj198_bazooka obj206
+Attribute 24 attrib24  ! obj115_special_Fram_Bolt_Wrench obj153_Horvak_s_key obj179_Universal_Tool obj206
+Attribute 25 attrib25  ! obj206
+Attribute 26 attrib26  ! obj64_workbench obj66_mechanical_supply_shelf obj69_electronic_supply_shelf obj71_chemical_supply_shelf obj75_Kemp_s_desk obj77_file_drawer obj80_circuit_breaker obj84_lab_desk obj120_Air_Supply_System obj124_Emergency_Survival_Unit obj129_black_box obj130_Bly_s_desk obj152_diary obj154_Horvak_s_locker obj188_work_counter obj192_magazine obj206 obj226_reactor
+
+! ----------------------------- Properties -----------------------------
+
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_right
+Object 2 obj2_left
+Object 3 obj3__something_
+Object 4 obj4_SEASTALKER
+Object 5 obj5_underwater
+Object 6 obj6_traitor
+Object 7 obj7_job
+Object 8 obj8_your_laboratory
+Object 9 obj9_Doc_s_laboratory
+Object 10 obj10_lab_assistant
+Object 11 obj11_sonar_operator
+Object 12 obj12_reason
+Object 13 obj13_Bly_s_plan
+Object 14 obj14_Tip_s_idea
+Object 15 obj15_valuable_ore_deposit
+Object 16 obj16_more
+Object 17 obj17_evidence
+Object 18 obj18_private_matter
+Object 19 obj19_docking_tank_roof
+Object 20 obj20_docking_tank_gate
+Object 21 obj21_test_tank_gate
+Object 22 obj22_test_tank
+Object 23 obj23_docking_tank
+Object 24 obj24_air
+Object 25 obj25_here
+Object 26 obj26_Aquadome_directions
+Object 27 obj27_clue
+Object 28 obj28_himself_or_herself
+Object 29 obj29_him
+Object 30 obj30_her
+Object 31 obj31_open_sea
+Object 32 obj32_sea_water
+Object 33 obj33_compass_direction
+Object 34 obj34_sabotage
+Object 35 obj35_damage
+Object 36 obj36_satellite
+Object 37 obj37_undersea_coaxial_cable
+Object 38 obj38_transmitter
+Object 39 obj39_surface
+Object 40 obj40_sonar
+Object 41 obj41_distress_call
+Object 42 obj42_power
+Object 43 obj43_boat
+Object 44 obj44_SCIMITAR
+Object 45 obj45_explosive_charge
+Object 46 obj46_weapon
+Object 47 obj47_Snark
+Object 48 obj48_problem
+Object 49 obj49_motive
+Object 50 obj50_danger
+Object 51 obj51_Inventions_Unlimited
+Object 52 obj52_floor
+Object 53 obj53_it
+Object 54 obj54_turn
+Object 55 obj55_south_walkway
+Object 56 obj56_control_gear
+Object 57 obj57_control_gear
+Object 58 obj58_west_walkway
+Object 59 obj59_gangplank
+Object 60 obj60_north_walkway
+Object 61 obj61_technician
+Object 62 obj62_microphone
+Object 63 obj63_diagram
+Object 64 obj64_workbench
+Object 65 obj65_bunch_of_mechanical_supplies
+Object 66 obj66_mechanical_supply_shelf
+Object 67 obj67_west_part
+Object 68 obj68_bunch_of_electronic_supplies
+Object 69 obj69_electronic_supply_shelf
+Object 70 obj70_bunch_of_chemicals
+Object 71 obj71_chemical_supply_shelf
+Object 72 obj72_south_doorway
+Object 73 obj73_south_part
+Object 74 obj74_limbo
+Object 75 obj75_Kemp_s_desk
+Object 76 obj76_lot_of_business_papers
+Object 77 obj77_file_drawer
+Object 78 obj78_office_door
+Object 79 obj79_storage_closet
+Object 80 obj80_circuit_breaker
+Object 81 obj81_Electrical_Panel
+Object 82 obj82_storage_door
+Object 83 obj83_corridor
+Object 84 obj84_lab_desk
+Object 85 obj85_Microwave_Security_Scanner
+Object 86 obj86_intercom
+Object 87 obj87_lab_door
+Object 88 obj88_east_part
+Object 89 obj89_receiver
+Object 90 obj90_Computestor
+Object 91 obj91_north_part
+Object 92 obj92_Doctor_Jerome_Thorpe
+Object 93 obj93_Doctor_Jerome_Thorpe
+Object 94 obj94_Amy_Lowell
+Object 95 obj95_Amy_Lowell
+Object 96 obj96_Bill_Greenup
+Object 97 obj97_Bill_Greenup
+Object 98 obj98_Marv_Siegel
+Object 99 obj99_Marv_Siegel
+Object 100 obj100_Doc_Horvak
+Object 101 obj101_Doc_Horvak
+Object 102 obj102_Mick_Antrim
+Object 103 obj103_Mick_Antrim
+Object 104 obj104_Commander_Bly
+Object 105 obj105_Commander_Bly
+Object 106 obj106_Kemp_s_office
+Object 107 obj107_Sharon_Kemp
+Object 108 obj108_Tip_Randall
+Object 109 obj109_gash
+Object 110 obj110_your_arm
+Object 111 obj111_yourself
+Object 112 obj112_lab_center
+Object 113 obj113_empty_space
+Object 114 obj114_electrolyte_relay
+Object 115 obj115_special_Fram_Bolt_Wrench
+Object 116 obj116_special_Fram_Bolt_Wrench
+Object 117 obj117_arrow
+Object 118 obj118_special_hook
+Object 119 obj119_access_door
+Object 120 obj120_Air_Supply_System
+Object 121 obj121_dome_center
+Object 122 obj122_fine_grid
+Object 123 obj123_hypodermic_syringe
+Object 124 obj124_Emergency_Survival_Unit
+Object 125 obj125_docking_tank_control_panel
+Object 126 obj126_docking_tank_electricity
+Object 127 obj127_station_monitor
+Object 128 obj128_circuit
+Object 129 obj129_black_box
+Object 130 obj130_Bly_s_desk
+Object 131 obj131_Aquadome_office
+Object 132 obj132_storage_door
+Object 133 obj133_office_door
+Object 134 obj134_southeast_deck
+Object 135 obj135_galley
+Object 136 obj136_microphone
+Object 137 obj137_Aquadome_sonar_equipment
+Object 138 obj138_alarm_bell
+Object 139 obj139_videophone
+Object 140 obj140_videophone
+Object 141 obj141_control_panel
+Object 142 obj142_comm_center
+Object 143 obj143_galley_door
+Object 144 obj144_comm_center_door
+Object 145 obj145_northeast_deck
+Object 146 obj146_workshop_material
+Object 147 obj147_workshop
+Object 148 obj148_laboratory_door
+Object 149 obj149_workshop_door
+Object 150 obj150_northwest_deck
+Object 151 obj151_photograph
+Object 152 obj152_diary
+Object 153 obj153_Horvak_s_key
+Object 154 obj154_Horvak_s_locker
+Object 155 obj155_other_locker
+Object 156 obj156_furniture
+Object 157 obj157_male_dorm
+Object 158 obj158_furniture
+Object 159 obj159_chair
+Object 160 obj160_female_dorm
+Object 161 obj161_blue_door
+Object 162 obj162_red_door
+Object 163 obj163_southwest_deck
+Object 164 obj164_badge
+Object 165 obj165_badge
+Object 166 obj166_badge
+Object 167 obj167_Aquadome_crew
+Object 168 obj168_reception_area
+Object 169 obj169_Aquadome_crew
+Object 170 obj170_docking_tank_ladder
+Object 171 obj171_docking_tank_entrance
+Object 172 obj172_emergency_ladder
+Object 173 obj173_Air_Supply_System
+Object 174 obj174_docking_tank_ramp
+Object 175 obj175_docking_tank
+Object 176 obj176_exercise_track
+Object 177 obj177_window
+Object 178 obj178_Aquadome
+Object 179 obj179_Universal_Tool
+Object 180 obj180_Sharon_Kemp
+Object 181 obj181_Sharon_s_badge
+Object 182 obj182_Tip_s_badge
+Object 183 obj183_your_badge
+Object 184 obj184_Emergency_Oxygen_Gear
+Object 185 obj185_Bly_s_Emergency_Oxygen_Gear
+Object 186 obj186_divers__Gear
+Object 187 obj187_other_Gear
+Object 188 obj188_work_counter
+Object 189 obj189_catalyst_capsule
+Object 190 obj190_article
+Object 191 obj191_Tip
+Object 192 obj192_magazine
+Object 193 obj193_yourself
+Object 194 obj194_Logbook
+Object 195 obj195_that_thing
+Object 196 obj196_pseudo
+Object 197 obj197_storage_room
+Object 198 obj198_bazooka
+Object 199 obj199_Aquadome_laboratory
+Object 200 obj200_dart_gun
+Object 201 obj201_Sea_Cat
+Object 202 obj202_Snark
+Object 203 obj203_control_panel
+Object 204 obj204_instrument_cluster
+Object 205 obj205_seat
+Object 206 obj206
+Object 207 obj207_extensor_claw
+Object 208 obj208_Frobton_Bay
+Object 209 obj209_overheating
+Object 210 obj210_whale
+Object 211 obj211_brass_search_light
+Object 212 obj212_temperature_gauge
+Object 213 obj213_control_circuit
+Object 214 obj214_autopilot
+Object 215 obj215_meter
+Object 216 obj216_sea_square
+Object 217 obj217_depth_control
+Object 218 obj218_present_depth
+Object 219 obj219_off
+Object 220 obj220_slow
+Object 221 obj221_medium
+Object 222 obj222_fast
+Object 223 obj223_throttle
+Object 224 obj224_joystick
+Object 225 obj225_hydrojet
+Object 226 obj226_reactor
+Object 227 obj227_hydrophone
+Object 228 obj228_sonarphone
+Object 229 obj229_warning_buzzer
+Object 230 obj230_sonarscope_warning_light
+Object 231 obj231_sonarscope
+Object 232 obj232_manual
+Object 233 obj233_automatic
+Object 234 obj234_depth_finder_warning_light
+Object 235 obj235_depth_finder
+Object 236 obj236_reactor_lever
+Object 237 obj237_ship
+Object 238 obj238_sea_wall
+Object 239 obj239_voltage_regulator
+Object 240 obj240_lights
+Object 241 obj241_crawl_space
+Object 242 obj242_viewport
+Object 243 obj243
+Object 244 obj244_engine_starter
+Object 245 obj245_test_button
+Object 246 obj246_gate_control
+Object 247 obj247_tank_control
+Object 248 obj248_reactor_starter
+Object 249 obj249_access_panel
+Object 250 obj250_entry_hatch
+Object 251 obj251_SCIMITAR
+Object 252 obj252_that
+Object 253 obj253_SCIMITAR
+Object 254 obj254_such_things
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+

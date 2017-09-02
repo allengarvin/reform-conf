@@ -1,0 +1,646 @@
+! ----------------------------------------------------
+!   amfv-841226-r001-z3.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 af8f2ec5b6cc7c5d90b107a50e600c86
+CodeArea 0x2352 0x79ea
+StringArea 0x79ea 0x8300
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 3 attrib3   ! obj9_SOCIAL_parameter obj10_POPULATION_parameter obj11_ENVIRONMENTAL_parameter obj12_SECURITY_parameter obj13_FINANCIAL_parameter obj14_ENERGY_parameter obj15_EUGENICS_parameter obj16_ARMS_parameter
+Attribute 4 attrib4   ! obj17_SPACE_parameter obj18_BENEFITS_parameter obj19_MILITARY_parameter obj20_JOB_parameter obj21_RESEARCH_parameter obj22_HEALTH_parameter obj23_AID_parameter obj24_FOOD_parameter obj25_EDUCATION_parameter
+Attribute 5 attrib5   ! obj9_SOCIAL_parameter obj10_POPULATION_parameter obj11_ENVIRONMENTAL_parameter obj12_SECURITY_parameter obj13_FINANCIAL_parameter obj14_ENERGY_parameter obj15_EUGENICS_parameter obj16_ARMS_parameter obj17_SPACE_parameter obj18_BENEFITS_parameter obj19_MILITARY_parameter obj20_JOB_parameter obj21_RESEARCH_parameter obj22_HEALTH_parameter obj23_AID_parameter obj24_FOOD_parameter obj25_EDUCATION_parameter obj26_PROGRESSIVITY_parameter obj27_PERCENT_parameter obj28_third_set_of_parameters obj29_second_set_of_parameters obj30_first_set_of_parameters obj35_it obj40_your_hand obj43_stairs obj44_ceiling obj45_wall obj48_it
+Attribute 6 attrib6   ! obj33_yourself obj36_your_ears obj37_your_eyes obj38_your_head obj39_your_teeth obj40_your_hand obj43_stairs obj47_it obj48_it
+Attribute 7 attrib7   ! obj42_air obj48_it
+Attribute 8 attrib8   ! obj53
+Attribute 9 attrib9   ! obj53
+Attribute 10 attrib10  ! obj53
+Attribute 11 attrib11  ! obj53
+Attribute 12 attrib12  ! obj53
+Attribute 13 attrib13  ! obj53
+Attribute 14 attrib14  ! obj53
+Attribute 15 attrib15  ! obj53
+Attribute 16 attrib16  ! obj53
+Attribute 17 attrib17  ! obj33_yourself obj40_your_hand obj44_ceiling obj45_wall obj48_it obj53
+Attribute 18 attrib18  ! obj35_it obj53
+Attribute 19 attrib19  ! obj53
+Attribute 20 attrib20  ! obj28_third_set_of_parameters obj29_second_set_of_parameters obj30_first_set_of_parameters
+Attribute 21 attrib21  ! obj53
+Attribute 22 attrib22  ! obj1_portavid obj53
+Attribute 23 attrib23  ! obj2_Skybus obj3_Boarding_Platform obj4_Simulation_Mode obj5_World_News_Network_Feed obj6_Maintenance_Core obj7_Dr__Patterson_s_Office obj8_Research_Center_Rooftop obj31_Library_Mode obj34_Communications_Mode
+Attribute 28 attrib28  ! obj53
+Attribute 29 attrib29  ! obj2_Skybus obj3_Boarding_Platform obj4_Simulation_Mode obj5_World_News_Network_Feed obj6_Maintenance_Core obj7_Dr__Patterson_s_Office obj8_Research_Center_Rooftop obj31_Library_Mode obj34_Communications_Mode
+Attribute 30 attrib30  ! obj53
+Attribute 31 attrib31  ! obj33_yourself
+
+! ----------------------------- Properties -----------------------------
+
+Property 8 prop8:?
+Property 9 prop9:?
+Property 10 prop10:?
+Property 11 prop11:?
+Property 12 prop12:?
+Property 13 prop13:?
+Property 14 prop14:?
+Property 15 prop15:?
+Property 16 prop16:?
+Property 17 prop17:?
+Property 18 prop18:?
+Property 19 prop19:dictwords
+Property 20 prop20:?
+Property 21 in_to:exit
+Property 24 northw_to:exit
+Property 25 p_to:exit
+Property 26 southw_to:exit
+Property 27 aft_to:exit
+Property 28 se_to:exit
+Property 29 e_to:exit
+Property 30 ne_to:exit
+Property 31 f_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_portavid
+Object 2 obj2_Skybus
+Object 3 obj3_Boarding_Platform
+Object 4 obj4_Simulation_Mode
+Object 5 obj5_World_News_Network_Feed
+Object 6 obj6_Maintenance_Core
+Object 7 obj7_Dr__Patterson_s_Office
+Object 8 obj8_Research_Center_Rooftop
+Object 9 obj9_SOCIAL_parameter
+Object 10 obj10_POPULATION_parameter
+Object 11 obj11_ENVIRONMENTAL_parameter
+Object 12 obj12_SECURITY_parameter
+Object 13 obj13_FINANCIAL_parameter
+Object 14 obj14_ENERGY_parameter
+Object 15 obj15_EUGENICS_parameter
+Object 16 obj16_ARMS_parameter
+Object 17 obj17_SPACE_parameter
+Object 18 obj18_BENEFITS_parameter
+Object 19 obj19_MILITARY_parameter
+Object 20 obj20_JOB_parameter
+Object 21 obj21_RESEARCH_parameter
+Object 22 obj22_HEALTH_parameter
+Object 23 obj23_AID_parameter
+Object 24 obj24_FOOD_parameter
+Object 25 obj25_EDUCATION_parameter
+Object 26 obj26_PROGRESSIVITY_parameter
+Object 27 obj27_PERCENT_parameter
+Object 28 obj28_third_set_of_parameters
+Object 29 obj29_second_set_of_parameters
+Object 30 obj30_first_set_of_parameters
+Object 31 obj31_Library_Mode
+Object 32 obj32_room
+Object 33 obj33_yourself
+Object 34 obj34_Communications_Mode
+Object 35 obj35_it
+Object 36 obj36_your_ears
+Object 37 obj37_your_eyes
+Object 38 obj38_your_head
+Object 39 obj39_your_teeth
+Object 40 obj40_your_hand
+Object 41 obj41_sky
+Object 42 obj42_air
+Object 43 obj43_stairs
+Object 44 obj44_ceiling
+Object 45 obj45_wall
+Object 46 obj46_ground
+Object 47 obj47_it
+Object 48 obj48_it
+Object 49 obj49_pseudo
+Object 50 obj50_number
+Object 51 obj51
+Object 52 obj52
+Object 53 obj53
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbos'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superb'
+Action 3 Action3  ! 'diagno'
+Action 4 Action4  ! 'i//'/'invent'
+Action 5 Action5  ! 'q//'/'quit'
+Action 6 Action6  ! 'restar'
+Action 7 Action7  ! 'restor'
+Action 8 Action8  ! 'save'
+Action 9 Action9  ! 'score'
+Action 10 Action10 ! 'script'
+Action 11 Action11 ! 'unscri'
+Action 12 Action12 ! 'versio'
+Action 13 Action13 ! '$ve' object
+Action 14 Action14 ! '$de'
+Action 15 Action15 ! 'again'/'g//'
+Action 16 Action16 ! 'answer'/'reply'
+Action 17 Action17 ! 'answer'/'reply' 'toward'/'to' object
+Action 18 Action18 ! 'approa' object
+Action 19 Action19 ! 'ask'/'consul'/'query' attrib31 'onto'/'on' object
+Action 20 Action20 ! 'ask'/'consul'/'query' attrib31 'for' object
+Action 21 Action21 ! 'assaul'/'attack'/'fight'/'hit'/'kill'/'murder'/'punch'/'slap'/'strike' attrib31(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 22 Action22 ! 'bite' object
+Action 23 Action23 ! 'board'/'embark' attrib30(in_room,on_ground)
+Action 24 Action24 ! 'climb'/'scale' object(in_room,on_ground)
+Action 25 Action25 ! 'climb'/'scale' 'onto'/'on' attrib30(in_room,on_ground)
+Action 26 Action26 ! 'climb'/'scale' 'up'/'u//' attrib29(in_room,on_ground)
+Action 27 Action27 ! 'climb'/'scale' 'down'/'d//' attrib29(in_room,on_ground)
+Action 28 Action28 ! 'climb'/'scale' 'over' object(in_room,on_ground)
+Action 29 Action29 ! 'climb'/'scale' 'thru'/'throug' object
+Action 30 Action30 ! 'close'/'shut' attrib28(held,carried,in_room,on_ground)
+Action 31 Action31 ! 'close'/'shut' 'off' attrib27(held,carried,in_room,on_ground,take)
+Action 32 Action32 ! 'cover' object 'with'/'using' object(held,many)
+Action 33 Action33 ! 'count' object
+Action 34 Action34 ! 'cut'/'slice' 'thru'/'throug' object 'with'/'using' object(held,carried)
+Action 35 Action35 ! 'break'/'crack'/'damage'/'demoli'/'destro'/'smash'/'wreck' object 'with'/'using' object(held,carried,take)
+Action 36 Action36 ! 'dig' 'thru'/'throug' object
+Action 37 Action37 ! 'debark'/'disemb' attrib30(in_room,on_ground)
+Action 38 Action38 ! 'drape'/'wrap' object(held,many) 'over' object
+Action 39 Action39 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' attrib26(held,carried,in_room,on_ground)
+Action 40 Action40 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' 'from' object(held,carried)
+Action 41 Action41 ! 'drop' object(held,many,have)
+Action 42 Action42 ! 'drop' object(held,many) 'onto'/'on' object
+Action 43 Action43 ! 'devour'/'eat'/'gobble'/'ingest' attrib25(held,carried,in_room,on_ground)
+Action 44 Action44 ! 'enter'
+Action 45 Action45 ! 'depart'/'exit'/'withdr' object
+Action 46 Action46 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study' attrib24(held,carried,in_room,on_ground)
+Action 47 Action47 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study' object 'thru'/'throug' object
+Action 48 Action48 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study' 'onto'/'on' object(held,carried,in_room,on_ground)
+Action 49 Action49 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study' 'for' object
+Action 50 Action50 ! 'fill' object
+Action 51 Action51 ! 'chase'/'follow'/'pursue' object
+Action 52 Action52 ! 'donate'/'give'/'hand'/'offer'/'sell' object(held,many,have) 'toward'/'to' attrib31(on_ground)
+Action 53 Action53 ! 'donate'/'give'/'hand'/'offer'/'sell' attrib31(on_ground) object(held,many,have)
+Action 54 Action54 ! 'hang' object 'from' object
+Action 55 Action55 ! 'hear' attrib24
+Action 56 Action56 ! 'hello'/'hi' object
+Action 57 Action57 ! 'help'/'hint'/'hints'
+Action 58 Action58 ! 'hide' 'behind' object
+Action 59 Action59 ! 'dive'/'jump'/'leap' 'off' object
+Action 60 Action60 ! 'kick' object
+Action 61 Action61 ! 'kiss' attrib31(in_room,on_ground)
+Action 62 Action62 ! 'knock'/'rap' 'onto'/'on' object
+Action 63 Action63 ! 'leave' object
+Action 64 Action64 ! 'lie'/'reclin' 'down'/'d//' attrib29
+Action 65 Action65 ! 'light' attrib27(held,carried,in_room,on_ground)
+Action 66 Action66 ! 'lock' object(in_room,on_ground) 'with'/'using' object(take)
+Action 67 Action67 ! 'gaze'/'l//'/'look'/'stare' 'around'/'along' attrib29
+Action 68 Action68 ! 'gaze'/'l//'/'look'/'stare' 'down'/'d//' attrib29
+Action 69 Action69 ! 'gaze'/'l//'/'look'/'stare' 'up'/'u//' attrib29
+Action 70 Action70 ! 'gaze'/'l//'/'look'/'stare' 'undern'/'under'/'beneat'/'below' object
+Action 71 Action71 ! 'gaze'/'l//'/'look'/'stare' 'behind' object
+Action 72 Action72 ! 'gaze'/'l//'/'look'/'stare' object
+Action 73 Action73 ! 'lower' object
+Action 74 Action74 ! 'maco'
+Action 75 Action75 ! 'move'/'pull' object(in_room,on_ground)
+Action 76 Action76 ! 'no'
+Action 77 Action77 ! 'open'/'part' attrib28(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 78 Action78 ! 'paof'
+Action 79 Action79 ! 'pick' object 'with'/'using' object
+Action 80 Action80 ! 'pick' 'up'/'u//' attrib22(on_ground,many)
+Action 81 Action81 ! 'point' 'toward'/'to' object
+Action 82 Action82 ! 'pour'/'spill'/'sprink' object(held,carried) 'over' object
+Action 83 Action83 ! 'press'/'push' 'onto'/'on' object(in_room,on_ground)
+Action 84 Action84 ! 'press'/'push' object 'undern'/'under'/'beneat'/'below' object
+Action 85 Action85 ! 'insert'/'lay'/'place'/'put'/'stuff' 'onto'/'on' attrib21(have)
+Action 86 Action86 ! 'insert'/'lay'/'place'/'put'/'stuff' object 'behind' object
+Action 87 Action87 ! 'lift'/'raise' 'up'/'u//' object
+Action 88 Action88 ! 'rape' attrib31
+Action 89 Action89 ! 'rcro'
+Action 90 Action90 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 91 Action91 ! 'read'/'skim' attrib20(held,carried,in_room,on_ground,take) 'with'/'using' object
+Action 92 Action92 ! 'doff'/'remove'/'shed' attrib19
+Action 93 Action93 ! 'say'/'speak'/'talk' 'toward'/'to' attrib31(in_room)
+Action 94 Action94 ! 'say'/'speak'/'talk'
+Action 95 Action95 ! 'frisk'/'rummag'/'search' 'into'/'inside'/'in' object
+Action 96 Action96 ! 'alter'/'change'/'decrea'/'increa'/'set' object 'toward'/'to' object
+Action 97 Action97 ! 'shake' object
+Action 98 Action98 ! 'shake' object 'with'/'using' object
+Action 99 Action99 ! 'blast'/'fire'/'shoot' object 'with'/'using' object(have)
+Action 100 Action100 ! 'blast'/'fire'/'shoot' object(have) 'at' object
+Action 101 Action101 ! 'displa'/'list'/'print'/'show' object
+Action 102 Action102 ! 'displa'/'list'/'print'/'show' object(held,many,have) 'toward'/'to' attrib31
+Action 103 Action103 ! 'displa'/'list'/'print'/'show' attrib31 object(held,many,have)
+Action 104 Action104 ! 'rest'/'sit'/'squat' 'down'/'d//' attrib29(in_room,on_ground)
+Action 105 Action105 ! 'hop'/'skip'
+Action 106 Action106 ! 'sleep'
+Action 107 Action107 ! 'smell'/'sniff'/'whiff' attrib24
+Action 108 Action108 ! 'smile' 'at' object
+Action 109 Action109 ! 'rise'/'stand' 'up'/'u//' attrib29
+Action 110 Action110 ! 'rise'/'stand' 'into'/'inside'/'in' object
+Action 111 Action111 ! 'flick'/'flip'/'switch'/'toggle'/'turn' object 'with'/'using' object(have)
+Action 112 Action112 ! 'carry'/'catch'/'get'/'grab'/'hold'/'take' 'off' attrib19(have)
+Action 113 Action113 ! 'tell' attrib31 'about' object
+Action 114 Action114 ! 'thank'/'thanks' object
+Action 115 Action115 ! 'hurl'/'throw'/'toss' object(held,carried) 'into'/'inside'/'in' object
+Action 116 Action116 ! 'hurl'/'throw'/'toss' object(held,carried) 'over' object
+Action 117 Action117 ! 'attach'/'fasten'/'secure'/'tie' object
+Action 118 Action118 ! 'feel'/'pat'/'pet'/'rub'/'touch' object 'with'/'using' object
+Action 119 Action119 ! 'unlock' object 'with'/'using' object(have)
+Action 120 Action120 ! 'free'/'unatta'/'unfast'/'unknot'/'untie' object(held,carried,in_room,on_ground)
+Action 121 Action121 ! 'stay'/'wait'/'z//'
+Action 122 Action122 ! 'stay'/'wait'/'z//' 'for' object
+Action 123 Action123 ! 'awake'/'rouse'/'wake' 'up'/'u//' attrib29
+Action 124 Action124 ! 'go'/'procee'/'run'/'step'/'walk' 'behind' object
+Action 125 Action125 ! 'go'/'procee'/'run'/'step'/'walk' object
+Action 126 Action126 ! 'wave' object(held,carried)
+Action 127 Action127 ! 'wave' 'toward'/'to' object
+Action 128 Action128 ! 'what'/'what^'/'whats' object
+Action 129 Action129 ! 'where'/'wheres' object
+Action 130 Action130 ! 'who'/'whos' object
+Action 131 Action131 ! 'why'
+Action 132 Action132 ! 'wnnf'
+Action 133 Action133 ! 'howl'/'scream'/'shout'/'yell' 'toward'/'to' object
+Action 134 Action134 ! 'ok'/'okay'/'sure'/'y//'/'yes'
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x2324 routine8996:?
+
+! ------------------------------- Words --------------------------------
+
+Word $de $de
+Word $ve $ve
+Word across across
+Word activa activa
+Word answer answer
+Word approa approa
+Word around around
+Word assaul assaul
+Word attach attach
+Word attack attack
+Word behind behind
+Word beneat beneat
+Word benefi benefi
+Word ceilin ceilin
+Word chambe chambe
+Word change change
+Word commun commun
+Word consul consul
+Word damage damage
+Word debark debark
+Word decrea decrea
+Word demoli demoli
+Word depart depart
+Word descen descen
+Word descri descri
+Word destro destro
+Word devour devour
+Word diagno diagno
+Word disemb disemb
+Word displa displa
+Word donate donate
+Word educat educat
+Word embark embark
+Word energy energy
+Word enviro enviro
+Word eugeni eugeni
+Word examin examin
+Word except except
+Word exting exting
+Word fasten fasten
+Word financ financ
+Word follow follow
+Word foobar foobar
+Word forewa forewa
+Word gobble gobble
+Word ground ground
+Word guzzle guzzle
+Word health health
+Word imbibe imbibe
+Word increa increa
+Word ingest ingest
+Word insert insert
+Word inside inside
+Word inspec inspec
+Word intnum intnum
+Word invent invent
+Word librar librar
+Word listen listen
+Word milita milita
+Word murder murder
+Word myself myself
+Word northe northe
+Word northw northw
+Word number number
+Word observ observ
+Word outsid outsid
+Word parame parame
+Word percen percen
+Word please please
+Word popula popula
+Word portav portav
+Word procee procee
+Word progre progre
+Word protag protag
+Word pursue pursue
+Word reclin reclin
+Word remove remove
+Word resear resear
+Word restar restar
+Word restor restor
+Word rummag rummag
+Word scream scream
+Word script script
+Word search search
+Word second second
+Word secure secure
+Word securi securi
+Word simula simula
+Word social social
+Word southe southe
+Word southw southw
+Word sprink sprink
+Word stairc stairc
+Word stairs stairs
+Word stairw stairw
+Word starbo starbo
+Word strike strike
+Word superb superb
+Word swallo swallo
+Word switch switch
+Word televi televi
+Word thanks thanks
+Word throug throug
+Word toggle toggle
+Word toward toward
+Word unatta unatta
+Word undern undern
+Word unfast unfast
+Word unknot unknot
+Word unlock unlock
+Word unscri unscri
+Word verbos verbos
+Word versio versio
+Word what' what'
+Word wheres wheres
+Word withdr withdr
+Word zzmgck zzmgck
+

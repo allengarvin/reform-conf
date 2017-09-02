@@ -1,0 +1,1750 @@
+! ----------------------------------------------------
+!   ZorkZero_296_881019.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Arrays
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  4a00db5c9941a235ff0c65c4d49a927b
+CodeArea  0xedc0  0x35196
+StringArea  0x35198  0x48270
+FalseEnd  0x11374  1
+
+Enum rarg M_LOOK=5
+
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global       82 noun:object
+Global      118 Verb:verb_enum
+Global      201 second:object
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 11 plural
+Attribute 12 proper
+Attribute 16 flame
+Attribute 19 female
+Attribute 23 locked
+Attribute 24 vowel_start
+Attribute 37 readable
+Attribute 38 door
+Attribute 40 key
+Attribute 42 open
+Attribute 46 light
+Attribute 47 animate
+
+! ------------------------------- Arrays -------------------------------
+
+Array 31331 FOOBAR:array(100*(?,?))
+! ----------------------------- Properties -----------------------------
+
+
+Property    35 description:string
+Property    39 region:string
+Property    40 text_string:string
+Property    41 size:int
+Property    46 adjectives:dictwords
+Property    50 action:^routine(int,rarg)
+Property    51 name:dictwords
+Property    51 exit51:exit
+Property    52 exit52:exit
+Property    53 exit53:exit
+Property    54 exit54:exit
+Property    55 exit55:exit
+Property    56 nw_te:exit
+Property    57 w_to:exit
+Property    58 sw_to:exit
+Property    59 s_to:exit
+Property    60 se_to:exit
+Property    61 e_to:exit
+Property    62 ne:exit
+Property    63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object   1 Vault
+Object   2 FrobozzCo_Offices_North
+Object   3 Dungeon
+Object   4 Delta1
+Object   5 View_of_Statue
+Object   6 Parlor
+Object   7 Toll_Plaza
+Object   8 Post_Office
+Object   9 Courtyard
+Object  10 Delta2
+Object  11 Passage_Storage_Room
+Object  12 North_Shore
+Object  13 Theatre
+Object  14 Great_Underground_Savannah
+Object  15 Delta3
+Object  16 Torch_Room
+Object  17 Oracle_Room
+Object  18 South_of_Mirror
+Object  19 Kitchen
+Object  20 Balcony
+Object  21 Upper_Barbican
+Object  22 Shoulder
+Object  23 Courtroom
+Object  24 Great_Underground_Desert
+Object  25 Top_of_Stair
+Object  26 FrobozzCo_Offices
+Object  27 Windblown_Sands
+Object  28 Desert_Plain
+Object  29 East_Hall
+Object  30 Outer_Bailey
+Object  31 Parapet
+Object  32 Amongst_the_Clouds
+Object  33 Tight_Squeeze
+Object  34 Crag
+Object  35 Magic_Shop
+Object  36 Pits
+Object  37 Gumbozs_Shack
+Object  38 Root_Cellar
+Object  39 Ring_of_Dunes
+Object  40 Cell
+Object  41 Cave_In
+Object  42 Mirror_Lake
+Object  43 Grotto
+Object  44 North_of_Mirror
+Object  45 Bastion
+Object  46 Tall_Dunes
+Object  47 Glacier
+Object  48 Precipice
+Object  49 Jesters_Quarters
+Object  50 West_Hall
+Object  51 West_of_House
+Object  52 Lower_Hall
+Object  53 Inner_Ear
+Object  54 Crawl
+Object  55 Dirigible_Hangar
+Object  56 FrobozzCo_Offices_West
+Object  57 Pyramid_Room1
+Object  58 Tee
+Object  59 Enchanted_Cave
+Object  60 Guest_Rooms
+Object  61 URS_Office
+Object  62 Great_Underground_Woods
+Object  63 Foot_of_Statue
+Object  64 Frobozz_Philharmonic_Hall
+Object  65 Kennels
+Object  66 Underwater
+Object  67 Marsh
+Object  68 Oubliette
+Object  69 FrobozzCo_HQ
+Object  70 Rivers_End
+Object  71 Back_Alley
+Object  72 Fishing_Village
+Object  73 Hothouse
+Object  74 Hanging_From_Roots
+Object  75 Mouth_of_Cave
+Object  76 Wine_Cellar
+Object  77 Perimeter_Wall
+Object  78 Wharf
+Object  79 Royal_Zoo
+Object  80 Ruined_Hall
+Object  81 Sandbar
+Object  82 Room_of_Three_Doors
+Object  83 Oceans_Edge
+Object  84 Field_Office
+Object  85 Roof
+Object  86 Dead_End
+Object  87 Chapel
+Object  88 Under_the_World
+Object  89 Bats_Lair
+Object  90 Stream_Room
+Object  91 Causeway
+Object  92 Korbozs_Hovel
+Object  93 Bend
+Object  94 Conductors_Pit
+Object  95 East_of_Mirror
+Object  96 Rippled_Sands
+Object  97 Hold
+Object  98 Ear
+Object  99 Scullery
+Object 100 Edge_of_Desert
+Object 101 Crypt
+Object 102 Gondola
+Object 103 Bottom_of_Stair
+Object 104 Church
+Object 105 Great_Hall
+Object 106 FrobozzCo_Penthouse
+Object 107 Edge_of_Bog
+Object 108 Gallery
+Object 109 Servants__Quarters
+Object 110 Outside_Hovel
+Object 111 Garrison
+Object 112 Delta4
+Object 113 Heart_of_Mine
+Object 114 Aerie
+Object 115 Magic_Clothes_Closet
+Object 116 Banquet_Hall
+Object 117 East_Shore
+Object 118 Delta5
+Object 119 Outside_Shack
+Object 120 Avalanche
+Object 121 Fork
+Object 122 Great_Underground_Oasis
+Object 123 On_Top_of_the_World
+Object 124 Library
+Object 125 Crossroads
+Object 126 Lowest_Hall
+Object 127 Quarrys_Edge
+Object 128 Donjon
+Object 129 Laboratory
+Object 130 Gaming_Room
+Object 131 West_Shore
+Object 132 Lake_Bottom
+Object 133 Torture_Chamber
+Object 134 Secret_Room
+Object 135 Delta6
+Object 136 Great_Underground_Highway
+Object 137 Quarry
+Object 138 Formal_Garden
+Object 139 Rest_Stop
+Object 140 Ledge_in_Bottomless_Pit
+Object 141 Fissures_Edge
+Object 142 Hollow
+Object 143 Lower_Ledge
+Object 144 Shady_Park
+Object 145 Coast_Road
+Object 146 East_Wing
+Object 147 Barbican
+Object 148 Rubble_Room
+Object 149 Warning_Room
+Object 150 Outside_Crypt
+Object 151 West_Wing
+Object 152 Shrine
+Object 153 Closet
+Object 154 Fishy_Odor
+Object 155 Orb_Room
+Object 156 Cliff_Bottom
+Object 157 Sloping_Cave
+Object 158 FrobozzCo_Offices_South
+Object 159 Icky_Cave
+Object 160 Attic
+Object 161 Mine_Entrance
+Object 162 Deserted_Castle
+Object 163 Construction
+Object 164 FrobozzCo_Offices_East
+Object 165 Steam_Bath
+Object 166 Weird_Passageway
+Object 167 Flathead_Stadium
+Object 168 Base_of_Mountains
+Object 169 Village_Gate
+Object 170 Entrance_Hall
+Object 171 Outside_Hut
+Object 172 Cactus_Patch
+Object 173 Pyramid_Room2
+Object 174 Solar
+Object 175 Cairn
+Object 176 Potholes
+Object 177 Inquisition
+Object 178 Dimwits_Room
+Object 179 Great_Underground_Mountain
+Object 180 Peg_Room
+Object 181 Wishyfoo_Territory
+Object 182 Drawbridge
+Object 183 Plain
+Object 184 Secret_Passage
+Object 185 Lake_Flathead
+Object 186 Chalet
+Object 187 Testing_Room
+Object 188 Pyramid_Room3
+Object 189 Stable
+Object 190 Smaller_Hangar
+Object 191 Megabozs_Hut
+Object 192 Gym
+Object 193 Timberline
+Object 194 Throne_Room
+Object 195 Nice_Lunch_Spot
+Object 196 Exit
+Object 197 Casino
+Object 198 West_of_Mirror
+Object 199 FrobozzCo_Basement
+Object 200 Iron_Mine
+Object 201 Natural_Arch
+Object 202 Foothills
+Object 203 Zorbel_Pass
+Object 204 Top_of_Well
+Object 205 Base_of_Mountain
+Object 206 South_Shore
+Object 207 Upper_Ledge
+Object 208 Salty_Smell
+Object 209 North_of_Anthar
+Object 210 Forebuilding
+Object 211 Audience_Chamber
+Object 212 Quilbozza_Beach
+Object 213 Village_Center
+Object 214 Delta7
+Object 215 Inner_Bailey
+Object 216 cannonball
+Object 217 vault_door
+Object 218 yellow_dock
+Object 219 robe2
+Object 220 flattened_snake
+Object 221 Gray_Mountains
+Object 222 hands
+Object 223 cage
+Object 224 toll_booth
+Object 225 dial
+Object 226 flattened_fish
+Object 227 ominous_black_button2
+Object 228 blue_dock
+Object 229 building
+Object 230 toboggan
+Object 231 quill_pen
+Object 232 passage
+Object 233 window
+Object 234 left_door
+Object 235 prickly_witch
+Object 236 freshwater_fish
+Object 237 quotation
+Object 238 notice
+Object 239 sickly_witch
+Object 240 triplet
+Object 241 Peggleboz
+Object 242 feet
+Object 243 tray_of_roc_teriyaki
+Object 244 right_door
+Object 245 unnamed1
+Object 246 clear_liquid
+Object 247 wand
+Object 248 unnamed2
+Object 249 royal_leader1
+Object 250 toe_fungus
+Object 251 crown1
+Object 252 Lord_Dimwit_Flathead_the_Excessive
+Object 253 yourself
+Object 254 unnamed3
+Object 255 Tower_of_Bozbar
+Object 256 unnamed4
+Object 257 scrap_of_parchment
+Object 258 T_square
+Object 259 clump_of_spenseweed
+Object 260 portrait_of_J__Pierpont_Flathead
+Object 261 lullaby
+Object 262 ladder1
+Object 263 mounted_soldier2
+Object 264 portrait_of_Dimwit_Flathead
+Object 265 altar1
+Object 266 1_ugh_weight
+Object 267 stream_obj
+Object 268 runes
+Object 269 direction
+Object 270 darkest_slab
+Object 271 large_fly
+Object 272 lder
+Object 273 dustiest_slab
+Object 274 murder_hole
+Object 275 exterior_light
+Object 276 saddle
+Object 277 smoky_orb
+Object 278 sacred_word
+Object 279 zorkmid_bill
+Object 280 stoppered_glass_flask_filled_with_liquid
+Object 281 giant_bedbug
+Object 282 granola_mine
+Object 283 flattened_goose
+Object 284 it1
+Object 285 slime
+Object 286 head
+Object 287 her
+Object 288 green_dock
+Object 289 calendar
+Object 290 small_elm_tree
+Object 291 treasure_chest
+Object 292 water_in_the_small_vial
+Object 293 steel_key
+Object 294 music
+Object 295 sleep
+Object 296 glove
+Object 297 royal_leader2
+Object 298 middle_name
+Object 299 crown2
+Object 300 flattest_slab
+Object 301 hand_hole
+Object 302 mighty_elm_tree
+Object 303 cookpot
+Object 304 starfish
+Object 305 pegboard
+Object 306 portrait_of_Babe_Flathead
+Object 307 it2
+Object 308 walnut
+Object 309 2_ugh_weight
+Object 310 yellow_button
+Object 311 it3
+Object 312 giant_brogmoid
+Object 313 locker
+Object 314 cactus
+Object 315 pellet_of_squid_repellent
+Object 316 time
+Object 317 boulder
+Object 318 idol
+Object 319 milky_orb
+Object 320 portrait_of_John_Paul_Flathead
+Object 321 wooden_club
+Object 322 member_of_the_Flathead_family
+Object 323 conductors_stand
+Object 324 twelve_paintings
+Object 325 cloak
+Object 326 ugly_toad
+Object 327 pair_of_goggles
+Object 328 Dimwits_bed
+Object 329 unnamed5
+Object 330 odd_green_bridge
+Object 331 oldest_slab
+Object 332 saucepan
+Object 333 candle
+Object 334 northwest_southeast_passage
+Object 335 hunk_of_brogmoid_ear_wax
+Object 336 small_throne
+Object 337 lobster
+Object 338 it4
+Object 339 hardhat
+Object 340 jesters_hat
+Object 341 wheel
+Object 342 flattened_slime_monster
+Object 343 Flathead_Mountains
+Object 344 fiery_orb
+Object 345 flamingo
+Object 346 ceramic_perch
+Object 347 broom
+Object 348 center_door
+Object 349 ladder2
+Object 350 flattened_mouse
+Object 351 3_ugh_weight
+Object 352 that_way
+Object 353 red_dock
+Object 354 jesters_shoe
+Object 355 controls2
+Object 356 statue
+Object 357 unopened_walnut
+Object 358 rooster
+Object 359 moby_ruby
+Object 360 harmonica
+Object 361 altar2
+Object 362 portrait_of_Leonardo_Flathead
+Object 363 herd_of_unicorns
+Object 364 angry_wizard
+Object 365 fan
+Object 366 saint
+Object 367 portrait_of_Frank_Lloyd_Flathead
+Object 368 left_booth
+Object 369 gnarled_elm_tree
+Object 370 hole1
+Object 371 sapphire
+Object 372 water_chamber
+Object 373 poster_of_Ursula_Flathead
+Object 374 scale_model
+Object 375 amulet
+Object 376 box
+Object 377 right_button
+Object 378 man_atop_a_castle_tower
+Object 379 hole2
+Object 380 iron_maiden
+Object 381 left_button
+Object 382 portrait_of_John_D__Flathead
+Object 383 tree_stump
+Object 384 diploma
+Object 385 huge_lily_pad
+Object 386 center_peg
+Object 387 package
+Object 388 large_golden_throne
+Object 389 ticket
+Object 390 six_sided_hole
+Object 391 banner
+Object 392 screwdriver
+Object 393 4_ugh_weight
+Object 394 snake
+Object 395 Wiazard_of_Frobozz
+Object 396 queen1
+Object 397 high_priest
+Object 398 queen2
+Object 399 cobwebs
+Object 400 snake_pit
+Object 401 up_down_lever
+Object 402 jesters_pocket
+Object 403 outer_gate
+Object 404 mirror
+Object 405 silk_tie
+Object 406 carpet
+Object 407 glittery_orb
+Object 408 sailor
+Object 409 pile_of_stones
+Object 410 cup
+Object 411 moat
+Object 412 bar_of_food
+Object 413 ring_of_ineptitude
+Object 414 portrait_of_Johann_Sebastian_Flathead
+Object 415 ceramic_pigeon
+Object 416 brass_plaque1
+Object 417 doorbell
+Object 418 worm
+Object 419 shovel
+Object 420 jesters_name
+Object 421 center_shell
+Object 422 seamans_cap
+Object 423 gravel
+Object 424 easel
+Object 425 right_peg
+Object 426 the_letter_y
+Object 427 large_arched_door
+Object 428 bathysphere
+Object 429 nest
+Object 430 ungnarled_elm_tree
+Object 431 left_peg
+Object 432 him
+Object 433 eyes
+Object 434 stock_certificate
+Object 435 green_button
+Object 436 crate
+Object 437 oracle_obj
+Object 438 sandstone_arch
+Object 439 foot_soldier1
+Object 440 fancy_violin
+Object 441 red_clown_nose
+Object 442 5_ugh_weight
+Object 443 unnamed6
+Object 444 bodies
+Object 445 gaudy_crown
+Object 446 little_fungus
+Object 447 comfy_chair
+Object 448 root
+Object 449 portrait_of_Thomas_Alva_Flathead
+Object 450 bowl
+Object 451 flattened_camel
+Object 452 nine_gloop_vial
+Object 453 portrait_of_Ralph_Waldo_Flathead
+Object 454 cauldron
+Object 455 foot_soldier2
+Object 456 cookfire
+Object 457 memo
+Object 458 the_Flathead_Fjord
+Object 459 spyglass
+Object 460 mounted_soldier1
+Object 461 right_shell
+Object 462 executioner
+Object 463 reflection
+Object 464 unnamed7
+Object 465 dumbbell
+Object 466 granola
+Object 467 unnamed8
+Object 468 unnamed9
+Object 469 cave
+Object 470 mouth
+Object 471 ancient_pine_tree
+Object 472 scroll
+Object 473 sign
+Object 474 pile_of_napkins
+Object 475 bag
+Object 476 Encyclopedia_Frobozzica
+Object 477 unnamed10
+Object 478 statue_of_Dimwit_Flathead
+Object 479 lurking_grue
+Object 480 flora
+Object 481 ear_fungus
+Object 482 small_louvered_door
+Object 483 engraved_tenet
+Object 484 damaged_instruction_booklet
+Object 485 6_ugh_weight
+Object 486 controls
+Object 487 portcullis
+Object 488 poem
+Object 489 stair
+Object 490 notebook
+Object 491 flower
+Object 492 brass_lantern
+Object 493 royal_yacht
+Object 494 hammer
+Object 495 blueprint
+Object 496 dusty_slate
+Object 497 machicolation
+Object 498 white_button
+Object 499 landscape
+Object 500 jesters_suit
+Object 501 water
+Object 502 wine_keg
+Object 503 anti_pit_bomb
+Object 504 exact_change_basket
+Object 505 unnamed11
+Object 506 even_more_gravel
+Object 507 toll_gate
+Object 508 trap_door1
+Object 509 unnamed12
+Object 510 table
+Object 511 funny_paper
+Object 512 drinking_straw
+Object 513 even_larger_fly
+Object 514 lock
+Object 515 rebus
+Object 516 left_shell
+Object 517 number
+Object 518 metronome
+Object 519 wall_hangings
+Object 520 bickering_torch
+Object 521 card_table
+Object 522 the_largest_fly
+Object 523 small_table
+Object 524 lots_of_zorkmids
+Object 525 portrait_of_Stonewall_Flathead
+Object 526 lance
+Object 527 zorkmid_coin
+Object 528 porthole
+Object 529 village
+Object 530 iron_key
+Object 531 ceiling
+Object 532 arch
+Object 533 it5
+Object 534 vase
+Object 535 sceptre
+Object 536 the_Flathead_Ocean
+Object 537 pile_of_old_bones
+Object 538 portrait_of_Lucrezia_Flathead
+Object 539 camel
+Object 540 walnut_shell
+Object 541 dirigible
+Object 542 elixir
+Object 543 oasis
+Object 544 red_button
+Object 545 unnamed13
+Object 546 room
+Object 547 platter_of_hellhound_bones
+Object 548 depression
+Object 549 rocky_spire
+Object 550 swamp
+Object 551 pair_of_stone_toads
+Object 552 robe1
+Object 553 banquet_meal
+Object 554 proclamation
+Object 555 jester
+Object 556 self
+Object 557 door1
+Object 558 ominous_black_button1
+Object 559 blue_button
+Object 560 magic_potion
+Object 561 nose
+Object 562 Frobozzco_Building
+Object 563 small_lily_pad
+Object 564 water_in_the_large_vial
+Object 565 trunk
+Object 566 wizardly_robe
+Object 567 peg
+Object 568 more_gravel
+Object 569 fireplace
+Object 570 door2
+Object 571 north_south_passage
+Object 572 controls1
+Object 573 writhing_mass_of_snakes
+Object 574 bottomless_pit
+Object 575 Double_Fanucci
+Object 576 birch_tree
+Object 577 it6
+Object 578 suit_of_armor
+Object 579 brass_plaque2
+Object 580 fish_tank
+Object 581 bookkeeper
+Object 582 waldo
+Object 583 recipe_card
+Object 584 longest_slab
+Object 585 giant_spider
+Object 586 the_Frigid_River
+Object 587 shortest_slab
+Object 588 set_of_instructions
+Object 589 larger_fly
+Object 590 manuscript
+Object 591 fresco
+Object 592 wall
+Object 593 four_gloop_vial
+Object 594 trap_door2
+Object 595 hexagonal_block
+Object 596 unnamed14
+Object 597 right_booth
+Object 598 cake
+Object 599 newest_slab
+Object 600 rusty_key
+Object 601 fox
+Object 602 pseudoxxx
+Object 603 muttering_torch
+
+! ------------------------------ Actions -------------------------------
+
+! Hack to handle reform's ignorance of V6 grammar:
+Enum verb_enum #Nudge=0 #Define=1 #Verbose=2 #Brief=3 #Superbrief=4 #Color=5 #Credit=6 #Diagnose=7 #Inventory=8 #Mode=9 #Quit=10 #Restart=11 #Restore=12 #Rescue=13 #Undo=14 #Score=15 #Notify=16 #Script=17 #unscript=18 #version=19 #DebugRandom=20 #DebugCommand=21 #DebugRecord=22 #DebugUnrecord=23 #DebugRefresh=24 #Verify=25 #Approach=26 #AskAbout=27 #AskObjFor=28 #AskFor=29 #Attack=30 #Behead=31 #Bite=32 #BlowUp=33 #SwitchOff=34 #Board=35 #Burn=36 #Purchase=37 #Call=38 #Catch=39 #GoAround=40 #Climb=41 #ClimbOn=42 #ClimbUp=43 #ClimbDown=44 #Debark=45 #ClimbOver=46 #ClimbUnder=47 #Close=48 #CloseUp=49 #LockWith=50 #Consult=51 #Cough=52 #Count=53 #Cover=54 #Cross=55 #Date=56 #Anagram=57 #BreakObj=58 #Dig=59 #DigWith=60 #Doff=61 #Drink=62 #DrinkFrom=63 #DrinkWith=64 #Drop=65 #Insert=66 #PutOn=67 #DropFrom=68 #DropThrough=69 #Eat=70 #Empty=71 #EmptyFrom=72 #Enter=73 #Examine=74 #ExamineIn=75 #Feed=76 #Give=77 #GiveReverse=78 #Fill=79 #Find=80 #FindIn=81 #Fly=82 #Follow=83 #GiveUp=84 #Hang=85 #Listen=86 #Hello=87 #Hints=88 #HintsOff=89 #HintsObject=90 #Hide=91 #Jump=92 #JumpFrom=93 #JumpOn=94 #Kick=95 #Kiss=96 #Knock=97 #RideObjDir=98 #RideTo=99 #Leave=100 #LetOut=101 #LieOn=102 #SwitchOn=103 #Look=104 #LookDown=105 #LookThrough=106 #LookUnder=107 #LookBehind=108 #LookOver=109 #LookUp=110 #LookObj=111 #Press=112 #Map=113 #Maybe=114 #Measure=115 #Meet=116 #PushObj=117 #PushObjDir=118 #MoveObjTo=119 #PushUp=120 #Take=121 #Negative=122 #Open=123 #Pay=124 #Pick=125 #Touch=126 #Play=127 #Point=128 #Pour=129 #Pray=130 #PressOn=131 #PressReverse=132 #PutUnder=133 #ReachIn=134 #Browse=135 #RemoveObj=136 #RemoveWith=137 #RollUp=138 #RollObjDown=139 #RollObjUp=140 #RollObjDir=141 #Saddle=142 #Answer=143 #Search=144 #SearchFor=145 #MailTo=146 #Bounce=147 #BounceWith=148 #ShowObj=149 #ShowReverse=150 #SingObjTo=151 #Sing=152 #Sink=153 #SitOn=154 #Hop=155 #Doze=156 #Cut=157 #Smell=158 #Snap=159 #Rise=160 #RiseBefore=161 #Wear=162 #PutBehind=163 #MoveTo=164 #Drink=165 #DrinkWith=166 #Swat=167 #Swim=168 #Swing=169 #Tell=170 #Lick=171 #TellAbout=172 #TellReverse=173 #Thank=174 #Throw=175 #ThrowOverboard=176 #ThrowTo=177 #ThrowReverse=178 #ThrowOver=179 #Tie=180 #Time=181 #Tip=182 #TipOveR=183 #FeelObjTo=184 #Dial=185 #DialObjObj=186 #Unlock=187 #Free=188 #Use=189 #Wait=190 #WaitFor=191 #Wake=192 #Go=193 #GoToOn=194 #Clean=195 #WrapAround=196 #WrapIn=197 #Yawn=198 #Yell=199 #Affirmative=200 #Aulderfoo=201 #Zap=202 #Flodoor=203
+
+
+! ------------------------------ Routines ------------------------------
+
+
+Routine  0xede4 routine60900 local1 
+Routine  0xedf4 routine60916 local1 
+Routine  0xee1c routine60956 local1 local2 local3 local4 local5 
+Routine  0xee4c routine61004 
+Routine  0xee60 routine61024 
+Routine  0xee74 routine61044 local1 local2 
+Routine  0xeeb8 routine61112 local1 local2 local3 
+Routine  0xeedc routine61148 local1 local2 local3 
+Routine  0xef08 routine61192 local1 
+Routine  0xef14 routine61204 local1 local2 
+Routine  0xefac routine61356 local1 local2 local3 local4 local5 
+Routine  0xf030 routine61488 local1 local2 
+Routine  0xf070 routine61552 local1 local2 
+Routine  0xf0b0 routine61616 local1 local2 local3 local4 local5 
+Routine  0xf174 routine61812 local1 local2 local3 
+Routine  0xf1bc routine61884 local1 local2 local3 local4 
+Routine  0xf20c routine61964 local1 local2 local3 local4 
+Routine  0xf26c routine62060 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xf61c routine63004 local1 local2 
+Routine  0xf664 routine63076 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xf830 routine63536 local1 local2 local3 local4 
+Routine  0xf8e4 routine63716 local1 
+Routine  0xf940 routine63808 local1 local2 
+Routine  0xf968 routine63848 local1 
+Routine  0xf9a0 routine63904 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0xfa20 routine64032 local1 local2 local3 local4 local5 
+Routine  0xfa4c routine64076 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0xfcd0 routine64720 local1 local2 local3 local4 
+Routine  0xfcf4 routine64756 local1 local2 local3 
+Routine  0xfd1c routine64796 local1 
+Routine  0xfd58 routine64856 local1 
+Routine  0xfd9c routine64924 local1 local2 local3 
+Routine  0xfe10 routine65040 local1 
+Routine  0xfe5c routine65116 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0xff1c routine65308 local1 local2 local3 local4 
+Routine  0xff90 routine65424 local1 local2 local3 local4 local5 local6 local7 
+Routine  0xffdc routine65500 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x10114 routine65812 local1 local2 local3 local4 local5 local6 
+Routine  0x10170 routine65904 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x10214 routine66068 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x10274 routine66164 local1 local2 local3 
+Routine  0x102a4 routine66212 local1 local2 local3 local4 local5 local6 
+Routine  0x102f0 routine66288 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0x10404 routine66564 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x10694 routine67220 local1 local2 
+Routine  0x106a4 routine67236 local1 local2 local3 
+Routine  0x106cc routine67276 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x10758 routine67416 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x107f4 routine67572 local1 local2 local3 local4 
+Routine  0x10824 routine67620 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x108fc routine67836 local1 local2 local3 local4 
+Routine  0x10948 routine67912 local1 local2 local3 local4 
+Routine  0x10978 routine67960 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x10a34 routine68148 local1 local2 local3 
+Routine  0x10a58 routine68184 local1 local2 local3 local4 
+Routine  0x10a94 routine68244 local1 local2 local3 
+Routine  0x10ac4 routine68292 local1 local2 local3 local4 
+Routine  0x10af4 routine68340 local1 local2 
+Routine  0x10b20 routine68384 local1 local2 
+Routine  0x10b44 routine68420 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x10bb4 routine68532 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x10d1c routine68892 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 local15 
+Routine  0x10f20 routine69408 local1 local2 local3 local4 local5 
+Routine  0x10f74 routine69492 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x10fb8 routine69560 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0x112c0 routine70336 local1 local2 local3 
+Routine  0x112f4 routine70388 local1 local2 local3 
+Routine  0x1131c routine70428 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x113a8 routine70568 local1 local2 local3 local4 local5 
+Routine  0x1141c routine70684 local1 local2 local3 local4 local5 local6 
+Routine  0x114b8 routine70840 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x11578 routine71032 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x11728 routine71464 local1 local2 local3 
+Routine  0x11764 routine71524 local1 local2 
+Routine  0x117d0 routine71632 local1 local2 local3 local4 local5 
+Routine  0x11824 routine71716 local1 local2 local3 local4 local5 local6 
+Routine  0x11890 routine71824 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x118f8 routine71928 local1 local2 local3 local4 local5 local6 
+Routine  0x11938 routine71992 local1 local2 local3 local4 
+Routine  0x11964 routine72036 local1 local2 
+Routine  0x11974 routine72052 local1 local2 
+Routine  0x11988 routine72072 local1 local2 local3 local4 
+Routine  0x119b0 routine72112 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0x11b14 routine72468 local1 local2 local3 local4 local5 local6 
+Routine  0x11b6c routine72556 local1 local2 local3 local4 local5 
+Routine  0x11b9c routine72604 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x11cbc routine72892 local1 local2 local3 local4 
+Routine  0x11d38 routine73016 
+Routine  0x11d54 routine73044 local1 
+Routine  0x11d5c routine73052 local1 
+Routine  0x11d84 routine73092 local1 
+Routine  0x11d90 routine73104 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x1218c routine74124 local1 local2 
+Routine  0x121c0 routine74176 local1 local2 
+Routine  0x121e4 routine74212 local1 local2 local3 local4 
+Routine  0x12220 routine74272 local1 local2 
+Routine  0x12250 routine74320 local1 
+Routine  0x12264 routine74340 
+Routine  0x12278 routine74360 local1 local2 local3 
+Routine  0x122a8 CantUndo
+Routine  0x122bc routine74428 local1 
+Routine  0x122c4 routine74436 
+Routine  0x122e4 routine74468 vrb:verb_enum local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x12458 routine74840 
+Routine  0x1246c routine74860 local1 local2 local3 
+Routine  0x124e4 routine74980 local1 local2 local3 local4 
+Routine  0x124f8 routine75000 local1 local2 
+Routine  0x12550 routine75088 local1 
+Routine  0x1256c routine75116 local1 local2 local3 
+Routine  0x125ac routine75180 local1 local2 
+Routine  0x125d8 routine75224 local1 local2 local3 local4 local5 
+Routine  0x125f4 routine75252 local1 local2 local3 local4 local5 local6 
+Routine  0x12648 routine75336 local1 
+Routine  0x1266c routine75372 
+Routine  0x12690 routine75408 
+Routine  0x126b0 routine75440 
+Routine  0x126cc routine75468 local1 local2 
+Routine  0x126f8 routine75512 local1 local2 local3 local4 local5 local6 
+Routine  0x12750 routine75600 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x127a8 routine75688 local1 local2 local3 local4 local5 local6 
+Routine  0x12864 routine75876 local1 local2 local3 
+Routine  0x128ac routine75948 
+Routine  0x128c0 routine75968 local1 local2 
+Routine  0x12964 routine76132 local1 
+Routine  0x12980 routine76160 local1 local2 local3 local4 local5 local6 
+Routine  0x12c2c routine76844 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x12d58 routine77144 local1 local2 
+Routine  0x12d84 routine77188 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x13080 routine77952 local1 
+Routine  0x1309c routine77980 local1 local2 
+Routine  0x130c8 routine78024 
+Routine  0x1312c routine78124 local1 
+Routine  0x13150 routine78160 local1 local2 local3 
+Routine  0x13198 routine78232 local1 local2 
+Routine  0x13230 routine78384 local1 local2 local3 local4 local5 
+Routine  0x13280 routine78464 local1 local2 local3 local4 local5 local6 
+Routine  0x13340 routine78656 local1 local2 local3 local4 local5 local6 
+Routine  0x1345c routine78940 local1 local2 local3 local4 local5 
+Routine  0x134f4 routine79092 local1 
+Routine  0x13528 routine79144 local1 local2 local3 local4 local5 local6 
+Routine  0x13590 routine79248 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x13604 routine79364 local1 local2 local3 
+Routine  0x13688 routine79496 local1 local2 local3 local4 
+Routine  0x13704 routine79620 local1 local2 
+Routine  0x1372c routine79660 local1 local2 local3 local4 local5 local6 
+Routine  0x13770 routine79728 local1 
+Routine  0x13794 routine79764 local1 local2 local3 
+Routine  0x137e4 routine79844 local1 local2 local3 
+Routine  0x13828 routine79912 
+Routine  0x13830 routine79920 
+Routine  0x13838 routine79928 local1 
+Routine  0x13844 routine79940 local1 
+Routine  0x13850 routine79952 local1 
+Routine  0x13870 routine79984 local1 local2 local3 
+Routine  0x138e4 routine80100 
+Routine  0x13924 routine80164 local1 
+Routine  0x139a4 routine80292 local1 local2 local3 
+Routine  0x139c4 routine80324 local1 local2 
+Routine  0x139d0 routine80336 local1 local2 
+Routine  0x13a5c routine80476 local1 local2 local3 local4 local5 local6 
+Routine  0x13b48 routine80712 local1 
+Routine  0x13b58 routine80728 local1 local2 local3 
+Routine  0x13b80 routine80768 local1 local2 local3 
+Routine  0x13bb0 routine80816 local1 local2 local3 local4 local5 
+Routine  0x13c34 routine80948 local1 local2 local3 local4 local5 local6 
+Routine  0x13cd4 routine81108 local1 
+Routine  0x13ce4 routine81124 local1 
+Routine  0x13cf4 routine81140 local1 local2 local3 
+Routine  0x13d08 routine81160 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x13dc8 routine81352 local1 local2 local3 local4 local5 local6 
+Routine  0x13e38 routine81464 local1 local2 local3 local4 
+Routine  0x13e70 routine81520 local1 local2 
+Routine  0x13ea4 routine81572 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x141e0 routine82400 local1 local2 local3 local4 local5 
+Routine  0x1422c routine82476 local1 local2 local3 local4 local5 local6 
+Routine  0x14284 routine82564 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x14338 routine82744 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x14390 routine82832 
+Routine  0x143b4 routine82868 
+Routine  0x143d8 routine82904 
+Routine  0x143dc routine82908 local1 
+Routine  0x14428 routine82984 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x14490 routine83088 
+Routine  0x14498 routine83096 local1 
+Routine  0x144c4 routine83140 
+Routine  0x144d8 routine83160 
+Routine  0x144f4 routine83188 
+Routine  0x14508 routine83208 
+Routine  0x14520 routine83232 
+Routine  0x14550 routine83280 local1 local2 local3 
+Routine  0x145e8 routine83432 
+Routine  0x14618 routine83480 
+Routine  0x14664 routine83556 
+Routine  0x14678 routine83576 local1 
+Routine  0x146b4 routine83636 
+Routine  0x146dc routine83676 
+Routine  0x1470c routine83724 local1 
+Routine  0x14738 routine83768 local1 
+Routine  0x148d4 routine84180 
+Routine  0x1490c routine84236 local1 local2 local3 local4 
+Routine  0x14a38 routine84536 
+Routine  0x14b44 routine84804 
+Routine  0x14c70 routine85104 
+Routine  0x14d2c routine85292 
+Routine  0x14d70 routine85360 
+Routine  0x14d88 routine85384 
+Routine  0x14db0 routine85424 local1 
+Routine  0x14dd4 routine85460 local1 local2 
+Routine  0x14f60 routine85856 local1 
+Routine  0x15000 routine86016 
+Routine  0x15030 routine86064 
+Routine  0x15044 routine86084 
+Routine  0x1504c routine86092 
+Routine  0x1506c routine86124 
+Routine  0x15074 routine86132 
+Routine  0x1507c routine86140 
+Routine  0x150b8 routine86200 local1 
+Routine  0x15128 routine86312 
+Routine  0x15170 routine86384 local1 
+Routine  0x151a4 routine86436 
+Routine  0x151cc routine86476 local1 
+Routine  0x151ec routine86508 local1 
+Routine  0x15250 routine86608 
+Routine  0x1525c routine86620 
+Routine  0x15318 routine86808 
+Routine  0x15328 routine86824 
+Routine  0x15350 routine86864 
+Routine  0x15398 routine86936 
+Routine  0x153cc routine86988 local1 local2 local3 local4 
+Routine  0x15420 routine87072 
+Routine  0x1543c routine87100 
+Routine  0x15468 routine87144 
+Routine  0x15494 routine87188 
+Routine  0x15534 routine87348 
+Routine  0x15554 routine87380 
+Routine  0x15580 CloseSub
+Routine  0x155d8 routine87512 
+Routine  0x157a4 routine87972 
+Routine  0x157b8 routine87992 
+Routine  0x157c0 routine88000 
+Routine  0x157d0 routine88016 
+Routine  0x157d8 routine88024 
+Routine  0x157fc routine88060 
+Routine  0x15874 routine88180 
+Routine  0x15888 routine88200 
+Routine  0x15a10 routine88592 
+Routine  0x15a1c routine88604 
+Routine  0x15a34 routine88628 
+Routine  0x15a48 routine88648 
+Routine  0x15a78 routine88696 local1 
+Routine  0x15bc4 routine89028 local1 local2 
+Routine  0x15c70 routine89200 
+Routine  0x15cb0 routine89264 
+Routine  0x15ccc routine89292 local1 local2 
+Routine  0x15d90 routine89488 
+Routine  0x15db0 routine89520 
+Routine  0x15e0c routine89612 local1 
+Routine  0x15f30 routine89904 local1 local2 local3 
+Routine  0x15f68 routine89960 
+Routine  0x16098 routine90264 
+Routine  0x160e4 routine90340 
+Routine  0x16198 routine90520 
+Routine  0x161ac routine90540 
+Routine  0x1624c routine90700 
+Routine  0x16260 routine90720 local1 
+Routine  0x16310 routine90896 
+Routine  0x163cc routine91084 
+Routine  0x16410 routine91152 
+Routine  0x1643c routine91196 
+Routine  0x16444 routine91204 
+Routine  0x16484 routine91268 
+Routine  0x16498 routine91288 
+Routine  0x164a0 routine91296 
+Routine  0x16504 routine91396 
+Routine  0x16518 routine91416 
+Routine  0x16680 routine91776 
+Routine  0x166d4 routine91860 
+Routine  0x166dc routine91868 
+Routine  0x166e4 routine91876 
+Routine  0x166f0 routine91888 
+Routine  0x16744 routine91972 
+Routine  0x16758 routine91992 
+Routine  0x16774 routine92020 
+Routine  0x167fc routine92156 
+Routine  0x16940 routine92480 
+Routine  0x169ac routine92588 
+Routine  0x169c0 routine92608 
+Routine  0x169e4 routine92644 
+Routine  0x16a00 routine92672 
+Routine  0x16a44 routine92740 
+Routine  0x16a70 routine92784 local1 
+Routine  0x16ae0 routine92896 local1 
+Routine  0x16b20 routine92960 local1 
+Routine  0x16b64 routine93028 
+Routine  0x16ba0 routine93088 
+Routine  0x16bb0 routine93104 
+Routine  0x16bd0 routine93136 
+Routine  0x16bf4 routine93172 local1 
+Routine  0x16d8c routine93580 
+Routine  0x16d94 routine93588 
+Routine  0x16e48 routine93768 
+Routine  0x16e50 routine93776 local1 local2 local3 local4 local5 local6 
+Routine  0x16eec routine93932 local1 local2 local3 local4 local5 
+Routine  0x1714c routine94540 
+Routine  0x171a0 routine94624 local1 local2 local3 
+Routine  0x1724c routine94796 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 
+Routine  0x172c0 routine94912 local1 local2 local3 local4 local5 local6 
+Routine  0x17324 routine95012 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1737c routine95100 
+Routine  0x17398 routine95128 local1 
+Routine  0x173b8 routine95160 local1 
+Routine  0x173d8 routine95192 local1 local2 local3 local4 local5 local6 
+Routine  0x173f4 routine95220 local1 local2 local3 local4 
+Routine  0x17930 routine96560 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x17b20 routine97056 
+Routine  0x17b2c routine97068 
+Routine  0x17b34 routine97076 
+Routine  0x17b60 routine97120 
+Routine  0x17b84 routine97156 
+Routine  0x17bec routine97260 
+Routine  0x17c04 routine97284 
+Routine  0x17c20 routine97312 
+Routine  0x17c2c routine97324 
+Routine  0x17c58 routine97368 local1 
+Routine  0x17c6c routine97388 
+Routine  0x17cb8 routine97464 
+Routine  0x17cec OpenSub
+Routine  0x17d9c PaySub itm:object
+Routine  0x17dd4 PickSub
+Routine  0x17de0 PlaySub
+Routine  0x17dec routine97772 
+Routine  0x17dfc routine97788 
+Routine  0x17e04 routine97796 
+Routine  0x17e38 routine97848 
+Routine  0x17e44 routine97860 
+Routine  0x17e4c routine97868 
+Routine  0x17f84 routine98180 local1 local2 local3 
+Routine  0x180f0 routine98544 
+Routine  0x180f8 routine98552 
+Routine  0x18144 routine98628 
+Routine  0x1817c routine98684 
+Routine  0x18184 routine98692 
+Routine  0x1818c routine98700 
+Routine  0x18198 routine98712 
+Routine  0x18260 routine98912 local1 local2 
+Routine  0x18304 routine99076 
+Routine  0x18310 routine99088 
+Routine  0x1831c routine99100 
+Routine  0x1839c routine99228 local1 
+Routine  0x183f8 routine99320 
+Routine  0x18410 routine99344 
+Routine  0x18424 routine99364 
+Routine  0x18440 routine99392 local1 
+Routine  0x184d4 routine99540 local1 
+Routine  0x18534 routine99636 local1 
+Routine  0x1857c routine99708 
+Routine  0x18674 routine99956 
+Routine  0x1869c routine99996 
+Routine  0x18704 routine100100 
+Routine  0x18728 routine100136 local1 local2 local3 
+Routine  0x18b88 routine101256 
+Routine  0x18c84 routine101508 local1 local2 
+Routine  0x18c98 routine101528 
+Routine  0x18cd4 routine101588 local1 
+Routine  0x18d5c routine101724 
+Routine  0x18da0 routine101792 
+Routine  0x18dac routine101804 
+Routine  0x18e10 routine101904 
+Routine  0x18e38 routine101944 
+Routine  0x18ea8 routine102056 
+Routine  0x18eb0 routine102064 
+Routine  0x18ebc routine102076 local1 
+Routine  0x18edc routine102108 
+Routine  0x18f14 routine102164 local1 
+Routine  0x18f5c routine102236 
+Routine  0x18f88 routine102280 
+Routine  0x18f90 routine102288 
+Routine  0x18fa8 routine102312 
+Routine  0x18fb0 routine102320 local1 
+Routine  0x19004 routine102404 
+Routine  0x1905c routine102492 
+Routine  0x19094 routine102548 
+Routine  0x190b8 routine102584 
+Routine  0x190fc routine102652 local1 
+Routine  0x19120 routine102688 
+Routine  0x1913c routine102716 
+Routine  0x19148 routine102728 
+Routine  0x19154 routine102740 
+Routine  0x191d4 routine102868 
+Routine  0x191fc routine102908 
+Routine  0x19204 routine102916 
+Routine  0x1921c routine102940 
+Routine  0x19224 routine102948 
+Routine  0x19230 routine102960 
+Routine  0x1927c routine103036 local1 
+Routine  0x192a4 routine103076 
+Routine  0x192b0 routine103088 
+Routine  0x192b8 routine103096 
+Routine  0x192c4 routine103108 
+Routine  0x193d8 routine103384 local1 
+Routine  0x1941c routine103452 local1 
+Routine  0x1949c routine103580 
+Routine  0x194d0 routine103632 
+Routine  0x194dc routine103644 
+Routine  0x1957c routine103804 
+Routine  0x19604 routine103940 
+Routine  0x1963c routine103996 
+Routine  0x1967c routine104060 
+Routine  0x196c0 routine104128 
+Routine  0x196c8 routine104136 
+Routine  0x196d0 routine104144 
+Routine  0x19714 routine104212 
+Routine  0x1972c routine104236 
+Routine  0x1973c routine104252 
+Routine  0x19788 routine104328 
+Routine  0x197f8 routine104440 
+Routine  0x19800 routine104448 
+Routine  0x19834 routine104500 
+Routine  0x19840 routine104512 
+Routine  0x19854 routine104532 
+Routine  0x19898 routine104600 
+Routine  0x198a0 routine104608 
+Routine  0x198c4 routine104644 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x19bd0 routine105424 
+Routine  0x19c78 routine105592 
+Routine  0x19c90 routine105616 
+Routine  0x19cb4 routine105652 
+Routine  0x19cfc routine105724 local1 
+Routine  0x19d68 routine105832 
+Routine  0x19d90 routine105872 
+Routine  0x19dd8 routine105944 
+Routine  0x19de0 routine105952 
+Routine  0x19e10 routine106000 local1 
+Routine  0x19e84 routine106116 
+Routine  0x19ea4 routine106148 
+Routine  0x19eac routine106156 
+Routine  0x19f6c routine106348 local1 
+Routine  0x19f80 routine106368 local1 
+Routine  0x19f98 routine106392 
+Routine  0x19ff8 routine106488 local1 local2 local3 
+Routine  0x1a238 routine107064 
+Routine  0x1a334 routine107316 local1 local2 local3 local4 
+Routine  0x1a350 routine107344 local1 local2 local3 
+Routine  0x1a374 routine107380 local1 local2 local3 
+Routine  0x1a3e4 routine107492 local1 local2 local3 local4 
+Routine  0x1a4ac routine107692 local1 
+Routine  0x1a4d0 routine107728 local1 
+Routine  0x1a500 routine107776 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x1a77c routine108412 local1 local2 
+Routine  0x1a7b0 routine108464 local1 local2 
+Routine  0x1a7d4 routine108500 
+Routine  0x1a804 routine108548 
+Routine  0x1a818 routine108568 local1 local2 
+Routine  0x1a844 routine108612 local1 local2 local3 local4 local5 
+Routine  0x1a948 routine108872 local1 
+Routine  0x1a978 routine108920 local1 local2 
+Routine  0x1a9d0 routine109008 local1 local2 
+Routine  0x1a9f4 routine109044 local1 
+Routine  0x1aa94 routine109204 local1 local2 local3 
+Routine  0x1aab4 routine109236 local1 local2 
+Routine  0x1aac0 routine109248 local1 local2 
+Routine  0x1ab50 routine109392 local1 
+Routine  0x1ab70 routine109424 local1 local2 local3 
+Routine  0x1ab88 routine109448 local1 local2 local3 local4 local5 
+Routine  0x1abc0 routine109504 local1 local2 local3 local4 
+Routine  0x1abd4 routine109524 
+Routine  0x1ac3c routine109628 
+Routine  0x1ac58 routine109656 local1 local2 local3 
+Routine  0x1ac80 routine109696 local1 
+Routine  0x1ac8c routine109708 
+Routine  0x1ac94 routine109716 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x1ad54 routine109908 local1 
+Routine  0x1ad60 routine109920 
+Routine  0x1ad6c routine109932 
+Routine  0x1ad78 routine109944 
+Routine  0x1ad84 routine109956 
+Routine  0x1ad90 Number_Action local1 
+Routine  0x1adbc That_way_Action 
+Routine  0x1ae5c Lurking_grue_Action 
+Routine  0x1aef0 Sailor_Action local1 
+Routine  0x1af4c Sleep_Action 
+Routine  0x1af90 Lullaby_Action local1 
+Routine  0x1b104 Unnamed11_Action 
+Routine  0x1b174 routine110964 
+Routine  0x1b198 Hole1_Action 
+Routine  0x1b23c Wall_Action local1 
+Routine  0x1b544 routine111940 local1 
+Routine  0x1b6a4 routine112292 local1 
+Routine  0x1b6f4 Passage_Action 
+Routine  0x1b700 Ceiling_Action 
+Routine  0x1b7cc Slime_Action 
+Routine  0x1b7e0 Water_Action local1 
+Routine  0x1bd18 routine113944 
+Routine  0x1bd80 Vial_water_Action 
+Routine  0x1bda8 routine114088 local1 local2 local3 local4 
+Routine  0x1bdc8 Hands_Action local1 
+Routine  0x1bef4 routine114420 
+Routine  0x1bfa8 Feet_Action 
+Routine  0x1bfc0 Eyes_Action local1 
+Routine  0x1c0c0 Nose_Action 
+Routine  0x1c0d0 Mouth_Action 
+Routine  0x1c184 Yourself_Action 
+Routine  0x1c2b8 Room_Action 
+Routine  0x1c310 Building_Action 
+Routine  0x1c330 Arch_Action 
+Routine  0x1c33c Window_Action 
+Routine  0x1c580 Lock_Action 
+Routine  0x1c668 Sign_Action local1 
+Routine  0x1cac8 Stair_Action 
+Routine  0x1cafc Ladder1_Action 
+Routine  0x1cb30 Pile_of_old_bones_Action 
+Routine  0x1cb50 routine117584 local1 local2 local3 local4 
+Routine  0x1cbdc routine117724 local1 local2 local3 local4 
+Routine  0x1cc18 routine117784 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x1cc90 routine117904 local1 local2 local3 
+Routine  0x1cca0 routine117920 local1 local2 local3 local4 local5 local6 
+Routine  0x1cd8c routine118156 
+Routine  0x1cdb8 routine118200 local1 
+Routine  0x1cdc4 routine118212 local1 local2 
+Routine  0x1d088 routine118920 local1 local2 local3 local4 local5 
+Routine  0x1d0b4 routine118964 local1 local2 local3 local4 
+Routine  0x1d2f0 routine119536 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x1d430 routine119856 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x1d5c0 routine120256 local1 local2 local3 local4 local5 local6 
+Routine  0x1d690 routine120464 local1 
+Routine  0x1d6dc routine120540 local1 local2 local3 local4 local5 
+Routine  0x1d71c routine120604 local1 local2 local3 local4 local5 local6 
+Routine  0x1d778 routine120696 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x1d7f4 routine120820 local1 
+Routine  0x1d860 routine120928 local1 
+Routine  0x1d87c routine120956 local1 local2 local3 
+Routine  0x1d8d0 routine121040 local1 
+Routine  0x1d8f8 routine121080 local1 
+Routine  0x1d920 YouCant dowhat:string
+Routine  0x1d930 routine121136 
+Routine  0x1d954 routine121172 local1 
+Routine  0x1d968 routine121192 local1 
+Routine  0x1d9dc routine121308 local1 local2 
+Routine  0x1d9f4 routine121332 
+Routine  0x1da28 routine121384 
+Routine  0x1da50 routine121424 
+Routine  0x1da84 routine121476 
+Routine  0x1dac8 routine121544 local1 
+Routine  0x1db14 routine121620 local1 local2 
+Routine  0x1db44 routine121668 local1 
+Routine  0x1db58 routine121688 
+Routine  0x1db74 routine121716 
+Routine  0x1dbb4 routine121780 
+Routine  0x1dc04 routine121860 
+Routine  0x1dc2c routine121900 local1 
+Routine  0x1dc40 routine121920 local1 
+Routine  0x1dc54 routine121940 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x1dd50 routine122192 
+Routine  0x1dd58 routine122200 local1 
+Routine  0x1dd88 routine122248 
+Routine  0x1de80 routine122496 local1 
+Routine  0x1de90 routine122512 
+Routine  0x1de98 routine122520 local1 local2 
+Routine  0x1e2a8 routine123560 local1 local2 local3 
+Routine  0x1e2cc routine123596 local1 local2 
+Routine  0x1e2ec routine123628 
+Routine  0x1e344 Banquet_meal_Action 
+Routine  0x1e374 routine123764 
+Routine  0x1e3a8 Banquet_Hall_Action rarg:rarg
+Routine  0x1e49c Kitchen_Action local1 
+Routine  0x1e580 Scullery_Action local1 
+Routine  0x1e600 Drinking_straw_Action 
+Routine  0x1e72c routine124716 
+Routine  0x1e7b8 routine124856 local1 
+Routine  0x1e800 Unopened_walnut_Action 
+Routine  0x1e998 Walnut_shell_Action 
+Routine  0x1e9f8 Walnut_Action 
+Routine  0x1eabc routine125628 
+Routine  0x1f5d8 routine128472 
+Routine  0x1f794 routine128916 
+Routine  0x1fbf8 General_celebration_item_Action 
+Routine  0x1fc88 Scrap_of_parchment_Action 
+Routine  0x1fd60 Lord_Dimwit_Flathead_the_Excessive_Action local1 
+Routine  0x1fe34 routine130612 local1 local2 
+Routine  0x1fe58 Table_Action 
+Routine  0x1fef0 Cauldron_Action local1 
+Routine  0x201e0 routine131552 local1 local2 local3 local4 
+Routine  0x20268 routine131688 local1 local2 
+Routine  0x20330 Angry_wizard_Action local1 
+Routine  0x20448 routine132168 local1 
+Routine  0x2048c Proclamation_Action 
+Routine  0x204c8 Entrance_Hall_Action local1 
+Routine  0x20578 Doorbell_Action 
+Routine  0x2059c Portcullis_Action 
+Routine  0x20630 Moat_Action 
+Routine  0x2064c Inner_Bailey_Action local1 
+Routine  0x2065c Worm_Action 
+Routine  0x206ac routine132780 local1 
+Routine  0x20720 General_elm_tree_Action local1 
+Routine  0x20978 Barbican_Action local1 
+Routine  0x20a18 Cannonball_Action 
+Routine  0x20a64 Murder_hole_Action local1 
+Routine  0x20c5c Wheel_Action 
+Routine  0x20c9c Drawbridge_Action local1 
+Routine  0x20d74 Parlor_Action local1 
+Routine  0x20d88 Fish_tank_Action 
+Routine  0x20e38 Clump_of_spenseweed_Action local1 
+Routine  0x20ed4 Lobster_Action 
+Routine  0x21058 routine135256 
+Routine  0x21138 routine135480 
+Routine  0x211b8 Starfish_Action 
+Routine  0x211d0 routine135632 
+Routine  0x21230 Bickering_torch_Action 
+Routine  0x21250 routine135760 local1 
+Routine  0x21270 routine135792 
+Routine  0x212b4 Unnamed14_Action 
+Routine  0x21318 routine135960 
+Routine  0x213a0 routine136096 local1 
+Routine  0x213e4 Muttering_torch_Action 
+Routine  0x21404 routine136196 
+Routine  0x2144c Unnamed4_Action 
+Routine  0x214b0 routine136368 
+Routine  0x21550 routine136528 
+Routine  0x21588 Flora_Action local1 
+Routine  0x215fc Flamingo_Action local1 
+Routine  0x21704 routine136964 local1 
+Routine  0x21850 Courtyard_Action local1 
+Routine  0x21920 Banner_Action 
+Routine  0x21984 Rebus_Action local1 local2 
+Routine  0x21b48 General_flattened_Action 
+Routine  0x21b98 Twelve_paintings_Action 
+Routine  0x21c5c General_portrait_Action 
+Routine  0x21cf0 More_general_unnamed_Actions 
+Routine  0x21d8c Bag_Action 
+Routine  0x21dac Bar_of_food_Action 
+Routine  0x21dc8 routine138696 
+Routine  0x21ddc Throne_Room_Action local1 
+Routine  0x21eb4 General_throne_Action local1 
+Routine  0x21f28 Secret_Passage_Action local1 
+Routine  0x21f38 Candle_Action local1 
+Routine  0x21fb0 Solar_Action local1 
+Routine  0x21fcc Iron_key_Action 
+Routine  0x22000 Cloak_Action 
+Routine  0x22208 Glove_Action 
+Routine  0x2227c Machicolation_Action 
+Routine  0x22330 Crypt_Action local1 
+Routine  0x223dc Bodies_Action 
+Routine  0x223f0 routine140272 local1 
+Routine  0x22428 General_slab_Action 
+Routine  0x2248c Trap_door2_Action 
+Routine  0x224b4 Hole2_Action 
+Routine  0x22544 Oubliette_Action local1 
+Routine  0x225e8 routine140776 local1 local2 local3 
+Routine  0x22638 Cell_Action local1 
+Routine  0x226bc Giant_spider_Action 
+Routine  0x22710 Cobwebs_Action 
+Routine  0x2288c Stoppered_glass_flask_filled_with_liquid_Action 
+Routine  0x2299c Clear_liquid_Action 
+Routine  0x229ac Torture_Chamber_Action local1 
+Routine  0x229f0 routine141808 local1 
+Routine  0x22a98 Metronome_Action 
+Routine  0x22b18 routine142104 local1 local2 
+Routine  0x22b74 General_torture_Action 
+Routine  0x22d9c West_Hall_Action local1 
+Routine  0x22de8 Door1_Action 
+Routine  0x22e24 West_Wing_Action local1 
+Routine  0x22eb0 routine143024 local1 
+Routine  0x22f30 Peg_Room_Action local1 
+Routine  0x22f9c Peggleboz_Action 
+Routine  0x22fc8 Pegboard_Action 
+Routine  0x23034 Peg_Action 
+Routine  0x23064 routine143460 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x23498 routine144536 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x235c8 routine144840 local1 local2 local3 
+Routine  0x23670 routine145008 local1 local2 local3 
+Routine  0x236cc routine145100 local1 local2 
+Routine  0x23730 routine145200 local1 local2 local3 local4 local5 
+Routine  0x23818 routine145432 local1 local2 
+Routine  0x23844 routine145476 local1 local2 
+Routine  0x23860 routine145504 local1 local2 local3 
+Routine  0x238e4 Gaming_Room_Action local1 
+Routine  0x238fc Carpet_Action 
+Routine  0x23928 Dumbbell_Action 
+Routine  0x239c0 East_Hall_Action local1 
+Routine  0x23a0c Door2_Action 
+Routine  0x23a48 Wand_Action 
+Routine  0x23f44 routine147268 local1 local2 
+Routine  0x23f5c General_booth_Action local1 
+Routine  0x23f9c routine147356 local1 local2 
+Routine  0x23fb4 Gen_ominous_button_Action local1 local2 
+Routine  0x24090 routine147600 
+Routine  0x240b4 routine147636 local1 
+Routine  0x240d8 routine147672 local1 
+Routine  0x24104 Toboggan_Action local1 
+Routine  0x24230 Cage_Action 
+Routine  0x24274 Snake_Action 
+Routine  0x243a0 routine148384 local1 
+Routine  0x2451c Vault_door_Action 
+Routine  0x2458c Dial_Action 
+Routine  0x24758 Vault_Action local1 
+Routine  0x24778 routine149368 local1 
+Routine  0x24788 routine149384 local1 
+Routine  0x24798 General_passage_Action 
+Routine  0x24884 routine149636 local1 local2 
+Routine  0x249e4 Pits_Action local1 
+Routine  0x24a24 routine150052 
+Routine  0x24ae0 routine150240 local1 
+Routine  0x24b14 Bottomless_pit_Action 
+Routine  0x24bd4 Brass_lantern_Action 
+Routine  0x24d4c routine150860 
+Routine  0x24e10 routine151056 
+Routine  0x24e1c Under_the_World_Action local1 
+Routine  0x24e84 Root_Action 
+Routine  0x24ed4 Ear_Action local1 
+Routine  0x24f80 Ear_fungus_Action local1 
+Routine  0x2504c routine151628 local1 local2 
+Routine  0x25054 Giant_brogmoid_Action 
+Routine  0x251f8 Library_Action local1 
+Routine  0x25228 Encyclopedia_Frobozzica_Action 
+Routine  0x25408 Various_unnameds_action local1 
+Routine  0x25438 routine152632 local1 local2 local3 local4 
+Routine  0x254d8 Member_of_the_Flathead_family_Action 
+Routine  0x255a0 Saint_Action 
+Routine  0x25664 Wiazard_of_Frobozz_Action 
+Routine  0x257c0 Suit_of_armor_Action 
+Routine  0x258c0 Village_Action 
+Routine  0x258f4 Outer_Bailey_Action local1 
+Routine  0x25988 Tree_stump_Action local1 
+Routine  0x25a04 Perimeter_Wall_Action local1 
+Routine  0x25ab4 routine154292 local1 
+Routine  0x25bf4 Outer_gate_Action 
+Routine  0x25c20 routine154656 
+Routine  0x25d30 West_of_House_Action local1 
+Routine  0x260e4 Locker_Action 
+Routine  0x260fc Poster_of_Ursula_Flathead_Action 
+Routine  0x26178 routine156024 
+Routine  0x26184 URS_Office_Action local1 
+Routine  0x26228 Ceramic_pigeon_Action 
+Routine  0x263f8 routine156664 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x267a8 routine157608 local1 local2 local3 
+Routine  0x267e0 Frobozzco_Building_Action 
+Routine  0x26840 routine157760 local1 
+Routine  0x2685c FrobozzCo_Offices_Action local1 
+Routine  0x268c4 routine157892 local1 
+Routine  0x26918 routine157976 local1 
+Routine  0x26944 General_Offices_Action local1 
+Routine  0x269dc FrobozzCo_Penthouse_Action local1 
+Routine  0x269f4 routine158196 local1 
+Routine  0x26a2c routine158252 local1 
+Routine  0x26a68 Ring_of_ineptitude_Action local1 local2 
+Routine  0x26b28 West_Shore_Action local1 
+Routine  0x26bd0 North_Shore_Action local1 
+Routine  0x26c48 East_Shore_Action local1 
+Routine  0x26cbc South_Shore_Action local1 
+Routine  0x26d98 General_dock_Action local1 
+Routine  0x26db0 Royal_yacht_Action local1 
+Routine  0x26ec4 Controls1_Action 
+Routine  0x26f6c General_colored_button_Action 
+Routine  0x270b0 routine159920 local1 
+Routine  0x271bc routine160188 local1 
+Routine  0x271c8 routine160200 local1 
+Routine  0x271ec Bathysphere_Action local1 
+Routine  0x27328 Controls2_Action 
+Routine  0x2737c routine160636 local1 local2 
+Routine  0x27390 Porthole_Action 
+Routine  0x2739c Waldo_Action 
+Routine  0x274f8 Hand_hole_Action 
+Routine  0x275bc routine161212 
+Routine  0x27720 Up_down_lever_Action local1 
+Routine  0x27894 routine161940 
+Routine  0x278b4 routine161972 
+Routine  0x279e4 Lake_Flathead_Action local1 
+Routine  0x27a2c Lake_Bottom_Action local1 
+Routine  0x27a74 Freshwater_fish_Action 
+Routine  0x27a88 routine162440 local1 
+Routine  0x27ac4 Stable_Action local1 
+Routine  0x27ad8 routine162520 
+Routine  0x27af0 Saddle_Action 
+Routine  0x27b30 Rooster_Action 
+Routine  0x27c78 routine162936 local1 
+Routine  0x27d10 routine163088 local1 
+Routine  0x27da8 Great_Underground_Mountain_Action local1 
+Routine  0x27f50 routine163664 local1 
+Routine  0x27f60 Boulder_Action 
+Routine  0x28120 Cave_Action 
+Routine  0x2812c routine164140 local1 local2 local3 
+Routine  0x28248 routine164424 local1 local2 local3 
+Routine  0x28260 General_gravel_Action 
+Routine  0x282a0 Idol_Action 
+Routine  0x28308 Bowl_Action local1 
+Routine  0x2859c routine165276 local1 
+Routine  0x285c0 Elixir_Action 
+Routine  0x286b4 routine165556 local1 
+Routine  0x28740 Great_Underground_Woods_Action local1 
+Routine  0x28754 Fox_Action 
+Routine  0x2884c routine165964 local1 local2 
+Routine  0x2887c routine166012 local1 
+Routine  0x288f4 routine166132 local1 
+Routine  0x28990 Herd_of_unicorns_Action 
+Routine  0x289d0 Odd_green_bridge_Action 
+Routine  0x28a0c routine166412 local1 
+Routine  0x28b7c Music_Action 
+Routine  0x28ba4 Stream_obj_Action 
+Routine  0x28bb0 Stream_Room_Action local1 
+Routine  0x28d34 Diploma_Action 
+Routine  0x28d54 routine167252 local1 local2 
+Routine  0x28d58 Camel_Action local1 
+Routine  0x28e7c routine167548 
+Routine  0x28ef0 routine167664 local1 
+Routine  0x28f48 Cactus_Action 
+Routine  0x28fd8 General_Desert_Action local1 
+Routine  0x29080 routine168064 
+Routine  0x29090 Frobozz_Philharmonic_Hall_Action local1 
+Routine  0x29184 routine168324 
+Routine  0x291a4 routine168356 
+Routine  0x29218 Conductors_stand_Action local1 
+Routine  0x292ac Conductors_Pit_Action local1 
+Routine  0x292c0 Fancy_violin_Action 
+Routine  0x29328 routine168744 
+Routine  0x29374 Cave_In_Action local1 
+Routine  0x29450 Anti_pit_bomb_Action 
+Routine  0x295d8 Toll_Plaza_Action local1 
+Routine  0x29674 Toll_booth_Action 
+Routine  0x296c8 Toll_gate_Action 
+Routine  0x296e4 Exact_change_basket_Action 
+Routine  0x29754 routine169812 
+Routine  0x2976c routine169836 
+Routine  0x297a8 routine169896 
+Routine  0x297dc General_orb_Action 
+Routine  0x299cc routine170444 
+Routine  0x29a00 routine170496 
+Routine  0x29a18 Fishing_Village_Action local1 
+Routine  0x29a38 routine170552 local1 local2 
+Routine  0x29dd4 Inquisition_Action local1 local2 local3 
+Routine  0x2a1e4 Ticket_Action 
+Routine  0x2a2ac Pellet_of_squid_repellent_Action 
+Routine  0x2a2cc Executioner_Action local1 
+Routine  0x2a44c routine173132 
+Routine  0x2a468 routine173160 
+Routine  0x2a4bc Casino_Action local1 
+Routine  0x2a5e0 Double_Fanucci_Action 
+Routine  0x2a648 Card_table_Action local1 
+Routine  0x2a69c routine173724 local1 
+Routine  0x2a978 routine174456 
+Routine  0x2a9e0 routine174560 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x2abb8 routine175032 local1 local2 local3 
+Routine  0x2ac04 routine175108 local1 
+Routine  0x2ac24 routine175140 local1 local2 local3 local4 local5 
+Routine  0x2ac48 routine175176 local1 local2 local3 local4 local5 
+Routine  0x2acc4 routine175300 local1 local2 local3 
+Routine  0x2ad9c routine175516 local1 local2 
+Routine  0x2ae20 routine175648 
+Routine  0x2af54 routine175956 local1 local2 local3 local4 
+Routine  0x2b0ac routine176300 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14 
+Routine  0x2b354 routine176980 local1 local2 local3 
+Routine  0x2b370 routine177008 local1 local2 local3 
+Routine  0x2b394 routine177044 local1 local2 local3 local4 local5 
+Routine  0x2b6a4 routine177828 local1 local2 local3 local4 local5 local6 
+Routine  0x2b760 routine178016 local1 
+Routine  0x2b790 routine178064 local1 local2 local3 local4 
+Routine  0x2b7bc routine178108 local1 local2 
+Routine  0x2b828 Quilbozza_Beach_Action local1 
+Routine  0x2b854 Room_of_Three_Doors_Action local1 
+Routine  0x2b964 General_door_Action 
+Routine  0x2ba74 Oracle_Room_Action local1 
+Routine  0x2bb30 Oracle_obj_Action local1 local2 local3 
+Routine  0x2bdd8 routine179672 
+Routine  0x2bebc Depression_Action 
+Routine  0x2c030 Amulet_Action 
+Routine  0x2c12c routine180524 
+Routine  0x2c168 General_Mountains_Action 
+Routine  0x2c17c Hollow_Action local1 
+Routine  0x2c21c Six_sided_hole_Action 
+Routine  0x2c320 Birch_tree_Action local1 
+Routine  0x2c388 routine181128 
+Routine  0x2c3b8 routine181176 
+Routine  0x2c3d0 Sapphire_Action 
+Routine  0x2c440 Sandstone_arch_Action 
+Routine  0x2c468 Enchanted_Cave_Action local1 
+Routine  0x2c55c Statue_Action 
+Routine  0x2c5cc Altar1_Action 
+Routine  0x2c730 Flower_Action local1 
+Routine  0x2c7f4 Lower_Ledge_Action local1 
+Routine  0x2c8e0 routine182496 
+Routine  0x2c8fc Landscape_Action 
+Routine  0x2c998 routine182680 local1 local2 
+Routine  0x2c99c The_Flathead_Fjord_Action 
+Routine  0x2c9b0 routine182704 local1 
+Routine  0x2c9bc Mirror_Lake_Action local1 local2 local3 
+Routine  0x2cadc routine183004 local1 local2 local3 local4 
+Routine  0x2cba8 Mirror_Action local1 
+Routine  0x2d3f0 Reflection_Action 
+Routine  0x2d400 East_of_Mirror_Action local1 
+Routine  0x2d414 routine185364 local1 local2 local3 
+Routine  0x2d464 West_of_Mirror_Action local1 
+Routine  0x2d49c North_of_Mirror_Action local1 
+Routine  0x2d4b0 South_of_Mirror_Action local1 
+Routine  0x2d4c4 General_lily_pad_Action local1 
+Routine  0x2d578 Ugly_toad_Action local1 
+Routine  0x2d810 routine186384 
+Routine  0x2d8cc Spyglass_Action 
+Routine  0x2d968 General_fly_Action 
+Routine  0x2da74 Great_Underground_Savannah_Action local1 
+Routine  0x2dab4 Foot_of_Statue_Action local1 
+Routine  0x2daf4 Statue_of_Dimwit_Flathead_Action 
+Routine  0x2db08 routine187144 
+Routine  0x2db2c View_of_Statue_Action local1 
+Routine  0x2dba4 Megabozs_Hut_Action local1 
+Routine  0x2dc3c routine187452 local1 
+Routine  0x2dc68 Trap_door1_Action 
+Routine  0x2dc98 Trunk_Action 
+Routine  0x2dd88 Saucepan_Action 
+Routine  0x2dd94 Notebook_Action 
+Routine  0x2de98 Harmonica_Action 
+Routine  0x2dec8 Pile_of_stones_Action 
+Routine  0x2df4c Gumbozs_Shack_Action local1 local2 
+Routine  0x2e01c routine188444 local1 
+Routine  0x2e028 routine188456 
+Routine  0x2e0f0 routine188656 
+Routine  0x2e1a8 Ancient_pine_tree_Action local1 
+Routine  0x2e240 Quarry_Action local1 
+Routine  0x2e2dc routine189148 
+Routine  0x2e318 Rusty_key_Action 
+Routine  0x2e368 Toe_fungus_Action local1 
+Routine  0x2e41c routine189468 
+Routine  0x2e450 Little_fungus_Action local1 
+Routine  0x2e5c0 Wooden_club_Action 
+Routine  0x2e620 routine189984 
+Routine  0x2e684 Aerie_Action local1 local2 local3 
+Routine  0x2e770 routine190320 
+Routine  0x2e780 Nest_Action local1 
+Routine  0x2e7e4 Icky_Cave_Action local1 
+Routine  0x2e89c Prickly_witch_Action local1 
+Routine  0x2ea10 routine190992 local1 local2 
+Routine  0x2ea3c routine191036 local1 local2 
+Routine  0x2ea68 General_gloop_vial_Action local1 local2 local3 local4 
+Routine  0x2f27c routine193148 local1 
+Routine  0x2f300 routine193280 local1 
+Routine  0x2f31c routine193308 local1 local2 local3 
+Routine  0x2f478 Rubble_Room_Action local1 
+Routine  0x2f4bc Granola_mine_Action 
+Routine  0x2f4dc Granola_Action 
+Routine  0x2f524 routine193828 local1 
+Routine  0x2f54c Plain_Action local1 local2 
+Routine  0x2f6c4 routine194244 local1 
+Routine  0x2f758 General_person_Action local1 local2 
+Routine  0x2fa08 routine195080 local1 local2 
+Routine  0x2fa7c routine195196 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x2fd10 routine195856 local1 
+Routine  0x2fd58 routine195928 local1 local2 local3 local4 local5 
+Routine  0x2fdb4 routine196020 local1 local2 local3 
+Routine  0x2fdf8 routine196088 local1 local2 local3 local4 local5 
+Routine  0x2ff5c routine196444 local1 local2 local3 local4 
+Routine  0x2ffb4 routine196532 local1 local2 local3 local4 
+Routine  0x300a4 routine196772 local1 
+Routine  0x300b0 Hammer_Action 
+Routine  0x300f0 Construction_Action local1 local2 
+Routine  0x302a8 routine197288 local1 
+Routine  0x302bc routine197308 local1 local2 
+Routine  0x30300 routine197376 local1 local2 local3 local4 
+Routine  0x30340 routine197440 local1 local2 local3 local4 
+Routine  0x30368 routine197480 local1 local2 local3 local4 local5 local6 
+Routine  0x303c0 routine197568 local1 local2 local3 local4 local5 
+Routine  0x30400 Jester_Action local1 
+Routine  0x30820 routine198688 
+Routine  0x308a4 Middle_name_Action 
+Routine  0x308e0 Jesters_name_Action 
+Routine  0x3090c Jesters_hat_Action 
+Routine  0x30a78 routine199288 local1 local2 local3 
+Routine  0x31448 routine201800 local1 local2 local3 
+Routine  0x317d8 routine202712 
+Routine  0x317fc routine202748 
+Routine  0x3182c routine202796 
+Routine  0x3187c routine202876 
+Routine  0x318d0 routine202960 
+Routine  0x31984 routine203140 
+Routine  0x319d0 routine203216 local1 
+Routine  0x31a10 Funny_paper_Action 
+Routine  0x31ad4 Giant_bedbug_Action 
+Routine  0x31ba0 Red_clown_nose_Action 
+Routine  0x31be0 Dusty_slate_Action 
+Routine  0x31d18 Scroll_Action 
+Routine  0x31d74 General_shell_Action 
+Routine  0x31e18 routine204312 
+Routine  0x31e58 routine204376 local1 
+Routine  0x31f24 Jesters_Quarters_Action local1 
+Routine  0x31fb8 routine204728 local1 
+Routine  0x31fd0 Large_arched_door_Action 
+Routine  0x32000 routine204800 local1 local2 
+Routine  0x3201c Small_louvered_door_Action local1 local2 local3 local4 
+Routine  0x322a8 General_ugh_weight_Action local1 local2 
+Routine  0x32348 routine205640 local1 local2 local3 local4 local5 local6 
+Routine  0x326a8 routine206504 local1 local2 local3 local4 local5 local6 
+Routine  0x32734 routine206644 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 
+Routine  0x32830 routine206896 
+Routine  0x328b8 routine207032 local1 
+Routine  0x328d0 routine207056 local1 local2 local3 local4 
+Routine  0x32908 routine207112 local1 local2 local3 local4 local5 local6 
+Routine  0x329ac routine207276 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x32a64 routine207460 local1 
+Routine  0x32ac4 routine207556 local1 local2 
+Routine  0x32b38 routine207672 local1 local2 local3 local4 local5 local6 
+Routine  0x32bb4 routine207796 local1 local2 local3 local4 local5 
+Routine  0x32be0 routine207840 local1 
+Routine  0x32c14 routine207892 local1 
+Routine  0x32c38 routine207928 local1 
+Routine  0x32c90 Weird_Passageway_Action local1 
+Routine  0x32d88 Pair_of_goggles_Action 
+Routine  0x32e9c routine208540 
+Routine  0x32ee8 Pyramid_Room_Action local1 
+Routine  0x32fb4 Cup_Action 
+Routine  0x32ff0 Magic_potion_Action local1 
+Routine  0x33148 routine209224 local1 
+Routine  0x33190 routine209296 
+Routine  0x331d8 Cookpot_Action 
+Routine  0x33208 routine209416 local1 
+Routine  0x33218 Dirigible_Hangar_Action local1 
+Routine  0x33228 Dirigible_Action 
+Routine  0x3327c Gondola_Action local1 
+Routine  0x3334c Controls_Action 
+Routine  0x33358 General_button_Action 
+Routine  0x333f4 routine209908 local1 
+Routine  0x3340c routine209932 local1 
+Routine  0x33518 routine210200 local1 
+Routine  0x3352c routine210220 local1 
+Routine  0x33540 Ruined_Hall_Action local1 
+Routine  0x336e4 Fireplace_Action 
+Routine  0x33740 Fresco_Action 
+Routine  0x3379c Vase_Action 
+Routine  0x33828 Ladder2_Action local1 
+Routine  0x3388c Marsh_Action local1 
+Routine  0x33c48 routine212040 local1 
+Routine  0x33cd0 Nice_Lunch_Spot_Action local1 
+Routine  0x33e50 Hexagonal_block_Action 
+Routine  0x33e84 Hothouse_Action local1 
+Routine  0x33e98 routine212632 local1 local2 local3 
+Routine  0x341d8 routine213464 
+Routine  0x34204 routine213508 local1 local2 local3 local4 local5 local6 
+Routine  0x34288 routine213640 local1 local2 local3 local4 
+Routine  0x34330 routine213808 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x3448c routine214156 local1 local2 local3 local4 
+Routine  0x34700 routine214784 local1 local2 local3 local4 local5 local6 local7 local8 local9 
+Routine  0x3483c routine215100 local1 local2 local3 
+Routine  0x3485c routine215132 local1 local2 local3 local4 local5 
+Routine  0x348bc routine215228 local1 local2 local3 local4 local5 local6 
+Routine  0x349d8 routine215512 
+Routine  0x34a00 Fan_Action 
+Routine  0x34a20 routine215584 local1 local2 local3 local4 local5 local6 local7 local8 
+Routine  0x34c18 routine216088 local1 local2 local3 local4 local5 
+Routine  0x34d5c routine216412 local1 local2 local3 local4 
+Routine  0x34d98 routine216472 local1 local2 local3 local4 local5 local6 
+Routine  0x34e28 routine216616 local1 local2 
+Routine  0x34e6c routine216684 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 
+Routine  0x35030 routine217136 local1 
+Routine  0x3503c routine217148 local1 local2 
+Routine  0x35050 routine217168 local1 local2 local3 local4 
+Routine  0x35080 routine217216 
+Routine  0x3509c routine217244 local1 local2 local3 
+Routine  0x350f8 routine217336 local1 local2 local3 
+Routine  0x35110 routine217360 local1 local2 local3 local4 
+Routine  0x35120 routine217376 local1 local2 local3 local4 
+Routine  0x35130 routine217392 local1 local2 local3 local4 local5 
+
+
+! ------------------------------- Words --------------------------------
+

@@ -1,0 +1,673 @@
+! ----------------------------------------------------
+!   zork0-880510-r153-z5.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 5fd3d8cb4375c5ca037f210c85363a1d
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 6 attrib6   ! obj245_royal_leader obj260_mounted_soldier obj370_man_atop_a_castle_tower obj389_queen obj426_foot_soldier
+Attribute 7 attrib7   ! obj293_royal_leader obj387_queen obj388_high_priest obj440_foot_soldier obj445_mounted_soldier
+Attribute 8 attrib8   ! obj5_Delta obj6_View_of_Statue obj11_Delta obj17_Delta obj20_South_of_Mirror obj33_Amongst_the_Clouds obj35_Crag obj38_Gumboz_s_Shack obj43_Mirror_Lake obj45_North_of_Mirror obj48_Glacier obj49_Precipice obj57_Crawl obj61_Enchanted_Cave obj64_Foot_of_Statue obj69_River_s_End obj83_Ocean_s_Edge obj87_Dead_End obj94_Korboz_s_Hovel obj96_East_of_Mirror obj108_Edge_of_Bog obj111_Outside_Hovel obj113_Delta obj115_Heart_of_Mine obj116_Aerie obj119_Delta obj120_Outside_Shack obj121_Avalanche obj124_On_Top_of_the_World obj128_Quarry_s_Edge obj137_Delta obj138_Quarry obj144_Hollow obj145_Lower_Ledge obj148_Coast_Road obj151_Rubble_Room obj159_Cliff_Bottom obj163_Icky_Cave obj164_Attic obj165_Mine_Entrance obj170_Flathead_Stadium obj171_Base_of_Mountains obj174_Outside_Hut obj177_Cairn obj187_Chalet obj191_Megaboz_s_Hut obj193_Timberline obj198_West_of_Mirror obj199_Iron_Mine obj200_Natural_Arch obj201_Foothills obj202_Zorbel_Pass obj206_Upper_Ledge obj209_North_of_Anthar obj213_Delta
+Attribute 9 attrib9   ! obj28_Windblown_Sands obj29_Desert_Plain obj40_Ring_of_Dunes obj47_Tall_Dunes obj51_Great_Underground_Desert obj97_Rippled_Sands obj101_Edge_of_Desert obj123_Great_Underground_Oasis obj175_Cactus_Patch
+Attribute 10 attrib10  ! obj229_quill_pen obj254_T_square obj274_saddle obj276_zorkmid_bill obj277_stoppered_glass_flask_filled_with_liquid obj313_wooden_club obj357_fan obj366_scale_model obj375_diploma obj383_screwdriver obj394_silk_tie obj410_seaman_s_cap obj412_easel obj421_stock_certificate obj427_fancy_violin obj431_gaudy_crown obj444_spyglass obj473_brass_lantern obj479_landscape obj496_metronome obj504_lance obj511_sceptre obj517_barbell obj566_manuscript
+Attribute 11 attrib11  ! obj233_prickly_witch obj237_sickly_witch obj298_starfish obj331_lobster obj337_flamingo obj350_rooster obj385_snake obj409_worm obj447_executioner obj515_camel obj532_jester obj578_fox
+Attribute 12 attrib12  ! obj246_toe_fungus obj256_clump_of_spenseweed obj285_small_elm_tree obj296_mighty_elm_tree obj361_gnarled_elm_tree obj417_ungnarled_elm_tree obj461_ear_fungus obj471_flower
+Attribute 13 attrib13  ! obj220_hands obj262_controls obj318_pair_of_goggles obj390_cobwebs obj420_eyes obj517_barbell obj548_controls
+Attribute 14 attrib14  ! obj220_hands obj247_Lord_Dimwit_Flathead_the_Excessive obj248_yourself obj262_controls obj266_runes obj281_head obj282_her obj289_music obj291_sleep obj304_it obj308_time obj316_twelve_paintings obj321_Dimwit_s_bed obj390_cobwebs obj411_gravel obj414_the_letter_y obj419_him obj420_eyes obj443_the_Flathead_Fjord obj451_mouth obj480_water obj485_even_more_gravel obj500_the_largest_fly obj512_the_Flathead_Ocean obj518_Lake_Flathead obj537_magic_potion obj538_nose obj544_more_gravel obj548_controls obj562_the_Frigid_River
+Attribute 15 attrib15  ! obj301_it
+Attribute 16 attrib16  ! obj250 obj301_it obj327_candle obj441_cookfire obj573
+Attribute 17 attrib17  ! obj301_it
+Attribute 18 attrib18  ! obj217_yellow_dock obj227_blue_dock obj251_bathysphere obj283_green_dock obj301_it obj321_Dimwit_s_bed obj346_red_dock obj360_left_booth obj474_royal_yacht obj574_right_booth
+Attribute 19 attrib19  ! obj233_prickly_witch obj237_sickly_witch obj301_it obj387_queen obj389_queen
+Attribute 20 attrib20  ! obj251_bathysphere obj301_it obj360_left_booth obj364_water_chamber obj371_iron_maiden obj391_snake_pit obj424_oracle obj433_comfy_chair obj574_right_booth
+Attribute 21 attrib21  ! obj220_hands obj281_head obj301_it obj420_eyes obj451_mouth obj538_nose
+Attribute 22 attrib22  ! obj217_yellow_dock obj218_jester_s_hat obj219_flattened_snake obj220_hands obj222_toll_booth obj223_jester_s_shoe obj224_dial obj225_flattened_fish obj226_ominous_black_button obj227_blue_dock obj231_window obj232_left_door obj233_prickly_witch obj234_freshwater_fish obj240_right_door obj242_clear_liquid obj246_toe_fungus obj247_Lord_Dimwit_Flathead_the_Excessive obj255_jester_s_pocket obj257_portrait_of_J__Pierpont_Flathead obj261_portrait_of_Dimwit_Flathead obj262_controls obj263_altar obj264_1_ugh_weight obj265_stream obj266_runes obj268_darkest_slab obj271_dustiest_slab obj272_murder_hole obj273_exterior_light obj279_flattened_goose obj283_green_dock obj285_small_elm_tree obj294_flattest_slab obj295_hand_hole obj296_mighty_elm_tree obj299_pegboard obj300_portrait_of_Babe_Flathead obj301_it obj302_2_ugh_weight obj303_yellow_button obj306_locker obj309_boulder obj310_idol obj312_portrait_of_John_Paul_Flathead obj315_conductor_s_stand obj316_twelve_paintings obj321_Dimwit_s_bed obj322_machiolation obj324_odd_green_bridge obj325_oldest_slab obj330_small_throne obj332_brass_plaque obj334_wheel obj335_flattened_slime_monster obj340_center_door obj343_flattened_mouse obj344_3_ugh_weight obj346_red_dock obj348_statue obj353_altar obj354_portrait_of_Leonardo_Flathead obj355_herd_of_unicorns obj359_portrait_of_Frank_Lloyd_Flathead obj360_left_booth obj361_gnarled_elm_tree obj364_water_chamber obj369_right_button obj371_iron_maiden obj372_left_button obj373_portrait_of_John_D__Flathead obj375_diploma obj377_center_peg obj379_large_golden_throne obj380_ticket obj381_six_sided_hole obj384_4_ugh_weight obj386_up_down_lever obj390_cobwebs obj391_snake_pit obj392_outer_gate obj393_mirror obj404_portrait_of_Johann_Sebastion_Flathead obj406_doorbell obj413_right_peg obj416_nest obj417_ungnarled_elm_tree obj418_left_peg obj422_green_button obj425_sandstone_arch obj429_5_ugh_weight obj433_comfy_chair obj434_portrait_of_Thomas_Alva_Flathead obj436_flattened_camel obj438_portrait_of_Ralph_Waldo_Flathead obj447_executioner obj448_reflection obj450_cave obj461_ear_fungus obj462_small_louvered_door obj463_engraved_tenet obj465_6_ugh_weight obj466_controls obj468_poem obj471_flower obj478_white_button obj483_exact_change_basket obj486_toll_gate obj489_table obj497_wall_hangings obj499_card_table obj503_portrait_of_Stonewall_Flathead obj506_porthole obj508_ceiling obj510_vase obj513_pile_of_old_bones obj514_portrait_of_Lucrezia_Flathead obj520_oasis obj521_red_button obj525_depression obj526_rocky_spire obj530_pair_of_stone_toads obj533_it obj535_ominous_black_button obj536_blue_button obj543_peg obj545_fireplace obj548_controls obj552_pile_of_orbs obj556_brass_plaque obj559_waldo obj560_longest_slab obj561_giant_spider obj562_the_Frigid_River obj563_shortest_slab obj564_set_of_instructions obj567_fresco obj568_wall obj574_right_booth obj576_newest_slab
+Attribute 23 attrib23  ! obj216_vault_door obj301_it obj534_door obj541_trunk obj546_door
+Attribute 24 attrib24  ! obj263_altar obj273_exterior_light obj301_it obj304_it obj310_idol obj319_ugly_toad obj324_odd_green_bridge obj353_altar obj356_angry_wizard obj367_amulet obj371_iron_maiden obj386_up_down_lever obj392_outer_gate obj412_easel obj417_ungnarled_elm_tree obj424_oracle obj447_executioner obj452_ancient_pine_tree obj457_Encyclopedia_Frobozzica obj461_ear_fungus obj472_upper_ledge obj482_anti_pit_bomb obj483_exact_change_basket obj491_even_larger_fly obj507_iron_key obj509_arch obj519_elixir obj520_oasis obj527_unopened_walnut
+Attribute 25 attrib25  ! obj217_yellow_dock obj221_cage obj227_blue_dock obj228_toboggan obj245_royal_leader obj251_bathysphere obj252_walnut_shell obj260_mounted_soldier obj263_altar obj283_green_dock obj286_treasure_chest obj293_royal_leader obj297_cookpot obj301_it obj306_locker obj315_conductor_s_stand obj319_ugly_toad obj321_Dimwit_s_bed obj326_saucepan obj330_small_throne obj341_ladder obj346_red_dock obj353_altar obj360_left_booth obj364_water_chamber obj368_box obj370_man_atop_a_castle_tower obj371_iron_maiden obj374_tree_stump obj376_huge_lily_pad obj377_center_peg obj378_package obj379_large_golden_throne obj387_queen obj388_high_priest obj389_queen obj391_snake_pit obj399_cup obj412_easel obj413_right_peg obj418_left_peg obj423_crate obj424_oracle obj426_foot_soldier obj433_comfy_chair obj435_bowl obj439_cauldron obj440_foot_soldier obj445_mounted_soldier obj456_bag obj474_royal_yacht obj483_exact_change_basket obj489_table obj493_rebus obj499_card_table obj501_small_table obj510_vase obj525_depression obj527_unopened_walnut obj529_Tower_of_Bozbar obj532_jester obj539_small_lily_pad obj541_trunk obj552_pile_of_orbs obj557_fish_tank obj559_waldo obj574_right_booth
+Attribute 26 attrib26  ! obj5_Delta obj6_View_of_Statue obj11_Delta obj17_Delta obj20_South_of_Mirror obj31_Outer_Bailey obj32_Parapet obj33_Amongst_the_Clouds obj43_Mirror_Lake obj45_North_of_Mirror obj48_Glacier obj64_Foot_of_Statue obj69_River_s_End obj71_Fishing_Village obj77_Perimeter_Wall obj81_Sandbar obj83_Ocean_s_Edge obj86_Roof obj93_Causeway obj96_East_of_Mirror obj113_Delta obj119_Delta obj121_Avalanche obj124_On_Top_of_the_World obj137_Delta obj146_Shady_Park obj148_Coast_Road obj165_Mine_Entrance obj170_Flathead_Stadium obj171_Base_of_Mountains obj172_Village_Gate obj174_Outside_Hut obj183_Drawbridge obj184_Plain obj193_Timberline obj198_West_of_Mirror obj201_Foothills obj202_Zorbel_Pass obj211_Quilbozza_Beach obj212_Village_Center obj213_Delta obj214_Inner_Bailey obj301_it
+Attribute 27 attrib27  ! obj301_it
+Attribute 28 attrib28  ! obj1_Pyramid_Room obj2_Vault obj3_FrobozzCo_Offices_North obj4_Dungeon obj5_Delta obj6_View_of_Statue obj7_Parlor obj8_Toll_Plaza obj9_Post_Office obj10_Courtyard obj11_Delta obj12_Passage_Storage_Room obj13_North_Shore obj14_Theatre obj15_Great_Underground_Woods obj16_Pyramid_Room obj17_Delta obj18_Torch_Room obj19_Oracle obj20_South_of_Mirror obj21_Kitchen obj22_Balcony obj23_Upper_Barbican obj24_Shoulder obj25_Courtroom obj26_Top_of_Stair obj27_Ledge_in_Bottomless_Pit obj28_Windblown_Sands obj29_Desert_Plain obj30_East_Hall obj31_Outer_Bailey obj32_Parapet obj33_Amongst_the_Clouds obj34_Tight_Squeeze obj35_Crag obj36_Magic_Shop obj37_Pits obj38_Gumboz_s_Shack obj39_Root_Cellar obj40_Ring_of_Dunes obj41_Cell obj42_Cave_In obj43_Mirror_Lake obj44_Grotto obj45_North_of_Mirror obj46_Bastion obj47_Tall_Dunes obj48_Glacier obj49_Precipice obj50_Jester_s_Quarters obj51_Great_Underground_Desert obj52_West_Hall obj53_West_of_House obj54_Lower_Hall obj55_Inner_Ear obj56_Forebuilding obj57_Crawl obj58_Dirigible_Hangar obj59_FrobozzCo_Offices_West obj60_Tee obj61_Enchanted_Cave obj62_Guest_Rooms obj63_URS_Office obj64_Foot_of_Statue obj65_Kennels obj66_Underwater obj67_Marsh obj68_Oubliette obj69_River_s_End obj70_Back_Alley obj71_Fishing_Village obj72_Frobozz_Philharmonic_Hall obj73_Hothouse obj74_Hanging_From_Roots obj75_Mouth_of_Cave obj76_Wine_Cellar obj77_Perimeter_Wall obj78_Wharf obj79_Royal_Zoo obj80_Ruined_Hall obj81_Sandbar obj82_Room_of_Three_Doors obj83_Ocean_s_Edge obj84_Field_Office obj85_Great_Underground_Savannah obj86_Roof obj87_Dead_End obj88_Chapel obj89_Under_the_World obj90_Bat_s_Lair obj91_Stream obj92_FrobozzCo_Offices obj93_Causeway obj94_Korboz_s_Hovel obj95_Conductor_s_Pit obj96_East_of_Mirror obj97_Rippled_Sands obj98_Hold obj99_Ear obj100_Scullery obj101_Edge_of_Desert obj102_Magic_Clothes_Closet obj103_Crypt obj104_Gondola obj105_Bottom_of_Stair obj106_Church obj107_Great_Hall obj108_Edge_of_Bog obj109_Gallery obj110_Servants__Quarters obj111_Outside_Hovel obj112_Garrison obj113_Delta obj114_Great_Underground_Highway obj115_Heart_of_Mine obj116_Aerie obj117_Banquet_Hall obj118_East_Shore obj119_Delta obj120_Outside_Shack obj121_Avalanche obj122_Fork obj123_Great_Underground_Oasis obj124_On_Top_of_the_World obj125_Library obj126_Crossroads obj127_Lowest_Hall obj128_Quarry_s_Edge obj129_Donjon obj130_Laboratory obj131_Gaming_Room obj132_West_Shore obj133_Lake_Bottom obj134_Torture_Chamber obj135_Secret_Room obj136_FrobozzCo_Basement obj137_Delta obj138_Quarry obj139_Formal_Garden obj140_FrobozzCo_HQ obj141_Great_Underground_Mountain obj142_Rest_Stop obj143_Fissure_s_Edge obj144_Hollow obj145_Lower_Ledge obj146_Shady_Park obj147_Pyramid_Room obj148_Coast_Road obj149_East_Wing obj150_Barbican obj151_Rubble_Room obj152_Warning_Room obj153_Outside_Crypt obj154_West_Wing obj155_Shrine obj156_Closet obj157_Fishy_Odor obj158_Orb_Room obj159_Cliff_Bottom obj160_Sloping_Cave obj161_FrobozzCo_Offices_South obj162_Weird_Passageway obj163_Icky_Cave obj164_Attic obj165_Mine_Entrance obj166_Deserted_Castle obj167_Construction obj168_FrobozzCo_Offices_East obj169_Steam_Bath obj170_Flathead_Stadium obj171_Base_of_Mountains obj172_Village_Gate obj173_Entrance_Hall obj174_Outside_Hut obj175_Cactus_Patch obj176_Solar obj177_Cairn obj178_Potholes obj179_Inquisition obj180_Dimwit_s_Room obj181_Peg_Room obj182_Wishyfoo_Territory obj183_Drawbridge obj184_Plain obj185_Secret_Passage obj186_Lake_Flathead obj187_Chalet obj188_Testing_Room obj189_Stable obj190_Smaller_Hangar obj191_Megaboz_s_Hut obj192_Gym obj193_Timberline obj194_Throne_Room obj195_Nice_Lunch_Spot obj196_Exit obj197_Casino obj198_West_of_Mirror obj199_Iron_Mine obj200_Natural_Arch obj201_Foothills obj202_Zorbel_Pass obj203_Top_of_Well obj204_Base_of_Mountain obj205_South_Shore obj206_Upper_Ledge obj207_FrobozzCo_Penthouse obj208_Salty_Smell obj209_North_of_Anthar obj210_Audience_Chamber obj211_Quilbozza_Beach obj212_Village_Center obj213_Delta obj214_Inner_Bailey obj301_it
+Attribute 29 attrib29  ! obj221_cage obj251_bathysphere obj277_stoppered_glass_flask_filled_with_liquid obj301_it obj318_pair_of_goggles obj533_it
+Attribute 30 attrib30  ! obj217_yellow_dock obj221_cage obj227_blue_dock obj228_toboggan obj245_royal_leader obj251_bathysphere obj252_walnut_shell obj260_mounted_soldier obj263_altar obj283_green_dock obj286_treasure_chest obj293_royal_leader obj297_cookpot obj301_it obj306_locker obj315_conductor_s_stand obj319_ugly_toad obj321_Dimwit_s_bed obj326_saucepan obj330_small_throne obj341_ladder obj346_red_dock obj353_altar obj360_left_booth obj364_water_chamber obj368_box obj370_man_atop_a_castle_tower obj371_iron_maiden obj374_tree_stump obj376_huge_lily_pad obj377_center_peg obj378_package obj379_large_golden_throne obj387_queen obj388_high_priest obj389_queen obj391_snake_pit obj399_cup obj412_easel obj413_right_peg obj418_left_peg obj423_crate obj424_oracle obj426_foot_soldier obj433_comfy_chair obj435_bowl obj440_foot_soldier obj445_mounted_soldier obj456_bag obj474_royal_yacht obj483_exact_change_basket obj493_rebus obj499_card_table obj501_small_table obj510_vase obj515_camel obj525_depression obj527_unopened_walnut obj529_Tower_of_Bozbar obj532_jester obj533_it obj539_small_lily_pad obj541_trunk obj552_pile_of_orbs obj557_fish_tank obj559_waldo obj574_right_booth
+Attribute 31 attrib31  ! obj217_yellow_dock obj227_blue_dock obj228_toboggan obj245_royal_leader obj252_walnut_shell obj260_mounted_soldier obj263_altar obj283_green_dock obj293_royal_leader obj297_cookpot obj301_it obj315_conductor_s_stand obj319_ugly_toad obj321_Dimwit_s_bed obj326_saucepan obj330_small_throne obj346_red_dock obj353_altar obj360_left_booth obj370_man_atop_a_castle_tower obj374_tree_stump obj376_huge_lily_pad obj377_center_peg obj379_large_golden_throne obj387_queen obj388_high_priest obj389_queen obj399_cup obj412_easel obj413_right_peg obj418_left_peg obj424_oracle obj426_foot_soldier obj433_comfy_chair obj435_bowl obj439_cauldron obj440_foot_soldier obj445_mounted_soldier obj474_royal_yacht obj483_exact_change_basket obj489_table obj493_rebus obj499_card_table obj501_small_table obj510_vase obj515_camel obj525_depression obj529_Tower_of_Bozbar obj532_jester obj539_small_lily_pad obj552_pile_of_orbs obj557_fish_tank obj559_waldo obj574_right_booth
+Attribute 32 attrib32  ! obj250 obj256_clump_of_spenseweed obj269_large_fly obj301_it obj313_wooden_club obj316_twelve_paintings obj328_northwest_southeast_passage obj331_lobster obj337_flamingo obj350_rooster obj351_moby_ruby obj357_fan obj363_sapphire obj375_diploma obj380_ticket obj435_bowl obj444_spyglass obj454_sign obj471_flower obj473_brass_lantern obj491_even_larger_fly obj496_metronome obj498_bickering_torch obj500_the_largest_fly obj505_zorkmid_coin obj507_iron_key obj531_proclamation obj541_trunk obj547_north_south_passage obj555_suit_of_armor obj557_fish_tank obj565_larger_fly obj573 obj578_fox obj580_muttering_torch
+Attribute 33 attrib33  ! obj217_yellow_dock obj227_blue_dock obj228_toboggan obj263_altar obj283_green_dock obj301_it obj315_conductor_s_stand obj321_Dimwit_s_bed obj341_ladder obj346_red_dock obj353_altar obj374_tree_stump obj376_huge_lily_pad obj412_easel obj489_table obj493_rebus obj499_card_table obj501_small_table obj539_small_lily_pad obj552_pile_of_orbs
+Attribute 34 attrib34  ! obj220_hands obj248_yourself obj282_her obj301_it obj304_it obj419_him obj508_ceiling obj568_wall
+Attribute 35 attrib35  ! obj301_it
+Attribute 36 attrib36  ! obj292_glove obj301_it obj317_cloak obj318_pair_of_goggles obj333_hardhat obj367_amulet obj394_silk_tie obj402_ring_of_spasticity obj410_seaman_s_cap obj428_red_clown_nose obj431_gaudy_crown obj542_wizardly_robe
+Attribute 37 attrib37  ! obj301_it
+Attribute 38 attrib38  ! obj228_toboggan obj236_notice obj243_wand obj253_scrap_of_parchment obj266_runes obj274_saddle obj276_zorkmid_bill obj277_stoppered_glass_flask_filled_with_liquid obj284_calendar obj313_wooden_club obj332_brass_plaque obj338_ceramic_perch obj368_box obj375_diploma obj378_package obj380_ticket obj405_ceramic_pigeon obj421_stock_certificate obj423_crate obj437_nine_gloop_vial obj442_memo obj453_scroll obj454_sign obj455_pile_of_napkins obj456_bag obj457_Encyclopedia_Frobozzica obj463_engraved_tenet obj464_damaged_instruction_booklet obj468_poem obj470_notebook obj473_brass_lantern obj476_blueprint obj477_dusty_slate obj482_anti_pit_bomb obj490_funny_paper obj493_rebus obj497_wall_hangings obj505_zorkmid_coin obj531_proclamation obj556_brass_plaque obj564_set_of_instructions obj566_manuscript obj570_four_gloop_vial
+Attribute 39 attrib39  ! obj215_cannonball obj228_toboggan obj229_quill_pen obj236_notice obj239_tray_of_roc_teriyaki obj243_wand obj250 obj252_walnut_shell obj253_scrap_of_parchment obj254_T_square obj269_large_fly obj274_saddle obj275_smoky_orb obj276_zorkmid_bill obj277_stoppered_glass_flask_filled_with_liquid obj284_calendar obj286_treasure_chest obj288_steel_key obj292_glove obj298_starfish obj307_pellet_of_squid_repellent obj311_milky_orb obj313_wooden_club obj314_walnut obj317_cloak obj318_pair_of_goggles obj326_saucepan obj327_candle obj328_northwest_southeast_passage obj329_hunk_of_brogmoid_ear_wax obj331_lobster obj333_hardhat obj336_fiery_orb obj337_flamingo obj338_ceramic_perch obj339_broom obj341_ladder obj347_drinking_straw obj350_rooster obj351_moby_ruby obj352_harmonica obj357_fan obj363_sapphire obj365_poster_of_Ursula_Flathead obj366_scale_model obj367_amulet obj368_box obj375_diploma obj378_package obj380_ticket obj383_screwdriver obj385_snake obj394_silk_tie obj396_glittery_orb obj399_cup obj401_bar_of_food obj402_ring_of_spasticity obj405_ceramic_pigeon obj407_shovel obj409_worm obj410_seaman_s_cap obj411_gravel obj412_easel obj421_stock_certificate obj423_crate obj427_fancy_violin obj428_red_clown_nose obj431_gaudy_crown obj437_nine_gloop_vial obj442_memo obj444_spyglass obj453_scroll obj455_pile_of_napkins obj456_bag obj464_damaged_instruction_booklet obj470_notebook obj471_flower obj473_brass_lantern obj475_hammer obj476_blueprint obj477_dusty_slate obj479_landscape obj481_wine_keg obj482_anti_pit_bomb obj485_even_more_gravel obj490_funny_paper obj491_even_larger_fly obj496_metronome obj498_bickering_torch obj500_the_largest_fly obj504_lance obj505_zorkmid_coin obj507_iron_key obj511_sceptre obj517_barbell obj524_platter_of_hellhound_bones obj527_unopened_walnut obj531_proclamation obj542_wizardly_robe obj544_more_gravel obj547_north_south_passage obj565_larger_fly obj566_manuscript obj570_four_gloop_vial obj572_hexagonal_block obj573 obj575_cake obj577_rusty_key obj578_fox obj580_muttering_torch
+Attribute 40 attrib40  ! obj288_steel_key obj301_it obj507_iron_key obj577_rusty_key
+Attribute 41 attrib41  ! obj273_exterior_light obj301_it obj327_candle obj473_brass_lantern
+Attribute 42 attrib42  ! obj216_vault_door obj232_left_door obj240_right_door obj301_it obj340_center_door obj392_outer_gate obj415_large_arched_door obj467_portcullis obj486_toll_gate obj487_trap_door obj534_door obj546_door obj571_trap_door
+Attribute 43 attrib43  ! obj301_it
+Attribute 44 attrib44  ! obj236_notice obj253_scrap_of_parchment obj276_zorkmid_bill obj301_it obj313_wooden_club obj365_poster_of_Ursula_Flathead obj421_stock_certificate obj427_fancy_violin obj453_scroll obj476_blueprint obj490_funny_paper obj531_proclamation obj566_manuscript
+Attribute 45 attrib45  ! obj217_yellow_dock obj227_blue_dock obj228_toboggan obj251_bathysphere obj283_green_dock obj301_it obj315_conductor_s_stand obj321_Dimwit_s_bed obj330_small_throne obj341_ladder obj346_red_dock obj358_gondola obj360_left_booth obj364_water_chamber obj371_iron_maiden obj374_tree_stump obj379_large_golden_throne obj391_snake_pit obj424_oracle obj433_comfy_chair obj474_royal_yacht obj499_card_table obj515_camel obj574_right_booth
+Attribute 46 attrib46  ! obj3_FrobozzCo_Offices_North obj5_Delta obj6_View_of_Statue obj7_Parlor obj9_Post_Office obj10_Courtyard obj11_Delta obj13_North_Shore obj14_Theatre obj15_Great_Underground_Woods obj17_Delta obj18_Torch_Room obj20_South_of_Mirror obj21_Kitchen obj22_Balcony obj23_Upper_Barbican obj24_Shoulder obj25_Courtroom obj28_Windblown_Sands obj29_Desert_Plain obj30_East_Hall obj31_Outer_Bailey obj32_Parapet obj33_Amongst_the_Clouds obj35_Crag obj36_Magic_Shop obj40_Ring_of_Dunes obj43_Mirror_Lake obj45_North_of_Mirror obj46_Bastion obj47_Tall_Dunes obj48_Glacier obj49_Precipice obj51_Great_Underground_Desert obj52_West_Hall obj53_West_of_House obj58_Dirigible_Hangar obj59_FrobozzCo_Offices_West obj62_Guest_Rooms obj63_URS_Office obj64_Foot_of_Statue obj67_Marsh obj69_River_s_End obj70_Back_Alley obj71_Fishing_Village obj73_Hothouse obj74_Hanging_From_Roots obj77_Perimeter_Wall obj78_Wharf obj80_Ruined_Hall obj81_Sandbar obj83_Ocean_s_Edge obj85_Great_Underground_Savannah obj86_Roof obj88_Chapel obj89_Under_the_World obj91_Stream obj92_FrobozzCo_Offices obj93_Causeway obj96_East_of_Mirror obj97_Rippled_Sands obj99_Ear obj100_Scullery obj101_Edge_of_Desert obj104_Gondola obj106_Church obj107_Great_Hall obj108_Edge_of_Bog obj109_Gallery obj111_Outside_Hovel obj112_Garrison obj113_Delta obj116_Aerie obj117_Banquet_Hall obj118_East_Shore obj119_Delta obj120_Outside_Shack obj121_Avalanche obj123_Great_Underground_Oasis obj124_On_Top_of_the_World obj125_Library obj128_Quarry_s_Edge obj131_Gaming_Room obj132_West_Shore obj137_Delta obj138_Quarry obj139_Formal_Garden obj140_FrobozzCo_HQ obj141_Great_Underground_Mountain obj144_Hollow obj145_Lower_Ledge obj146_Shady_Park obj148_Coast_Road obj149_East_Wing obj150_Barbican obj154_West_Wing obj156_Closet obj159_Cliff_Bottom obj161_FrobozzCo_Offices_South obj165_Mine_Entrance obj166_Deserted_Castle obj168_FrobozzCo_Offices_East obj169_Steam_Bath obj170_Flathead_Stadium obj171_Base_of_Mountains obj172_Village_Gate obj173_Entrance_Hall obj174_Outside_Hut obj175_Cactus_Patch obj176_Solar obj177_Cairn obj179_Inquisition obj181_Peg_Room obj183_Drawbridge obj184_Plain obj186_Lake_Flathead obj187_Chalet obj190_Smaller_Hangar obj192_Gym obj193_Timberline obj194_Throne_Room obj195_Nice_Lunch_Spot obj197_Casino obj198_West_of_Mirror obj200_Natural_Arch obj201_Foothills obj202_Zorbel_Pass obj204_Base_of_Mountain obj205_South_Shore obj206_Upper_Ledge obj207_FrobozzCo_Penthouse obj209_North_of_Anthar obj210_Audience_Chamber obj211_Quilbozza_Beach obj212_Village_Center obj213_Delta obj214_Inner_Bailey obj250 obj301_it obj327_candle obj573
+Attribute 47 attrib47  ! obj233_prickly_witch obj237_sickly_witch obj245_royal_leader obj260_mounted_soldier obj293_royal_leader obj301_it obj319_ugly_toad obj356_angry_wizard obj370_man_atop_a_castle_tower obj387_queen obj388_high_priest obj389_queen obj426_foot_soldier obj440_foot_soldier obj445_mounted_soldier obj447_executioner obj515_camel obj532_jester
+
+! ----------------------------- Properties -----------------------------
+
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Pyramid_Room
+Object 2 obj2_Vault
+Object 3 obj3_FrobozzCo_Offices_North
+Object 4 obj4_Dungeon
+Object 5 obj5_Delta
+Object 6 obj6_View_of_Statue
+Object 7 obj7_Parlor
+Object 8 obj8_Toll_Plaza
+Object 9 obj9_Post_Office
+Object 10 obj10_Courtyard
+Object 11 obj11_Delta
+Object 12 obj12_Passage_Storage_Room
+Object 13 obj13_North_Shore
+Object 14 obj14_Theatre
+Object 15 obj15_Great_Underground_Woods
+Object 16 obj16_Pyramid_Room
+Object 17 obj17_Delta
+Object 18 obj18_Torch_Room
+Object 19 obj19_Oracle
+Object 20 obj20_South_of_Mirror
+Object 21 obj21_Kitchen
+Object 22 obj22_Balcony
+Object 23 obj23_Upper_Barbican
+Object 24 obj24_Shoulder
+Object 25 obj25_Courtroom
+Object 26 obj26_Top_of_Stair
+Object 27 obj27_Ledge_in_Bottomless_Pit
+Object 28 obj28_Windblown_Sands
+Object 29 obj29_Desert_Plain
+Object 30 obj30_East_Hall
+Object 31 obj31_Outer_Bailey
+Object 32 obj32_Parapet
+Object 33 obj33_Amongst_the_Clouds
+Object 34 obj34_Tight_Squeeze
+Object 35 obj35_Crag
+Object 36 obj36_Magic_Shop
+Object 37 obj37_Pits
+Object 38 obj38_Gumboz_s_Shack
+Object 39 obj39_Root_Cellar
+Object 40 obj40_Ring_of_Dunes
+Object 41 obj41_Cell
+Object 42 obj42_Cave_In
+Object 43 obj43_Mirror_Lake
+Object 44 obj44_Grotto
+Object 45 obj45_North_of_Mirror
+Object 46 obj46_Bastion
+Object 47 obj47_Tall_Dunes
+Object 48 obj48_Glacier
+Object 49 obj49_Precipice
+Object 50 obj50_Jester_s_Quarters
+Object 51 obj51_Great_Underground_Desert
+Object 52 obj52_West_Hall
+Object 53 obj53_West_of_House
+Object 54 obj54_Lower_Hall
+Object 55 obj55_Inner_Ear
+Object 56 obj56_Forebuilding
+Object 57 obj57_Crawl
+Object 58 obj58_Dirigible_Hangar
+Object 59 obj59_FrobozzCo_Offices_West
+Object 60 obj60_Tee
+Object 61 obj61_Enchanted_Cave
+Object 62 obj62_Guest_Rooms
+Object 63 obj63_URS_Office
+Object 64 obj64_Foot_of_Statue
+Object 65 obj65_Kennels
+Object 66 obj66_Underwater
+Object 67 obj67_Marsh
+Object 68 obj68_Oubliette
+Object 69 obj69_River_s_End
+Object 70 obj70_Back_Alley
+Object 71 obj71_Fishing_Village
+Object 72 obj72_Frobozz_Philharmonic_Hall
+Object 73 obj73_Hothouse
+Object 74 obj74_Hanging_From_Roots
+Object 75 obj75_Mouth_of_Cave
+Object 76 obj76_Wine_Cellar
+Object 77 obj77_Perimeter_Wall
+Object 78 obj78_Wharf
+Object 79 obj79_Royal_Zoo
+Object 80 obj80_Ruined_Hall
+Object 81 obj81_Sandbar
+Object 82 obj82_Room_of_Three_Doors
+Object 83 obj83_Ocean_s_Edge
+Object 84 obj84_Field_Office
+Object 85 obj85_Great_Underground_Savannah
+Object 86 obj86_Roof
+Object 87 obj87_Dead_End
+Object 88 obj88_Chapel
+Object 89 obj89_Under_the_World
+Object 90 obj90_Bat_s_Lair
+Object 91 obj91_Stream
+Object 92 obj92_FrobozzCo_Offices
+Object 93 obj93_Causeway
+Object 94 obj94_Korboz_s_Hovel
+Object 95 obj95_Conductor_s_Pit
+Object 96 obj96_East_of_Mirror
+Object 97 obj97_Rippled_Sands
+Object 98 obj98_Hold
+Object 99 obj99_Ear
+Object 100 obj100_Scullery
+Object 101 obj101_Edge_of_Desert
+Object 102 obj102_Magic_Clothes_Closet
+Object 103 obj103_Crypt
+Object 104 obj104_Gondola
+Object 105 obj105_Bottom_of_Stair
+Object 106 obj106_Church
+Object 107 obj107_Great_Hall
+Object 108 obj108_Edge_of_Bog
+Object 109 obj109_Gallery
+Object 110 obj110_Servants__Quarters
+Object 111 obj111_Outside_Hovel
+Object 112 obj112_Garrison
+Object 113 obj113_Delta
+Object 114 obj114_Great_Underground_Highway
+Object 115 obj115_Heart_of_Mine
+Object 116 obj116_Aerie
+Object 117 obj117_Banquet_Hall
+Object 118 obj118_East_Shore
+Object 119 obj119_Delta
+Object 120 obj120_Outside_Shack
+Object 121 obj121_Avalanche
+Object 122 obj122_Fork
+Object 123 obj123_Great_Underground_Oasis
+Object 124 obj124_On_Top_of_the_World
+Object 125 obj125_Library
+Object 126 obj126_Crossroads
+Object 127 obj127_Lowest_Hall
+Object 128 obj128_Quarry_s_Edge
+Object 129 obj129_Donjon
+Object 130 obj130_Laboratory
+Object 131 obj131_Gaming_Room
+Object 132 obj132_West_Shore
+Object 133 obj133_Lake_Bottom
+Object 134 obj134_Torture_Chamber
+Object 135 obj135_Secret_Room
+Object 136 obj136_FrobozzCo_Basement
+Object 137 obj137_Delta
+Object 138 obj138_Quarry
+Object 139 obj139_Formal_Garden
+Object 140 obj140_FrobozzCo_HQ
+Object 141 obj141_Great_Underground_Mountain
+Object 142 obj142_Rest_Stop
+Object 143 obj143_Fissure_s_Edge
+Object 144 obj144_Hollow
+Object 145 obj145_Lower_Ledge
+Object 146 obj146_Shady_Park
+Object 147 obj147_Pyramid_Room
+Object 148 obj148_Coast_Road
+Object 149 obj149_East_Wing
+Object 150 obj150_Barbican
+Object 151 obj151_Rubble_Room
+Object 152 obj152_Warning_Room
+Object 153 obj153_Outside_Crypt
+Object 154 obj154_West_Wing
+Object 155 obj155_Shrine
+Object 156 obj156_Closet
+Object 157 obj157_Fishy_Odor
+Object 158 obj158_Orb_Room
+Object 159 obj159_Cliff_Bottom
+Object 160 obj160_Sloping_Cave
+Object 161 obj161_FrobozzCo_Offices_South
+Object 162 obj162_Weird_Passageway
+Object 163 obj163_Icky_Cave
+Object 164 obj164_Attic
+Object 165 obj165_Mine_Entrance
+Object 166 obj166_Deserted_Castle
+Object 167 obj167_Construction
+Object 168 obj168_FrobozzCo_Offices_East
+Object 169 obj169_Steam_Bath
+Object 170 obj170_Flathead_Stadium
+Object 171 obj171_Base_of_Mountains
+Object 172 obj172_Village_Gate
+Object 173 obj173_Entrance_Hall
+Object 174 obj174_Outside_Hut
+Object 175 obj175_Cactus_Patch
+Object 176 obj176_Solar
+Object 177 obj177_Cairn
+Object 178 obj178_Potholes
+Object 179 obj179_Inquisition
+Object 180 obj180_Dimwit_s_Room
+Object 181 obj181_Peg_Room
+Object 182 obj182_Wishyfoo_Territory
+Object 183 obj183_Drawbridge
+Object 184 obj184_Plain
+Object 185 obj185_Secret_Passage
+Object 186 obj186_Lake_Flathead
+Object 187 obj187_Chalet
+Object 188 obj188_Testing_Room
+Object 189 obj189_Stable
+Object 190 obj190_Smaller_Hangar
+Object 191 obj191_Megaboz_s_Hut
+Object 192 obj192_Gym
+Object 193 obj193_Timberline
+Object 194 obj194_Throne_Room
+Object 195 obj195_Nice_Lunch_Spot
+Object 196 obj196_Exit
+Object 197 obj197_Casino
+Object 198 obj198_West_of_Mirror
+Object 199 obj199_Iron_Mine
+Object 200 obj200_Natural_Arch
+Object 201 obj201_Foothills
+Object 202 obj202_Zorbel_Pass
+Object 203 obj203_Top_of_Well
+Object 204 obj204_Base_of_Mountain
+Object 205 obj205_South_Shore
+Object 206 obj206_Upper_Ledge
+Object 207 obj207_FrobozzCo_Penthouse
+Object 208 obj208_Salty_Smell
+Object 209 obj209_North_of_Anthar
+Object 210 obj210_Audience_Chamber
+Object 211 obj211_Quilbozza_Beach
+Object 212 obj212_Village_Center
+Object 213 obj213_Delta
+Object 214 obj214_Inner_Bailey
+Object 215 obj215_cannonball
+Object 216 obj216_vault_door
+Object 217 obj217_yellow_dock
+Object 218 obj218_jester_s_hat
+Object 219 obj219_flattened_snake
+Object 220 obj220_hands
+Object 221 obj221_cage
+Object 222 obj222_toll_booth
+Object 223 obj223_jester_s_shoe
+Object 224 obj224_dial
+Object 225 obj225_flattened_fish
+Object 226 obj226_ominous_black_button
+Object 227 obj227_blue_dock
+Object 228 obj228_toboggan
+Object 229 obj229_quill_pen
+Object 230 obj230_passage
+Object 231 obj231_window
+Object 232 obj232_left_door
+Object 233 obj233_prickly_witch
+Object 234 obj234_freshwater_fish
+Object 235 obj235_quotation
+Object 236 obj236_notice
+Object 237 obj237_sickly_witch
+Object 238 obj238_triplet
+Object 239 obj239_tray_of_roc_teriyaki
+Object 240 obj240_right_door
+Object 241 obj241
+Object 242 obj242_clear_liquid
+Object 243 obj243_wand
+Object 244 obj244
+Object 245 obj245_royal_leader
+Object 246 obj246_toe_fungus
+Object 247 obj247_Lord_Dimwit_Flathead_the_Excessive
+Object 248 obj248_yourself
+Object 249 obj249
+Object 250 obj250
+Object 251 obj251_bathysphere
+Object 252 obj252_walnut_shell
+Object 253 obj253_scrap_of_parchment
+Object 254 obj254_T_square
+Object 255 obj255_jester_s_pocket
+Object 256 obj256_clump_of_spenseweed
+Object 257 obj257_portrait_of_J__Pierpont_Flathead
+Object 258 obj258_lullaby
+Object 259 obj259_ladder
+Object 260 obj260_mounted_soldier
+Object 261 obj261_portrait_of_Dimwit_Flathead
+Object 262 obj262_controls
+Object 263 obj263_altar
+Object 264 obj264_1_ugh_weight
+Object 265 obj265_stream
+Object 266 obj266_runes
+Object 267 obj267_direction
+Object 268 obj268_darkest_slab
+Object 269 obj269_large_fly
+Object 270 obj270_it
+Object 271 obj271_dustiest_slab
+Object 272 obj272_murder_hole
+Object 273 obj273_exterior_light
+Object 274 obj274_saddle
+Object 275 obj275_smoky_orb
+Object 276 obj276_zorkmid_bill
+Object 277 obj277_stoppered_glass_flask_filled_with_liquid
+Object 278 obj278_giant_bedbug
+Object 279 obj279_flattened_goose
+Object 280 obj280_it
+Object 281 obj281_head
+Object 282 obj282_her
+Object 283 obj283_green_dock
+Object 284 obj284_calendar
+Object 285 obj285_small_elm_tree
+Object 286 obj286_treasure_chest
+Object 287 obj287_water
+Object 288 obj288_steel_key
+Object 289 obj289_music
+Object 290 obj290_Frobozzco_Building
+Object 291 obj291_sleep
+Object 292 obj292_glove
+Object 293 obj293_royal_leader
+Object 294 obj294_flattest_slab
+Object 295 obj295_hand_hole
+Object 296 obj296_mighty_elm_tree
+Object 297 obj297_cookpot
+Object 298 obj298_starfish
+Object 299 obj299_pegboard
+Object 300 obj300_portrait_of_Babe_Flathead
+Object 301 obj301_it
+Object 302 obj302_2_ugh_weight
+Object 303 obj303_yellow_button
+Object 304 obj304_it
+Object 305 obj305_giant_brogmoid
+Object 306 obj306_locker
+Object 307 obj307_pellet_of_squid_repellent
+Object 308 obj308_time
+Object 309 obj309_boulder
+Object 310 obj310_idol
+Object 311 obj311_milky_orb
+Object 312 obj312_portrait_of_John_Paul_Flathead
+Object 313 obj313_wooden_club
+Object 314 obj314_walnut
+Object 315 obj315_conductor_s_stand
+Object 316 obj316_twelve_paintings
+Object 317 obj317_cloak
+Object 318 obj318_pair_of_goggles
+Object 319 obj319_ugly_toad
+Object 320 obj320_jester_s_name
+Object 321 obj321_Dimwit_s_bed
+Object 322 obj322_machiolation
+Object 323 obj323
+Object 324 obj324_odd_green_bridge
+Object 325 obj325_oldest_slab
+Object 326 obj326_saucepan
+Object 327 obj327_candle
+Object 328 obj328_northwest_southeast_passage
+Object 329 obj329_hunk_of_brogmoid_ear_wax
+Object 330 obj330_small_throne
+Object 331 obj331_lobster
+Object 332 obj332_brass_plaque
+Object 333 obj333_hardhat
+Object 334 obj334_wheel
+Object 335 obj335_flattened_slime_monster
+Object 336 obj336_fiery_orb
+Object 337 obj337_flamingo
+Object 338 obj338_ceramic_perch
+Object 339 obj339_broom
+Object 340 obj340_center_door
+Object 341 obj341_ladder
+Object 342 obj342_crypt
+Object 343 obj343_flattened_mouse
+Object 344 obj344_3_ugh_weight
+Object 345 obj345_that_way
+Object 346 obj346_red_dock
+Object 347 obj347_drinking_straw
+Object 348 obj348_statue
+Object 349 obj349_Peggleboz
+Object 350 obj350_rooster
+Object 351 obj351_moby_ruby
+Object 352 obj352_harmonica
+Object 353 obj353_altar
+Object 354 obj354_portrait_of_Leonardo_Flathead
+Object 355 obj355_herd_of_unicorns
+Object 356 obj356_angry_wizard
+Object 357 obj357_fan
+Object 358 obj358_gondola
+Object 359 obj359_portrait_of_Frank_Lloyd_Flathead
+Object 360 obj360_left_booth
+Object 361 obj361_gnarled_elm_tree
+Object 362 obj362_hole
+Object 363 obj363_sapphire
+Object 364 obj364_water_chamber
+Object 365 obj365_poster_of_Ursula_Flathead
+Object 366 obj366_scale_model
+Object 367 obj367_amulet
+Object 368 obj368_box
+Object 369 obj369_right_button
+Object 370 obj370_man_atop_a_castle_tower
+Object 371 obj371_iron_maiden
+Object 372 obj372_left_button
+Object 373 obj373_portrait_of_John_D__Flathead
+Object 374 obj374_tree_stump
+Object 375 obj375_diploma
+Object 376 obj376_huge_lily_pad
+Object 377 obj377_center_peg
+Object 378 obj378_package
+Object 379 obj379_large_golden_throne
+Object 380 obj380_ticket
+Object 381 obj381_six_sided_hole
+Object 382 obj382_banner
+Object 383 obj383_screwdriver
+Object 384 obj384_4_ugh_weight
+Object 385 obj385_snake
+Object 386 obj386_up_down_lever
+Object 387 obj387_queen
+Object 388 obj388_high_priest
+Object 389 obj389_queen
+Object 390 obj390_cobwebs
+Object 391 obj391_snake_pit
+Object 392 obj392_outer_gate
+Object 393 obj393_mirror
+Object 394 obj394_silk_tie
+Object 395 obj395_carpet
+Object 396 obj396_glittery_orb
+Object 397 obj397_sailor
+Object 398 obj398_middle_name
+Object 399 obj399_cup
+Object 400 obj400_moat
+Object 401 obj401_bar_of_food
+Object 402 obj402_ring_of_spasticity
+Object 403 obj403_drawbridge
+Object 404 obj404_portrait_of_Johann_Sebastion_Flathead
+Object 405 obj405_ceramic_pigeon
+Object 406 obj406_doorbell
+Object 407 obj407_shovel
+Object 408 obj408_center_shell
+Object 409 obj409_worm
+Object 410 obj410_seaman_s_cap
+Object 411 obj411_gravel
+Object 412 obj412_easel
+Object 413 obj413_right_peg
+Object 414 obj414_the_letter_y
+Object 415 obj415_large_arched_door
+Object 416 obj416_nest
+Object 417 obj417_ungnarled_elm_tree
+Object 418 obj418_left_peg
+Object 419 obj419_him
+Object 420 obj420_eyes
+Object 421 obj421_stock_certificate
+Object 422 obj422_green_button
+Object 423 obj423_crate
+Object 424 obj424_oracle
+Object 425 obj425_sandstone_arch
+Object 426 obj426_foot_soldier
+Object 427 obj427_fancy_violin
+Object 428 obj428_red_clown_nose
+Object 429 obj429_5_ugh_weight
+Object 430 obj430
+Object 431 obj431_gaudy_crown
+Object 432 obj432_little_fungus
+Object 433 obj433_comfy_chair
+Object 434 obj434_portrait_of_Thomas_Alva_Flathead
+Object 435 obj435_bowl
+Object 436 obj436_flattened_camel
+Object 437 obj437_nine_gloop_vial
+Object 438 obj438_portrait_of_Ralph_Waldo_Flathead
+Object 439 obj439_cauldron
+Object 440 obj440_foot_soldier
+Object 441 obj441_cookfire
+Object 442 obj442_memo
+Object 443 obj443_the_Flathead_Fjord
+Object 444 obj444_spyglass
+Object 445 obj445_mounted_soldier
+Object 446 obj446_right_shell
+Object 447 obj447_executioner
+Object 448 obj448_reflection
+Object 449 obj449_granola
+Object 450 obj450_cave
+Object 451 obj451_mouth
+Object 452 obj452_ancient_pine_tree
+Object 453 obj453_scroll
+Object 454 obj454_sign
+Object 455 obj455_pile_of_napkins
+Object 456 obj456_bag
+Object 457 obj457_Encyclopedia_Frobozzica
+Object 458 obj458
+Object 459 obj459_statue_of_Dimwit_Flathead
+Object 460 obj460_lurking_grue
+Object 461 obj461_ear_fungus
+Object 462 obj462_small_louvered_door
+Object 463 obj463_engraved_tenet
+Object 464 obj464_damaged_instruction_booklet
+Object 465 obj465_6_ugh_weight
+Object 466 obj466_controls
+Object 467 obj467_portcullis
+Object 468 obj468_poem
+Object 469 obj469_stair
+Object 470 obj470_notebook
+Object 471 obj471_flower
+Object 472 obj472_upper_ledge
+Object 473 obj473_brass_lantern
+Object 474 obj474_royal_yacht
+Object 475 obj475_hammer
+Object 476 obj476_blueprint
+Object 477 obj477_dusty_slate
+Object 478 obj478_white_button
+Object 479 obj479_landscape
+Object 480 obj480_water
+Object 481 obj481_wine_keg
+Object 482 obj482_anti_pit_bomb
+Object 483 obj483_exact_change_basket
+Object 484 obj484
+Object 485 obj485_even_more_gravel
+Object 486 obj486_toll_gate
+Object 487 obj487_trap_door
+Object 488 obj488
+Object 489 obj489_table
+Object 490 obj490_funny_paper
+Object 491 obj491_even_larger_fly
+Object 492 obj492_lock
+Object 493 obj493_rebus
+Object 494 obj494_left_shell
+Object 495 obj495_number
+Object 496 obj496_metronome
+Object 497 obj497_wall_hangings
+Object 498 obj498_bickering_torch
+Object 499 obj499_card_table
+Object 500 obj500_the_largest_fly
+Object 501 obj501_small_table
+Object 502 obj502_lots_of_zorkmids
+Object 503 obj503_portrait_of_Stonewall_Flathead
+Object 504 obj504_lance
+Object 505 obj505_zorkmid_coin
+Object 506 obj506_porthole
+Object 507 obj507_iron_key
+Object 508 obj508_ceiling
+Object 509 obj509_arch
+Object 510 obj510_vase
+Object 511 obj511_sceptre
+Object 512 obj512_the_Flathead_Ocean
+Object 513 obj513_pile_of_old_bones
+Object 514 obj514_portrait_of_Lucrezia_Flathead
+Object 515 obj515_camel
+Object 516 obj516_dirigible
+Object 517 obj517_barbell
+Object 518 obj518_Lake_Flathead
+Object 519 obj519_elixir
+Object 520 obj520_oasis
+Object 521 obj521_red_button
+Object 522 obj522
+Object 523 obj523_room
+Object 524 obj524_platter_of_hellhound_bones
+Object 525 obj525_depression
+Object 526 obj526_rocky_spire
+Object 527 obj527_unopened_walnut
+Object 528 obj528_swamp
+Object 529 obj529_Tower_of_Bozbar
+Object 530 obj530_pair_of_stone_toads
+Object 531 obj531_proclamation
+Object 532 obj532_jester
+Object 533 obj533_it
+Object 534 obj534_door
+Object 535 obj535_ominous_black_button
+Object 536 obj536_blue_button
+Object 537 obj537_magic_potion
+Object 538 obj538_nose
+Object 539 obj539_small_lily_pad
+Object 540 obj540_water
+Object 541 obj541_trunk
+Object 542 obj542_wizardly_robe
+Object 543 obj543_peg
+Object 544 obj544_more_gravel
+Object 545 obj545_fireplace
+Object 546 obj546_door
+Object 547 obj547_north_south_passage
+Object 548 obj548_controls
+Object 549 obj549_bottomless_pit
+Object 550 obj550_Double_Fanucci
+Object 551 obj551_quarry
+Object 552 obj552_pile_of_orbs
+Object 553 obj553_birch_tree
+Object 554 obj554_it
+Object 555 obj555_suit_of_armor
+Object 556 obj556_brass_plaque
+Object 557 obj557_fish_tank
+Object 558 obj558_bookkeeper
+Object 559 obj559_waldo
+Object 560 obj560_longest_slab
+Object 561 obj561_giant_spider
+Object 562 obj562_the_Frigid_River
+Object 563 obj563_shortest_slab
+Object 564 obj564_set_of_instructions
+Object 565 obj565_larger_fly
+Object 566 obj566_manuscript
+Object 567 obj567_fresco
+Object 568 obj568_wall
+Object 569 obj569_lower_ledge
+Object 570 obj570_four_gloop_vial
+Object 571 obj571_trap_door
+Object 572 obj572_hexagonal_block
+Object 573 obj573
+Object 574 obj574_right_booth
+Object 575 obj575_cake
+Object 576 obj576_newest_slab
+Object 577 obj577_rusty_key
+Object 578 obj578_fox
+Object 579 obj579_pseudoxxx
+Object 580 obj580_muttering_torch
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+

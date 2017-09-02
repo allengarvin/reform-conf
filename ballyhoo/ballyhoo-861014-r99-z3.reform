@@ -1,0 +1,1176 @@
+! ----------------------------------------------------
+!   ballyhoo-861014-r99-z3.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 2d26dc8116892900d0bf1a742d3f3649
+CodeArea 0x57be 0x1ea58
+StringArea 0x1ea58 0x1f65a
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 1 attrib1   ! obj2_Rimshaw_the_Incomparable obj5_Jenny obj6_air obj7_Andrew_Jenny obj9_Mahler obj11_your_hand obj29_yourself obj46_Dr__Nostrum_s_Prehydrogenated_Genuine_Preparation_of_Naturally_Nitrated_Compound_Herbified_Extract obj51_your_head obj67_darkness obj73_Eddie_Smaldone obj77_it obj84_Chelsea obj113_Chuckles obj114_Andrew_s_outfit obj122_your_ticket obj134_helium obj137_Malcom obj146_Mr__Munrab obj156_Gloria obj161_Sgt__Duffy obj162_Jerry obj169_Genatossio obj174_himself_or_herself obj179_your_back obj187_water obj189_it obj197_WPDL obj200_Andrew obj218_Gottfried_Wilhelm_von_Katzenjammer obj219_Comrade_Thumb obj224_Billy_Monday obj228_Jenny_s_apparel
+Attribute 2 attrib2   ! obj76
+Attribute 3 attrib3   ! obj24_conversation obj34_roar obj55_music obj76 obj111_voice obj126_whimper obj134_helium
+Attribute 4 attrib4   ! obj76 obj89_sawdust obj152_money obj191_straw obj195_garbage obj215_sawdust
+Attribute 5 attrib5   ! obj5_Jenny obj76 obj84_Chelsea obj117_smooth_bodied_lion obj205_fat_lady
+Attribute 6 attrib6   ! obj3_safety_net obj5_Jenny obj8_deck_of_cards obj9_Mahler obj10_water obj11_your_hand obj12_cage obj14_skeleton_key obj17_short_line obj18_radio_dial obj19_window obj20_leather_sofa obj21_closet obj22_button obj23_police obj25_poker_game obj26_shelf_of_books obj28_midway obj31_shaggy_lion obj32_pair_of_sunglasses obj34_roar obj35_lion obj37_lions__den obj38_rusty_grate obj40_square_aluminum_panel obj42_group_of_ballplayers obj44_trailer_door obj45_parlor obj46_Dr__Nostrum_s_Prehydrogenated_Genuine_Preparation_of_Naturally_Nitrated_Compound_Herbified_Extract obj47_burn_hole obj52_tent obj54_chair obj55_music obj61_menagerie obj64_massive_chain obj68_cage_door obj69_refreshment obj71_blue_dot obj72_tightrope obj73_Eddie_Smaldone obj74_chandelier obj76 obj77_it obj78_hawker obj79_center_pole obj80_long_line obj82_curtain obj83_wall obj85_ribbon obj86_circus obj88_cloud_of_smoke obj89_sawdust obj90_drinking_fountain obj95_blackjack_table obj96_lion_stand obj97_elephant_prod obj99_moose_head obj100_office_door obj101_ladder obj103_cherry_hardwood_desk obj104_shawl_jacket_combo obj106_dress_suit_combination obj107_future obj109_lower_bunk obj110_white_wagon obj111_voice obj114_Andrew_s_outfit obj115_uniform obj116_dealer obj117_smooth_bodied_lion obj118_ignition_switch obj119_costume obj120_egress obj123_crawl_space obj125_sagging_banner obj126_whimper obj127_monkey obj128_mirror obj130_chain_link_fence obj132_corner obj134_helium obj136_compartment obj138_tuxedo obj139_ring obj140_fat_lady_s_hand obj141_elephant obj142_concession_stand obj143_sign obj144_camp obj145_platform obj146_Mr__Munrab obj149_cage_door obj151_group obj153_detective obj154 obj155_rumpled_trenchcoat obj159_big_top obj160_narrow_slot obj162_Jerry obj164_cage_door obj166_trailer obj167_office obj168_crowd obj171_trailer obj172_diploma obj173_midget_car obj174_himself_or_herself obj177_spiral_staircase obj179_your_back obj180_flower obj181_concessionaire obj185_upper_bunk obj190_roustabout obj195_garbage obj197_WPDL obj198_burned_cage obj200_Andrew obj202_ceiling obj205_fat_lady obj207_guard obj210_canvas_wall obj211_it obj212_secret_panel obj213_compartment obj217_grandstand obj219_Comrade_Thumb obj220_apparatus obj223_sideshow_front obj227_keister obj228_Jenny_s_apparel obj229_path obj231_pink_dot obj233_trap_door obj234_desk obj235_turnstile obj237_crank
+Attribute 7 attrib7   ! obj6_air obj76 obj77_it obj97_elephant_prod obj100_office_door obj115_uniform obj118_ignition_switch obj120_egress obj141_elephant obj163_one_dollar_and_85_cent_granola_bar obj167_office obj185_upper_bunk obj214_ash_tray obj220_apparatus
+Attribute 8 attrib8   ! obj2_Rimshaw_the_Incomparable obj5_Jenny obj7_Andrew_Jenny obj42_group_of_ballplayers obj66_figure_of_President_Taft obj73_Eddie_Smaldone obj76 obj78_hawker obj84_Chelsea obj98_roustabout obj113_Chuckles obj116_dealer obj137_Malcom obj146_Mr__Munrab obj151_group obj153_detective obj156_Gloria obj161_Sgt__Duffy obj162_Jerry obj168_crowd obj169_Genatossio obj200_Andrew obj205_fat_lady obj207_guard obj218_Gottfried_Wilhelm_von_Katzenjammer obj219_Comrade_Thumb obj224_Billy_Monday
+Attribute 9 attrib9   ! obj68_cage_door obj76 obj149_cage_door obj164_cage_door obj213_compartment
+Attribute 10 attrib10  ! obj44_trailer_door obj68_cage_door obj76 obj100_office_door obj103_cherry_hardwood_desk obj149_cage_door obj164_cage_door obj213_compartment obj239_trailer_door
+Attribute 11 attrib11  ! obj1_Inside_Prop_Tent obj13_Inside_Mahler_s_Cage obj15_Hypnotist_s_Parlor obj56_Platform obj59_Office obj62_Walking_a_Tightrope obj70_Platform obj76 obj81_In_the_Wings obj91_East_Half_of_Fat_Lady obj108_Jennifer_s_Boudoir obj112_Elephant_Tent obj131_Performance_Ring obj150_West_Half_of_Fat_Lady obj157_Clown_Alley obj170_Lions__Den obj178_Wardrobe_Closet obj182_Standing_Room_Only obj192_Inside_Cage obj206_Under_the_Bleachers obj225_Left_Hanging obj232_Blue_Room
+Attribute 12 attrib12  ! obj76 obj96_lion_stand obj223_sideshow_front
+Attribute 13 attrib13  ! obj19_window obj49_barred_passage obj76 obj103_cherry_hardwood_desk obj109_lower_bunk obj154 obj165_balloon obj185_upper_bunk obj214_ash_tray
+Attribute 14 attrib14  ! obj2_Rimshaw_the_Incomparable obj3_safety_net obj5_Jenny obj9_Mahler obj65_bucket obj76 obj78_hawker obj96_lion_stand obj98_roustabout obj106_dress_suit_combination obj109_lower_bunk obj113_Chuckles obj116_dealer obj146_Mr__Munrab obj153_detective obj154 obj155_rumpled_trenchcoat obj173_midget_car obj200_Andrew obj207_guard obj214_ash_tray obj219_Comrade_Thumb obj224_Billy_Monday obj227_keister
+Attribute 15 attrib15  ! obj2_Rimshaw_the_Incomparable obj3_safety_net obj5_Jenny obj9_Mahler obj20_leather_sofa obj36_pair_of_headphones obj48_transistor_radio obj49_barred_passage obj54_chair obj65_bucket obj76 obj78_hawker obj96_lion_stand obj98_roustabout obj103_cherry_hardwood_desk obj106_dress_suit_combination obj109_lower_bunk obj113_Chuckles obj116_dealer obj122_your_ticket obj146_Mr__Munrab obj153_detective obj154 obj155_rumpled_trenchcoat obj160_narrow_slot obj173_midget_car obj185_upper_bunk obj200_Andrew obj205_fat_lady obj207_guard obj214_ash_tray obj219_Comrade_Thumb obj224_Billy_Monday obj227_keister
+Attribute 16 attrib16  ! obj8_deck_of_cards obj14_skeleton_key obj26_shelf_of_books obj32_pair_of_sunglasses obj39_cheese_morsel obj46_Dr__Nostrum_s_Prehydrogenated_Genuine_Preparation_of_Naturally_Nitrated_Compound_Herbified_Extract obj54_chair obj64_massive_chain obj69_refreshment obj72_tightrope obj75_jumble_of_trinkets obj76 obj89_sawdust obj101_ladder obj114_Andrew_s_outfit obj115_uniform obj119_costume obj138_tuxedo obj140_fat_lady_s_hand obj155_rumpled_trenchcoat obj159_big_top obj173_midget_car obj180_flower obj191_straw obj196 obj203_telephone obj215_sawdust obj221_dirty_rag obj227_keister obj228_Jenny_s_apparel obj229_path
+Attribute 17 attrib17  ! obj3_safety_net obj20_leather_sofa obj54_chair obj76 obj96_lion_stand obj103_cherry_hardwood_desk obj109_lower_bunk obj154 obj185_upper_bunk
+Attribute 18 attrib18  ! obj11_your_hand obj29_yourself obj76 obj77_it obj83_wall obj202_ceiling
+Attribute 19 attrib19  ! obj24_conversation obj76 obj85_ribbon obj123_crawl_space obj211_it obj212_secret_panel obj233_trap_door
+Attribute 20 attrib20  ! obj76
+Attribute 21 attrib21  ! obj36_pair_of_headphones obj76 obj85_ribbon obj93_clown_mask obj104_shawl_jacket_combo obj106_dress_suit_combination obj208_gorilla_suit obj222_veil
+Attribute 22 attrib22  ! obj14_skeleton_key obj16_rawhide_bullwhip obj27_scrap_of_newsprint obj36_pair_of_headphones obj39_cheese_morsel obj48_transistor_radio obj60_dead_mouse obj64_massive_chain obj65_bucket obj66_figure_of_President_Taft obj84_Chelsea obj85_ribbon obj93_clown_mask obj96_lion_stand obj97_elephant_prod obj99_moose_head obj102_corpuscular_lump_of_meat obj104_shawl_jacket_combo obj106_dress_suit_combination obj122_your_ticket obj129_fiberglass_pole obj133_stool obj140_fat_lady_s_hand obj147_crowbar obj154 obj158_ransom_note obj163_one_dollar_and_85_cent_granola_bar obj165_balloon obj176_spreadsheet obj184_trade_card obj187_water obj196 obj199_heap_of_black_ash obj203_telephone obj208_gorilla_suit obj209_two_dollar_and_25_cent_frozen_banana obj214_ash_tray obj216_cigarette_case obj219_Comrade_Thumb obj222_veil obj227_keister
+Attribute 23 attrib23  ! obj2_Rimshaw_the_Incomparable obj3_safety_net obj5_Jenny obj9_Mahler obj20_leather_sofa obj36_pair_of_headphones obj48_transistor_radio obj49_barred_passage obj54_chair obj65_bucket obj76 obj78_hawker obj96_lion_stand obj98_roustabout obj103_cherry_hardwood_desk obj106_dress_suit_combination obj109_lower_bunk obj113_Chuckles obj116_dealer obj122_your_ticket obj136_compartment obj146_Mr__Munrab obj153_detective obj154 obj155_rumpled_trenchcoat obj160_narrow_slot obj165_balloon obj173_midget_car obj185_upper_bunk obj200_Andrew obj205_fat_lady obj207_guard obj213_compartment obj214_ash_tray obj216_cigarette_case obj219_Comrade_Thumb obj224_Billy_Monday obj227_keister
+Attribute 24 attrib24  ! obj1_Inside_Prop_Tent obj4_Back_Yard obj13_Inside_Mahler_s_Cage obj15_Hypnotist_s_Parlor obj30_Top_of_Cage obj53_On_the_Tent obj56_Platform obj57_Connection obj59_Office obj62_Walking_a_Tightrope obj63_On_the_Wagon obj70_Platform obj76 obj81_In_the_Wings obj87_Midway_Entrance obj91_East_Half_of_Fat_Lady obj94_Camp__West obj105_Midway_of_Midway obj108_Jennifer_s_Boudoir obj112_Elephant_Tent obj121_Menagerie_Nook obj131_Performance_Ring obj148_Near_White_Wagon obj150_West_Half_of_Fat_Lady obj157_Clown_Alley obj170_Lions__Den obj175_Menagerie obj178_Wardrobe_Closet obj182_Standing_Room_Only obj192_Inside_Cage obj194_Far_End_of_Midway obj201_Camp__East obj206_Under_the_Bleachers obj225_Left_Hanging obj226_Inside_Trailer obj230_Beside_the_Big_Top obj232_Blue_Room
+Attribute 25 attrib25  ! obj39_cheese_morsel obj69_refreshment obj76 obj102_corpuscular_lump_of_meat obj163_one_dollar_and_85_cent_granola_bar obj209_two_dollar_and_25_cent_frozen_banana
+Attribute 26 attrib26  ! obj36_pair_of_headphones obj48_transistor_radio obj58_light obj74_chandelier obj76
+Attribute 27 attrib27  ! obj38_rusty_grate obj40_square_aluminum_panel obj44_trailer_door obj68_cage_door obj76 obj82_curtain obj100_office_door obj149_cage_door obj164_cage_door obj212_secret_panel obj233_trap_door obj239_trailer_door
+Attribute 28 attrib28  ! obj1_Inside_Prop_Tent obj4_Back_Yard obj13_Inside_Mahler_s_Cage obj15_Hypnotist_s_Parlor obj30_Top_of_Cage obj53_On_the_Tent obj56_Platform obj57_Connection obj59_Office obj62_Walking_a_Tightrope obj63_On_the_Wagon obj70_Platform obj76 obj81_In_the_Wings obj87_Midway_Entrance obj91_East_Half_of_Fat_Lady obj94_Camp__West obj105_Midway_of_Midway obj108_Jennifer_s_Boudoir obj112_Elephant_Tent obj121_Menagerie_Nook obj131_Performance_Ring obj148_Near_White_Wagon obj150_West_Half_of_Fat_Lady obj157_Clown_Alley obj170_Lions__Den obj175_Menagerie obj178_Wardrobe_Closet obj182_Standing_Room_Only obj192_Inside_Cage obj194_Far_End_of_Midway obj201_Camp__East obj206_Under_the_Bleachers obj225_Left_Hanging obj226_Inside_Trailer obj230_Beside_the_Big_Top obj232_Blue_Room
+Attribute 29 attrib29  ! obj6_air obj76 obj134_helium
+Attribute 30 attrib30  ! obj3_safety_net obj20_leather_sofa obj54_chair obj76 obj80_long_line obj133_stool
+Attribute 31 attrib31  ! obj2_Rimshaw_the_Incomparable obj5_Jenny obj7_Andrew_Jenny obj9_Mahler obj29_yourself obj31_shaggy_lion obj42_group_of_ballplayers obj66_figure_of_President_Taft obj73_Eddie_Smaldone obj76 obj78_hawker obj84_Chelsea obj98_roustabout obj113_Chuckles obj116_dealer obj117_smooth_bodied_lion obj127_monkey obj137_Malcom obj141_elephant obj146_Mr__Munrab obj151_group obj153_detective obj156_Gloria obj161_Sgt__Duffy obj162_Jerry obj168_crowd obj169_Genatossio obj190_roustabout obj200_Andrew obj205_fat_lady obj207_guard obj218_Gottfried_Wilhelm_von_Katzenjammer obj219_Comrade_Thumb obj224_Billy_Monday
+
+! ----------------------------- Properties -----------------------------
+
+Property 4 prop4:?
+Property 5 prop5:?
+Property 6 prop6:?
+Property 7 prop7:?
+Property 8 prop8:?
+Property 9 prop9:?
+Property 10 prop10:?
+Property 11 prop11:?
+Property 12 prop12:?
+Property 13 prop13:?
+Property 14 prop14:?
+Property 15 prop15:?
+Property 16 prop16:?
+Property 17 prop17:?
+Property 18 prop18:?
+Property 19 prop19:dictwords
+Property 20 out_to:exit
+Property 21 in_to:exit
+Property 22 d_to:exit
+Property 23 u_to:exit
+Property 24 northw_to:exit
+Property 25 w_to:exit
+Property 26 southw_to:exit
+Property 27 s_to:exit
+Property 28 se_to:exit
+Property 29 e_to:exit
+Property 30 ne_to:exit
+Property 31 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Inside_Prop_Tent
+Object 2 obj2_Rimshaw_the_Incomparable
+Object 3 obj3_safety_net
+Object 4 obj4_Back_Yard
+Object 5 obj5_Jenny
+Object 6 obj6_air
+Object 7 obj7_Andrew_Jenny
+Object 8 obj8_deck_of_cards
+Object 9 obj9_Mahler
+Object 10 obj10_water
+Object 11 obj11_your_hand
+Object 12 obj12_cage
+Object 13 obj13_Inside_Mahler_s_Cage
+Object 14 obj14_skeleton_key
+Object 15 obj15_Hypnotist_s_Parlor
+Object 16 obj16_rawhide_bullwhip
+Object 17 obj17_short_line
+Object 18 obj18_radio_dial
+Object 19 obj19_window
+Object 20 obj20_leather_sofa
+Object 21 obj21_closet
+Object 22 obj22_button
+Object 23 obj23_police
+Object 24 obj24_conversation
+Object 25 obj25_poker_game
+Object 26 obj26_shelf_of_books
+Object 27 obj27_scrap_of_newsprint
+Object 28 obj28_midway
+Object 29 obj29_yourself
+Object 30 obj30_Top_of_Cage
+Object 31 obj31_shaggy_lion
+Object 32 obj32_pair_of_sunglasses
+Object 33 obj33_home
+Object 34 obj34_roar
+Object 35 obj35_lion
+Object 36 obj36_pair_of_headphones
+Object 37 obj37_lions__den
+Object 38 obj38_rusty_grate
+Object 39 obj39_cheese_morsel
+Object 40 obj40_square_aluminum_panel
+Object 41 obj41_direction
+Object 42 obj42_group_of_ballplayers
+Object 43 obj43
+Object 44 obj44_trailer_door
+Object 45 obj45_parlor
+Object 46 obj46_Dr__Nostrum_s_Prehydrogenated_Genuine_Preparation_of_Naturally_Nitrated_Compound_Herbified_Extract
+Object 47 obj47_burn_hole
+Object 48 obj48_transistor_radio
+Object 49 obj49_barred_passage
+Object 50 obj50
+Object 51 obj51_your_head
+Object 52 obj52_tent
+Object 53 obj53_On_the_Tent
+Object 54 obj54_chair
+Object 55 obj55_music
+Object 56 obj56_Platform
+Object 57 obj57_Connection
+Object 58 obj58_light
+Object 59 obj59_Office
+Object 60 obj60_dead_mouse
+Object 61 obj61_menagerie
+Object 62 obj62_Walking_a_Tightrope
+Object 63 obj63_On_the_Wagon
+Object 64 obj64_massive_chain
+Object 65 obj65_bucket
+Object 66 obj66_figure_of_President_Taft
+Object 67 obj67_darkness
+Object 68 obj68_cage_door
+Object 69 obj69_refreshment
+Object 70 obj70_Platform
+Object 71 obj71_blue_dot
+Object 72 obj72_tightrope
+Object 73 obj73_Eddie_Smaldone
+Object 74 obj74_chandelier
+Object 75 obj75_jumble_of_trinkets
+Object 76 obj76
+Object 77 obj77_it
+Object 78 obj78_hawker
+Object 79 obj79_center_pole
+Object 80 obj80_long_line
+Object 81 obj81_In_the_Wings
+Object 82 obj82_curtain
+Object 83 obj83_wall
+Object 84 obj84_Chelsea
+Object 85 obj85_ribbon
+Object 86 obj86_circus
+Object 87 obj87_Midway_Entrance
+Object 88 obj88_cloud_of_smoke
+Object 89 obj89_sawdust
+Object 90 obj90_drinking_fountain
+Object 91 obj91_East_Half_of_Fat_Lady
+Object 92 obj92_turnstile
+Object 93 obj93_clown_mask
+Object 94 obj94_Camp__West
+Object 95 obj95_blackjack_table
+Object 96 obj96_lion_stand
+Object 97 obj97_elephant_prod
+Object 98 obj98_roustabout
+Object 99 obj99_moose_head
+Object 100 obj100_office_door
+Object 101 obj101_ladder
+Object 102 obj102_corpuscular_lump_of_meat
+Object 103 obj103_cherry_hardwood_desk
+Object 104 obj104_shawl_jacket_combo
+Object 105 obj105_Midway_of_Midway
+Object 106 obj106_dress_suit_combination
+Object 107 obj107_future
+Object 108 obj108_Jennifer_s_Boudoir
+Object 109 obj109_lower_bunk
+Object 110 obj110_white_wagon
+Object 111 obj111_voice
+Object 112 obj112_Elephant_Tent
+Object 113 obj113_Chuckles
+Object 114 obj114_Andrew_s_outfit
+Object 115 obj115_uniform
+Object 116 obj116_dealer
+Object 117 obj117_smooth_bodied_lion
+Object 118 obj118_ignition_switch
+Object 119 obj119_costume
+Object 120 obj120_egress
+Object 121 obj121_Menagerie_Nook
+Object 122 obj122_your_ticket
+Object 123 obj123_crawl_space
+Object 124 obj124
+Object 125 obj125_sagging_banner
+Object 126 obj126_whimper
+Object 127 obj127_monkey
+Object 128 obj128_mirror
+Object 129 obj129_fiberglass_pole
+Object 130 obj130_chain_link_fence
+Object 131 obj131_Performance_Ring
+Object 132 obj132_corner
+Object 133 obj133_stool
+Object 134 obj134_helium
+Object 135 obj135_room
+Object 136 obj136_compartment
+Object 137 obj137_Malcom
+Object 138 obj138_tuxedo
+Object 139 obj139_ring
+Object 140 obj140_fat_lady_s_hand
+Object 141 obj141_elephant
+Object 142 obj142_concession_stand
+Object 143 obj143_sign
+Object 144 obj144_camp
+Object 145 obj145_platform
+Object 146 obj146_Mr__Munrab
+Object 147 obj147_crowbar
+Object 148 obj148_Near_White_Wagon
+Object 149 obj149_cage_door
+Object 150 obj150_West_Half_of_Fat_Lady
+Object 151 obj151_group
+Object 152 obj152_money
+Object 153 obj153_detective
+Object 154 obj154
+Object 155 obj155_rumpled_trenchcoat
+Object 156 obj156_Gloria
+Object 157 obj157_Clown_Alley
+Object 158 obj158_ransom_note
+Object 159 obj159_big_top
+Object 160 obj160_narrow_slot
+Object 161 obj161_Sgt__Duffy
+Object 162 obj162_Jerry
+Object 163 obj163_one_dollar_and_85_cent_granola_bar
+Object 164 obj164_cage_door
+Object 165 obj165_balloon
+Object 166 obj166_trailer
+Object 167 obj167_office
+Object 168 obj168_crowd
+Object 169 obj169_Genatossio
+Object 170 obj170_Lions__Den
+Object 171 obj171_trailer
+Object 172 obj172_diploma
+Object 173 obj173_midget_car
+Object 174 obj174_himself_or_herself
+Object 175 obj175_Menagerie
+Object 176 obj176_spreadsheet
+Object 177 obj177_spiral_staircase
+Object 178 obj178_Wardrobe_Closet
+Object 179 obj179_your_back
+Object 180 obj180_flower
+Object 181 obj181_concessionaire
+Object 182 obj182_Standing_Room_Only
+Object 183 obj183_safety_net
+Object 184 obj184_trade_card
+Object 185 obj185_upper_bunk
+Object 186 obj186_dollar
+Object 187 obj187_water
+Object 188 obj188_ground
+Object 189 obj189_it
+Object 190 obj190_roustabout
+Object 191 obj191_straw
+Object 192 obj192_Inside_Cage
+Object 193 obj193
+Object 194 obj194_Far_End_of_Midway
+Object 195 obj195_garbage
+Object 196 obj196
+Object 197 obj197_WPDL
+Object 198 obj198_burned_cage
+Object 199 obj199_heap_of_black_ash
+Object 200 obj200_Andrew
+Object 201 obj201_Camp__East
+Object 202 obj202_ceiling
+Object 203 obj203_telephone
+Object 204 obj204
+Object 205 obj205_fat_lady
+Object 206 obj206_Under_the_Bleachers
+Object 207 obj207_guard
+Object 208 obj208_gorilla_suit
+Object 209 obj209_two_dollar_and_25_cent_frozen_banana
+Object 210 obj210_canvas_wall
+Object 211 obj211_it
+Object 212 obj212_secret_panel
+Object 213 obj213_compartment
+Object 214 obj214_ash_tray
+Object 215 obj215_sawdust
+Object 216 obj216_cigarette_case
+Object 217 obj217_grandstand
+Object 218 obj218_Gottfried_Wilhelm_von_Katzenjammer
+Object 219 obj219_Comrade_Thumb
+Object 220 obj220_apparatus
+Object 221 obj221_dirty_rag
+Object 222 obj222_veil
+Object 223 obj223_sideshow_front
+Object 224 obj224_Billy_Monday
+Object 225 obj225_Left_Hanging
+Object 226 obj226_Inside_Trailer
+Object 227 obj227_keister
+Object 228 obj228_Jenny_s_apparel
+Object 229 obj229_path
+Object 230 obj230_Beside_the_Big_Top
+Object 231 obj231_pink_dot
+Object 232 obj232_Blue_Room
+Object 233 obj233_trap_door
+Object 234 obj234_desk
+Object 235 obj235_turnstile
+Object 236 obj236
+Object 237 obj237_crank
+Object 238 obj238_pseudo
+Object 239 obj239_trailer_door
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'verbos'
+Action 1 Action1  ! 'brief'
+Action 2 Action2  ! 'super'/'superb'
+Action 3 Action3  ! 'diagno'
+Action 4 Action4  ! 'invent'
+Action 5 Action5  ! 'q//'/'quit'
+Action 6 Action6  ! 'restar'
+Action 7 Action7  ! 'restor'
+Action 8 Action8  ! 'save'
+Action 9 Action9  ! 'score'
+Action 10 Action10 ! 'script'
+Action 11 Action11 ! 'unscri'
+Action 12 Action12 ! 'versio'
+Action 13 Action13 ! '$ve' object
+Action 14 Action14 ! '$pr'
+Action 15 Action15 ! 'speak'/'talk' 'toward'/'to' attrib31(in_room)
+Action 16 Action16 ! 'advanc' object
+Action 17 Action17 ! 'answer'/'reply'
+Action 18 Action18 ! 'answer'/'reply' 'toward'/'to' object
+Action 19 Action19 ! 'applau'/'cheer'
+Action 20 Action20 ! 'applau'/'cheer' object
+Action 21 Action21 ! 'go' 'toward'/'to' object
+Action 22 Action22 ! 'arrest' object
+Action 23 Action23 ! 'ask'/'consul'/'query' attrib31 'onto'/'on'/'across' object
+Action 24 Action24 ! 'ask'/'consul'/'query' attrib31 'for' object
+Action 25 Action25 ! 'break'/'damage'/'demoli'/'destro'/'peel'/'pop'/'smash'/'wreck' 'down'/'d//' object
+Action 26 Action26 ! 'balanc' object 'with'/'using' object(held)
+Action 27 Action27 ! 'bet'/'wager' object
+Action 28 Action28 ! 'bite' object
+Action 29 Action29 ! 'cut'/'perfor'/'slice' 'into'/'inside'/'in' attrib30(in_room,on_ground)
+Action 30 Action30 ! 'breath'/'inhale'/'suck' 'into'/'inside'/'in' object 'from' object(held,carried,have)
+Action 31 Action31 ! 'bribe' object 'with'/'using' object
+Action 32 Action32 ! 'buy'/'order'/'purcha' object 'from' object
+Action 33 Action33 ! 'call' 'toward'/'to' object
+Action 34 Action34 ! 'dial'/'phone'/'teleph' object 'onto'/'on'/'across' object
+Action 35 Action35 ! 'captur'/'catch' object 'with'/'using' object
+Action 36 Action36 ! 'cheat' 'at' object
+Action 37 Action37 ! 'climb'/'crawl'/'creep'/'scale' object(in_room,on_ground)
+Action 38 Action38 ! 'rest'/'sit'/'squat' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 39 Action39 ! 'go' 'up'/'u//' object(in_room,on_ground)
+Action 40 Action40 ! 'go' 'down'/'d//' object(in_room,on_ground)
+Action 41 Action41 ! 'go' 'outsid'/'out' object
+Action 42 Action42 ! 'climb'/'crawl'/'creep'/'scale' 'over' object(in_room,on_ground)
+Action 43 Action43 ! 'go' 'thru'/'throug' object
+Action 44 Action44 ! 'go' 'undern'/'under'/'beneat'/'below' object
+Action 45 Action45 ! 'close'/'shut'/'unset' attrib27(held,carried,in_room,on_ground)
+Action 46 Action46 ! 'close'/'shut'/'unset' 'off' attrib26(held,carried,in_room,on_ground,take)
+Action 47 Action47 ! 'compar'/'match' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground)
+Action 48 Action48 ! 'cover' object 'with'/'using' object(held,many)
+Action 49 Action49 ! 'count' object
+Action 50 Action50 ! 'cut'/'perfor'/'slice' 'thru'/'throug' object 'with'/'using' object(held,carried)
+Action 51 Action51 ! 'break'/'damage'/'demoli'/'destro'/'peel'/'pop'/'smash'/'wreck' object 'with'/'using' object(held,carried,take)
+Action 52 Action52 ! 'did' 'so' attrib28
+Action 53 Action53 ! 'did' 'not' attrib28
+Action 54 Action54 ! 'dig' 'thru'/'throug' object
+Action 55 Action55 ! 'doze'/'nap'/'sleep'/'snooze'
+Action 56 Action56 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' object(held,carried,in_room,on_ground)
+Action 57 Action57 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swallo'/'swill' 'from' object(held,carried)
+Action 58 Action58 ! 'drive' object
+Action 59 Action59 ! 'drop' object(held,many,have)
+Action 60 Action60 ! 'slide' object 'onto'/'on'/'across' object
+Action 61 Action61 ! 'drop' object(held,many) 'onto'/'on'/'across' object
+Action 62 Action62 ! 'drop' object(held,many) 'outsid'/'out' object
+Action 63 Action63 ! 'devour'/'eat'/'gobble'/'ingest' attrib25(held,carried,in_room,on_ground)
+Action 64 Action64 ! 'eject' object
+Action 65 Action65 ! 'enter'
+Action 66 Action66 ! 'depart'/'exit'/'withdr' object
+Action 67 Action67 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study'/'watch' object(held,carried,in_room,on_ground)
+Action 68 Action68 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study'/'watch' object 'thru'/'throug' object
+Action 69 Action69 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study'/'watch' 'onto'/'on'/'across' object(held,carried,in_room,on_ground)
+Action 70 Action70 ! 'descri'/'examin'/'inspec'/'observ'/'scour'/'see'/'study'/'watch' 'for' object
+Action 71 Action71 ! 'feed' attrib31
+Action 72 Action72 ! 'donate'/'give'/'hand'/'offer'/'sell'/'send' object(held,many,have) 'toward'/'to' attrib31(on_ground)
+Action 73 Action73 ! 'donate'/'give'/'hand'/'offer'/'sell'/'send' attrib31(on_ground) object(held,many,have)
+Action 74 Action74 ! 'fill' attrib23(held,carried,have)
+Action 75 Action75 ! 'chase'/'follow'/'pursue' object
+Action 76 Action76 ! 'listen' 'toward'/'to' object
+Action 77 Action77 ! 'hello'/'hi'/'howdy' object
+Action 78 Action78 ! 'help'/'hint'/'hints'
+Action 79 Action79 ! 'help'/'hint'/'hints' object
+Action 80 Action80 ! 'crouch'/'duck'/'hide' 'undern'/'under'/'beneat'/'below' object
+Action 81 Action81 ! 'go' 'behind' object
+Action 82 Action82 ! 'hypnot'/'mesmer' object
+Action 83 Action83 ! 'bounce'/'dive'/'fall'/'jump'/'leap' 'down'/'d//' attrib28
+Action 84 Action84 ! 'bounce'/'dive'/'fall'/'jump'/'leap' 'outsid'/'out' object
+Action 85 Action85 ! 'bounce'/'dive'/'fall'/'jump'/'leap' 'over' object 'with'/'using' object
+Action 86 Action86 ! 'kick' object
+Action 87 Action87 ! 'kiss' attrib31(in_room,on_ground)
+Action 88 Action88 ! 'knock'/'rap' 'onto'/'on'/'across' object
+Action 89 Action89 ! 'lean' 'toward'/'to' object
+Action 90 Action90 ! 'go' 'away' attrib28
+Action 91 Action91 ! 'lie'/'reclin' 'down'/'d//' attrib28
+Action 92 Action92 ! 'activa'/'start' object
+Action 93 Action93 ! 'lock' object(in_room,on_ground) 'with'/'using' object
+Action 94 Action94 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'around'/'along' attrib28
+Action 95 Action95 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'down'/'d//' attrib28
+Action 96 Action96 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'up'/'u//' attrib28
+Action 97 Action97 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'outsid'/'out' object
+Action 98 Action98 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'undern'/'under'/'beneat'/'below' object
+Action 99 Action99 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'behind' object
+Action 100 Action100 ! 'gaze'/'l//'/'look'/'squint'/'stare' 'onto'/'on'/'across' object(held,carried,in_room,on_ground)
+Action 101 Action101 ! 'gaze'/'l//'/'look'/'squint'/'stare' object
+Action 102 Action102 ! 'lower' object
+Action 103 Action103 ! 'make' object
+Action 104 Action104 ! 'go' 'around'/'along' attrib28
+Action 105 Action105 ! 'move' object 'with'/'using' object
+Action 106 Action106 ! 'press'/'pull'/'push'/'shove' 'up'/'u//' object
+Action 107 Action107 ! 'slide' object
+Action 108 Action108 ! 'slide' object 'undern'/'under'/'beneat'/'below' object
+Action 109 Action109 ! 'draw'/'open'/'part'/'pry' attrib27(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
+Action 110 Action110 ! 'pass'/'pay' object
+Action 111 Action111 ! 'dial'/'phone'/'teleph' object
+Action 112 Action112 ! 'jimmy'/'pick' object 'with'/'using' object
+Action 113 Action113 ! 'jimmy'/'pick' 'up'/'u//' attrib22(on_ground,many)
+Action 114 Action114 ! 'play' object
+Action 115 Action115 ! 'pour'/'spill'/'sprink' object 'over' object
+Action 116 Action116 ! 'punch' 'outsid'/'out' object
+Action 117 Action117 ! 'empty' 'outsid'/'out' object(held,carried)
+Action 118 Action118 ! 'doff'/'remove'/'shed' attrib22(carried,in_room,many) 'from' object
+Action 119 Action119 ! 'hang'/'insert'/'lay'/'place'/'put'/'stuff' 'up'/'u//' object
+Action 120 Action120 ! 'don'/'wear' attrib21(have)
+Action 121 Action121 ! 'hang'/'insert'/'lay'/'place'/'put'/'stuff' object 'behind' object
+Action 122 Action122 ! 'reach' object(in_room,on_ground)
+Action 123 Action123 ! 'reach' object(in_room,on_ground) 'with'/'using' object
+Action 124 Action124 ! 'reach' 'into'/'inside'/'in' object(in_room,on_ground)
+Action 125 Action125 ! 'record' 'onto'/'on'/'across' object
+Action 126 Action126 ! 'read'/'skim' object 'onto'/'on'/'across' object
+Action 127 Action127 ! 'doff'/'remove'/'shed' attrib20
+Action 128 Action128 ! 'rewind' object
+Action 129 Action129 ! 'speak'/'talk' 'into'/'inside'/'in' object
+Action 130 Action130 ! 'frisk'/'rummag'/'search' 'thru'/'throug' object
+Action 131 Action131 ! 'frisk'/'rummag'/'search' object 'for' object(held,carried)
+Action 132 Action132 ! 'shake' object
+Action 133 Action133 ! 'shake' object 'with'/'using' object
+Action 134 Action134 ! 'show' object 'toward'/'to' attrib31
+Action 135 Action135 ! 'show' attrib31 object(held,many,have)
+Action 136 Action136 ! 'rest'/'sit'/'squat' 'down'/'d//' attrib28(in_room,on_ground)
+Action 137 Action137 ! 'hop'/'skip'
+Action 138 Action138 ! 'smell'/'sniff'/'whiff' object
+Action 139 Action139 ! 'smile' 'at' object
+Action 140 Action140 ! 'spin'/'whirl' object
+Action 141 Action141 ! 'rise'/'stand' 'up'/'u//' attrib28
+Action 142 Action142 ! 'rise'/'stand' 'into'/'inside'/'in' object
+Action 143 Action143 ! 'stop' object
+Action 144 Action144 ! 'carry'/'get'/'grab'/'hold'/'take' 'down'/'d//' attrib28
+Action 145 Action145 ! 'carry'/'get'/'grab'/'hold'/'take' 'off' attrib20
+Action 146 Action146 ! 'tame' object 'with'/'using' object
+Action 147 Action147 ! 'lick'/'taste' object
+Action 148 Action148 ! 'tell' attrib31 'about' object
+Action 149 Action149 ! 'tell' object object
+Action 150 Action150 ! 'tell' object 'toward'/'to' object
+Action 151 Action151 ! 'thank'/'thanks'
+Action 152 Action152 ! 'hurl'/'throw'/'toss' object(held,carried) 'outsid'/'out' object
+Action 153 Action153 ! 'hurl'/'throw'/'toss' object(held,carried) 'over' object
+Action 154 Action154 ! 'attach'/'fasten'/'secure'/'tie' object 'toward'/'to' object
+Action 155 Action155 ! 'flick'/'flip'/'rotate'/'set'/'toggle'/'turn' 'into'/'inside'/'in' object 'toward'/'to' object
+Action 156 Action156 ! 'adjust'/'tune' 'into'/'inside'/'in' object 'toward'/'to' object
+Action 157 Action157 ! 'unlock' object 'with'/'using' object(have)
+Action 158 Action158 ! 'free'/'unatta'/'unfast'/'unknot'/'untang'/'untie' object(held,carried,in_room,on_ground) 'with'/'using' object
+Action 159 Action159 ! 'stay'/'wait'/'z//'
+Action 160 Action160 ! 'stay'/'wait'/'z//' 'for' object
+Action 161 Action161 ! 'stay'/'wait'/'z//' 'onto'/'on'/'across' object
+Action 162 Action162 ! 'awake'/'rouse'/'wake' 'up'/'u//' attrib28
+Action 163 Action163 ! 'go' object
+Action 164 Action164 ! 'go' 'over' object
+Action 165 Action165 ! 'let' 'go' attrib28
+Action 166 Action166 ! 'clean'/'tidy'/'wash' 'up'/'u//' attrib28
+Action 167 Action167 ! 'wave' object(held,carried)
+Action 168 Action168 ! 'wave' 'toward'/'to' object
+Action 169 Action169 ! 'what'/'what^'/'whats' object
+Action 170 Action170 ! 'where'/'wheres' object
+Action 171 Action171 ! 'crack'/'snap'/'whip' object 'with'/'using' object(have)
+Action 172 Action172 ! 'crack'/'snap'/'whip' object(have) 'over' object
+Action 173 Action173 ! 'who'/'whos' object
+Action 174 Action174 ! 'why'
+Action 175 Action175 ! 'howl'/'scream'/'shout'/'yell' 'toward'/'to' object
+Action 176 Action176 ! 'you' object
+Action 177 Action177 ! '#rand' object
+Action 178 Action178 ! '#comm'
+Action 179 Action179 ! '#reco'
+Action 180 Action180 ! '#unre'
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x577e routine22398:?
+
+! ------------------------------- Words --------------------------------
+
+Word $pr $pr
+Word $ve $ve
+Word #comm #comm
+Word #rand #rand
+Word #reco #reco
+Word #unre #unre
+Word across across
+Word activa activa
+Word addres addres
+Word adjust adjust
+Word advanc advanc
+Word africa africa
+Word alumin alumin
+Word andrew andrew
+Word animal animal
+Word answer answer
+Word antler antler
+Word appara appara
+Word appare appare
+Word applau applau
+Word approa approa
+Word arange arange
+Word around around
+Word arrest arrest
+Word ashtra ashtra
+Word assaul assaul
+Word asshol asshol
+Word attach attach
+Word attack attack
+Word attrac attrac
+Word audien audien
+Word automo automo
+Word baggag baggag
+Word balanc balanc
+Word balloo balloo
+Word ballpl ballpl
+Word ballyh ballyh
+Word banana banana
+Word banner banner
+Word barred barred
+Word basema basema
+Word bastar bastar
+Word behind behind
+Word beneat beneat
+Word bigtop bigtop
+Word biogra biogra
+Word blackj blackj
+Word bleach bleach
+Word bloome bloome
+Word bounce bounce
+Word breath breath
+Word bright bright
+Word brothe brothe
+Word bucket bucket
+Word bullwh bullwh
+Word button button
+Word canvas canvas
+Word captur captur
+Word cardbo cardbo
+Word casset casset
+Word catche catche
+Word ceilin ceilin
+Word center center
+Word chains chains
+Word chalky chalky
+Word chande chande
+Word charac charac
+Word cheese cheese
+Word chelse chelse
+Word cherry cherry
+Word chocol chocol
+Word chuckl chuckl
+Word cigare cigare
+Word circle circle
+Word circus circus
+Word classi classi
+Word closet closet
+Word cocksu cocksu
+Word combin combin
+Word compan compan
+Word compar compar
+Word compou compou
+Word comput comput
+Word comrad comrad
+Word conces conces
+Word consta consta
+Word consul consul
+Word contro contro
+Word conver conver
+Word corner corner
+Word corpus corpus
+Word costum costum
+Word cotton cotton
+Word counte counte
+Word course course
+Word crouch crouch
+Word crowba crowba
+Word curtai curtai
+Word dagnab dagnab
+Word damage damage
+Word damned damned
+Word darkly darkly
+Word darkne darkne
+Word dealer dealer
+Word debark debark
+Word decora decora
+Word demoli demoli
+Word depart depart
+Word descen descen
+Word descri descri
+Word destro destro
+Word detect detect
+Word devour devour
+Word diagno diagno
+Word didn' didn'
+Word differ differ
+Word dilapi dilapi
+Word diplom diplom
+Word direct direct
+Word disemb disemb
+Word dollar dollar
+Word donate donate
+Word drawer drawer
+Word drinki drinki
+Word droopy droopy
+Word ducket ducket
+Word egress egress
+Word electr electr
+Word elepha elepha
+Word embark embark
+Word enclos enclos
+Word entran entran
+Word evenin evenin
+Word examin examin
+Word except except
+Word expens expens
+Word exting exting
+Word extrac extrac
+Word fasten fasten
+Word fatigu fatigu
+Word feathe feathe
+Word fiberg fiberg
+Word fielde fielde
+Word figure figure
+Word fire- fire-
+Word flower flower
+Word follow follow
+Word foobar foobar
+Word fortun fortun
+Word founta founta
+Word framed framed
+Word fronts fronts
+Word frozen frozen
+Word fucked fucked
+Word fuckin fuckin
+Word future future
+Word gaggle gaggle
+Word garbag garbag
+Word garish garish
+Word garmen garmen
+Word genato genato
+Word genera genera
+Word genuin genuin
+Word glarin glarin
+Word glasse glasse
+Word gloria gloria
+Word glorio glorio
+Word gobble gobble
+Word goddam goddam
+Word gorill gorill
+Word gottfr gottfr
+Word grands grands
+Word granol granol
+Word grassy grassy
+Word ground ground
+Word grungy grungy
+Word guzzle guzzle
+Word hannib hannib
+Word hardwo hardwo
+Word hawker hawker
+Word headph headph
+Word helium helium
+Word helmet helmet
+Word herbif herbif
+Word hermap hermap
+Word hersel hersel
+Word high- high-
+Word himsel himsel
+Word holste holste
+Word howard howard
+Word hypnot hypnot
+Word igniti igniti
+Word imbibe imbibe
+Word ingest ingest
+Word inhale inhale
+Word insert insert
+Word inside inside
+Word inspec inspec
+Word intnum intnum
+Word invent invent
+Word jacket jacket
+Word jennif jennif
+Word jumble jumble
+Word jungle jungle
+Word katzen katzen
+Word keiste keiste
+Word knitte knitte
+Word ladder ladder
+Word lady' lady'
+Word leathe leathe
+Word lights lights
+Word lion' lion'
+Word listen listen
+Word little little
+Word longer longer
+Word mahler mahler
+Word malcom malcom
+Word massiv massiv
+Word menage menage
+Word mesmer mesmer
+Word microp microp
+Word midget midget
+Word midway midway
+Word mirror mirror
+Word monday monday
+Word monkey monkey
+Word morsel morsel
+Word mouset mouset
+Word munrab munrab
+Word murder murder
+Word myself myself
+Word mystic mystic
+Word narrow narrow
+Word natura natura
+Word newspr newspr
+Word nimrod nimrod
+Word nitrat nitrat
+Word northe northe
+Word northw northw
+Word nostru nostru
+Word number number
+Word oakley oakley
+Word observ observ
+Word office office
+Word one-d one-d
+Word openin openin
+Word opposi opposi
+Word outfit outfit
+Word outlin outlin
+Word outsid outsid
+Word pachyd pachyd
+Word painte painte
+Word palm- palm-
+Word parlor parlor
+Word passag passag
+Word peanut peanut
+Word pedest pedest
+Word people people
+Word perfor perfor
+Word phreno phreno
+Word pictur pictur
+Word pitche pitche
+Word pitchm pitchm
+Word placar placar
+Word plasti plasti
+Word platfo platfo
+Word player player
+Word please please
+Word pleate pleate
+Word pleats pleats
+Word plywoo plywoo
+Word pocket pocket
+Word pole- pole-
+Word poleva poleva
+Word police police
+Word popcor popcor
+Word prehyd prehyd
+Word prepar prepar
+Word presid presid
+Word printo printo
+Word procee procee
+Word protag protag
+Word purcha purcha
+Word pursue pursue
+Word ransom ransom
+Word rawhid rawhid
+Word reclin reclin
+Word record record
+Word rectan rectan
+Word refres refres
+Word remove remove
+Word restar restar
+Word restor restor
+Word rewind rewind
+Word ribbon ribbon
+Word ricket ricket
+Word rimsha rimsha
+Word rodent rodent
+Word rotate rotate
+Word rousta rousta
+Word rummag rummag
+Word rumple rumple
+Word russia russia
+Word safari safari
+Word safety safety
+Word saggin saggin
+Word sawdus sawdus
+Word scream scream
+Word script script
+Word search search
+Word second second
+Word secret secret
+Word secure secure
+Word sequin sequin
+Word sergea sergea
+Word shades shades
+Word shadow shadow
+Word shaggy shaggy
+Word sheeps sheeps
+Word shithe shithe
+Word shorte shorte
+Word shorts shorts
+Word should should
+Word shucks shucks
+Word side- side-
+Word sidesh sidesh
+Word sidewa sidewa
+Word siding siding
+Word silhoe silhoe
+Word skelet skelet
+Word smaldo smaldo
+Word smooth smooth
+Word snooze snooze
+Word southe southe
+Word southw southw
+Word spiral spiral
+Word spotli spotli
+Word spread spread
+Word spring spring
+Word sprink sprink
+Word square square
+Word squint squint
+Word stairc stairc
+Word stairs stairs
+Word stairw stairw
+Word stands stands
+Word statio statio
+Word stepla stepla
+Word stomac stomac
+Word strike strike
+Word stunne stunne
+Word sucker sucker
+Word suitca suitca
+Word sungla sungla
+Word superb superb
+Word suppor suppor
+Word swallo swallo
+Word switch switch
+Word tablec tablec
+Word teleph teleph
+Word thanks thanks
+Word throug throug
+Word ticket ticket
+Word tickle tickle
+Word tightr tightr
+Word tina' tina'
+Word toggle toggle
+Word toward toward
+Word traile traile
+Word traine traine
+Word transi transi
+Word trench trench
+Word trinke trinke
+Word trophy trophy
+Word tufted tufted
+Word turnst turnst
+Word tuxedo tuxedo
+Word two-d two-d
+Word unatta unatta
+Word undern undern
+Word unfast unfast
+Word unifor unifor
+Word unknot unknot
+Word unlock unlock
+Word unscri unscri
+Word unstab unstab
+Word untang untang
+Word verbos verbos
+Word versio versio
+Word vertic vertic
+Word voices voices
+Word wardro wardro
+Word warped warped
+Word what' what'
+Word wheres wheres
+Word whimpe whimpe
+Word wilhel wilhel
+Word willia willia
+Word window window
+Word withdr withdr
+Word yogurt yogurt
+Word yourse yourse
+Word zzmgck zzmgck
+

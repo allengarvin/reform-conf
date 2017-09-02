@@ -1,0 +1,475 @@
+! ----------------------------------------------------
+!   milliways-890412-r184-z6.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 a0af8516e821ce20c7e814303eec3dbc
+CodeArea 0x52cd 0x1228d
+StringArea 0x12290 0x1352c
+FalseEnd  0x8340  1
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 9 attrib9   ! obj21_it obj64_GO obj65_object_of_the_game
+Attribute 10 attrib10  ! obj64_GO
+Attribute 11 attrib11  ! obj64_GO
+Attribute 12 attrib12  ! obj64_GO
+Attribute 13 attrib13  ! obj64_GO
+Attribute 14 attrib14  ! obj64_GO
+Attribute 15 attrib15  ! obj64_GO
+Attribute 16 attrib16  ! obj64_GO
+Attribute 17 attrib17  ! obj64_GO
+Attribute 18 attrib18  ! obj64_GO
+Attribute 19 attrib19  ! obj54_Trillian
+Attribute 20 attrib20  ! obj4_hand obj43_yourself obj64_GO
+Attribute 21 attrib21  ! obj64_GO obj70
+Attribute 22 attrib22  ! obj7_Crater obj35_Ledge obj50_Crater_Lip obj51_Crater_Lip obj52_Crater_Lip obj53_Crater_Lip obj59_Blighted_Ground
+Attribute 23 attrib23  ! obj36_lots_of_beer
+Attribute 24 attrib24  ! obj18_restaurant
+Attribute 25 attrib25  ! obj7_Crater obj18_restaurant obj35_Ledge obj47_On_the_Ramp obj50_Crater_Lip obj51_Crater_Lip obj52_Crater_Lip obj53_Crater_Lip obj59_Blighted_Ground obj64_GO obj66_Hatchway
+Attribute 26 attrib26  ! obj4_hand obj11_window obj25_it obj36_lots_of_beer obj43_yourself obj55_third_planet obj61_cheese_sandwich obj64_GO obj70
+Attribute 27 attrib27  ! obj9_light obj11_window obj33_stairs obj34_floor obj43_yourself obj45_wall obj46_chair obj63_table obj64_GO
+Attribute 28 attrib28  ! obj19_hatch obj34_floor obj43_yourself obj45_wall obj54_Trillian obj57_Ford_Prefect obj64_GO obj72_thing_your_aunt_gave_you_which_you_don_t_know_what_it_is
+Attribute 29 attrib29  ! obj17_satchel obj43_yourself obj57_Ford_Prefect obj64_GO obj68_your_gown obj72_thing_your_aunt_gave_you_which_you_don_t_know_what_it_is
+Attribute 30 attrib30  ! obj64_GO obj68_your_gown
+Attribute 31 attrib31  ! obj1_your_dinner obj2_babel_fish obj3_toothbrush obj9_light obj17_satchel obj24_towel obj61_cheese_sandwich obj64_GO
+Attribute 32 attrib32  ! obj3_toothbrush obj64_GO obj74_flathead_screwdriver
+Attribute 33 attrib33  ! obj2_babel_fish obj64_GO obj68_your_gown
+Attribute 34 attrib34  ! obj32_The_Hitchhiker_s_Guide obj64_GO
+Attribute 35 attrib35  ! obj34_floor obj45_wall obj46_chair obj64_GO
+Attribute 36 attrib36  ! obj64_GO
+Attribute 37 attrib37  ! obj3_toothbrush obj17_satchel obj23_green_frob obj24_towel obj30_red_frob obj32_The_Hitchhiker_s_Guide obj58_small_blue_frob obj64_GO obj68_your_gown obj69_big_blue_frob obj72_thing_your_aunt_gave_you_which_you_don_t_know_what_it_is obj74_flathead_screwdriver
+Attribute 38 attrib38  ! obj17_satchel obj54_Trillian obj57_Ford_Prefect obj64_GO obj68_your_gown obj70 obj72_thing_your_aunt_gave_you_which_you_don_t_know_what_it_is
+Attribute 39 attrib39  ! obj61_cheese_sandwich
+Attribute 40 attrib40  ! obj64_GO
+Attribute 41 attrib41  ! obj19_hatch obj64_GO
+Attribute 42 attrib42  ! obj64_GO
+Attribute 44 attrib44  ! obj20_Zaphod_Beeblebrox obj37_Marvin obj43_yourself obj54_Trillian obj57_Ford_Prefect
+Attribute 45 attrib45  ! obj1_your_dinner obj4_hand obj6_MILLIWAYS obj10_ears obj12_them obj13_teeth obj15_her obj20_Zaphod_Beeblebrox obj21_it obj22_the_Heart_of_Gold obj25_it obj26_sleep obj31_that obj32_The_Hitchhiker_s_Guide obj36_lots_of_beer obj37_Marvin obj42_him obj43_yourself obj48_head obj54_Trillian obj56_eyes obj57_Ford_Prefect obj62_here obj64_GO obj67_LG obj68_your_gown
+Attribute 46 attrib46  ! obj18_restaurant obj47_On_the_Ramp obj66_Hatchway
+Attribute 47 attrib47  ! obj16_what
+
+! ----------------------------- Properties -----------------------------
+
+Property 35 prop35:?
+Property 36 prop36:?
+Property 37 prop37:?
+Property 38 prop38:thing
+Property 39 prop39:string
+Property 40 prop40:?
+Property 41 prop41:thing
+Property 42 prop42:?
+Property 43 prop43:?
+Property 44 prop44:?
+Property 45 prop45:?
+Property 46 prop46:dictwords
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:dictwords
+Property 52 prop52:?
+Property 54 prop54:?
+Property 55 prop55:?
+Property 56 prop56:?
+Property 57 prop57:?
+Property 58 prop58:?
+Property 59 prop59:?
+Property 60 prop60:?
+Property 61 prop61:?
+Property 62 prop62:?
+Property 63 prop63:?
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_your_dinner
+Object 2 obj2_babel_fish
+Object 3 obj3_toothbrush
+Object 4 obj4_hand
+Object 5 obj5_Sirius_Cybernetics_Corporation
+Object 6 obj6_MILLIWAYS
+Object 7 obj7_Crater
+Object 8 obj8_quotation
+Object 9 obj9_light
+Object 10 obj10_ears
+Object 11 obj11_window
+Object 12 obj12_them
+Object 13 obj13_teeth
+Object 14 obj14_Pan_Galactic_Gargle_Blaster
+Object 15 obj15_her
+Object 16 obj16_what
+Object 17 obj17_satchel
+Object 18 obj18_restaurant
+Object 19 obj19_hatch
+Object 20 obj20_Zaphod_Beeblebrox
+Object 21 obj21_it
+Object 22 obj22_the_Heart_of_Gold
+Object 23 obj23_green_frob
+Object 24 obj24_towel
+Object 25 obj25_it
+Object 26 obj26_sleep
+Object 27 obj27_danger
+Object 28 obj28_pseudoxxx
+Object 29 obj29
+Object 30 obj30_red_frob
+Object 31 obj31_that
+Object 32 obj32_The_Hitchhiker_s_Guide
+Object 33 obj33_stairs
+Object 34 obj34_floor
+Object 35 obj35_Ledge
+Object 36 obj36_lots_of_beer
+Object 37 obj37_Marvin
+Object 38 obj38_sleeve
+Object 39 obj39_sky
+Object 40 obj40
+Object 41 obj41_self
+Object 42 obj42_him
+Object 43 obj43_yourself
+Object 44 obj44_number
+Object 45 obj45_wall
+Object 46 obj46_chair
+Object 47 obj47_On_the_Ramp
+Object 48 obj48_head
+Object 49 obj49_turn
+Object 50 obj50_Crater_Lip
+Object 51 obj51_Crater_Lip
+Object 52 obj52_Crater_Lip
+Object 53 obj53_Crater_Lip
+Object 54 obj54_Trillian
+Object 55 obj55_third_planet
+Object 56 obj56_eyes
+Object 57 obj57_Ford_Prefect
+Object 58 obj58_small_blue_frob
+Object 59 obj59_Blighted_Ground
+Object 60 obj60_prep_phrase
+Object 61 obj61_cheese_sandwich
+Object 62 obj62_here
+Object 63 obj63_table
+Object 64 obj64_GO
+Object 65 obj65_object_of_the_game
+Object 66 obj66_Hatchway
+Object 67 obj67_LG
+Object 68 obj68_your_gown
+Object 69 obj69_big_blue_frob
+Object 70 obj70
+Object 71 obj71_puzzle
+Object 72 obj72_thing_your_aunt_gave_you_which_you_don_t_know_what_it_is
+Object 73 obj73_adjective
+Object 74 obj74_flathead_screwdriver
+Object 75 obj75_direction
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word $cheat $cheat
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word apologize apologize
+Word beeblebro beeblebro
+Word blue-gre blue-gre
+Word cocksucke cocksucke
+Word corporati corporati
+Word cyberneti cyberneti
+Word dark-hai dark-hai
+Word depressed depressed
+Word downstair downstair
+Word end.of. end.of.
+Word frustrati frustrati
+Word goddamned goddamned
+Word greetings greetings
+Word hitchhike hitchhike
+Word incredibl incredibl
+Word look-ins look-ins
+Word milliways milliways
+Word moonlight moonlight
+Word northeast northeast
+Word northwest northwest
+Word pan-gala pan-gala
+Word president president
+Word screwdriv screwdriv
+Word seventeen seventeen
+Word southeast southeast
+Word southwest southwest
+Word spaceship spaceship
+Word sub-etha sub-etha
+Word superbrie superbrie
+Word toothbrus toothbrus
+Word underneat underneat
+Word uninvitin uninvitin
+Word variation variation
+Word windscree windscree
+Word windshiel windshiel
+

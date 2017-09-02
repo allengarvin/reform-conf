@@ -1,0 +1,1160 @@
+! ----------------------------------------------------
+!   bureaucracy-880521-r160-z4.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 c18bafa2c1a187ffbb8a148b372c1cb8
+FalseEnd        0xd418  2
+
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 0 attrib0   ! obj123_cab_driver
+Attribute 1 attrib1   ! obj123_cab_driver
+Attribute 2 attrib2   ! obj75_eclipse_predicting_cartridge obj159_unlabelled_cartridge obj198_adventure_game_cartridge obj240_recipe_cartridge
+Attribute 3 attrib3   ! obj67 obj147 obj197
+Attribute 4 attrib4   ! obj67 obj107_that obj123_cab_driver obj223_cab obj250_that_sound
+Attribute 5 attrib5   ! obj45_radio obj67 obj255_sound
+Attribute 6 attrib6   ! obj10_trough obj23_your_pocket obj67 obj70_Swiss_army_knife obj149_wallet
+Attribute 7 attrib7   ! obj9_Duct obj35_hanging_from_a_tree obj41 obj57_Pillar obj67 obj87 obj97_Duct obj102_Airport_Entrance obj126_Airport_Concourse obj133 obj152_Falling obj180_Airport_Concourse obj216 obj242_Top_of_Pillar obj243_Persecution_Complex
+Attribute 8 attrib8   ! obj8_travel_agency obj25_air_shaft obj26_cooking_pot obj29_hallway obj33_Airlock obj35_hanging_from_a_tree obj42_gaol obj57_Pillar obj60_porch obj67 obj68_trophy_room obj87 obj91_back_room obj101_Foyer obj120_flat obj121_landing_strip obj131_restaurant obj152_Falling obj167_farmhouse obj174_In_the_Cab obj179_Lost_and_Found obj182_aeroplane_seat obj189_behind_mansion obj195_Death obj199_Control_Tower obj216 obj229_front_room obj242_Top_of_Pillar obj243_Persecution_Complex obj245_bookshop
+Attribute 9 attrib9   ! obj67
+Attribute 10 attrib10  ! obj67
+Attribute 11 attrib11  ! obj67
+Attribute 12 attrib12  ! obj67
+Attribute 13 attrib13  ! obj67 obj82_portable_foot_powered_generator
+Attribute 14 attrib14  ! obj7_Rear_of_Aeroplane obj16 obj67 obj156_Galley obj182_aeroplane_seat
+Attribute 15 attrib15  ! obj8_travel_agency obj21_Downtown obj29_hallway obj40_Downtown obj42_gaol obj60_porch obj67 obj68_trophy_room obj77_Street obj83_Street obj91_back_room obj101_Foyer obj120_flat obj131_restaurant obj167_farmhouse obj189_behind_mansion obj192_Street obj216 obj224_Dead_End obj229_front_room obj234_alley obj241_basement obj245_bookshop
+Attribute 16 attrib16  ! obj9_Duct obj41 obj57_Pillar obj67 obj97_Duct obj102_Airport_Entrance obj126_Airport_Concourse obj133 obj179_Lost_and_Found obj180_Airport_Concourse obj199_Control_Tower obj242_Top_of_Pillar
+Attribute 17 attrib17  ! obj11_waitress obj14_llama obj50_her obj67 obj84_bank_teller obj108_travel_agent obj188_matron obj233_matron
+Attribute 18 attrib18  ! obj13_your_foot obj48_parachute obj63 obj67 obj79_your_clothes obj111_seat_belt obj176_digital_wristwatch
+Attribute 19 attrib19  ! obj10_trough obj31_last_page obj32_ear_trumpet obj45_radio obj52_machine_gun obj59_right_handle obj67 obj69_middle_page obj81_cash_register obj86_black_wire obj90_perch obj96_first_page obj106_speaker obj118_Llamex_R__brand_High_Fibre_Llama_Treats obj132_elephant_gun obj140_table obj142_remainders obj146_red_wire obj148_macaw obj170_intercom obj184_stock_of_software obj191_speaker obj194_ripcord obj202_left_handle obj203_middle_handle obj246_best_sellers obj248_notice obj249_signs obj252_pile_of_newspapers
+Attribute 20 attrib20  ! obj62_locker_door obj67 obj110_airlock_door obj136_gate obj168_lavatory_door obj169_front_door obj209_door
+Attribute 21 attrib21  ! obj48_parachute obj67 obj110_airlock_door obj244_pen
+Attribute 22 attrib22  ! obj5_telephone obj10_trough obj23_your_pocket obj67 obj104_your_Boysenberry_computer obj127_headphone_socket obj149_wallet obj196_seat_pocket
+Attribute 23 attrib23  ! obj27_grate obj55_screen_door obj58_gaol_door obj62_locker_door obj67 obj92_front_door obj99_back_door obj110_airlock_door obj136_gate obj141_front_door obj169_front_door obj209_door obj221_grate
+Attribute 24 attrib24  ! obj13_your_foot obj17_table obj27_grate obj37_under_the_seat obj53_table obj54_desk obj56_envelope obj62_locker_door obj67 obj70_Swiss_army_knife obj74_wall obj90_perch obj94_desk obj95 obj106_speaker obj134_corner obj140_table obj147 obj157_shelves obj181_Air_Zalagasa_desk obj191_speaker obj205_console obj207_Popular_Paranoia_magazine obj210_combination_telephone_answering_machine obj236_coupon_booklet obj237_floor obj247_flyer obj252_pile_of_newspapers
+Attribute 25 attrib25  ! obj3_your_hand obj19_yourself obj67 obj71_it obj74_wall obj86_black_wire obj146_red_wire obj147 obj172_your_mouth obj208_ceiling
+Attribute 26 attrib26  ! obj67 obj239_delivery_man
+Attribute 27 attrib27  ! obj31_last_page obj32_ear_trumpet obj45_radio obj52_machine_gun obj67 obj69_middle_page obj81_cash_register obj86_black_wire obj90_perch obj96_first_page obj106_speaker obj118_Llamex_R__brand_High_Fibre_Llama_Treats obj132_elephant_gun obj140_table obj142_remainders obj146_red_wire obj148_macaw obj170_intercom obj184_stock_of_software obj191_speaker obj194_ripcord obj246_best_sellers obj248_notice obj249_signs obj252_pile_of_newspapers
+Attribute 28 attrib28  ! obj51_optometrists obj67 obj73_group_of_air_traffic_controllers obj105_stamps obj118_Llamex_R__brand_High_Fibre_Llama_Treats obj130_Zalagasans obj142_remainders obj157_shelves obj213_crowd obj215_skycaps obj222_visa_requirements obj246_best_sellers
+Attribute 29 attrib29  ! obj16 obj24_Air_Zalagasa_flight_42 obj32_ear_trumpet obj37_under_the_seat obj39_airline_magazine obj51_optometrists obj56_envelope obj61_address_book obj62_locker_door obj67 obj71_it obj75_eclipse_predicting_cartridge obj85_airport obj110_airlock_door obj113_airline_ticket obj124_airline_ticket obj132_elephant_gun obj138_aeroplane obj159_unlabelled_cartridge obj163_office_doorway obj170_intercom obj198_adventure_game_cartridge obj234_alley
+Attribute 30 attrib30  ! obj3_your_hand obj13_your_foot obj19_yourself obj21_Downtown obj23_your_pocket obj24_Air_Zalagasa_flight_42 obj36_that obj37_under_the_seat obj40_Downtown obj43_your_new_house obj46_yourself obj50_her obj64_that obj65_your_passport obj66_that obj67 obj71_it obj77_Street obj78_Queen_Mum obj79_your_clothes obj80 obj83_Street obj100_Random_Airline obj104_your_Boysenberry_computer obj107_that obj116_some_mail obj143_some_mail obj144 obj145_him obj147 obj164_them obj166_some_mail obj172_your_mouth obj175_that obj178_myself obj182_aeroplane_seat obj192_Street obj200_that obj220_some_mail obj226_California obj227_your_meal obj231_your_old_house obj254_that obj255_sound
+Attribute 31 attrib31  ! obj2 obj3_your_hand obj5_telephone obj6_right_observation_screen obj13_your_foot obj14_llama obj16 obj17_table obj23_your_pocket obj24_Air_Zalagasa_flight_42 obj27_grate obj30_teller_window_sign obj31_last_page obj32_ear_trumpet obj36_that obj37_under_the_seat obj38_number obj43_your_new_house obj44_fence obj46_yourself obj47_sign obj53_table obj55_screen_door obj58_gaol_door obj59_right_handle obj62_locker_door obj64_that obj66_that obj67 obj69_middle_page obj70_Swiss_army_knife obj71_it obj72_street obj73_group_of_air_traffic_controllers obj74_wall obj78_Queen_Mum obj79_your_clothes obj80 obj81_cash_register obj84_bank_teller obj85_airport obj86_black_wire obj88_bank obj89_camouflaged_house obj92_front_door obj93_stairway obj94_desk obj96_first_page obj98_window obj99_back_door obj100_Random_Airline obj105_stamps obj107_that obj108_travel_agent obj109_messages_button obj111_seat_belt obj113_airline_ticket obj118_Llamex_R__brand_High_Fibre_Llama_Treats obj121_landing_strip obj125_fence obj127_headphone_socket obj132_elephant_gun obj134_corner obj135_doorbell obj136_gate obj138_aeroplane obj141_front_door obj143_some_mail obj146_red_wire obj147 obj151_doorbell obj155_sound obj157_shelves obj158_stairway obj161_notice obj163_office_doorway obj165_downtown obj168_lavatory_door obj169_front_door obj170_intercom obj172_your_mouth obj175_that obj178_myself obj181_Air_Zalagasa_desk obj182_aeroplane_seat obj183_seatbelt_light obj184_stock_of_software obj185_cab_notice obj187_seat_table obj188_matron obj191_speaker obj193_flat obj194_ripcord obj196_seat_pocket obj197 obj199_Control_Tower obj201_mailbox obj202_left_handle obj203_middle_handle obj205_console obj206_sign obj208_ceiling obj209_door obj213_crowd obj215_skycaps obj218_pillar obj219_left_observation_screen obj221_grate obj222_visa_requirements obj227_your_meal obj228_corridor obj231_your_old_house obj237_floor obj249_signs obj250_that_sound obj252_pile_of_newspapers obj253_teller_window obj254_that obj255_sound
+Attribute 32 attrib32  ! obj25_air_shaft obj33_Airlock obj43_your_new_house obj67 obj80 obj85_airport obj88_bank obj94_desk obj100_Random_Airline obj121_landing_strip obj138_aeroplane obj165_downtown obj181_Air_Zalagasa_desk obj193_flat obj231_your_old_house obj243_Persecution_Complex obj244_pen obj253_teller_window
+Attribute 33 attrib33  ! obj7_Rear_of_Aeroplane obj8_travel_agency obj16 obj25_air_shaft obj29_hallway obj33_Airlock obj41 obj42_gaol obj60_porch obj67 obj68_trophy_room obj80 obj91_back_room obj101_Foyer obj119_grubby_antechamber obj120_flat obj126_Airport_Concourse obj131_restaurant obj133 obj156_Galley obj167_farmhouse obj171_locker obj174_In_the_Cab obj179_Lost_and_Found obj180_Airport_Concourse obj182_aeroplane_seat obj199_Control_Tower obj216 obj229_front_room obj243_Persecution_Complex obj245_bookshop
+Attribute 34 attrib34  ! obj7_Rear_of_Aeroplane obj8_travel_agency obj9_Duct obj16 obj21_Downtown obj25_air_shaft obj26_cooking_pot obj29_hallway obj33_Airlock obj35_hanging_from_a_tree obj40_Downtown obj41 obj42_gaol obj57_Pillar obj60_porch obj67 obj68_trophy_room obj77_Street obj80 obj83_Street obj87 obj91_back_room obj97_Duct obj101_Foyer obj102_Airport_Entrance obj119_grubby_antechamber obj120_flat obj121_landing_strip obj126_Airport_Concourse obj131_restaurant obj133 obj152_Falling obj156_Galley obj167_farmhouse obj171_locker obj174_In_the_Cab obj179_Lost_and_Found obj180_Airport_Concourse obj182_aeroplane_seat obj189_behind_mansion obj192_Street obj195_Death obj199_Control_Tower obj216 obj224_Dead_End obj229_front_room obj234_alley obj241_basement obj242_Top_of_Pillar obj243_Persecution_Complex obj245_bookshop
+Attribute 35 attrib35  ! obj13_your_foot obj48_parachute obj67 obj79_your_clothes obj176_digital_wristwatch
+Attribute 36 attrib36  ! obj4_magnetic_key_card obj18_memo obj28_US_Excess_card obj31_last_page obj39_airline_magazine obj47_sign obj56_envelope obj61_address_book obj65_your_passport obj67 obj69_middle_page obj95 obj96_first_page obj103_safety_card obj105_stamps obj113_airline_ticket obj116_some_mail obj117_small_piece_of_laminated_card obj124_airline_ticket obj128_leaflet obj143_some_mail obj160_withdrawal_slip obj161_notice obj162_sign obj166_some_mail obj183_seatbelt_light obj186_deposit_slip obj205_console obj207_Popular_Paranoia_magazine obj212_new_letter obj220_some_mail obj235_Beezer_card obj236_coupon_booklet obj238_letter obj246_best_sellers obj247_flyer obj248_notice obj252_pile_of_newspapers
+Attribute 37 attrib37  ! obj67
+Attribute 38 attrib38  ! obj5_telephone obj10_trough obj23_your_pocket obj48_parachute obj56_envelope obj61_address_book obj67 obj81_cash_register obj104_your_Boysenberry_computer obj110_airlock_door obj127_headphone_socket obj149_wallet obj173_bag_of_llama_treats obj196_seat_pocket obj201_mailbox obj230_mailbox obj244_pen obj251_small_case
+Attribute 40 attrib40  ! obj4_magnetic_key_card obj18_memo obj22_hacksaw obj28_US_Excess_card obj39_airline_magazine obj48_parachute obj56_envelope obj61_address_book obj63 obj65_your_passport obj67 obj70_Swiss_army_knife obj75_eclipse_predicting_cartridge obj76_hamburger obj82_portable_foot_powered_generator obj95 obj103_safety_card obj104_your_Boysenberry_computer obj113_airline_ticket obj116_some_mail obj117_small_piece_of_laminated_card obj124_airline_ticket obj128_leaflet obj143_some_mail obj144 obj149_wallet obj159_unlabelled_cartridge obj160_withdrawal_slip obj166_some_mail obj173_bag_of_llama_treats obj176_digital_wristwatch obj177_cheque obj186_deposit_slip obj198_adventure_game_cartridge obj207_Popular_Paranoia_magazine obj210_combination_telephone_answering_machine obj212_new_letter obj217_power_saw obj220_some_mail obj235_Beezer_card obj236_coupon_booklet obj238_letter obj240_recipe_cartridge obj247_flyer obj251_small_case
+Attribute 41 attrib41  ! obj22_hacksaw obj67
+Attribute 42 attrib42  ! obj27_grate obj55_screen_door obj56_envelope obj58_gaol_door obj61_address_book obj62_locker_door obj67 obj81_cash_register obj92_front_door obj99_back_door obj110_airlock_door obj127_headphone_socket obj136_gate obj141_front_door obj149_wallet obj168_lavatory_door obj169_front_door obj173_bag_of_llama_treats obj196_seat_pocket obj201_mailbox obj209_door obj221_grate obj230_mailbox obj244_pen obj251_small_case
+Attribute 43 attrib43  ! obj3_your_hand obj67
+Attribute 44 attrib44  ! obj7_Rear_of_Aeroplane obj8_travel_agency obj9_Duct obj16 obj21_Downtown obj26_cooking_pot obj29_hallway obj35_hanging_from_a_tree obj36_that obj40_Downtown obj41 obj42_gaol obj57_Pillar obj60_porch obj67 obj68_trophy_room obj77_Street obj83_Street obj87 obj91_back_room obj97_Duct obj101_Foyer obj102_Airport_Entrance obj119_grubby_antechamber obj120_flat obj126_Airport_Concourse obj131_restaurant obj133 obj152_Falling obj156_Galley obj167_farmhouse obj171_locker obj174_In_the_Cab obj179_Lost_and_Found obj180_Airport_Concourse obj182_aeroplane_seat obj189_behind_mansion obj192_Street obj195_Death obj199_Control_Tower obj216 obj224_Dead_End obj229_front_room obj234_alley obj241_basement obj242_Top_of_Pillar obj245_bookshop
+Attribute 45 attrib45  ! obj3_your_hand obj67
+Attribute 46 attrib46  ! obj11_waitress obj12_paranoid obj14_llama obj15_nerd obj19_yourself obj24_Air_Zalagasa_flight_42 obj50_her obj66_that obj67 obj73_group_of_air_traffic_controllers obj84_bank_teller obj108_travel_agent obj112 obj122_waiter obj123_cab_driver obj129_fat_man obj139_clerk obj145_him obj148_macaw obj154_mousy_man obj170_intercom obj175_that obj188_matron obj190_flight_attendant obj211_weirdo obj213_crowd obj215_skycaps obj232_clerk obj233_matron obj239_delivery_man
+Attribute 47 attrib47  ! obj11_waitress obj12_paranoid obj14_llama obj15_nerd obj19_yourself obj24_Air_Zalagasa_flight_42 obj50_her obj66_that obj67 obj73_group_of_air_traffic_controllers obj84_bank_teller obj108_travel_agent obj112 obj122_waiter obj123_cab_driver obj129_fat_man obj130_Zalagasans obj139_clerk obj145_him obj148_macaw obj154_mousy_man obj170_intercom obj175_that obj188_matron obj190_flight_attendant obj211_weirdo obj213_crowd obj215_skycaps obj232_clerk obj233_matron obj239_delivery_man
+
+! ----------------------------- Properties -----------------------------
+
+Property 24 prop24:?
+Property 25 prop25:?
+Property 26 prop26:?
+Property 27 prop27:?
+Property 28 prop28:?
+Property 29 prop29:?
+Property 30 prop30:?
+Property 31 prop31:?
+Property 32 prop32:?
+Property 33 prop33:?
+Property 34 prop34:?
+Property 35 prop35:?
+Property 36 prop36:?
+Property 37 prop37:?
+Property 38 prop38:?
+Property 39 prop39:?
+Property 40 prop40:?
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:?
+Property 44 prop44:?
+Property 45 prop45:?
+Property 46 prop46:?
+Property 47 prop47:dictwords
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:string
+Property 52 prop52:string
+Property 53 prop53:?
+Property 54 prop54:?
+Property 55 prop55:dictwords
+Property 56 out_to:exit
+Property 57 in_to:exit
+Property 58 d_to:exit
+Property 59 u_to:exit
+Property 60 w_to:exit
+Property 61 s_to:exit
+Property 62 e_to:exit
+Property 63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_noisome_stew
+Object 2 obj2
+Object 3 obj3_your_hand
+Object 4 obj4_magnetic_key_card
+Object 5 obj5_telephone
+Object 6 obj6_right_observation_screen
+Object 7 obj7_Rear_of_Aeroplane
+Object 8 obj8_travel_agency
+Object 9 obj9_Duct
+Object 10 obj10_trough
+Object 11 obj11_waitress
+Object 12 obj12_paranoid
+Object 13 obj13_your_foot
+Object 14 obj14_llama
+Object 15 obj15_nerd
+Object 16 obj16
+Object 17 obj17_table
+Object 18 obj18_memo
+Object 19 obj19_yourself
+Object 20 obj20
+Object 21 obj21_Downtown
+Object 22 obj22_hacksaw
+Object 23 obj23_your_pocket
+Object 24 obj24_Air_Zalagasa_flight_42
+Object 25 obj25_air_shaft
+Object 26 obj26_cooking_pot
+Object 27 obj27_grate
+Object 28 obj28_US_Excess_card
+Object 29 obj29_hallway
+Object 30 obj30_teller_window_sign
+Object 31 obj31_last_page
+Object 32 obj32_ear_trumpet
+Object 33 obj33_Airlock
+Object 34 obj34_direction
+Object 35 obj35_hanging_from_a_tree
+Object 36 obj36_that
+Object 37 obj37_under_the_seat
+Object 38 obj38_number
+Object 39 obj39_airline_magazine
+Object 40 obj40_Downtown
+Object 41 obj41
+Object 42 obj42_gaol
+Object 43 obj43_your_new_house
+Object 44 obj44_fence
+Object 45 obj45_radio
+Object 46 obj46_yourself
+Object 47 obj47_sign
+Object 48 obj48_parachute
+Object 49 obj49
+Object 50 obj50_her
+Object 51 obj51_optometrists
+Object 52 obj52_machine_gun
+Object 53 obj53_table
+Object 54 obj54_desk
+Object 55 obj55_screen_door
+Object 56 obj56_envelope
+Object 57 obj57_Pillar
+Object 58 obj58_gaol_door
+Object 59 obj59_right_handle
+Object 60 obj60_porch
+Object 61 obj61_address_book
+Object 62 obj62_locker_door
+Object 63 obj63
+Object 64 obj64_that
+Object 65 obj65_your_passport
+Object 66 obj66_that
+Object 67 obj67
+Object 68 obj68_trophy_room
+Object 69 obj69_middle_page
+Object 70 obj70_Swiss_army_knife
+Object 71 obj71_it
+Object 72 obj72_street
+Object 73 obj73_group_of_air_traffic_controllers
+Object 74 obj74_wall
+Object 75 obj75_eclipse_predicting_cartridge
+Object 76 obj76_hamburger
+Object 77 obj77_Street
+Object 78 obj78_Queen_Mum
+Object 79 obj79_your_clothes
+Object 80 obj80
+Object 81 obj81_cash_register
+Object 82 obj82_portable_foot_powered_generator
+Object 83 obj83_Street
+Object 84 obj84_bank_teller
+Object 85 obj85_airport
+Object 86 obj86_black_wire
+Object 87 obj87
+Object 88 obj88_bank
+Object 89 obj89_camouflaged_house
+Object 90 obj90_perch
+Object 91 obj91_back_room
+Object 92 obj92_front_door
+Object 93 obj93_stairway
+Object 94 obj94_desk
+Object 95 obj95
+Object 96 obj96_first_page
+Object 97 obj97_Duct
+Object 98 obj98_window
+Object 99 obj99_back_door
+Object 100 obj100_Random_Airline
+Object 101 obj101_Foyer
+Object 102 obj102_Airport_Entrance
+Object 103 obj103_safety_card
+Object 104 obj104_your_Boysenberry_computer
+Object 105 obj105_stamps
+Object 106 obj106_speaker
+Object 107 obj107_that
+Object 108 obj108_travel_agent
+Object 109 obj109_messages_button
+Object 110 obj110_airlock_door
+Object 111 obj111_seat_belt
+Object 112 obj112
+Object 113 obj113_airline_ticket
+Object 114 obj114_modular_plug
+Object 115 obj115
+Object 116 obj116_some_mail
+Object 117 obj117_small_piece_of_laminated_card
+Object 118 obj118_Llamex_R__brand_High_Fibre_Llama_Treats
+Object 119 obj119_grubby_antechamber
+Object 120 obj120_flat
+Object 121 obj121_landing_strip
+Object 122 obj122_waiter
+Object 123 obj123_cab_driver
+Object 124 obj124_airline_ticket
+Object 125 obj125_fence
+Object 126 obj126_Airport_Concourse
+Object 127 obj127_headphone_socket
+Object 128 obj128_leaflet
+Object 129 obj129_fat_man
+Object 130 obj130_Zalagasans
+Object 131 obj131_restaurant
+Object 132 obj132_elephant_gun
+Object 133 obj133
+Object 134 obj134_corner
+Object 135 obj135_doorbell
+Object 136 obj136_gate
+Object 137 obj137_room
+Object 138 obj138_aeroplane
+Object 139 obj139_clerk
+Object 140 obj140_table
+Object 141 obj141_front_door
+Object 142 obj142_remainders
+Object 143 obj143_some_mail
+Object 144 obj144
+Object 145 obj145_him
+Object 146 obj146_red_wire
+Object 147 obj147
+Object 148 obj148_macaw
+Object 149 obj149_wallet
+Object 150 obj150
+Object 151 obj151_doorbell
+Object 152 obj152_Falling
+Object 153 obj153
+Object 154 obj154_mousy_man
+Object 155 obj155_sound
+Object 156 obj156_Galley
+Object 157 obj157_shelves
+Object 158 obj158_stairway
+Object 159 obj159_unlabelled_cartridge
+Object 160 obj160_withdrawal_slip
+Object 161 obj161_notice
+Object 162 obj162_sign
+Object 163 obj163_office_doorway
+Object 164 obj164_them
+Object 165 obj165_downtown
+Object 166 obj166_some_mail
+Object 167 obj167_farmhouse
+Object 168 obj168_lavatory_door
+Object 169 obj169_front_door
+Object 170 obj170_intercom
+Object 171 obj171_locker
+Object 172 obj172_your_mouth
+Object 173 obj173_bag_of_llama_treats
+Object 174 obj174_In_the_Cab
+Object 175 obj175_that
+Object 176 obj176_digital_wristwatch
+Object 177 obj177_cheque
+Object 178 obj178_myself
+Object 179 obj179_Lost_and_Found
+Object 180 obj180_Airport_Concourse
+Object 181 obj181_Air_Zalagasa_desk
+Object 182 obj182_aeroplane_seat
+Object 183 obj183_seatbelt_light
+Object 184 obj184_stock_of_software
+Object 185 obj185_cab_notice
+Object 186 obj186_deposit_slip
+Object 187 obj187_seat_table
+Object 188 obj188_matron
+Object 189 obj189_behind_mansion
+Object 190 obj190_flight_attendant
+Object 191 obj191_speaker
+Object 192 obj192_Street
+Object 193 obj193_flat
+Object 194 obj194_ripcord
+Object 195 obj195_Death
+Object 196 obj196_seat_pocket
+Object 197 obj197
+Object 198 obj198_adventure_game_cartridge
+Object 199 obj199_Control_Tower
+Object 200 obj200_that
+Object 201 obj201_mailbox
+Object 202 obj202_left_handle
+Object 203 obj203_middle_handle
+Object 204 obj204_number
+Object 205 obj205_console
+Object 206 obj206_sign
+Object 207 obj207_Popular_Paranoia_magazine
+Object 208 obj208_ceiling
+Object 209 obj209_door
+Object 210 obj210_combination_telephone_answering_machine
+Object 211 obj211_weirdo
+Object 212 obj212_new_letter
+Object 213 obj213_crowd
+Object 214 obj214
+Object 215 obj215_skycaps
+Object 216 obj216
+Object 217 obj217_power_saw
+Object 218 obj218_pillar
+Object 219 obj219_left_observation_screen
+Object 220 obj220_some_mail
+Object 221 obj221_grate
+Object 222 obj222_visa_requirements
+Object 223 obj223_cab
+Object 224 obj224_Dead_End
+Object 225 obj225_camera
+Object 226 obj226_California
+Object 227 obj227_your_meal
+Object 228 obj228_corridor
+Object 229 obj229_front_room
+Object 230 obj230_mailbox
+Object 231 obj231_your_old_house
+Object 232 obj232_clerk
+Object 233 obj233_matron
+Object 234 obj234_alley
+Object 235 obj235_Beezer_card
+Object 236 obj236_coupon_booklet
+Object 237 obj237_floor
+Object 238 obj238_letter
+Object 239 obj239_delivery_man
+Object 240 obj240_recipe_cartridge
+Object 241 obj241_basement
+Object 242 obj242_Top_of_Pillar
+Object 243 obj243_Persecution_Complex
+Object 244 obj244_pen
+Object 245 obj245_bookshop
+Object 246 obj246_best_sellers
+Object 247 obj247_flyer
+Object 248 obj248_notice
+Object 249 obj249_signs
+Object 250 obj250_that_sound
+Object 251 obj251_small_case
+Object 252 obj252_pile_of_newspapers
+Object 253 obj253_teller_window
+Object 254 obj254_that
+Object 255 obj255_sound
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! '$refre'
+Action 1 Action1  ! 'ne'/'northeast'/'northwest'/'nw'/'se'/'southeast'/'southwest'/'sw'
+Action 2 Action2  ! 'verbose'
+Action 3 Action3  ! 'brief'
+Action 4 Action4  ! 'super'/'superbrie'
+Action 5 Action5  ! 'i//'/'inventory'
+Action 6 Action6  ! 'q//'/'quit'
+Action 7 Action7  ! 'restart'
+Action 8 Action8  ! 'save'
+Action 9 Action9  ! 'hint'/'hints'
+Action 10 Action10 ! 'restore'
+Action 11 Action11 ! 'score'
+Action 12 Action12 ! 't//'/'time'
+Action 13 Action13 ! 'script'
+Action 14 Action14 ! 'unscript'
+Action 15 Action15 ! 'version'
+Action 16 Action16 ! '$ver'/'$verif' object
+Action 17 Action17 ! 'notify'
+Action 18 Action18 ! '$id'
+Action 19 Action19 ! '#record'
+Action 20 Action20 ! '#unrecor'
+Action 21 Action21 ! '#random' object
+Action 22 Action22 ! '#command'
+Action 23 Action23 ! 'diagnose'
+Action 24 Action24 ! 'answer' attrib47
+Action 25 Action25 ! 'ask' attrib47
+Action 26 Action26 ! 'ask' 'about' attrib47
+Action 27 Action27 ! 'ask' 'for' attrib47
+Action 28 Action28 ! 'ask' attrib47 'about' object(in_room,on_ground)
+Action 29 Action29 ! 'ask' attrib47 'for' object(in_room,on_ground)
+Action 30 Action30 ! 'grant'/'granted' object
+Action 31 Action31 ! 'denied'/'deny' object
+Action 32 Action32 ! 'exchange'/'trade' object(held,carried,have) 'for' object
+Action 33 Action33 ! 'kill'/'murder'/'punch'/'slay'/'stab'/'wound' attrib46(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 34 Action34 ! 'go' 'beyond'/'behind' object
+Action 35 Action35 ! 'go' 'from' object
+Action 36 Action36 ! 'bite' object
+Action 37 Action37 ! 'inflate' object
+Action 38 Action38 ! 'close'/'shut'/'slam' 'off' object(held,carried,in_room,on_ground)
+Action 39 Action39 ! 'buy'/'withdraw' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 40 Action40 ! 'buy'/'withdraw' object 'from' object
+Action 41 Action41 ! 'brush'/'clean'/'dry'/'polish'/'sweep'/'wash'/'wipe' object 'with'/'using' attrib43(held,carried,have)
+Action 42 Action42 ! 'brush'/'clean'/'dry'/'polish'/'sweep'/'wash'/'wipe' 'off' object(held,carried,have) 'over'/'across' object
+Action 43 Action43 ! 'climb' 'up'/'u//' attrib44(in_room,on_ground)
+Action 44 Action44 ! 'climb' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 45 Action45 ! 'climb' 'down' attrib44(in_room,on_ground)
+Action 46 Action46 ! 'climb' 'over'/'across' attrib44(in_room,on_ground)
+Action 47 Action47 ! 'climb' 'thru'/'through' object(in_room,on_ground)
+Action 48 Action48 ! 'climb' 'within'/'into'/'inside'/'in'/'between' attrib44(in_room,on_ground)
+Action 49 Action49 ! 'climb' 'outside'/'out' attrib44
+Action 50 Action50 ! 'close'/'shut'/'slam' attrib42(held,carried,in_room,on_ground)
+Action 51 Action51 ! 'close'/'shut'/'slam' 'up'/'u//' attrib44
+Action 52 Action52 ! 'count'/'tally' object
+Action 53 Action53 ! 'go' 'over'/'across' object
+Action 54 Action54 ! 'fell' object 'with'/'using' attrib41(held,carried,take,have)
+Action 55 Action55 ! 'rip'/'tear' 'down' object 'with'/'using' attrib45(held,carried,take,have)
+Action 56 Action56 ! 'remove' attrib40(in_room,on_ground,many) 'within'/'into'/'inside'/'in'/'between' object
+Action 57 Action57 ! 'kick' 'down' object
+Action 58 Action58 ! 'dig'/'excavate' 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground) 'with'/'using' attrib45(held,carried,have)
+Action 59 Action59 ! 'dig'/'excavate' 'with'/'using' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 60 Action60 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' object(held,carried,in_room,on_ground)
+Action 61 Action61 ! 'drink'/'guzzle'/'imbibe'/'quaff'/'sip'/'swill' 'from' object(held,carried)
+Action 62 Action62 ! 'deposit'/'drop'/'dump' object(held,many,have)
+Action 63 Action63 ! 'conceal' object(held,carried,have) 'within'/'into'/'inside'/'in'/'between' object(in_room,on_ground)
+Action 64 Action64 ! 'lean' object(held,carried,have) 'near'/'against' object
+Action 65 Action65 ! 'consume'/'devour'/'eat'/'gobble'/'ingest'/'nibble'/'swallow' object(held,carried,in_room,on_ground)
+Action 66 Action66 ! 'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 67 Action67 ! 'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 68 Action68 ! 'describe'/'examine'/'inspect'/'see'/'study'/'survey'/'trace'/'x//' 'for' object
+Action 69 Action69 ! 'observe'/'watch' object(held,carried,in_room,on_ground) 'with'/'using' object
+Action 70 Action70 ! 'observe'/'watch' attrib44(held,carried,in_room,on_ground)
+Action 71 Action71 ! 'fill' attrib38(held,carried,in_room,on_ground) 'at' object
+Action 72 Action72 ! 'fill' 'outside'/'out' object(held,carried)
+Action 73 Action73 ! 'rub' 'outside'/'out' object(held,carried)
+Action 74 Action74 ! 'pet' object
+Action 75 Action75 ! 'rub' 'together' object
+Action 76 Action76 ! 'grope'/'reach' 'towards'/'toward'/'to' object 'with'/'using' attrib43
+Action 77 Action77 ! 'rub' object(held,carried,have) 'near'/'against' object
+Action 78 Action78 ! 'fly' 'over'/'across' object
+Action 79 Action79 ! 'retract' object
+Action 80 Action80 ! 'fold'/'roll'/'wrap' object(held,carried,have) 'around'/'along' object(in_room,on_ground)
+Action 81 Action81 ! 'fold'/'roll'/'wrap' 'up'/'u//' object(in_room,on_ground) 'within'/'into'/'inside'/'in'/'between' object(held,carried,have)
+Action 82 Action82 ! 'flip'/'rotate'/'toggle'/'turn' 'down' object
+Action 83 Action83 ! 'extend'/'unflatten'/'unfold'/'unroll' object(held,carried)
+Action 84 Action84 ! 'untangle' object
+Action 85 Action85 ! 'chase'/'follow'/'pursue' object
+Action 86 Action86 ! 'hang' 'up'/'u//' attrib44
+Action 87 Action87 ! 'return' object 'towards'/'toward'/'to' object
+Action 88 Action88 ! 'bestow'/'deliver'/'donate'/'give'/'hand'/'offer'/'present' attrib46(in_room,on_ground) object(held,carried,take,have)
+Action 89 Action89 ! 'sell' object(held,carried,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 90 Action90 ! 'sell' attrib46(in_room,on_ground) object(held,carried,take,have)
+Action 91 Action91 ! 'display'/'show' object(held,carried,take,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 92 Action92 ! 'display'/'show' attrib46 object(held,carried,take,have)
+Action 93 Action93 ! 'feed' attrib46(in_room,on_ground) attrib37(held,carried,have)
+Action 94 Action94 ! 'feed' attrib37(held,carried,have) 'towards'/'toward'/'to' attrib46(in_room,on_ground)
+Action 95 Action95 ! 'listen' 'for' object(held,carried,in_room,on_ground)
+Action 96 Action96 ! 'greet'/'greetings'/'hello'/'hi'/'salute' attrib44
+Action 97 Action97 ! 'bye'/'farewell'/'goodbye' attrib44
+Action 98 Action98 ! 'conceal' object(held,carried,have) 'beyond'/'behind' object(in_room,on_ground)
+Action 99 Action99 ! 'conceal' object(held,carried,have) 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 100 Action100 ! 'hide' 'beyond'/'behind' object
+Action 101 Action101 ! 'get' 'underneat'/'under'/'beneath'/'below' object(in_room,on_ground)
+Action 102 Action102 ! 'block'/'cover'/'shield' 'over'/'across' object(in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 103 Action103 ! 'dive' 'over'/'across' object
+Action 104 Action104 ! 'go' 'upon'/'onto'/'on'/'aboard' object
+Action 105 Action105 ! 'bounce' 'around'/'along' attrib44(held,carried,have)
+Action 106 Action106 ! 'kick' 'around'/'along' object
+Action 107 Action107 ! 'hit'/'slap'/'strike'/'swat'/'whack' 'at' object(in_room,on_ground) 'with'/'using' attrib45(held,carried,have)
+Action 108 Action108 ! 'kiss'/'smooch' attrib47(in_room,on_ground)
+Action 109 Action109 ! 'knock'/'pound'/'rap' 'upon'/'onto'/'on'/'aboard' object
+Action 110 Action110 ! 'leave' attrib44
+Action 111 Action111 ! 'nap'/'rest'/'sleep'/'snooze' 'upon'/'onto'/'on'/'aboard' object(in_room,on_ground)
+Action 112 Action112 ! 'lock' object(in_room,on_ground) 'with'/'using' attrib45(held,have)
+Action 113 Action113 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'around'/'along' attrib44
+Action 114 Action114 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'down' attrib44
+Action 115 Action115 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'up'/'u//' attrib44
+Action 116 Action116 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' object(held,carried,in_room,on_ground)
+Action 117 Action117 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'thru'/'through' object 'at' object
+Action 118 Action118 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'underneat'/'under'/'beneath'/'below' object
+Action 119 Action119 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'beyond'/'behind' object
+Action 120 Action120 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'upon'/'onto'/'on'/'aboard' object(held,carried,in_room,on_ground)
+Action 121 Action121 ! 'gaze'/'l//'/'look'/'peek'/'peer'/'stare' 'outside'/'out' attrib44
+Action 122 Action122 ! 'adjust' object(held,carried)
+Action 123 Action123 ! 'hook'/'jiggle'/'loosen'/'wiggle'/'wobble' object 'with'/'using' attrib45(held,carried,take,have)
+Action 124 Action124 ! 'get' 'down' attrib44(in_room,on_ground)
+Action 125 Action125 ! 'make' 'up'/'u//' object
+Action 126 Action126 ! 'slide' object
+Action 127 Action127 ! 'slide' object 'towards'/'toward'/'to' object
+Action 128 Action128 ! 'lean' 'upon'/'onto'/'on'/'aboard' object
+Action 129 Action129 ! 'prop' 'up'/'u//' object
+Action 130 Action130 ! 'hold' 'apart' object(in_room,on_ground)
+Action 131 Action131 ! 'disassemb'/'open'/'unseal' 'up'/'u//' attrib42(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 132 Action132 ! 'get' 'up'/'u//' attrib44(in_room,on_ground)
+Action 133 Action133 ! 'detach'/'disconnec'/'disengage'/'unattach'/'unplug' object 'from' object(in_room,on_ground)
+Action 134 Action134 ! 'bribe'/'entice'/'pay'/'renumerat' attrib47 object(held,carried)
+Action 135 Action135 ! 'bribe'/'entice'/'pay'/'renumerat' object(held,carried) 'towards'/'toward'/'to' attrib47
+Action 136 Action136 ! 'cash' object
+Action 137 Action137 ! 'pick' object 'with'/'using' attrib45(held,carried,have)
+Action 138 Action138 ! 'cavort'/'fiddle'/'play'/'toy' 'with'/'using' object
+Action 139 Action139 ! 'point' 'outside'/'out' object 'towards'/'toward'/'to' attrib46
+Action 140 Action140 ! 'point' 'at' object 'with'/'using' object
+Action 141 Action141 ! 'point' object 'towards'/'toward'/'to' object
+Action 142 Action142 ! 'ring' attrib44
+Action 143 Action143 ! 'ring' 'for' attrib47
+Action 144 Action144 ! 'pour'/'spill' 'outside'/'out' object(held,carried,have)
+Action 145 Action145 ! 'clear'/'empty' 'outside'/'out' object(held,carried,have) 'upon'/'onto'/'on'/'aboard' object
+Action 146 Action146 ! 'shake' 'outside'/'out' object 'from' object(held,carried,have)
+Action 147 Action147 ! 'pocket' object(held,carried)
+Action 148 Action148 ! 'clear'/'empty' 'off' object(held,carried)
+Action 149 Action149 ! 'attach'/'connect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 150 Action150 ! 'don'/'wear' object
+Action 151 Action151 ! 'attach'/'connect' object(in_room,on_ground,many)
+Action 152 Action152 ! 'reattach'/'reconnect' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 153 Action153 ! 'feel' 'within'/'into'/'inside'/'in'/'between' object(held,carried,in_room,on_ground)
+Action 154 Action154 ! 'flip'/'rotate'/'toggle'/'turn' 'thru'/'through' object
+Action 155 Action155 ! 'browse'/'leaf'/'read'/'skim' attrib36(held,carried,in_room,on_ground) 'towards'/'toward'/'to' attrib47
+Action 156 Action156 ! 'free'/'release' object(held,carried,in_room,on_ground) 'from' attrib45
+Action 157 Action157 ! 'undo'/'unfasten'/'unhook'/'untie' object
+Action 158 Action158 ! 'fix' 'up'/'u//' object 'with'/'using' attrib45(held,carried,have)
+Action 159 Action159 ! 'replace' object
+Action 160 Action160 ! 'ride' 'upon'/'onto'/'on'/'aboard' object
+Action 161 Action161 ! 'bow'/'genuflect'/'grovel'/'kneel' 'before' attrib47
+Action 162 Action162 ! 'call' attrib44
+Action 163 Action163 ! 'advise'/'inform'/'tell' attrib47(in_room)
+Action 164 Action164 ! 'dial'/'phone'/'telephone' 'up'/'u//' object 'with'/'using' object
+Action 165 Action165 ! 'frisk'/'ransack'/'rummage'/'search'/'sift' 'thru'/'through' object
+Action 166 Action166 ! 'mail'/'send' object 'towards'/'toward'/'to' attrib44
+Action 167 Action167 ! 'mail'/'send' object object
+Action 168 Action168 ! 'jostle'/'rattle' object 'with'/'using' attrib45(held,carried,have)
+Action 169 Action169 ! 'shoot' 'off' object
+Action 170 Action170 ! 'crouch'/'settle'/'sit'/'squat' 'at' object
+Action 171 Action171 ! 'nap'/'rest'/'sleep'/'snooze'
+Action 172 Action172 ! 'inhale'/'smell'/'sniff'/'whiff' attrib44
+Action 173 Action173 ! 'flip'/'rotate'/'toggle'/'turn' 'back' attrib44
+Action 174 Action174 ! 'rise'/'stand' 'up'/'u//' attrib44
+Action 175 Action175 ! 'duck'
+Action 176 Action176 ! 'swim'/'wade' 'thru'/'through' object
+Action 177 Action177 ! 'dive' 'underneat'/'under'/'beneath'/'below' attrib44
+Action 178 Action178 ! 'wave' object
+Action 179 Action179 ! 'remove' attrib40 'with'/'using' object(held,carried,have)
+Action 180 Action180 ! 'remove' attrib35(held,carried)
+Action 181 Action181 ! 'hold' attrib44
+Action 182 Action182 ! 'hold' object(held,carried,have) 'over'/'across' object
+Action 183 Action183 ! 'get' 'off' object
+Action 184 Action184 ! 'return' 'towards'/'toward'/'to' object
+Action 185 Action185 ! 'get' object(in_room,on_ground) object
+Action 186 Action186 ! 'get' object 'towards'/'toward'/'to' object(in_room,on_ground)
+Action 187 Action187 ! 'lick'/'taste' object
+Action 188 Action188 ! 'advise'/'inform'/'tell' attrib47(in_room) 'about' object
+Action 189 Action189 ! 'advise'/'inform'/'tell' attrib47(in_room) object
+Action 190 Action190 ! 'thank'/'thanks'
+Action 191 Action191 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,have) 'thru'/'through' object(in_room,on_ground)
+Action 192 Action192 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(held,carried,have) 'over'/'across' object
+Action 193 Action193 ! 'chuck'/'fling'/'hurl'/'pitch'/'throw'/'toss' object(in_room,on_ground) object(held,carried,have)
+Action 194 Action194 ! 'buckle'/'fasten'/'secure'/'tie' object 'towards'/'toward'/'to' object
+Action 195 Action195 ! 'buckle'/'fasten'/'secure'/'tie' 'up'/'u//' attrib47(in_room,on_ground) 'with'/'using' attrib45(held,carried,in_room,on_ground,have)
+Action 196 Action196 ! 'flip'/'rotate'/'toggle'/'turn' object 'with'/'using' attrib45(held,carried,take,have)
+Action 197 Action197 ! 'flip'/'rotate'/'toggle'/'turn' 'towards'/'toward'/'to' object
+Action 198 Action198 ! 'start' 'up'/'u//' object(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,have)
+Action 199 Action199 ! 'type' 'upon'/'onto'/'on'/'aboard' object
+Action 200 Action200 ! 'unlock' object(in_room,on_ground) 'with'/'using' object(held,carried)
+Action 201 Action201 ! 'employ'/'exploit'/'operate'/'pedal'/'use' object
+Action 202 Action202 ! 'loiter'/'wait'/'z//'
+Action 203 Action203 ! 'loiter'/'wait'/'z//' 'for' object
+Action 204 Action204 ! 'awake'/'awaken'/'rouse'/'wake' 'up'/'u//' attrib44
+Action 205 Action205 ! 'go' object
+Action 206 Action206 ! 'return' attrib44
+Action 207 Action207 ! 'wave' 'towards'/'toward'/'to' attrib47
+Action 208 Action208 ! 'what'/'what^s'/'whats' 'about' object
+Action 209 Action209 ! 'where'/'where^s'/'wheres' object
+Action 210 Action210 ! 'who'/'who^s'/'whos' object
+Action 211 Action211 ! 'wind' 'up'/'u//' object
+Action 212 Action212 ! 'howl'/'scream'/'shout'/'yell' 'towards'/'toward'/'to' object
+Action 213 Action213 ! 'melt' object(held,carried,have)
+Action 214 Action214 ! 'dress' attrib44
+Action 215 Action215 ! 'disrobe'/'strip'/'undress' attrib44
+Action 216 Action216 ! 'stinglai' object
+
+! ------------------------------ Routines ------------------------------
+
+Routine 0x910c routine37132:?
+Routine 0x911c routine37148:?
+Routine 0x913c routine37180:?
+Routine 0x919c routine37276:?
+Routine 0x9460 routine37984:?
+Routine 0x9478 routine38008:?
+Routine 0x9484 routine38020:?
+Routine 0x9490 routine38032:?
+Routine 0x949c routine38044:?
+Routine 0x94a8 routine38056:?
+Routine 0x94b4 routine38068:?
+Routine 0x94c0 routine38080:?
+Routine 0x953c routine38204:?
+Routine 0x957c routine38268:?
+Routine 0x95bc routine38332:?
+Routine 0x95d0 routine38352:?
+Routine 0x95e8 routine38376:?
+Routine 0x9628 routine38440:?
+Routine 0x9638 routine38456:?
+Routine 0x9664 routine38500:?
+Routine 0x969c routine38556:?
+Routine 0x96b4 routine38580:?
+Routine 0x96c0 routine38592:?
+Routine 0x96cc routine38604:?
+Routine 0x96f4 routine38644:?
+Routine 0x970c routine38668:?
+Routine 0x9714 routine38676:?
+Routine 0x971c routine38684:?
+Routine 0x9730 routine38704:?
+Routine 0x9744 routine38724:?
+Routine 0x9770 routine38768:?
+Routine 0x9824 routine38948:?
+Routine 0x983c routine38972:?
+Routine 0x9870 routine39024:?
+Routine 0x98c4 routine39108:?
+Routine 0x98e0 routine39136:?
+Routine 0x98fc routine39164:?
+Routine 0x9954 routine39252:?
+Routine 0x998c routine39308:?
+Routine 0x99a4 routine39332:?
+Routine 0x99c4 routine39364:?
+Routine 0x99d8 routine39384:?
+Routine 0x9a44 routine39492:?
+Routine 0x9a50 routine39504:?
+Routine 0x9aa4 routine39588:?
+Routine 0x9ad0 routine39632:?
+Routine 0x9af0 routine39664:?
+Routine 0x9b14 routine39700:?
+Routine 0x9b24 routine39716:?
+Routine 0x9bb8 routine39864:?
+Routine 0x9bd8 routine39896:?
+Routine 0x9bf8 routine39928:?
+Routine 0x9c18 routine39960:?
+Routine 0x9c38 routine39992:?
+Routine 0x9c58 routine40024:?
+Routine 0x9c64 routine40036:?
+Routine 0x9c70 routine40048:?
+Routine 0x9c98 routine40088:?
+Routine 0x9cb0 routine40112:?
+Routine 0x9d0c routine40204:?
+Routine 0x9d38 routine40248:?
+Routine 0x9d54 routine40276:?
+Routine 0x9d6c routine40300:?
+Routine 0x9d84 routine40324:?
+Routine 0x9d94 routine40340:?
+Routine 0x9da0 routine40352:?
+Routine 0x9dac routine40364:?
+Routine 0x9dcc routine40396:?
+Routine 0x9e14 routine40468:?
+Routine 0x9e48 routine40520:?
+Routine 0x9e7c routine40572:?
+Routine 0x9ea0 routine40608:?
+Routine 0x9ebc routine40636:?
+Routine 0x9ed8 routine40664:?
+Routine 0x9ef4 routine40692:?
+Routine 0x9f50 routine40784:?
+Routine 0x9f58 routine40792:?
+Routine 0x9f84 routine40836:?
+Routine 0x9f98 routine40856:?
+Routine 0x9fac routine40876:?
+Routine 0x9fc0 routine40896:?
+Routine 0x9ff0 routine40944:?
+Routine 0xa070 routine41072:?
+Routine 0xa12c routine41260:?
+Routine 0xa160 routine41312:?
+Routine 0xa204 routine41476:?
+Routine 0xa258 routine41560:?
+Routine 0xa8fc routine43260:?
+Routine 0xa954 routine43348:?
+Routine 0xa994 routine43412:?
+Routine 0xa9bc routine43452:?
+Routine 0xac34 routine44084:?
+Routine 0xac74 routine44148:?
+Routine 0xacbc routine44220:?
+Routine 0xad1c routine44316:?
+Routine 0xb05c routine45148:?
+Routine 0xb0a4 routine45220:?
+Routine 0xb0b8 routine45240:?
+Routine 0xb0dc routine45276:?
+Routine 0xb348 routine45896:?
+Routine 0xb36c routine45932:?
+Routine 0xb3bc routine46012:?
+Routine 0xb3dc routine46044:?
+Routine 0xb43c routine46140:?
+Routine 0xb4b0 routine46256:?
+Routine 0xb710 routine46864:?
+Routine 0xb724 routine46884:?
+Routine 0xb780 routine46976:?
+Routine 0xb7f4 routine47092:?
+Routine 0xb9f0 routine47600:?
+Routine 0xba14 routine47636:?
+Routine 0xba5c routine47708:?
+Routine 0xba74 routine47732:?
+Routine 0xbac4 routine47812:?
+Routine 0xbce4 routine48356:?
+Routine 0xbd20 routine48416:?
+Routine 0xbda8 routine48552:?
+Routine 0xbdc8 routine48584:?
+Routine 0xbf44 routine48964:?
+Routine 0xbf84 routine49028:?
+Routine 0xbfd4 routine49108:?
+Routine 0xc1a0 routine49568:?
+Routine 0xc1c4 routine49604:?
+Routine 0xc1ec routine49644:?
+Routine 0xc1f8 routine49656:?
+Routine 0xc278 routine49784:?
+Routine 0xc2d4 routine49876:?
+Routine 0xc320 routine49952:?
+Routine 0xc494 routine50324:?
+Routine 0xc71c routine50972:?
+Routine 0xc748 routine51016:?
+Routine 0xc794 routine51092:?
+Routine 0xc844 routine51268:?
+Routine 0xc92c routine51500:?
+Routine 0xc960 routine51552:?
+Routine 0xc9f0 routine51696:?
+Routine 0xca58 routine51800:?
+Routine 0xca88 routine51848:?
+Routine 0xcac8 routine51912:?
+Routine 0xccb0 routine52400:?
+Routine 0xcd40 routine52544:?
+Routine 0xcd68 routine52584:?
+Routine 0xce30 routine52784:?
+Routine 0xce6c routine52844:?
+Routine 0xce8c routine52876:?
+Routine 0xce9c routine52892:?
+Routine 0xceac routine52908:?
+Routine 0xcf20 routine53024:?
+Routine 0xcf38 routine53048:?
+Routine 0xd010 routine53264:?
+Routine 0xd088 routine53384:?
+Routine 0xd0d4 routine53460:?
+Routine 0xd0e0 routine53472:?
+Routine 0xd10c routine53516:?
+Routine 0xd1e8 routine53736:?
+Routine 0xd208 routine53768:?
+Routine 0xd388 routine54152:?
+Routine 0xd3a4 routine54180:?
+Routine 0xd3c4 routine54212:?
+Routine 0xd3f4 routine54260:?
+Routine 0xd418 routine54296:?
+
+! ------------------------------- Words --------------------------------
+
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word accessory accessory
+Word addresses addresses
+Word adventure adventure
+Word advertise advertise
+Word aeroplane aeroplane
+Word affirmati affirmati
+Word announcem announcem
+Word answering answering
+Word apartment apartment
+Word attendant attendant
+Word bestselle bestselle
+Word boingjets boingjets
+Word bookstore bookstore
+Word boysenber boysenber
+Word breakfast breakfast
+Word californi californi
+Word camouflag camouflag
+Word carefully carefully
+Word cartridge cartridge
+Word check-in check-in
+Word cocksucke cocksucke
+Word collectio collectio
+Word collector collector
+Word combinati combinati
+Word complaint complaint
+Word condition condition
+Word confiscat confiscat
+Word connected connected
+Word continent continent
+Word controlle controlle
+Word controlli controlli
+Word dictionar dictionar
+Word dilapidat dilapidat
+Word direction direction
+Word disassemb disassemb
+Word disconnec disconnec
+Word disembark disembark
+Word disengage disengage
+Word dislocate dislocate
+Word distilled distilled
+Word earphones earphones
+Word emergency emergency
+Word everybody everybody
+Word everythin everythin
+Word executive executive
+Word extinguis extinguis
+Word farmhouse farmhouse
+Word fiduciary fiduciary
+Word foot-pow foot-pow
+Word forty-tw forty-tw
+Word frobozzco frobozzco
+Word frontline frontline
+Word generator generator
+Word genuflect genuflect
+Word goddamned goddamned
+Word gorbachev gorbachev
+Word grandmoth grandmoth
+Word grapefrui grapefrui
+Word greetings greetings
+Word gush-o- gush-o-
+Word hacker's hacker's
+Word hackers' hackers'
+Word hamburger hamburger
+Word headphone headphone
+Word high-fib high-fib
+Word inscripti inscripti
+Word interroga interroga
+Word inventory inventory
+Word irritable irritable
+Word key-card key-card
+Word laminated laminated
+Word lemon-li lemon-li
+Word llamex(r llamex(r
+Word log-file log-file
+Word loose-le loose-le
+Word looseleaf looseleaf
+Word loudspeak loudspeak
+Word millie's millie's
+Word misshapen misshapen
+Word moosehead moosehead
+Word nerdy-lo nerdy-lo
+Word newspaper newspaper
+Word noarticle noarticle
+Word nocturnal nocturnal
+Word non-stop non-stop
+Word northeast northeast
+Word northwest northwest
+Word observati observati
+Word odd-look odd-look
+Word old-fash old-fash
+Word onlookers onlookers
+Word optometri optometri
+Word parachute parachute
+Word people's people's
+Word periodica periodica
+Word permissio permissio
+Word persecuti persecuti
+Word philateli philateli
+Word phone-an phone-an
+Word politicia politicia
+Word predictio predictio
+Word predictor predictor
+Word protagoni protagoni
+Word protocols protocols
+Word receptacl receptacl
+Word reconnect reconnect
+Word recording recording
+Word regulatio regulatio
+Word remainder remainder
+Word renumerat renumerat
+Word requireme requireme
+Word restauran restauran
+Word round-tr round-tr
+Word salescler salescler
+Word seventeen seventeen
+Word slime-co slime-co
+Word southeast southeast
+Word southwest southwest
+Word specialty specialty
+Word stewardes stewardes
+Word superbrie superbrie
+Word supersack supersack
+Word survivali survivali
+Word switchgea switchgea
+Word telephone telephone
+Word televisio televisio
+Word tenements tenements
+Word themselve themselve
+Word trans-ga trans-ga
+Word underneat underneat
+Word underocea underocea
+Word unflatten unflatten
+Word unfortuna unfortuna
+Word universal universal
+Word unlabeled unlabeled
+Word unlabelle unlabelle
+Word vinaigret vinaigret
+Word waitperso waitperso
+Word well-don well-don
+Word well-hid well-hid
+Word withdrawa withdrawa
+Word wristwatc wristwatc
+Word zalagasan zalagasan
+

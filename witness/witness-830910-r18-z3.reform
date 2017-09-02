@@ -1,0 +1,355 @@
+! ----------------------------------------------------
+!   Witness_18_830910.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  DCFDA77AAF0E344A098A1C86B35F8851
+CodeArea  0x4a5a  0x179dd
+StringArea  0x179de  0x19530
+FalseEnd  0x12918  1
+FalseEnd  0x171c0  1
+
+Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_RELEASE=7 M_EIGHT=8 M_NINE=9
+
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute    8 open
+Attribute    9 container
+Attribute   12 concealed
+Attribute   14 light    
+Attribute   15 dry_land     
+Attribute   16 supporter
+Attribute   19 scenery
+Attribute   21 readable
+Attribute   22 takeable
+Attribute   24 rmungbit
+Attribute   28 door
+Attribute   29 vehicle
+Attribute   30 weapon
+
+
+! ----------------------------- Properties -----------------------------
+
+Property     3 person_ndx:int
+Property     4 pseudo:pseudo
+Property     5 read_text:thing
+Property     6 living_action:^routine(int,rarg)
+Property     8 room_group_bit:int
+Property     9 adjectives:adjbytes
+Property    12 contains:objbytes
+Property    13 description:string
+Property    14 capacity:int
+Property    15 size:int
+Property    16 initial:string
+Property    17 referred_to:^routine(object,?)
+Property    18 action:^routine(int,rarg)
+Property    19 name:dictwords
+Property    20 out_to:exit
+Property    21 in_to:exit
+Property    22 d_to:exit
+Property    23 u_to:exit
+Property    24 w_to:exit
+Property    25 se_to:exit
+Property    26 nw_to:exit
+Property    27 ne_to:exit
+Property    28 out_to:exit
+Property    29 in_to:exit
+Property    30 s_to:exit
+Property    31 n_to:exit
+
+
+! ------------------------------ Objects -------------------------------
+
+
+
+! ------------------------------ Actions -------------------------------
+
+
+
+! ------------------------------ Routines ------------------------------
+
+Routine  0x4a66 routine19046 local1 
+Routine  0x4a76 routine19062 local1 local2 
+Routine  0x4a96 routine19094 local1 local2 
+Routine  0x4bd2 routine19410 
+Routine  0x4be0 routine19424 local1 local2 
+Routine  0x4d4e routine19790 local1 
+Routine  0x4d82 routine19842 local1 
+Routine  0x4da8 routine19880 local1 
+Routine  0x4dc6 routine19910 local1 
+Routine  0x4df8 routine19960 local1 
+Routine  0x4e38 routine20024 local1 
+Routine  0x4e6a routine20074 local1 
+Routine  0x4ea6 routine20134 local1 
+Routine  0x4ef6 routine20214 local1 
+Routine  0x4f28 routine20264 local1 local2 
+Routine  0x4f2e routine20270 local1 local2 local3 
+Routine  0x4f4c routine20300 local1 local2 local3 local4 
+Routine  0x4f7c routine20348 local1 local2 local3 local4 
+Routine  0x4f9e routine20382 local1 local2 local3 
+Routine  0x5002 routine20482 local1 
+Routine  0x502c routine20524 local1 
+Routine  0x5050 routine20560 local1 
+Routine  0x5060 routine20576 local1 
+Routine  0x506c routine20588 local1 local2 local3 local4 local5 
+Routine  0x50c0 routine20672 
+Routine  0x50ec routine20716 local1 
+Routine  0x510e routine20750 
+Routine  0x513e routine20798 local1 
+Routine  0x517c routine20860 local1 
+Routine  0x52ba routine21178 
+Routine  0x52e6 routine21222 
+Routine  0x534c routine21324 local1 
+Routine  0x53c0 routine21440 
+Routine  0x5458 routine21592 local1 
+Routine  0x5484 routine21636 
+Routine  0x549a routine21658 local1 
+Routine  0x5560 routine21856 local1 
+Routine  0x56bc routine22204 
+Routine  0x56fe routine22270 
+Routine  0x5740 routine22336 
+Routine  0x575e routine22366 
+Routine  0x579c routine22428 
+Routine  0x57b4 routine22452 
+Routine  0x5832 routine22578 
+Routine  0x5850 routine22608 local1 
+Routine  0x58d8 routine22744 local1 
+Routine  0x597a routine22906 local1 
+Routine  0x5a8c routine23180 
+Routine  0x5ab4 routine23220 
+Routine  0x5b26 routine23334 
+Routine  0x5b92 routine23442 local1 
+Routine  0x5c60 routine23648 
+Routine  0x5c90 routine23696 local1 local2 
+Routine  0x5e02 routine24066 local1 
+Routine  0x5f42 routine24386 
+Routine  0x5f94 routine24468 
+Routine  0x5fc0 routine24512 
+Routine  0x5ffc routine24572 
+Routine  0x6070 routine24688 local1 
+Routine  0x60de routine24798 local1 
+Routine  0x6178 routine24952 local1 
+Routine  0x6194 routine24980 local1 
+Routine  0x61ae routine25006 
+Routine  0x61f2 routine25074 
+Routine  0x623e routine25150 
+Routine  0x627e routine25214 local1 
+Routine  0x6290 routine25232 local1 
+Routine  0x631a routine25370 
+Routine  0x6356 routine25430 
+Routine  0x6458 routine25688 local1 
+Routine  0x64a0 routine25760 
+Routine  0x6518 routine25880 local1 
+Routine  0x6724 routine26404 local1 
+Routine  0x6840 routine26688 local1 
+Routine  0x691c routine26908 local1 
+Routine  0x6956 routine26966 
+Routine  0x6bf0 routine27632 
+Routine  0x6ca8 routine27816 
+Routine  0x6d04 routine27908 
+Routine  0x6d40 routine27968 
+Routine  0x6e08 routine28168 local1 
+Routine  0x6e98 routine28312 
+Routine  0x6efa routine28410 local1 
+Routine  0x6f26 routine28454 local1 
+Routine  0x7022 routine28706 
+Routine  0x7062 routine28770 
+Routine  0x70be routine28862 
+Routine  0x710c routine28940 
+Routine  0x7174 routine29044 local1 
+Routine  0x71c4 routine29124 
+Routine  0x7248 routine29256 local1 local2 local3 local4 local5 
+Routine  0x7294 routine29332 local1 local2 local3 local4 local5 local6 
+Routine  0x7300 routine29440 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x73c8 routine29640 local1 local2 local3 local4 local5 local6 local7 
+Routine  0x7408 routine29704 local1 
+Routine  0x7426 routine29734 
+Routine  0x744a routine29770 local1 local2 local3 
+Routine  0x7502 routine29954 
+Routine  0x7598 routine30104 
+Routine  0x7616 routine30230 
+Routine  0x7672 routine30322 local1 local2 local3 
+Routine  0x84cc routine33996 
+Routine  0x8514 routine34068 
+Routine  0x8562 routine34146 local1 local2 local3 
+Routine  0x8d34 routine36148 local1 local2 local3 
+Routine  0x9578 routine38264 
+Routine  0x9626 routine38438 local1 local2 local3 local4 local5 
+
+
+! ------------------------------- Words --------------------------------
+
+Word  adelin  adeline
+Word  advanc  advance
+Word  agains  against
+Word  ambula  ambulance
+Word  analys  analyse
+Word  analyz  analyze
+Word  applia  appliance
+Word  arrang  arrange
+Word  assaul  assault
+Word  associ  associate
+Word  autops  autopsy
+Word  bathro  bathroom
+Word  bathtu  bathtub
+Word  bedroo  bedroom
+Word  benche  benches
+Word  beneat  beneath
+Word  bentle  bentley
+Word  bookca  bookcase
+Word  bookma  bookman
+Word  boulde  boulder
+Word  bourbo  bourbon
+Word  breakf  breakfst
+Word  briefl  briefly
+Word  busine  business
+Word  cabine  cabinet
+Word  callig  calligraphy
+Word  carcin  carcinagenic
+Word  carefu  careful
+Word  carryi  carrying
+Word  chandl  chandler
+Word  cigare  cigarette
+Word  climat  climate
+Word  closel  closely
+Word  clothe  clothes
+Word  cockta  cocktail
+Word  compan  company
+Word  compar  compart
+Word  confro  confront
+Word  consol  console
+Word  conspi  conspicious
+Word  consum  consume
+Word  conver  conversation
+Word  corone  coroner
+Word  counte  counted
+Word  cupboa  cupboard
+Word  danger  dangerous
+Word  davenp  davenport
+Word  descri  describe
+Word  destro  destroy
+Word  doorbe  doorbell
+Word  dresse  dressed
+Word  dressi  dressing
+Word  drivew  driveway
+Word  editio  edition
+Word  electr  electronic
+Word  euthan  euthanize
+Word  examin  examine
+Word  explai  explain
+Word  explos  explosion
+Word  exting  extinguish
+Word  fiftee  fifteen
+Word  firepl  fireplce
+Word  footpr  footprint
+Word  fragme  fragment
+Word  freema  freeman
+Word  glasse  glasses
+Word  grandf  grandfather
+Word  gunpow  gunpowder
+Word  gunsho  gunshot
+Word  handcu  handcuff
+Word  handgu  handgun
+Word  handwr  handwritten
+Word  hersel  herself
+Word  import  importnt
+Word  inquir  inquire
+Word  inspec  inspect
+Word  invent  invention
+Word  juncti  junction
+Word  keyhol  keyhole
+Word  killin  killing
+Word  kitche  kitchen
+Word  lanter  lantern
+Word  linder  linderman
+Word  massiv  massive
+Word  matchb  matchbook
+Word  matche  matches
+Word  medica  medication
+Word  medita  meditate
+Word  midnig  midnight
+Word  myster  mystery
+Word  newspa  newspaper
+Word  orient  oriental
+Word  outsid  outside
+Word  pacifi  pacific
+Word  pictur  picture
+Word  platfo  platform
+Word  proble  problem
+Word  procee  proceed
+Word  progra  program
+Word  pullma  pullman
+Word  questi  question
+Word  quickl  quickly
+Word  quietl  quietly
+Word  receip  receipt
+Word  receiv  receive
+Word  redwoo  redwood
+Word  refrig  refrigerator
+Word  releas  release
+Word  restar  restart
+Word  restau  restaurant
+Word  restor  restore
+Word  revisi  revision
+Word  sergea  sergeant
+Word  servan  servant
+Word  shelve  shelves
+Word  shooti  shooting
+Word  souven  souvenier
+Word  startl  startle
+Word  stomac  stomach
+Word  storag  storage
+Word  strang  strange
+Word  suicid  suicide
+Word  surpri  surprise
+Word  suspen  suspense
+Word  swallo  swallow
+Word  swingi  swinging
+Word  teache  teacher
+Word  telegr  telegraph
+Word  teleph  telephone
+Word  testam  testament
+Word  thicke  thicken
+Word  throug  through
+Word  toaste  toasted
+Word  toothp  toothpaste
+Word  unatta  unattach
+Word  undern  underneath
+Word  unscri  unscript
+Word  unspac  unspace
+Word  vegeta  vegetable
+Word  velvet  velvet
+Word  verbos  verbose
+Word  versio  version
+Word  visito  visitor
+Word  warran  warrant
+Word  weathe  weather
+Word  whiske  whisker
+Word  whisky  whisky
+Word  worksh  workshop
+Word  writin  writing
+Word  writte  written
+Word  yourse  yourself
+Word  zzkjlk  zzkjlk

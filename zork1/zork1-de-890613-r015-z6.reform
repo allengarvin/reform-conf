@@ -1,0 +1,858 @@
+! ----------------------------------------------------
+!   zork1-890613-r015-z6.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 f7621f917d4d2e129d9ffd834f965019
+CodeArea 0x7738 0x168ac
+StringArea 0x168b0 0x1ff70
+
+! -- zork1 specific enums --
+Enum rarg M_END=0 M_BEG=1 M_ENTER=2 M_LOOK=3 M_WAKE=4 M_FIGHT_OR_OBJDESC=5 M_END=6
+Enum fight_con MISSED=1 UNCONSCIOUS=2 KILLED=3 LIGHT_WOUND=4 SERIOUS_WOUND=5 STAGGER=6 LOSE_WEAPON=7 HESITATE=8 SITTING_DUCK=8
+
+! -- global enums --
+Enum exit_propsize X_ROOMBYTE=1 X_STRING=2 X_ROUTINE=3 X_VARIABLE=4 X_DOOR=5
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 13 attrib13  ! obj207_es
+Attribute 14 attrib14  ! obj207_es
+Attribute 15 attrib15  ! obj207_es
+Attribute 16 attrib16  ! obj49_sie obj66_es obj149_er obj207_es
+Attribute 17 attrib17  ! obj207_es
+Attribute 18 attrib18  ! obj30_Reservoir_Nord obj103_Der_Kleiner_Flu_ obj105_Flu__Gletsch obj109_Flu__Gletsch obj112_Flu__Gletsch obj207_es obj243_Frigid_River obj248_Flu__Gletsch
+Attribute 19 attrib19  ! obj4_Irrgarten obj7_Wohnzimmer obj8_Wald obj10_Irrgarten obj11_Galerie obj12_Sackgasse obj15_Blick_auf_den_Bach obj18_H_hle obj20_Gaszimmer obj22_Kohlengrube obj23_Trollzimmer obj26_Eingang_zur_Unterwelt obj29_Fledermauszimmer obj31_Speicher obj34_Spiegelzimmer obj36_Irrgarten obj40_Auf_dem_Grund_der_Schlucht obj42_Irrgarten obj44_Sackgasse obj46_N_rdlich_vom_Haus obj50_Spiegelzimmer obj51_Stinkendes_Zimmer obj52_Kalter_Durchgang obj53_Sch_ttenzimmer obj56_Windender_Durchgang obj59_K_che obj60__gyptisches_Zimmer obj68_Wiedermal_F_lle obj69_Wei_e_Felsen_Strand obj70_Eingangshalle_zum_Damm obj72_Irrgarten obj75_Sandige_H_hle obj76_Das_Land_der_Toten obj77_Wartungsraum obj80_Sackgasse obj82_Enger_Gang obj84_Quietschzimmer obj91_Grubeneingang obj93_Kohlengrube obj94_Atlantiszimmer obj96_Lichtung obj97_Reservoir_S_d obj98_Tiefe_Schlucht obj104_Irrgarten obj107_Am_Ende_des_Regenbogens obj113_Dead_End obj115_S_dlich_vom_Haus obj116_Ost_Westdurchgang obj117_Auf_dem_Regenbogen obj118_Zyklopenzimmer obj119_Irrgarten obj123_Gitterzimmer obj125_Kohlengrube obj128_Irrgarten obj132_Oben_auf_dem_Baum obj133_Kuppelzimmer obj134_Irrgarten obj138_Rundes_Zimmer obj139_Irrgarten obj141_Hinter_dem_Haus obj143_Quergang obj147_Felsvorsprung obj148_Irrgarten obj153_Eigent_mlicher_Durchgang obj161_Ost_von_der_Spalte obj165_Oberteil_der_Leiter obj168_Schachtzimmer obj172_Am_Fu__des_Dammes obj173_Tempel obj175_Irrgarten obj182_Zugiges_Zimmer obj186_Lichtung obj190_Sackgasse obj191_Waldpfad obj192_Wei_e_Felsen_Strand obj194_Spalte obj195_Nord_S_ddurchgang obj198_Sandiger_Strand obj200_Altar obj201_Atelier obj203_Feuchte_H_hle obj204_Unten_an_der_Leiter obj206_Irrgarten obj207_es obj209_Schatzzimmer obj210_Laute_Zimmer obj211_Maschinenraum obj212_Wald obj214_Wald obj216_Reservoir_Nord obj217_Wald obj218_H_hle obj219_H_hle_mit_Einmei_elungen obj222_Keller obj224_Westlich_vom_Haus obj232_Blick_auf_Schlucht obj234_Balkenzimmer obj237_Fackelzimmer obj242_H_gelgrab obj244_Kohlengrube obj251_Irrgarten obj256_Damm obj258_Irrgarten obj259_Ufer
+Attribute 20 attrib20  ! obj54_Topf_voll_Gold obj65_Fallt_r obj73_Juwelenkoffer obj74_Dieb obj87_Gitter obj120_Leck obj159_Abenteurer obj207_es obj208_Landkarte obj247_Skarab_us
+Attribute 21 attrib21  ! obj2_Kanarienvogel obj14_Zauberboot obj27_Troph_enschrank obj37_Ei obj171_Vogelnest obj207_es obj223_Sarg
+Attribute 22 attrib22  ! obj6_Werkzeugk_stenreihe obj7_Wohnzimmer obj8_Wald obj20_Gaszimmer obj29_Fledermauszimmer obj31_Speicher obj32_Seil obj40_Auf_dem_Grund_der_Schlucht obj46_N_rdlich_vom_Haus obj48_Platinbarren obj59_K_che obj68_Wiedermal_F_lle obj69_Wei_e_Felsen_Strand obj78_Gebet obj96_Lichtung obj105_Flu__Gletsch obj109_Flu__Gletsch obj112_Flu__Gletsch obj115_S_dlich_vom_Haus obj117_Auf_dem_Regenbogen obj132_Oben_auf_dem_Baum obj136_Einmei_elung obj141_Hinter_dem_Haus obj147_Felsvorsprung obj159_Abenteurer obj172_Am_Fu__des_Dammes obj173_Tempel obj182_Zugiges_Zimmer obj186_Lichtung obj191_Waldpfad obj192_Wei_e_Felsen_Strand obj198_Sandiger_Strand obj200_Altar obj207_es obj212_Wald obj214_Wald obj217_Wald obj223_Sarg obj224_Westlich_vom_Haus obj232_Blick_auf_Schlucht obj234_Balkenzimmer obj242_H_gelgrab obj243_Frigid_River obj248_Flu__Gletsch obj259_Ufer
+Attribute 23 attrib23  ! obj61_Altar obj71_Kuechentisch obj150_Marmorpodest obj207_es obj226_Tisch
+Attribute 24 attrib24  ! obj3_Steint_r obj6_Werkzeugk_stenreihe obj14_Zauberboot obj25_Ei obj61_Altar obj71_Kuechentisch obj74_Dieb obj85_Korb obj126_Troll obj150_Marmorpodest obj171_Vogelnest obj207_es obj226_Tisch
+Attribute 25 attrib25  ! obj27_Troph_enschrank obj85_Korb obj114_Holzt_r obj207_es obj230_Flasche
+Attribute 26 attrib26  ! obj5_Metallschraube obj6_Werkzeugk_stenreihe obj9_Skelett obj24_Teppich obj27_Troph_enschrank obj32_Seil obj35_Damm obj47_Fledermaus obj55_Maschine obj74_Dieb obj83_Elfenschwert obj85_Korb obj88_Plastikblase obj102_Messer obj106_Zyklop obj111_Axt obj126_Troll obj127_Stilett obj137_Briefkasten obj145_Silberkelch obj156_Bl_tterhaufen obj160_Sack obj162_Glocke obj174_Korb obj177_Wassermenge obj180_Spiegel obj183_Spiegel obj189_Schlacke obj197_Messer obj207_es obj250_K_rperhaufen
+Attribute 27 attrib27  ! obj2_Kanarienvogel obj16_Berg obj17_Schraubenschl_ssel obj24_Teppich obj27_Troph_enschrank obj35_Damm obj38_Fels obj39_Sack obj48_Platinbarren obj54_Topf_voll_Gold obj57_Baum obj58_Durchgang obj61_Altar obj62_Knopf obj64_Fels obj71_Kuechentisch obj73_Juwelenkoffer obj81_Kristalsch_del obj85_Korb obj86_Knopf obj92_Flu_ obj99_Abenteurer obj101_Zettel obj106_Zyklop obj108_Prospekt obj121_Grund obj126_Troll obj137_Briefkasten obj140_Schl_ssel obj142_See obj145_Silberkelch obj149_er obj154_Knopf obj157_Seemann obj158_Regenbogen obj159_Abenteurer obj160_Sack obj164_Haufen_Plastik obj174_Korb obj176_Ledersack_voll_M_nzen obj178_Kanarienvogel obj180_Spiegel obj183_Spiegel obj196_Kristalldreizack obj199_Singvogel obj202_Smaragd obj205_Knopf obj207_es obj213_Wald obj223_Sarg obj226_Tisch obj227_Sand obj233_Diamant obj235_Flu__Gletsch obj240_Schalter obj245_Schornstein obj246_Nagel obj247_Skarab_us obj250_K_rperhaufen obj252_Schraubenzieher obj254_Weg
+Attribute 28 attrib28  ! obj1_Laterne obj3_Steint_r obj5_Metallschraube obj6_Werkzeugk_stenreihe obj43_Flitterkugel obj47_Fledermaus obj49_sie obj55_Maschine obj63_Knoblauchzehe obj65_Fallt_r obj79_Kohlenhalde obj88_Plastikblase obj90_Schalttafel obj110_Treppe obj111_Axt obj114_Holzt_r obj122_T_r obj124_Fahrradpumpe obj131_Messingleuchte obj135_Ritze obj136_Einmei_elung obj146_Spalte obj152_Leuchte obj155_Farbe obj162_Glocke obj163_Fackel obj166_Nummer obj169_Wand obj177_Wassermenge obj179_Streichholzschachtel obj184_Schaufel obj185_Jade_Figur obj188_Markierungsboje obj189_Schlacke obj207_es obj208_Landkarte obj215_Haust_r obj220_Zorkknete obj225_Tube obj230_Flasche obj231_Kette obj236_Rampe obj238_Kuppel obj241_Messingglocke obj249_Geisterzahl obj253_Holzleiter obj257_ZORK_Anleitung obj260_Luft
+Attribute 29 attrib29  ! obj9_Skelett obj13_Paar_H_nde obj14_Zauberboot obj19_Greuel obj21_Armband obj25_Ei obj28_Gel_nder obj32_Seil obj33_Gebi_ obj37_Ei obj41_Gas obj45_Schildchen obj66_es obj67_Pepperoni_Brot obj74_Dieb obj78_Gebet obj83_Elfenschwert obj87_Gitter obj89_Kerzenpaar obj95_Ding obj102_Messer obj120_Leck obj127_Stilett obj129_Buch obj130_Tor obj144_Geb_lk obj150_Marmorpodest obj151_Boot obj156_Bl_tterhaufen obj167_Schmierzeug obj170_Fenster obj171_Vogelnest obj181_Fenster obj187_H_gelgrab obj193_Zepter obj197_Messer obj207_es obj221_Gem_lde obj228_Wasser obj239_Haus obj255_Brett
+Attribute 30 attrib30  ! obj3_Steint_r obj5_Metallschraube obj9_Skelett obj13_Paar_H_nde obj16_Berg obj24_Teppich obj27_Troph_enschrank obj28_Gel_nder obj33_Gebi_ obj35_Damm obj38_Fels obj41_Gas obj49_sie obj55_Maschine obj57_Baum obj58_Durchgang obj61_Altar obj62_Knopf obj64_Fels obj65_Fallt_r obj66_es obj71_Kuechentisch obj78_Gebet obj86_Knopf obj87_Gitter obj88_Plastikblase obj90_Schalttafel obj92_Flu_ obj106_Zyklop obj110_Treppe obj111_Axt obj114_Holzt_r obj120_Leck obj122_T_r obj127_Stilett obj130_Tor obj135_Ritze obj142_See obj146_Spalte obj149_er obj150_Marmorpodest obj154_Knopf obj155_Farbe obj157_Seemann obj158_Regenbogen obj159_Abenteurer obj160_Sack obj170_Fenster obj180_Spiegel obj181_Fenster obj183_Spiegel obj187_H_gelgrab obj199_Singvogel obj205_Knopf obj207_es obj213_Wald obj215_Haust_r obj226_Tisch obj227_Sand obj231_Kette obj235_Flu__Gletsch obj238_Kuppel obj239_Haus obj240_Schalter obj245_Schornstein obj246_Nagel obj249_Geisterzahl obj250_K_rperhaufen obj253_Holzleiter obj255_Brett obj260_Luft
+Attribute 31 attrib31  ! obj5_Metallschraube obj129_Buch obj207_es obj240_Schalter
+Attribute 32 attrib32  ! obj45_Schildchen obj78_Gebet obj101_Zettel obj108_Prospekt obj114_Holzt_r obj129_Buch obj136_Einmei_elung obj179_Streichholzschachtel obj207_es obj208_Landkarte obj225_Tube obj257_ZORK_Anleitung
+Attribute 33 attrib33  ! obj1_Laterne obj2_Kanarienvogel obj14_Zauberboot obj17_Schraubenschl_ssel obj21_Armband obj25_Ei obj32_Seil obj37_Ei obj39_Sack obj43_Flitterkugel obj45_Schildchen obj48_Platinbarren obj54_Topf_voll_Gold obj63_Knoblauchzehe obj67_Pepperoni_Brot obj73_Juwelenkoffer obj79_Kohlenhalde obj81_Kristalsch_del obj83_Elfenschwert obj89_Kerzenpaar obj101_Zettel obj102_Messer obj108_Prospekt obj111_Axt obj124_Fahrradpumpe obj127_Stilett obj129_Buch obj131_Messingleuchte obj140_Schl_ssel obj144_Geb_lk obj145_Silberkelch obj151_Boot obj152_Leuchte obj156_Bl_tterhaufen obj163_Fackel obj164_Haufen_Plastik obj167_Schmierzeug obj171_Vogelnest obj176_Ledersack_voll_M_nzen obj177_Wassermenge obj178_Kanarienvogel obj179_Streichholzschachtel obj184_Schaufel obj185_Jade_Figur obj188_Markierungsboje obj189_Schlacke obj193_Zepter obj196_Kristalldreizack obj197_Messer obj202_Smaragd obj207_es obj208_Landkarte obj221_Gem_lde obj223_Sarg obj225_Tube obj230_Flasche obj233_Diamant obj241_Messingglocke obj247_Skarab_us obj252_Schraubenzieher obj257_ZORK_Anleitung
+Attribute 34 attrib34  ! obj6_Werkzeugk_stenreihe obj25_Ei obj27_Troph_enschrank obj37_Ei obj39_Sack obj55_Maschine obj61_Altar obj71_Kuechentisch obj74_Dieb obj85_Korb obj129_Buch obj137_Briefkasten obj145_Silberkelch obj150_Marmorpodest obj171_Vogelnest obj188_Markierungsboje obj207_es obj223_Sarg obj225_Tube obj226_Tisch obj230_Flasche
+Attribute 35 attrib35  ! obj7_Wohnzimmer obj8_Wald obj11_Galerie obj26_Eingang_zur_Unterwelt obj40_Auf_dem_Grund_der_Schlucht obj46_N_rdlich_vom_Haus obj50_Spiegelzimmer obj59_K_che obj68_Wiedermal_F_lle obj70_Eingangshalle_zum_Damm obj76_Das_Land_der_Toten obj89_Kerzenpaar obj96_Lichtung obj105_Flu__Gletsch obj107_Am_Ende_des_Regenbogens obj112_Flu__Gletsch obj115_S_dlich_vom_Haus obj117_Auf_dem_Regenbogen obj132_Oben_auf_dem_Baum obj141_Hinter_dem_Haus obj147_Felsvorsprung obj163_Fackel obj172_Am_Fu__des_Dammes obj173_Tempel obj186_Lichtung obj191_Waldpfad obj200_Altar obj207_es obj212_Wald obj214_Wald obj217_Wald obj224_Westlich_vom_Haus obj232_Blick_auf_Schlucht obj242_H_gelgrab obj256_Damm obj259_Ufer
+Attribute 36 attrib36  ! obj63_Knoblauchzehe obj67_Pepperoni_Brot obj207_es
+Attribute 37 attrib37  ! obj177_Wassermenge obj207_es obj228_Wasser
+Attribute 38 attrib38  ! obj3_Steint_r obj65_Fallt_r obj87_Gitter obj114_Holzt_r obj170_Fenster obj207_es obj215_Haust_r
+Attribute 39 attrib39  ! obj16_Berg obj38_Fels obj57_Baum obj64_Fels obj110_Treppe obj158_Regenbogen obj207_es obj236_Rampe obj245_Schornstein obj253_Holzleiter
+Attribute 40 attrib40  ! obj207_es
+Attribute 41 attrib41  ! obj89_Kerzenpaar obj163_Fackel obj207_es
+Attribute 42 attrib42  ! obj14_Zauberboot obj39_Sack obj45_Schildchen obj79_Kohlenhalde obj101_Zettel obj108_Prospekt obj129_Buch obj151_Boot obj156_Bl_tterhaufen obj164_Haufen_Plastik obj171_Vogelnest obj207_es obj221_Gem_lde
+Attribute 43 attrib43  ! obj14_Zauberboot obj207_es
+Attribute 44 attrib44  ! obj13_Paar_H_nde obj17_Schraubenschl_ssel obj102_Messer obj124_Fahrradpumpe obj140_Schl_ssel obj166_Nummer obj167_Schmierzeug obj184_Schaufel obj207_es obj252_Schraubenzieher obj254_Weg
+Attribute 45 attrib45  ! obj83_Elfenschwert obj102_Messer obj111_Axt obj127_Stilett obj193_Zepter obj197_Messer obj207_es
+Attribute 46 attrib46  ! obj47_Fledermaus obj74_Dieb obj99_Abenteurer obj106_Zyklop obj126_Troll obj159_Abenteurer obj207_es obj249_Geisterzahl
+Attribute 47 attrib47  ! obj89_Kerzenpaar obj131_Messingleuchte obj163_Fackel obj207_es
+
+! ----------------------------- Properties -----------------------------
+
+Property 34 prop34:string
+Property 35 prop35:string
+Property 36 prop36:?
+Property 37 prop37:string
+Property 38 prop38:?
+Property 39 prop39:string
+Property 40 prop40:?
+Property 41 prop41:string
+Property 42 prop42:string
+Property 43 prop43:thing
+Property 44 prop44:dictwords
+Property 45 prop45:?
+Property 46 prop46:dictwords
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:?
+Property 52 prop52:?
+Property 53 prop53:?
+Property 54 prop54:?
+Property 55 prop55:?
+Property 56 prop56:?
+Property 57 prop57:?
+Property 58 prop58:?
+Property 59 prop59:?
+Property 60 prop60:?
+Property 61 prop61:?
+Property 62 prop62:?
+Property 63 prop63:?
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Laterne
+Object 2 obj2_Kanarienvogel
+Object 3 obj3_Steint_r
+Object 4 obj4_Irrgarten
+Object 5 obj5_Metallschraube
+Object 6 obj6_Werkzeugk_stenreihe
+Object 7 obj7_Wohnzimmer
+Object 8 obj8_Wald
+Object 9 obj9_Skelett
+Object 10 obj10_Irrgarten
+Object 11 obj11_Galerie
+Object 12 obj12_Sackgasse
+Object 13 obj13_Paar_H_nde
+Object 14 obj14_Zauberboot
+Object 15 obj15_Blick_auf_den_Bach
+Object 16 obj16_Berg
+Object 17 obj17_Schraubenschl_ssel
+Object 18 obj18_H_hle
+Object 19 obj19_Greuel
+Object 20 obj20_Gaszimmer
+Object 21 obj21_Armband
+Object 22 obj22_Kohlengrube
+Object 23 obj23_Trollzimmer
+Object 24 obj24_Teppich
+Object 25 obj25_Ei
+Object 26 obj26_Eingang_zur_Unterwelt
+Object 27 obj27_Troph_enschrank
+Object 28 obj28_Gel_nder
+Object 29 obj29_Fledermauszimmer
+Object 30 obj30_Reservoir_Nord
+Object 31 obj31_Speicher
+Object 32 obj32_Seil
+Object 33 obj33_Gebi_
+Object 34 obj34_Spiegelzimmer
+Object 35 obj35_Damm
+Object 36 obj36_Irrgarten
+Object 37 obj37_Ei
+Object 38 obj38_Fels
+Object 39 obj39_Sack
+Object 40 obj40_Auf_dem_Grund_der_Schlucht
+Object 41 obj41_Gas
+Object 42 obj42_Irrgarten
+Object 43 obj43_Flitterkugel
+Object 44 obj44_Sackgasse
+Object 45 obj45_Schildchen
+Object 46 obj46_N_rdlich_vom_Haus
+Object 47 obj47_Fledermaus
+Object 48 obj48_Platinbarren
+Object 49 obj49_sie
+Object 50 obj50_Spiegelzimmer
+Object 51 obj51_Stinkendes_Zimmer
+Object 52 obj52_Kalter_Durchgang
+Object 53 obj53_Sch_ttenzimmer
+Object 54 obj54_Topf_voll_Gold
+Object 55 obj55_Maschine
+Object 56 obj56_Windender_Durchgang
+Object 57 obj57_Baum
+Object 58 obj58_Durchgang
+Object 59 obj59_K_che
+Object 60 obj60__gyptisches_Zimmer
+Object 61 obj61_Altar
+Object 62 obj62_Knopf
+Object 63 obj63_Knoblauchzehe
+Object 64 obj64_Fels
+Object 65 obj65_Fallt_r
+Object 66 obj66_es
+Object 67 obj67_Pepperoni_Brot
+Object 68 obj68_Wiedermal_F_lle
+Object 69 obj69_Wei_e_Felsen_Strand
+Object 70 obj70_Eingangshalle_zum_Damm
+Object 71 obj71_Kuechentisch
+Object 72 obj72_Irrgarten
+Object 73 obj73_Juwelenkoffer
+Object 74 obj74_Dieb
+Object 75 obj75_Sandige_H_hle
+Object 76 obj76_Das_Land_der_Toten
+Object 77 obj77_Wartungsraum
+Object 78 obj78_Gebet
+Object 79 obj79_Kohlenhalde
+Object 80 obj80_Sackgasse
+Object 81 obj81_Kristalsch_del
+Object 82 obj82_Enger_Gang
+Object 83 obj83_Elfenschwert
+Object 84 obj84_Quietschzimmer
+Object 85 obj85_Korb
+Object 86 obj86_Knopf
+Object 87 obj87_Gitter
+Object 88 obj88_Plastikblase
+Object 89 obj89_Kerzenpaar
+Object 90 obj90_Schalttafel
+Object 91 obj91_Grubeneingang
+Object 92 obj92_Flu_
+Object 93 obj93_Kohlengrube
+Object 94 obj94_Atlantiszimmer
+Object 95 obj95_Ding
+Object 96 obj96_Lichtung
+Object 97 obj97_Reservoir_S_d
+Object 98 obj98_Tiefe_Schlucht
+Object 99 obj99_Abenteurer
+Object 100 obj100
+Object 101 obj101_Zettel
+Object 102 obj102_Messer
+Object 103 obj103_Der_Kleiner_Flu_
+Object 104 obj104_Irrgarten
+Object 105 obj105_Flu__Gletsch
+Object 106 obj106_Zyklop
+Object 107 obj107_Am_Ende_des_Regenbogens
+Object 108 obj108_Prospekt
+Object 109 obj109_Flu__Gletsch
+Object 110 obj110_Treppe
+Object 111 obj111_Axt
+Object 112 obj112_Flu__Gletsch
+Object 113 obj113_Dead_End
+Object 114 obj114_Holzt_r
+Object 115 obj115_S_dlich_vom_Haus
+Object 116 obj116_Ost_Westdurchgang
+Object 117 obj117_Auf_dem_Regenbogen
+Object 118 obj118_Zyklopenzimmer
+Object 119 obj119_Irrgarten
+Object 120 obj120_Leck
+Object 121 obj121_Grund
+Object 122 obj122_T_r
+Object 123 obj123_Gitterzimmer
+Object 124 obj124_Fahrradpumpe
+Object 125 obj125_Kohlengrube
+Object 126 obj126_Troll
+Object 127 obj127_Stilett
+Object 128 obj128_Irrgarten
+Object 129 obj129_Buch
+Object 130 obj130_Tor
+Object 131 obj131_Messingleuchte
+Object 132 obj132_Oben_auf_dem_Baum
+Object 133 obj133_Kuppelzimmer
+Object 134 obj134_Irrgarten
+Object 135 obj135_Ritze
+Object 136 obj136_Einmei_elung
+Object 137 obj137_Briefkasten
+Object 138 obj138_Rundes_Zimmer
+Object 139 obj139_Irrgarten
+Object 140 obj140_Schl_ssel
+Object 141 obj141_Hinter_dem_Haus
+Object 142 obj142_See
+Object 143 obj143_Quergang
+Object 144 obj144_Geb_lk
+Object 145 obj145_Silberkelch
+Object 146 obj146_Spalte
+Object 147 obj147_Felsvorsprung
+Object 148 obj148_Irrgarten
+Object 149 obj149_er
+Object 150 obj150_Marmorpodest
+Object 151 obj151_Boot
+Object 152 obj152_Leuchte
+Object 153 obj153_Eigent_mlicher_Durchgang
+Object 154 obj154_Knopf
+Object 155 obj155_Farbe
+Object 156 obj156_Bl_tterhaufen
+Object 157 obj157_Seemann
+Object 158 obj158_Regenbogen
+Object 159 obj159_Abenteurer
+Object 160 obj160_Sack
+Object 161 obj161_Ost_von_der_Spalte
+Object 162 obj162_Glocke
+Object 163 obj163_Fackel
+Object 164 obj164_Haufen_Plastik
+Object 165 obj165_Oberteil_der_Leiter
+Object 166 obj166_Nummer
+Object 167 obj167_Schmierzeug
+Object 168 obj168_Schachtzimmer
+Object 169 obj169_Wand
+Object 170 obj170_Fenster
+Object 171 obj171_Vogelnest
+Object 172 obj172_Am_Fu__des_Dammes
+Object 173 obj173_Tempel
+Object 174 obj174_Korb
+Object 175 obj175_Irrgarten
+Object 176 obj176_Ledersack_voll_M_nzen
+Object 177 obj177_Wassermenge
+Object 178 obj178_Kanarienvogel
+Object 179 obj179_Streichholzschachtel
+Object 180 obj180_Spiegel
+Object 181 obj181_Fenster
+Object 182 obj182_Zugiges_Zimmer
+Object 183 obj183_Spiegel
+Object 184 obj184_Schaufel
+Object 185 obj185_Jade_Figur
+Object 186 obj186_Lichtung
+Object 187 obj187_H_gelgrab
+Object 188 obj188_Markierungsboje
+Object 189 obj189_Schlacke
+Object 190 obj190_Sackgasse
+Object 191 obj191_Waldpfad
+Object 192 obj192_Wei_e_Felsen_Strand
+Object 193 obj193_Zepter
+Object 194 obj194_Spalte
+Object 195 obj195_Nord_S_ddurchgang
+Object 196 obj196_Kristalldreizack
+Object 197 obj197_Messer
+Object 198 obj198_Sandiger_Strand
+Object 199 obj199_Singvogel
+Object 200 obj200_Altar
+Object 201 obj201_Atelier
+Object 202 obj202_Smaragd
+Object 203 obj203_Feuchte_H_hle
+Object 204 obj204_Unten_an_der_Leiter
+Object 205 obj205_Knopf
+Object 206 obj206_Irrgarten
+Object 207 obj207_es
+Object 208 obj208_Landkarte
+Object 209 obj209_Schatzzimmer
+Object 210 obj210_Laute_Zimmer
+Object 211 obj211_Maschinenraum
+Object 212 obj212_Wald
+Object 213 obj213_Wald
+Object 214 obj214_Wald
+Object 215 obj215_Haust_r
+Object 216 obj216_Reservoir_Nord
+Object 217 obj217_Wald
+Object 218 obj218_H_hle
+Object 219 obj219_H_hle_mit_Einmei_elungen
+Object 220 obj220_Zorkknete
+Object 221 obj221_Gem_lde
+Object 222 obj222_Keller
+Object 223 obj223_Sarg
+Object 224 obj224_Westlich_vom_Haus
+Object 225 obj225_Tube
+Object 226 obj226_Tisch
+Object 227 obj227_Sand
+Object 228 obj228_Wasser
+Object 229 obj229_F
+Object 230 obj230_Flasche
+Object 231 obj231_Kette
+Object 232 obj232_Blick_auf_Schlucht
+Object 233 obj233_Diamant
+Object 234 obj234_Balkenzimmer
+Object 235 obj235_Flu__Gletsch
+Object 236 obj236_Rampe
+Object 237 obj237_Fackelzimmer
+Object 238 obj238_Kuppel
+Object 239 obj239_Haus
+Object 240 obj240_Schalter
+Object 241 obj241_Messingglocke
+Object 242 obj242_H_gelgrab
+Object 243 obj243_Frigid_River
+Object 244 obj244_Kohlengrube
+Object 245 obj245_Schornstein
+Object 246 obj246_Nagel
+Object 247 obj247_Skarab_us
+Object 248 obj248_Flu__Gletsch
+Object 249 obj249_Geisterzahl
+Object 250 obj250_K_rperhaufen
+Object 251 obj251_Irrgarten
+Object 252 obj252_Schraubenzieher
+Object 253 obj253_Holzleiter
+Object 254 obj254_Weg
+Object 255 obj255_Brett
+Object 256 obj256_Damm
+Object 257 obj257_ZORK_Anleitung
+Object 258 obj258_Irrgarten
+Object 259 obj259_Ufer
+Object 260 obj260_Luft
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word vernagel vernagel
+Word versteck versteck
+Word versteck versteck
+Word verschis verschis
+Word verschue verschue
+Word verschli verschli
+Word verschüt verschüt
+Word vertreib vertreib
+Word verdäch verdäch
+Word verdaech verdaech
+Word verdammt verdammt
+Word verletze verletze
+Word verlaße verlaße
+Word verlasse verlasse
+Word verbrenn verbrenn
+Word verbrenn verbrenn
+Word verbanne verbanne
+Word verflues verflues
+Word verfluch verfluch
+Word verfluch verfluch
+Word verflüß verflüß
+Word verflüss verflüss
+Word verfolge verfolge
+Word verzehre verzehre
+Word vampiren vampiren
+Word vampirfl vampirfl
+Word vorsprun vorsprun
+Word vogelnes vogelnes
+Word jewelenb jewelenb
+Word jade-fi jade-fi
+Word juwelenk juwelenk
+Word #recor #recor
+Word #rando #rando
+Word #unrec #unrec
+Word #comma #comma
+Word $veri $veri
+Word exorzier exorzier
+Word explodie explodie
+Word entfenrne entfenrne
+Word entzuecke entzuecke
+Word einewacke einewacke
+Word einmeiße einmeiße
+Word einmeisse einmeisse
+Word ernuechte ernuechte
+Word erschrick erschrick
+Word elfenschw elfenschw
+Word elfenbein elfenbein
+Word neubeginn neubeginn
+Word nachschlu nachschlu
+Word nutzlosen nutzlosen
+Word nordosten nordosten
+Word nordweste nordweste
+Word inventar inventar
+Word inventar inventar
+Word inventur inventur
+Word inschrift inschrift
+Word singvoge singvoge
+Word silberkel silberkel
+Word steinerne steinerne
+Word steinigen steinigen
+Word steintuer steintuer
+Word streichho streichho
+Word streichle streichle
+Word staubigen staubigen
+Word sandstran sandstran
+Word saphirein saphirein
+Word suedosten suedosten
+Word suedweste suedweste
+Word superkurz superkurz
+Word schäbige schäbige
+Word schäbige schäbige
+Word schnueffl schnueffl
+Word schildche schildche
+Word schriftgr schriftgr
+Word schrauben schrauben
+Word schachtel schachtel
+Word schalttaf schalttaf
+Word schuettle schuettle
+Word schleiße schleiße
+Word schleusen schleusen
+Word schleuder schleuder
+Word schliesse schliesse
+Word schluesse schluesse
+Word schluerfe schluerfe
+Word schornste schornste
+Word schmeiße schmeiße
+Word schmeisse schmeisse
+Word schmierze schmierze
+Word schwarten schwarten
+Word skarabaeu skarabaeu
+Word tödliche tödliche
+Word tödliche tödliche
+Word treppenst treppenst
+Word treppenha treppenha
+Word trophäen trophäen
+Word trophaeen trophaeen
+Word toedliche toedliche
+Word reingolde reingolde
+Word reisenfue reisenfue
+Word reichver reichver
+Word regenboge regenboge
+Word reflexio reflexio
+Word repariere repariere
+Word rueckstra rueckstra
+Word rotgluehe rotgluehe
+Word aegypten aegypten
+Word anleitung anleitung
+Word außehend außehend
+Word aussehend aussehend
+Word ausgebran ausgebran
+Word ausfuehrl ausfuehrl
+Word aufhören aufhören
+Word aufhoeren aufhoeren
+Word aufgeroll aufgeroll
+Word aufziehen aufziehen
+Word aufziehba aufziehba
+Word abenteuer abenteuer
+Word abenteure abenteure
+Word abendesse abendesse
+Word aktivier aktivier
+Word aktivier aktivier
+Word hölzerne hölzerne
+Word hölzerne hölzerne
+Word herrenhau herrenhau
+Word herunterf herunterf
+Word hirnschal hirnschal
+Word hauptschl hauptschl
+Word hauptschl hauptschl
+Word huegelgra huegelgra
+Word hoelzerne hoelzerne
+Word hohlkopfb hohlkopfb
+Word hochwasse hochwasse
+Word holzleite holzleite
+Word demoliere demoliere
+Word diamanten diamanten
+Word durchlöc durchlöc
+Word durchloec durchloec
+Word durchgang durchgang
+Word ueberque ueberque
+Word untersuch untersuch
+Word umgeblase umgeblase
+Word lägliche lägliche
+Word ledersack ledersack
+Word laegliche laegliche
+Word landkarte landkarte
+Word laufmasch laufmasch
+Word geisterza geisterza
+Word gearbeite gearbeite
+Word geländer geländer
+Word gelaender gelaender
+Word gefährli gefährli
+Word gefaehrli gefaehrli
+Word geplatzte geplatzte
+Word geplatzte geplatzte
+Word odysseus odysseus
+Word oberbläc oberbläc
+Word oberflaec oberflaec
+Word offeriere offeriere
+Word meeresbod meeresbod
+Word messingen messingen
+Word messingle messingle
+Word messinggl messinggl
+Word metallsch metallsch
+Word mittagess mittagess
+Word marmorpod marmorpod
+Word markierun markierun
+Word magischen magischen
+Word bösartig bösartig
+Word beseitige beseitige
+Word beschreib beschreib
+Word betrachte betrachte
+Word bezaubere bezaubere
+Word brennende brennende
+Word briefkast briefkast
+Word batterien batterien
+Word blättere blättere
+Word blätterh blätterh
+Word blaettere blaettere
+Word blaetterh blaetterh
+Word blockiere blockiere
+Word boesartig boesartig
+Word felswänd felswänd
+Word felswaend felswaend
+Word fahrradpu fahrradpu
+Word fußboden fußboden
+Word fussboden fussboden
+Word fledermau fledermau
+Word flitterku flitterku
+Word flussglet flussglet
+Word forbiddin forbiddin
+Word körperha körperha
+Word kerzenpaa kerzenpaa
+Word knoblauch knoblauch
+Word kristalen kristalen
+Word kristalsc kristalsc
+Word kristalld kristalld
+Word kanarien kanarien
+Word kuechenti kuechenti
+Word koerperha koerperha
+Word kontrolld kontrolld
+Word kostbaren kostbaren
+Word kohlenhal kohlenhal
+Word kohlenox kohlenox
+Word wäschetr wäschetr
+Word werkzeuge werkzeuge
+Word werkzeugk werkzeugk
+Word wiederher wiederher
+Word windender windender
+Word widerlich widerlich
+Word waeschetr waeschetr
+Word wassermen wassermen
+Word wundervo wundervo
+Word zerquets zerquets
+Word zerstöre zerstöre
+Word zerstoere zerstoere
+Word zerschnei zerschnei
+Word zerschmet zerschmet
+Word zerbreche zerbreche
+Word zerbroche zerbroche
+Word zahnpasta zahnpasta
+Word zauberges zauberges
+Word zauberboo zauberboo
+Word zork-anl zork-anl
+Word zorkknete zorkknete
+Word persertep persertep
+Word pergament pergament
+Word pepperoni pepperoni
+Word prospekte prospekte
+Word punktesta punktesta
+Word plastisch plastisch
+Word plastikbl plastikbl
+Word platinisc platinisc
+Word platinbar platinbar
+Word poseidons poseidons
+Word überquer überquer
+

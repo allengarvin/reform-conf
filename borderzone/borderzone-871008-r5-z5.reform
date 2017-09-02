@@ -1,0 +1,1846 @@
+! ----------------------------------------------------
+!   BorderZone_9_871008.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  2197c5ea8a0649d3900134a3814a0488
+CodeArea  0x82c0  0xb204
+CodeArea  0xb4bc  0x21f94
+StringArea  0x21f94  0x2b8c4
+
+Enum rarg  M_BEG=1 M_ENTER=2 M_LOOK=3 M_FLASH=4 M_OBJDESC=5 M_END=6 M_SMELL=7 M_FATAL=8 M_OBJDESCP=9 M_ENTER_DESC=10
+enum offsets I_RT_QUEUE_OFF=1 I_SLOW_CLOCK_OFF=3 I_RANDOM_QUEUE_OFF=5
+enum scenarios_list S_BAD=3 S_GOOD=2 S_BYSTANDER=1
+enum rvalues RFATAL=8
+
+Enum c_clock_ints CLOCK_INTS_3=6 CLOCK_INTS_2=7 CLOCK_INTS_1=3
+Enum p_flags P_GETFLAGS_=0 P_ALL=1 P_ONE=2 P_INHIBIT=4
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global        1 Epilogue_bad_fails:string
+Global        2 Max_weight:int
+Global       11 Bumper_actions:int
+Global       15 Period_CR:string
+Global       28 Bumper_flag
+GlobalArray  31 Hint_tbl_2:table(^table(string))
+GlobalArray  33 Hint_tbl_3:table(^table(string))
+Global       35 Bad_yes_start:string
+GlobalArray  41 Hint_tbl_1:table(^table(string))
+Global       47 Alley_oops:string
+GlobalArray  61 Warmth_tbl:array(5*thing)
+GlobalArray  64 Festivities_sq:table(string)
+GlobalArray  69 Impossible_list:table(string)
+GlobalArray  72 Cardinals:table(string)
+Global       73 Bad_end:string
+GlobalArray  79 Sniper_password_voc:table(dictword)
+Global       80 Suspicion:int
+Global       93 Epilogue_ass:string
+GlobalArray  95 Sniper_password_tbl:table(string)
+Global      110 Topaz_thought_str:string
+GlobalArray 119 Clock_tbl_1:array(routine,int,routine,int,routine,int)
+GlobalArray 163 Clock_tbl_3:array(routine,int,routine,int,routine,int,routine,int,routine,int,routine,int)
+GlobalArray 194 Clock_tbl_2:array(routine,int,routine,int,routine,int,routine,int,routine,int,routine,int,routine,int)
+Global      122 Clock_time:int
+Global      127 Verb:action
+Global      143 Explosion_heard:string
+GlobalArray 144 Sl_pos_str_tbl:array(17*string)
+GlobalArray 156 Bad_wait_tbl:table(string)
+GlobalArray 158 Bad_lav_wait_tbl:table(string)
+Global      167 Bad_speaking:bool
+GlobalArray 168 Health_tbl:array(5*string)
+GlobalArray 169 Sl_caught_towers:array(3*string)
+GlobalArray 173 Dir_names:array(int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int,string,int)
+GlobalArray 174 Yuks:table(string)
+Global      178 global178:string
+Global      178 Too_far:string
+GlobalArray 181 Small_nums_tbl:table(string)
+Global      185 No_frobnian:string
+GlobalArray 195 Waste_list:table(string)
+GlobalArray 200 Sl_pos_str_ab_tbl:array(17*string)
+GlobalArray 204 Ho_Hum:table(string)
+Global      206 second:object
+GlobalArray 216 Fire_tbl:table(object)
+GlobalArray 218 Hut_walks:table(object)
+GlobalArray 219 Apt_letters:array(6*string)
+GlobalArray 223 Pass_tells:table(string)
+GlobalArray 231 Prepositions:table(dictword,int)
+GlobalArray 232 Actions:array(187*routine)
+GlobalArray 233 Preactions:array(187*routine)
+Global      234 Verbs:^array
+GlobalArray  49 Oops_table:array(6*thing)
+GlobalArray  54 Bumpers:table(object)
+GlobalArray  60 P_prsi:array(50*int)
+GlobalArray  90 P_lexv:array(~int,~int,119*dictword)
+GlobalArray 132 P_prso:array(50*int)
+GlobalArray 230 Apt_dir:table(int)
+Global        4 SL_watch
+Global        6 Chronograph_on:bool
+Global       14 Hall_floor:int
+Global      151 Clock_move:int
+Global      153 Password_given:bool
+Global      154 Verbose_clock:bool
+Global      155 Read_clock:int
+Global      159 Topaz_in_hall:bool
+Global      160 True_flag:bool
+Global      189 Contact_prob:int
+Global      196 I_fatal:bool
+Global      199 Sniper_hall:object
+Global      203 P_it_object
+Global      221 P_not_here:int
+Global      205 G_watch
+Global      102 noun:object
+Global       57 Contact:object
+Global       58 Clock_ints:c_clock_ints
+Global       66 Film_ruined:bool
+Global       74 Awaiting_password:bool
+Global       75 Hack_flag:bool
+Global       76 Chase_flag:bool
+Global       87 Start_hour:int
+Global       96 Awaiting_fake_orphan:bool
+Global      147 P_won
+Global      126 Topaz_fight:bool
+Global      128 P_parsa_word
+Global      129 Contact_wait:bool
+Global      130 P_exchange
+Global      131 Hint_warning:bool
+Global      133 Rested_road_tbl
+Global      134 In_swamp:bool
+Global      139 Hiding_behind_door:bool
+Global      140 Scenario:scenarios_list
+Global      148 location:object
+Global      100 Start_minute:int
+Global      103 Sniper_code:int
+Global      104 Dont_describe_room:bool
+Global       37 Guard_wait
+Global       38 P_mult:bool
+Global      164 Quote_flag:bool
+Global      166 Health:int
+Global       10 Chronograph_time:int
+Global       17 Shoes_worn:object
+Global       18 Clock_tbl
+Global       30 Fuse_armed:int
+Global       50 P_walk_dir
+Global       55 P_cont
+Global      170 Antique_flag:bool
+Global      171 Warmth:int
+Global      183 P_oflag;
+Global      186 player:object
+Global      220 Move_forced:bool
+Global      222 Hint_tbl
+Global       39 Clock_wait:bool
+Global      105 False_flag:bool
+GlobalArray  98 P_ofw:array(2*int)
+Global      111 Fight_in_progress:bool
+Global       29 Guard_chase:bool
+Global        9 Cart_toppled:bool
+Global       19 P_him_object:object
+Global       26 Clock_ticks:int
+Global       51 P_anam
+Global       52 Wood_count:int
+Global       71 Cut_vigilance:bool
+Global       91 On_the_can:bool
+Global      106 Vigilance
+Global      114 Tower_destroyed:bool
+Global      138 Read_interrupted:bool
+Global      172 P_getflags:p_flags
+Global      187 Cut_detected:bool
+Global      188 P_syntax
+Global      202 Topple_chase:bool
+Global      227 P_her_object:object
+Global      197 Save_flag:bool
+Global      177 Clothes_ripped:bool
+Global      180 Car_on_road:bool
+Global      184 GView_bit:bool
+Global      191 Car_sequence
+Global      198 Hut_burning:bool
+Global      201 Thirty_timer:int
+Global      207 Reserve_ptr
+
+GlobalArray  13 P_buts:array(50*?)
+GlobalArray  21 global21:table(object)
+GlobalArray  24 global24:table(object)
+GlobalArray  40 P_namw:array(8*thing)
+GlobalArray  42 P_otbl:array(8*bool)
+GlobalArray  48 global48:table(thing)
+GlobalArray  62 global62:array(8*thing)
+GlobalArray  68 global68:array(8*thing)
+GlobalArray  77 global77:array(8*thing)
+GlobalArray  81 P_adjw:array(8*thing)
+GlobalArray  83 global83:array(8*thing)
+GlobalArray  86 global86:array(8*thing)
+GlobalArray  89 global89:array(8*thing)
+GlobalArray 115 global115:array(8*thing)
+GlobalArray 117 global117:array(8*thing)
+GlobalArray 121 global121:array(8*thing)
+GlobalArray 137 global137:array(8*thing)
+GlobalArray 141 global141:array(8*thing)
+GlobalArray 145 global145:array(8*thing)
+GlobalArray 149 SL_tbl:table(^array(2*int))
+GlobalArray 152 global152:array(8*thing)
+GlobalArray 157 global157:array(8*thing)
+GlobalArray 162 P_itbl:array(verbnum,?,?,dictword,?,?,^array(dictword),?,?,?)
+GlobalArray 175 Wood_tbl:table(object)
+GlobalArray 176 global176:array(8*thing)
+GlobalArray 179 global179:array(8*thing)
+GlobalArray 193 global193:array(8*thing)
+GlobalArray 210 global210:array(8*thing)
+GlobalArray 212 global212:array(8*thing)
+GlobalArray 214 global214:array(8*thing)
+GlobalArray 215 global215:table(^array(^table(dictword),routine))
+GlobalArray 224 global224:array(8*thing)
+
+
+Global        0 global0
+Global        3 P_end_on_prep:bool
+Global        5 global5
+Global        7 global7
+Global        8 global8
+Global       12 global12
+Global       16 global16
+Global       20 global20
+Global       22 global22
+Global       23 global23
+Global       25 Wood_timer:int
+Global       27 global27
+Global       32 global32
+Global       34 global34
+Global       36 Sequence_run
+Global       43 P_nam
+Global       44 global44
+Global       45 global45
+Global       46 global46
+Global       53 global53
+Global       56 global56
+Global       59 global59
+Global       63 global63
+Global       65 global65
+Global       67 global67
+Global       70 Minutes_flag:bool
+Global       78 global78
+Global       82 global82
+Global       84 global84
+Global       85 P_adj
+Global       88 P_len:int
+Global       92 global92
+Global       94 global94
+Global       97 In_front_flag
+Global       99 global99
+Global      101 global101
+Global      107 P_merged:bool
+Global      108 global108
+Global      109 global109
+Global      112 global112
+Global      113 Been_at_hut:bool
+Global      116 global116
+Global      118 global118
+Global      120 global120
+Global      123 global123
+Global      124 global124
+Global      125 global125
+Global      135 global135
+Global      136 global136
+Global      142 Nomans_speed:int
+Global      146 global146
+Global      150 global150
+Global      161 global161
+Global      165 global165
+Global      182 global182
+Global      190 global190
+Global      192 global192
+Global      208 global208
+Global      209 global209
+Global      211 global211
+Global      213 Lost_scent:bool
+Global      217 global217
+Global      225 P_ncn
+Global      226 global226
+Global      228 global228
+Global      229 global229
+LastGlobal  234
+
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute     5 film_bit
+Attribute     6 swamp_bit
+Attribute     7 forest_bit
+Attribute     8 out_hut_bit
+Attribute     9 village_bit
+Attribute    10 road_bit
+Attribute    11 tool_bit
+Attribute    12 tracks_bit
+Attribute    13 gview_bit
+Attribute    14 metal_bit
+Attribute    15 plural_bit
+Attribute    16 no_the_bit
+Attribute    17 the_bit
+Attribute    18 no_a_bit
+Attribute    19 vowel_start
+Attribute    20 platform_bit
+Attribute    21 hut_bit
+Attribute    22 fence_blown_bit
+Attribute    23 pen_bit
+Attribute    24 fence_bent_bit
+Attribute    25 fence_cut_bit
+Attribute    26 sl_view_bit
+Attribute    27 n_article_bit
+Attribute    28 cross_bit
+Attribute    29 scenery
+Attribute    30 vowel_bit
+Attribute    31 munge_bit
+Attribute    32 transparent
+Attribute    33 search_bit
+Attribute    34 open
+Attribute    35 try_take_bit
+Attribute    36 supporter
+Attribute    37 touch_bit
+Attribute    38 concealed
+Attribute    39 worn
+Attribute    40 readable
+Attribute    41 clothing
+Attribute    42 takeable
+Attribute    43 container
+Attribute    44 drinkable
+Attribute    45 door
+Attribute    46 rland_bit
+Attribute    47 animate
+
+
+! ------------------------------- Arrays -------------------------------
+
+Array    21274 photo_array:array(int,int)
+Array   0x52fc bz_right_noman_table:array(^array(4*int),^array(4*int),^array(4*int),object)
+Array    45580 pseudo_array1:array(int,dictword,dictword,routine)
+Array   0xb3b2 oldman_frob:array(2*string)
+
+! ----------------------------- Properties -----------------------------
+
+Property     15 floor_5:objwords
+Property     16 floor_4:objwords
+Property     17 floor_3:objwords
+Property     18 floor_2:object
+Property     19 path_time:int
+Property     20 frobnian:^array
+Property     21 bumper:string
+Property     22 bdesc:string
+Property     23 photo_p:^array(2*int)
+Property     24 shot:int
+Property     25 eject:string
+Property     26 speed:int
+Property     27 fire:string
+Property     28 wood_function:routine
+Property     29 in_dir:property
+Property     30 out_door:property
+Property     31 gpos:int
+Property     32 ew:int
+Property     33 ns:int
+Property     34 across:exit
+Property     35 noman:^array
+Property     36 path:object
+Property     37 scenario:int
+Property     38 adjectives:dictwords
+Property     39 action:^routine(int,rarg)
+Property     40 short_desc:string
+Property     41 things:^array
+Property     42 generic:object
+Property     43 capacity:int
+Property     44 text:string
+Property     45 size:int
+Property     46 description:string
+Property     47 fdesc:string
+Property     48 contains:objwords
+Property     49 desc_function:routine
+Property     50 transient:object
+Property     51 name:dictwords
+Property     52 out_to:exit
+Property     53 in_to:exit
+Property     54 d_to:exit
+Property     55 u_to:exit
+Property     56 nw_to:exit
+Property     57 w_to:exit
+Property     58 sw_to:exit
+Property     59 s_to:exit
+Property     60 se_to:exit
+Property     61 e_to:exit
+Property     62 ne_to:exit
+Property     63 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object    1 forest
+Object    2 car_window
+Object    3 C9
+Object    4 oil_can
+Object    5 soda_cans
+Object    6 Sniper_Room
+Object    7 global_water
+Object    8 hands
+Object    9 Global_Topaz
+Object   10 curios
+Object   11 hall_door_e
+Object   12 brace
+Object   13 B3
+Object   14 global_compartment
+Object   15 customer
+Object   16 Outside_Shed
+Object   17 sniper_rifle
+Object   18 say_it_in_frobnian
+Object   19 hall_door_w
+Object   20 Ladder_Top
+Object   21 B5
+Object   22 plat_guards
+Object   23 police
+Object   24 Huttinger
+Object   25 lav_mirror
+Object   26 counter
+Object   27 wood_pile
+Object   28 hut_wood
+Object   29 Edge_NW
+Object   30 me
+Object   31 B7
+Object   32 Pass_1
+Object   33 Outf_2
+Object   34 sniper_window
+Object   35 Twr_2
+Object   36 F4
+Object   37 fire_window
+Object   38 comp_rack
+Object   39 F6
+Object   40 A3
+Object   41 bolt_cutter
+Object   42 global_contact
+Object   43 comp_blood_stain
+Object   44 Room_Holder
+Object   45 under_seat
+Object   46 global_lavatory
+Object   46 global_lavatory
+Object   47 toothbrush
+Object   47 toothbrush
+Object   48 Hall_52
+Object   49 chimney
+Object   50 A5
+Object   51 assorted_tools
+Object   52 Fire_1
+Object   53 Hall_24
+Object   54 Local_Globals
+Object   55 global_car
+Object   56 her
+Object   57 E2
+Object   58 South_Hut
+Object   59 antique_conversation
+Object   60 box
+Object   61 Platform_1
+Object   62 A7
+Object   63 bad_gun
+Object   64 Outf_3
+Object   65 Antique_Storage
+Object   66 scout
+Object   67 injured_guard
+Object   68 border_field
+Object   69 Hut_Bedroom
+Object   70 Platform_3
+Object   71 E4
+Object   72 passport
+Object   73 elevator
+Object   74 Platform_2
+Object   75 Bldg_5
+Object   76 road
+Object   77 sky
+Object   78 Platform__South_End
+Object   79 Global_Objects
+Object   80 Storage_Area
+Object   81 timing_object
+Object   82 E6
+Object   83 Topaz_Room
+Object   84 it
+Object   85 global_tunnel
+Object   86 graffiti
+Object   87 square_building
+Object   88 wall
+Object   89 car_part
+Object   90 Hall_42
+Object   91 Elevator_Room
+Object   92 fake_gloves
+Object   93 dais
+Object   94 Behind_Bldg_2
+Object   95 E8
+Object   96 briefcase
+Object   97 lav_sink
+Object   98 rubber_gloves
+Object   99 plat_people
+Object  100 bad_spy
+Object  101 cigarette
+Object  102 clothes
+Object  103 Hall_34
+Object  104 bad_watch
+Object  105 D2
+Object  106 elevator_operator
+Object  107 BDR_2
+Object  108 Comp_N
+Object  109 waiters
+Object  110 by_gun
+Object  111 shed_door
+Object  112 North_Hut
+Object  113 dogs
+Object  114 tower_door
+Object  115 D4
+Object  116 misc_clothing
+Object  117 Bldg_4
+Object  118 hot_dog
+Object  119 ladder
+Object  120 boots
+Object  121 hut_map
+Object  122 Alley_1
+Object  123 cart_debris
+Object  124 D6
+Object  125 global_window
+Object  126 fence_sign
+Object  127 building
+Object  128 flaming_car
+Object  129 pen_cap
+Object  130 body_part
+Object  131 Hall_32
+Object  132 global_machine_gun
+Object  133 comp_5_door
+Object  134 toilet_kit
+Object  135 Alley_3
+Object  136 D8
+Object  137 work_shoes
+Object  138 square_sw
+Object  139 misc_living
+Object  140 Fire_3
+Object  141 Hall_44
+Object  142 guards
+Object  143 C2
+Object  144 Behind_Hut
+Object  145 machine_gun
+Object  146 left_arm
+Object  147 shred
+Object  148 Tower_South
+Object  149 roadblock
+Object  150 Town_Square
+Object  151 tracks
+Object  152 matches
+Object  153 old_man
+Object  154 Bldg_7
+Object  155 global_snow
+Object  156 ticket
+Object  157 Antique_Side
+Object  158 fake_saw
+Object  159 carnation
+Object  160 Apartment_Lobby
+Object  161 global_scout
+Object  162 C6
+Object  163 shed
+Object  164 stained_paper_towel
+Object  165 towel_dispenser
+Object  166 Hall_22
+Object  167 tower
+Object  168 Behind_Bldg_1
+Object  169 sign
+Object  170 C8
+Object  171 sniper_corpse
+Object  172 fence
+Object  173 train
+Object  174 shreds
+Object  175 fence_hole
+Object  176 nw_post
+Object  177 Fire_2
+Object  178 Hall_23
+Object  179 ripped_clothes
+Object  180 G5
+Object  181 B2
+Object  182 t_station
+Object  183 directory
+Object  184 Hall_4
+Object  185 global_room
+Object  186 comp_window
+Object  187 Pass_6
+Object  188 by_guards
+Object  189 Edge_W
+Object  190 B4
+Object  191 proprietor
+Object  192 him
+Object  193 Bldg_6
+Object  194 vendor
+Object  195 eyes
+Object  196 trash_can
+Object  197 plat_fence
+Object  198 Topaz
+Object  199 B6
+Object  200 soda
+Object  201 border_fence
+Object  202 Russian_guard
+Object  203 smallish_woman
+Object  204 F3
+Object  205 pretzel
+Object  206 right_arm
+Object  207 color_roll
+Object  208 exposed_roll
+Object  209 B9
+Object  210 Lavatory
+Object  211 lav_window
+Object  212 Hall_51
+Object  213 phony_film
+Object  214 Fire_5
+Object  215 F5
+Object  216 A2
+Object  217 antique_street_door
+Object  218 comp_seat_back
+Object  219 dignitaries
+Object  220 Hall_3
+Object  221 Hall_53
+Object  222 watching_object
+Object  223 lav_toilet
+Object  224 way
+Object  225 Pass_5
+Object  226 A4
+Object  227 wood_saw
+Object  228 apartment_guards
+Object  229 tweezers
+Object  230 Antique_Counter
+Object  231 binoculars
+Object  232 crowd
+Object  233 Bldg_1
+Object  234 business_card
+Object  235 fake_cutters
+Object  236 normal_shoes
+Object  237 barricade
+Object  238 car
+Object  239 hut_man
+Object  240 rare_books
+Object  241 A6
+Object  242 paper_towel
+Object  243 sw_post
+Object  244 parka
+Object  245 bad_clothes
+Object  246 E3
+Object  247 remington
+Object  248 hammer
+Object  249 ne_post
+Object  250 comp_seat_front
+Object  251 Hall_41
+Object  252 shed_window
+Object  253 mayor
+Object  254 Fire_4
+Object  255 global_searchlights
+Object  256 E5
+Object  257 wet_paper_towel
+Object  258 vendor_cart
+Object  259 exploding_pen
+Object  260 ground
+Object  261 young_boy
+Object  262 Hall_2
+Object  263 hut_window
+Object  264 Hall_43
+Object  265 not_here_object
+Object  266 young_girl
+Object  267 posts
+Object  268 E7
+Object  269 Pass_4
+Object  270 intnum
+Object  271 antique_side_door
+Object  272 bystander_clothes
+Object  273 fire_ladder
+Object  274 Outside_Hut
+Object  275 brace_post
+Object  276 global_tail
+Object  277 ceiling
+Object  278 antique_counter_door
+Object  279 Comp_5
+Object  280 searchlights
+Object  281 Inf_3
+Object  282 D3
+Object  283 Hut_Living
+Object  284 bystander_watch
+Object  285 Inf_2
+Object  286 global_trees
+Object  287 Hall_31
+Object  288 Inf_1
+Object  289 global_border
+Object  290 comp_n_door
+Object  291 cafe_table
+Object  292 fake_hammer
+Object  293 D5
+Object  294 plat_train
+Object  295 cafe_food
+Object  296 swamp
+Object  297 misc_furniture
+Object  298 alley
+Object  299 wounded_left_arm
+Object  300 Road_End
+Object  301 Hall_1
+Object  302 global_hut_man
+Object  303 global_bldgs
+Object  304 Hall_33
+Object  305 protagonist
+Object  306 knapsack
+Object  307 tourniquet
+Object  308 Alley_2
+Object  309 D7
+Object  310 global_hut
+Object  311 Pass_3
+Object  312 camera
+Object  313 hut_front_door
+Object  314 elevator_door
+Object  315 Edge_SW
+Object  316 lav_faucet
+Object  317 Bldg_3
+Object  318 pretzels
+Object  319 column
+Object  320 se_post
+Object  321 Bldg_8
+Object  322 Square_NW
+Object  323 timer_button
+Object  324 hut
+Object  325 D9
+Object  326 comp_cord
+Object  327 sniper_window
+Object  328 lavatory_door
+Object  329 C3
+Object  330 document
+Object  331 global_film
+Object  332 teeth
+Object  333 Antique_Shop
+Object  334 Hall_21
+Object  335 sniper
+Object  336 C5
+Object  337 camera_bag
+Object  338 guard_leg
+Object  339 hut_back_door
+Object  340 Hall_23
+Object  341 picture
+Object  342 C7
+Object  343 global_bad_spy
+Object  344 Pass_2
+Object  345 Outf_1
+Object  346 Inside_Shed
+Object  347 Bldg_2
+Object  348 global_dogs
+Object  349 car_guards
+Object  350 G4
+Object  351 elevator_button
+
+
+! ------------------------------ Actions -------------------------------
+
+Action    0 Verbose
+Action    1 Brief
+Action    2 Superbrief
+Action    3 Diagnose
+Action    4 Inventory
+Action    5 Quit
+Action    6 Restart
+Action    7 Restore
+Action    8 Save
+Action    9 Script
+Action   10 Unscript
+Action   11 Version
+Action   12 RandomSeed
+Action   13 Verify
+Action   14 DbgID
+Action   15 Talk
+Action   16 Advance
+Action   17 Answer
+Action   18 Approach
+Action   19 Arrest
+Action   20 AskAbout
+Action   21 AskFor
+Action   22 Kill
+Action   23 Attack
+Action   24 Strangle
+Action   25 Pull
+Action   27 Extinguish
+Action   26 Bite
+Action   28 Purchase
+Action   29 PurchaseWith
+Action   30 PayFor
+Action   31 Call
+Action   32 ClimbNul
+Action   33 Climb
+Action   33 Climb
+Action   34 ClimbOn
+Action   35 ClimbUp
+Action   36 ClimbDown
+Action   37 Disembark
+Action   38 ClimbOver
+Action   39 Board
+Action   40 Enter
+Action   41 CrawlUnder
+Action   42 Close
+Action   43 Cover
+Action   44 Count
+Action   45 Destroy
+Action   46 Dig
+Action   47 Drink
+Action   48 DrinkFrom
+Action   49 Drop
+Action   50 DropIn
+Action   51 Lower
+Action   52 Eat
+Action   53 Empty
+Action   54 Enter
+Action   55 Exit
+Action   56 Examine
+Action   57 ExamineThrough
+Action   58 LookIn
+Action   59 Examine
+Action   57 ReadObj
+Action   58 LookThru
+Action   59 Find
+Action   60 Feed
+Action   61 Give
+Action   62 GiveReverse
+Action   63 Fill
+Action   64 Flush
+Action   65 Follow
+Action   66 GoDir
+Action   67 GoAround
+Action   68 HideBehind
+Action   69 GoAway
+Action   70 Listen
+Action   71 Hello
+Action   72 Hint
+Action   73 Help
+Action   74 HideIn
+Action   75 PutUnder
+Action   76 Hold
+Action   77 Inflate
+Action   78 Jump
+Action   79 JumpOff
+Action   80 StandOn
+Action   81 Kick
+Action   82 Kiss
+Action   83 Knock
+Action   84 Press
+Action   85 LieOn
+Action   86 SwitchOn
+Action   87 Lock
+Action   88 LookAround
+Action   89 LookDown
+Action   90 LookUp
+Action   91 LookUnder
+Action   92 LookBehind
+Action   93 LookAt
+Action   94 LookOver
+Action   95 LookObj
+Action   96 Lower
+Action   97 Make
+Action   98 MoveObj
+Action   99 Take
+Action  101 Pull
+Action  102 Raise
+Action  103 Negative
+Action  104 Point
+Action  106 Pick
+Action  107 PickUp
+Action  108 Play
+Action  109 Clean
+Action  110 Pour
+Action  111 PutIn
+Action  112 TieTo
+Action  113 Insert
+Action  114 InsertIn
+Action  115 Wear
+Action  116 PutBack
+Action  117 PutBehind
+Action  118 ReachIn
+Action  119 Touch
+Action  120 Read
+Action  121 Unwrap
+Action  122 Tear
+Action  123 Say
+Action  124 Score
+Action  125 Search
+Action  126 Shake
+Action  127 ShakeWith
+Action  128 Shoot
+Action  129 ShootAt
+Action  130 Show
+Action  131 ShowReverse
+Action  132 Sign
+Action  133 Rest
+Action  134 Hop
+Action  135 Sleep
+Action  136 CutUsing
+Action  137 Smell
+Action  138 Smile
+Action  139 Spin
+Action  140 StandUp
+Action  141 Start
+Action  142 Stop:rvalue
+Action  143 ResetObj
+Action  144 TakeOff
+Action  145 WarnAbout
+Action  146 Warn
+Action  147 Thanks
+Action  148 Throw
+Action  149 ThrowOff
+Action  150 ThrowObjObj
+Action  151 TieObj
+Action  152 Tie
+Action  153 SwitchOn
+Action  154 Unlock
+Action  155 Untie
+Action  156 Use
+Action  157 Wait
+Action  158 WaitObj
+Action  159 WaitFor
+Action  160 WaitOn
+Action  161 Wake
+Action  162 Cross
+Action  163 WaveObj
+Action  164 Wave
+Action  165 WhatIs
+Action  166 Where
+Action  167 Who
+Action  168 Why
+Action  169 Yell
+Action  170 Lubricate
+Action  171 Affirmative
+Action  172 Watch
+Action  173 HintsOff
+Action  174 DbgRefresh
+Action  175 Slow
+Action  176 Fast
+Action  177 Load
+Action  178 LoadIn
+Action  179 Rewind
+Action  180 Photograph
+Action  181 Fold
+Action  182 Unfold
+Action  183 Surrender
+Action  184 Bribe
+Action  185 Soak
+Action  186 Stack
+Action  187 Pause
+! ------------------------------ Routines ------------------------------
+
+
+! MISC.ZIL
+
+Routine   0x82c0 Tell_Open_Closed obj:object
+Routine   0x82e4 Open_Closed obj:object
+Routine   0x82fc Is_Are obj:object
+Routine   0x8304 CThe_Print_Prso
+Routine   0x8310 CThe_Print o:object
+Routine   0x831c The_Print_Prso
+Routine   0x8324 The_Print_Prsi
+Routine   0x832c The_Print o:object cap:bool
+Routine   0x8344 PrintA_Prso
+Routine   0x834c PrintA_Prsi
+Routine   0x8354 PrintA o:object
+Routine   0x8378 DPrint o:object cap:bool thep:bool s
+Routine   0x8394 IPrint o:object
+Routine   0x8398 NSPrint num:int str:string
+Routine   0x83ac APrint obj:object
+Routine   0x83d0 TPrint obj:object
+Routine   0x83e8 TPrint_Prso
+Routine   0x83f0 TPrint_Prsi
+Routine   0x83f8 ARPrint obj:object
+Routine   0x8404 TRPrint obj:object
+Routine   0x8410 Pick_One tbl length:int cnt:int rnd msc rfrob
+Routine   0x8454 Main
+Routine   0x8464 Main_Loop trash
+Routine   0x846c Main_Loop_1 icnt ocnt num cnt obj tbl v:rarg ptbl:bool obj1:object tmp:bool tmp2
+Routine   0x86ac Dont_All obj1:object l:object
+Routine   0x8740 Clocker_Verb
+Routine   0x8760 Fake_Orphan it_was_used:bool tmp other
+Routine   0x87dc Perform_Prsa o:object i:object
+Routine   0x87e8 Perform a:action o:object i:object  v oa oo oi
+Routine   0x8938 D_Apply str fcn foo res
+Routine   0x894c Noisy_Verb
+Routine   0x8964 Quiet_Verb
+Routine   0x89bc Clocker e tick rtn:routine flag:bool q:bool owinner
+Routine   0x8b04 Abs n:int
+Routine   0x8b10 Too_Late
+
+! REALTIME.ZIL
+Routine   0x8b24 Chronograph_Tell n
+Routine   0x8b54 Slow_Clock_Queue fcn:routine tim off:offsets
+Routine   0x8b68 Slow_Clock_Queued fcn:routine off:offsets
+Routine   0x8b84 De_Queue off:offsets
+Routine   0x8b8c De_Rt_Queue
+Routine   0x8b94 De_Random_Queue
+Routine   0x8b9c De_Slow_Clock_Queue
+Routine   0x8ba4 Rt_Queue fcn:routine tim:int off:offsets
+Routine   0x8bc4 Random_Queue fcn:routine tim:int off:offsets
+Routine   0x8be0 Rt_Queued fcn:routine off:offsets
+Routine   0x8bfc I_Clocker ticks:int scene cnt:int tbl tim
+Routine   0x8c64 Update_Clock ticks:int force:bool
+Routine   0x8c80 Multapply fcn:routine num:int
+Routine   0x8c8c Update_Time min tmp
+Routine   0x8cd8 Update_Chronograph ticks:int force:bool scr:bool
+Routine   0x8d48 I_Searchlights
+Routine   0x8d50 SL_Watcher
+Routine   0x8d94 Guard_Watcher init:bool mt face:bool off sw
+Routine   0x8e8c Guards_Facing_Each_Other:bool
+Routine   0x8e9c Guards_Facing_Player:bool
+Routine   0x8eb4 Screen_1
+Routine   0x8ec0 Screen_0
+Routine   0x8ecc HLightTell str:string hl:int
+
+
+! PARSER.ZIL
+Routine   0x8ee0 This_Is_It obj:object
+Routine   0x8f08 Check_Refresh
+Routine   0x8f28 Parser ptr:p_lexv wrd:dictword val:int vrb:verbnum dont omerged owinner len dir nw lw cnt:int of_flag:bool
+Routine   0x95d4 Change_Lexv ptr wrd:dictword bptr x y z 
+Routine   0x9620 Stuff dest src max:int
+Routine   0x9634 Inbuf_Stuff dest src cnt:int
+Routine   0x963c Inbuf_Add len:int beg slot dbeg ctr tmp
+Routine   0x9684 Wt ptr bit b1:p_partofspeechbit offs:p_p1off typ
+Routine   0x96b0 Clause ptr val wrd:dictword off num andflg:bool first:bool nw:dictword lw
+Routine   0x9898 ParseNumber ptr cnt:int bptr chr sum:int tim exc
+Routine   0x9940 Orphan_Merge cnt:int temp vrb beg end adj wrd:dictword
+Routine   0x9b14 AClause_Win adj tmp
+Routine   0x9b40 NClause_Win 
+Routine   0x9b60 Word_Print cnt buf
+Routine   0x9b74 Unknown_Word ptr buf tmp
+Routine   0x9bb8 Cant_Use ptr buf tmp
+Routine   0x9c04 Syntax_Check syn:int len num:int obj drive1:bool drive2:bool prep vrb:action tmp1 tmp2 tmp3
+Routine   0x9dd4 Verb_Print tmp1 tmp2
+Routine   0x9e04 Orphan d1 d2 cnt:int
+Routine   0x9e74 Orphan_Verb
+Routine   0x9eb8 Clause_Print bptr eptr thep:bool
+Routine   0x9ed4 Buffer_Print beg end cpt nosp:bool wrd:dictword first:bool pn tmp
+Routine   0x9fa4 Name wrd:dictword
+Routine   0x9fb0 Capitalize ptr tmp
+Routine   0x9fe8 Prep_Print prep wrd:dictword
+Routine   0x9ff8 Clause_Copy src dest srceg srcend destbeg destend insrt:bool beg end
+Routine   0xa050 Clause_Add wrd ptr
+Routine   0xa070 Prep_Find prep cnt:int size:int
+Routine   0xa090 Syntax_Found syn
+Routine   0xa09c GWim:object gbit:attribute lbit:int prep obj
+Routine   0xa100 Snarf_Objects ptr
+Routine   0xa168 But_Merge tbl len butlen cnt:int matches:int obj ntbl
+Routine   0xa1ac Snarfem ptr eptr tbl but:bool len tmp wrd:dictword nw:dictword oneobj was_all:bool
+Routine   0xa310 Adj_Check wrd:dictword
+Routine   0xa31c Noun_Missing
+Routine   0xa350 Get_Object tbl vrb:bool bits len xbits tlen gcheck:bool olen:int obj
+Routine   0xa51c Moby_Find tbl obj:int len foo nam adj
+Routine   0xa560 Which_Print tlen len tbl obj rlen tmp
+Routine   0xa5fc Global_Check tbl len rmg rmgl cnt:int obj obits foo
+Routine   0xa660 Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits tbl moby_flag:bool bts
+Routine   0xa694 Search_List obj tbl lvl moby_flag fls nobj
+Routine   0xa72c Obj_Found obj tbl ptr
+Routine   0xa740 Take_Check
+Routine   0xa75c ITake_Check tbl ibits ptr obj taken:bool tmp
+Routine   0xa890 Many_Check loss:bool tmp1 tmp2
+Routine   0xa934 This_It obj syns cnt:int
+
+! SYNTAX.ZIL
+Routine   0xa974 PauseSub 
+
+! SCENARIO.ZIL 
+Routine   0xa9a0 Good_scenario_f flg stuff ld tmp
+Routine   0xacb4 Bad_scenario_f flg stuff
+Routine   0xad30 Bystander_scenario_f flg stuff
+
+! DESC.ZIL
+Routine   0xae80 Describe_Room lookp vp str av
+Routine   0xaed8 Describe_Objects o str av tmp
+Routine   0xafb4 DescribeContents obj level:int allp f n firstp itp twop startp parap db
+Routine   0xb12c DescribeStart obj n
+Routine   0xb1ac DescribableP obj:object contp:bool
+Routine   0xb1e0 SimpleDesc obj:object str:^routine(?,rarg,object)
+
+! VERBS.ZIL 
+Routine   0xb4d8 BriefSub 
+Routine   0xb534 SuperbriefSub 
+Routine   0xb54c SaveSub local1 local2 
+Routine   0xb5c0 RestoreSub 
+Routine   0xb5e4 ScriptSub 
+Routine   0xb5fc UnscriptSub 
+Routine   0xb614 Transcript sub
+Routine   0xb640 DiagnoseSub 
+Routine   0xb6bc InventorySub 
+Routine   0xb6f0 QuitSub 
+Routine   0xb708 RestartSub 
+Routine   0xb72c Do_You_Wish str:string
+Routine   0xb744 YesP to_person:bool
+Routine   0xb7b8 Yes_WordP wrd:dictword
+Routine   0xb7cc Finish contin w
+Routine   0xb8e0 VersionSub offset:int v
+Routine   0xb994 RandomSeedSub 
+Routine   0xb9bc DbgIDSub 
+Routine   0xb9e0 VerifySub 
+Routine   0xba20 AdvanceSub 
+Routine   0xba28 WakeSub 
+Routine   0xba4c AnswerSub 
+Routine   0xba68 ArrestSub 
+Routine   0xba84 AskAboutSub 
+Routine   0xbaa8 AskForSub 
+Routine   0xbac4 BiteSub 
+Routine   0xbad0 PullSub 
+Routine   0xbae8 PreBoardSub 
+Routine   0xbb00 BoardSub 
+Routine   0xbb10 PurchaseSub 
+Routine   0xbb1c PurchaseWithSub local1 
+Routine   0xbb24 PayForSub local1 
+Routine   0xbb2c CallSub 
+Routine   0xbb54 LookObjSub 
+Routine   0xbb5c PreLookObjSub 
+Routine   0xbbe0 CleanSub 
+Routine   0xbc00 ClimbNulSub 
+Routine   0xbc14 ClimbSub 
+Routine   0xbc34 ClimbDownSub 
+Routine   0xbc54 ClimbOnSub 
+Routine   0xbcc4 ClimbOverSub 
+Routine   0xbcd8 ClimbUpSub 
+Routine   0xbcf8 CloseSub 
+Routine   0xbd40 CountSub 
+Routine   0xbd48 CrawlUnderSub 
+Routine   0xbd58 CutUsingSub 
+Routine   0xbda8 DigSub 
+Routine   0xbdb0 DisembarkSub 
+Routine   0xbe00 DrinkSub 
+Routine   0xbe10 DrinkFromSub 
+Routine   0xbe18 DropSub 
+Routine   0xbe28 Special_Drop
+Routine   0xbe2c EatSub 
+Routine   0xbe54 EmptySub local1 local2 
+Routine   0xbec4 EnterSub 
+Routine   0xbee4 ExamineSub 
+Routine   0xbf44 LookAtSub 
+Routine   0xbf50 ReadObjSub 
+Routine   0xbf60 ExitSub 
+Routine   0xbf68 FeedSub 
+Routine   0xbf80 FillSub 
+Routine   0xbf9c FindSub local1 local2 
+Routine   0xc064 FlushSub 
+Routine   0xc080 FollowSub 
+Routine   0xc0b4 PreGiveSub 
+Routine   0xc0cc GiveSub 
+Routine   0xc100 HelloSub 
+Routine   0xc148 HideInSub 
+Routine   0xc170 HideBehindSub 
+Routine   0xc178 HoldSub 
+Routine   0xc180 EnterSub 
+Routine   0xc194 InflateSub 
+Routine   0xc19c KickSub 
+Routine   0xc1a8 KillSub 
+Routine   0xc1bc KissSub 
+Routine   0xc1e0 KnockSub 
+Routine   0xc1f8 JumpSub 
+Routine   0xc224 JumpOffSub 
+Routine   0xc22c GoAwaySub 
+Routine   0xc254 LieOnSub 
+Routine   0xc25c ListenSub 
+Routine   0xc2e8 PreLockSub 
+Routine   0xc2ec LockSub 
+Routine   0xc2f8 LookAroundSub 
+Routine   0xc304 LookBehindSub 
+Routine   0xc324 LookDownSub 
+Routine   0xc338 What_Contents
+Routine   0xc360 LookThruSub 
+Routine   0xc40c LookOverSub 
+Routine   0xc414 LookUnderSub 
+Routine   0xc448 LookUpSub 
+Routine   0xc468 LowerSub 
+Routine   0xc470 MakeSub 
+Routine   0xc480 MoveObjSub 
+Routine   0xc4cc DestroySub 
+Routine   0xc4d8 NegativeSub 
+Routine   0xc4f0 ResetObjSub 
+Routine   0xc500 StopSub 
+Routine   0xc534 ExtinguishSub 
+Routine   0xc53c StartSub 
+Routine   0xc560 SwitchOnSub 
+Routine   0xc56c Cant_Turn str
+Routine   0xc57c PointSub 
+Routine   0xc5fc PickSub 
+Routine   0xc608 PickUpSub 
+Routine   0xc614 PlaySub 
+Routine   0xc61c InsertInSub 
+Routine   0xc624 Unscript5Sub local1 
+Routine   0xc630 PourSub 
+Routine   0xc638 PutInSub 
+Routine   0xc644 PreDropInSub 
+Routine   0xc6a8 DropInSub local1 local2 local3 
+Routine   0xc79c PutBehindSub 
+Routine   0xc7a4 InsertSub 
+Routine   0xc7d0 LowerSub 
+Routine   0xc7f8 PutUnderSub 
+Routine   0xc800 RaiseSub 
+Routine   0xc80c ReachInSub local1 
+Routine   0xc864 PreExamineSub 
+Routine   0xc888 ReadSub 
+Routine   0xc89c UnwrapSub 
+Routine   0xc8b0 TearSub 
+Routine   0xc8bc HelpSub 
+Routine   0xc8dc SaySub local1 
+Routine   0xc94c ScoreSub 
+Routine   0xc960 SearchSub 
+Routine   0xc9c8 SwitchOnSub 
+Routine   0xc9e8 GiveReverseSub 
+Routine   0xc9f4 ShakeSub 
+Routine   0xca20 ShakeWithSub 
+Routine   0xca50 ShowSub 
+Routine   0xca68 SignSub 
+Routine   0xca70 RestSub 
+Routine   0xca78 HopSub 
+Routine   0xca98 SleepSub 
+Routine   0xcaa4 SmellSub 
+Routine   0xcac4 SmileSub 
+Routine   0xcacc SpinSub 
+Routine   0xcad8 CoverSub 
+Routine   0xcae4 ShowReverseSub 
+Routine   0xcaf0 StandUpSub 
+Routine   0xcb0c StandOnSub 
+Routine   0xcb14 WarnSub 
+Routine   0xcb1c PreUnscript0Sub 
+Routine   0xcc2c Unscript0Sub 
+Routine   0xcc3c TakeOffSub local1 
+Routine   0xccc0 TalkSub 
+Routine   0xcd80 WarnAboutSub 
+Routine   0xcda8 ThanksSub 
+Routine   0xcdd4 ThrowSub 
+Routine   0xcdf4 ThrowOffSub 
+Routine   0xcdfc TieToSub 
+Routine   0xce0c TieSub 
+Routine   0xce18 TieObjSub 
+Routine   0xce20 TouchSub 
+Routine   0xce30 UnlockSub 
+Routine   0xce58 UntieSub 
+Routine   0xce60 UseSub 
+Routine   0xce88 GoDirSub local1 local2 local3 local4 local5 
+Routine   0xcf8c GoAroundSub 
+Routine   0xcfa8 ApproachSub 
+Routine   0xcfc0 WaitSub local1 local2 local3 
+Routine   0xd02c WaitObjSub 
+Routine   0xd040 WaitForSub 
+Routine   0xd068 WaitOnSub 
+Routine   0xd07c WaveObjSub 
+Routine   0xd084 WaveSub 
+Routine   0xd0a8 WearSub 
+Routine   0xd0e8 WhatIsSub 
+Routine   0xd110 WhereSub 
+Routine   0xd124 WhoSub 
+Routine   0xd14c WhySub 
+Routine   0xd164 YellSub 
+Routine   0xd18c AffirmativeSub 
+Routine   0xd194 ITake vb:bool cnt obj
+Routine   0xd280 IDrop:rvalues
+Routine   0xd348 CCount obj:object cnt:int x
+Routine   0xd35c QueryWeight obj:object cont wt:int
+Routine   0xd3a8 Goto newloc:object desc:bool oldhere:object
+Routine   0xd4c0 BackTrack newlock:object toolate:bool
+Routine   0xd534 JigsUp desc:string contin:bool flg:bool loc:object
+Routine   0xd7a4 Bomb_in_TowerP loc:object
+Routine   0xd7bc AccessibleP obj:object l
+Routine   0xd7fc VisibleP obj:object l
+Routine   0xd820 Meta_Loc obj:object
+Routine   0xd838 OtherSide dobj:object p:int tee
+Routine   0xd858 UltimatelyIn obj:object whr
+Routine   0xd86c HeldP obj:object cont:bool
+Routine   0xd890 SeeInsideP obj:object
+Routine   0xd8a4 Global_InP obj1:object obj2:object tee
+Routine   0xd8bc FindIn where:object flag_in_question str:string obj:object
+Routine   0xd8e8 DirectionP obj:object
+Routine   0xd900 Loc_Closed
+Routine   0xd92c DoWalk dir:property
+Routine   0xd938 Stop
+Routine   0xd944 HackHack str:string
+Routine   0xd954 Impossibles
+Routine   0xd960 Wastes
+Routine   0xd96c WatchSub 
+Routine   0xd974 ShootAtSub 
+Routine   0xd980 ShootSub 
+Routine   0xd9c0 LubricateSub 
+Routine   0xd9d8 TakeSub 
+Routine   0xd9ec LoadSub 
+Routine   0xd9f8 LoadInSub 
+Routine   0xda04 PutBackSub 
+Routine   0xda30 PhotographSub 
+Routine   0xdba8 RewindSub 
+Routine   0xdbbc CrossSub 
+Routine   0xdbdc FoldSub 
+Routine   0xdbf0 UnfoldSub 
+Routine   0xdbfc SurrenderSub 
+Routine   0xdc18 ThrowObjObjSub 
+Routine   0xdc78 SoakSub 
+Routine   0xdc84 BribeSub 
+Routine   0xdc94 PressSub 
+Routine   0xdca0 StrangleSub 
+Routine   0xdcb4 HintsOffSub 
+Routine   0xdcdc AttackSub 
+Routine   0xdce8 StackSub 
+Routine   0xdcf8 Flush_bad_scenario sc f n
+Routine   0xdd1c SlowSub 
+Routine   0xdd2c FastSub 
+Routine   0xdd44 PullSub 
+
+! GLOBALS.ZIL 
+Routine   0xdd5c DbgRefreshSub local1 
+Routine   0xdd8c Init_Status_Line height dont_clear:bool
+Routine   0xddbc Inverse_Line center_half:bool
+Routine   0xddd0 Print_Spaces cnt:int
+Routine   0xdddc Status_Line len:int loc:object
+Routine   0xddec Here_Tell pad:bool len:int
+Routine   0xde98 NotHereObjectF tbl prsop:bool obj:object x:bool
+Routine   0xdf68 Prso_Moby_Verb
+Routine   0xdf84 Prsi_Moby_Verb
+Routine   0xdf90 FindNotHere tbl prsop:bool m_f obj
+Routine   0xdfd8 Not_Here_Print prsop:bool tmp
+Routine   0xe014 Ground_f
+Routine   0xe120 Ceiling_f
+Routine   0xe154 Hands_f actor:object
+Routine   0xe1a8 Me_f
+Routine   0xe2c0 Global_Room_f
+Routine   0xe320 Sky_f
+Routine   0xe460 TouchingP thing:object
+Routine   0xe4b0 HurtP thing:object
+Routine   0xe4d4 Prso_Print ptr
+Routine   0xe500 Prsi_Print ptr
+Routine   0xe52c CantSee obj:object str:string
+Routine   0xe568 Cant_verb_a_Prso str:string
+Routine   0xe578 Tell_Hit_Head
+Routine   0xe5a0 Referring foo
+
+! HINTS.ZIL
+Routine   0xe5bc HintSub curq curl chr maxq malx q
+Routine   0xe78c Display_Hint n h mx cnt:int chr flg:bool
+Routine   0xe898 Put_Up_Questions st mxq mxl ln
+Routine   0xe8e4 Init_Hint_Screen wid:int len:int
+Routine   0xe940 Center_Line ln:int str:string len:int inv:bool
+Routine   0xe978 Left_Line len:int str:string inv:bool
+Routine   0xe994 Right_Line ln:int str:string len:int inv:bool
+
+! GOOD.ZIL
+Routine   0xe9c8 I_120_Seconds
+Routine   0xe9f0 I_30_seconds tmp:object hf:object oc:object tmp2
+Routine   0xea90 Gone_to_the_DogsP dl ndl bogey:object bmove n:bool s:bool e:bool w:bool t1 t2 f
+Routine   0xef38 Global_Tourniquet_F
+Routine   0xefd4 Ripped_Clothes_F
+Routine   0xf068 Body_Parts_F
+Routine   0xf0a4 Arm_F
+Routine   0xf2d4 Clothes_F
+Routine   0xf3c4 I_200_Seconds
+Routine   0xf468 Watching_Object_F
+Routine   0xf474 Timing_Object_F tmp
+Routine   0xf580 Redisplay_Chronograph tmp
+Routine   0xf594 Searchlights_F
+Routine   0xf744 SL_Cycle
+Routine   0xf75c G_Cycle
+Routine   0xf774 SL_Tell tmp:bool
+Routine   0xf7c8 Sl_Pos_Str l:int
+Routine   0xf7dc Sl_Pos_Str_Ab l:int
+Routine   0xf7f0 Sl_Pos l:int
+Routine   0xf7fc Nomans_Move tbl mvs mv:int off:int sl tmp
+Routine   0xfad0 Pause n
+Routine   0xfae0 I_Read_False
+Routine   0xfae4 SL_Caught_Start
+Routine   0xfb94 Slowdown diagnosep:bool flg:int
+Routine   0xfc54 In_The_SpotlightP you it sl
+Routine   0xfc78 Turn_SL off tbl sl tmp
+Routine   0xfca0 Global_Dogs_F b l hf
+Routine   0xfd50 I_Dogs dl:object hf ndl
+Routine   0xff5c How_Far l1 l2 carp:bool tmp1 tmp2
+Routine   0xff9c NS_Diff l1 l2 tmp
+Routine   0xffb0 EW_Diff l1 l2 tmp
+Routine   0xffc4 Car_F
+Routine  0x1012c Car_Window_F
+Routine  0x1016c Car_Stuff_F
+Routine  0x101b4 Global_Car_F hf
+Routine  0x10334 I_Cars forcep:bool
+Routine  0x103cc Tell_Direction fr:object to:object n:bool s:bool w:bool e:bool t1 t2
+Routine  0x10420 Ret_Direction fr to n:bool s:bool w:bool e:bool t1 t2 
+Routine  0x10494 Car_Nearly_Hits
+Routine  0x104a0 Run_Car_Sequence
+Routine  0x10a38 Run_Scout_Sequence ss tbl
+Routine  0x10aa4 Scout_Catches
+Routine  0x10ab0 Guards_Spotted
+Routine  0x10abc Car_Spotted
+Routine  0x10ac8 Wrong_Scenario
+Routine  0x10ae4 Swamp_F
+Routine  0x10c18 Guard_Distance tick
+Routine  0x10c38 In_Guard_ViewP mt:int
+Routine  0x10c50 Run_Wood_Sequence l:object nl
+Routine  0x10c98 Hut_Munger rm:object prp pt dst
+Routine  0x10ce0 Global_Searchlights_F
+
+! BORDER.ZIL
+Routine  0x10d5c Outf_F rarg:rarg
+Routine  0x10e48 Car_Guards_F
+Routine  0x10eb0 Global_Scout_F
+Routine  0x10ed0 Scout_Tell lookp:bool ss:string
+Routine  0x10fbc Guards_F mt pos dir facep tmp
+Routine  0x112c4 Flush_Watcher
+Routine  0x112e0 Face_Tell facep:bool crp:bool
+Routine  0x1130c Inf_F rarg:rarg
+Routine  0x11430 Fence_Cross
+Routine  0x1143c Fence_Hole_F
+Routine  0x114e0 Guard_Catch
+Routine  0x114e8 Guard_Move_Twr rm:object
+Routine  0x11550 Guard_Move_Bdr
+Routine  0x11558 Guard_Move_Inf
+Routine  0x11564 Ladder_Climb
+Routine  0x11594 Ladder_Descend
+Routine  0x115dc Global_Machine_Gun_F
+Routine  0x11688 Matchine_Gun_F
+Routine  0x1174c Tower_Entry
+Routine  0x11784 Ladder_Top_F rarg:rarg gd tmp
+Routine  0x119ec Brace_Post_F
+Routine  0x11a48 Tower_Door_F
+Routine  0x11b8c I_Guard_Back
+Routine  0x11ba8 Guard_Leg_F gd
+Routine  0x11cb4 Start_Guard_Chase gd
+Routine  0x11ccc Injured_Guard_F
+Routine  0x11cf8 Int_Time
+Routine  0x11d00 I_Tower
+Routine  0x11da8 I_Charge
+Routine  0x11e60 I_Catch
+Routine  0x11e70 Brace_F
+Routine  0x11f78 Twr_F rarg:rarg
+Routine  0x1205c Binoculars_F
+Routine  0x123e8 At_NmlP
+Routine  0x123f8 Exploding_Pen_F
+Routine  0x12650 I_Fuse rm rma l
+Routine  0x13084 Flaming_Car_F
+Routine  0x13144 Demolish_Car
+Routine  0x13160 Car_in_View l:object
+Routine  0x131a4 I_Man_Back
+Routine  0x131c4 Bomb_Tell rm:object hf
+Routine  0x13218 Pen_Poof
+Routine  0x13248 Pen_Cap_F
+Routine  0x13350 Timer_Button_F
+Routine  0x13410 Ladder_F
+Routine  0x13580 Posts_F l:object
+Routine  0x13684 Post_F
+Routine  0x13814 Border_Fence_F
+Routine  0x13978 Brd_F rarg:rarg
+Routine  0x139f8 Tower_F
+Routine  0x13c4c Generic_Fence
+Routine  0x13c70 Fence_Sign_F
+Routine  0x13ca8 Sign_Reader
+Routine  0x13cf8 Fence_F across_tmp
+Routine  0x14200 Edge_Room_F rarg:rarg
+Routine  0x1439c Border_Field_f
+Routine  0x143ac Tracks_F flg:bool
+Routine  0x14404 Road_F
+Routine  0x14420 Tracks_Room_F rarg:rarg
+Routine  0x1454c Forest_Room_F rarg:rarg
+Routine  0x14578 Shed_Move
+Routine  0x145b4 Outside_Shed_Wf frm
+Routine  0x145d4 Boldtell str:string cr:bool
+Routine  0x145f0 Outside_Shed_F rarg:rarg
+Routine  0x14678 Wood_Pile_F
+Routine  0x14764 Fake_Tools_F
+Routine  0x14798 Assorted_Tools_F
+Routine  0x14828 Hammer_F
+Routine  0x14840 Wood_Saw_F
+Routine  0x14878 Shed_Window_F
+Routine  0x149d0 Leave_Shed
+Routine  0x149dc Shed_F
+Routine  0x14a38 Inside_Shed_WF frm
+Routine  0x14a40 Inside_Shed_F rarg:rarg
+Routine  0x14ab8 D5_F rarg:rarg
+Routine  0x14bd8 Chimney_F
+Routine  0x14c1c Huf_F rm:object
+Routine  0x14e10 LKP thing tbl size frob
+Routine  0x14e2c D5-WF frm
+Routine  0x14e7c Outside_Hut_F rarg:rarg
+Routine  0x14f2c Outside_Hut_WF frm
+Routine  0x14f74 North_Hut_F rarg:rarg
+Routine  0x14ff4 Car_Seq_Tell
+Routine  0x151e4 Hut_Window_F h
+Routine  0x153b0 South_Hut_F rarg:rarg
+Routine  0x15460 Behind_Hut_F rarg:rarg
+Routine  0x15530 Hut_Back_Door_F
+Routine  0x156d4 Man_at_HomeP
+Routine  0x156e4 Hut_Front_Door_F
+Routine  0x15768 Hut_Storage_Exit
+Routine  0x157a8 Hut_Storage_WF frm
+Routine  0x15884 Hut_Storage_F rarg:rarg
+Routine  0x158dc Door_Tell d:object
+Routine  0x158f0 Hut_Wood_F
+Routine  0x1595c TakeableP obj:object f:object
+Routine  0x15970 Global_Hut_Man_F
+Routine  0x159b4 Hut_Man_Desc str:string
+Routine  0x15b38 Hut_Living_Wf frm
+Routine  0x15c78 Owner_Notices
+Routine  0x15c98 Man_to_Living_Room
+Routine  0x15ca4 Man_Catches hme
+Routine  0x15d0c Hut_Living_F rarg:rarg
+Routine  0x15e40 Hut_Map_F
+Routine  0x15e8c Misc_Living_F
+Routine  0x15ebc Oil_Can_F
+Routine  0x15f0c Generic_Shoes
+Routine  0x15f28 Knapsack_F
+Routine  0x15f74 Shoes_F
+Routine  0x1618c Misc_Clothing_F
+Routine  0x161c4 Misc_Furniture_F
+Routine  0x161e8 Road_End_F rarg:rarg
+Routine  0x16268 Road_Room_F rarg:rarg
+Routine  0x1631c G4_Swamp
+Routine  0x16324 E7_Swamp
+Routine  0x1632c E8_Swamp
+Routine  0x16334 D9_Swamp
+Routine  0x1633c G5_Swamp
+Routine  0x16344 F6_Swamp
+Routine  0x1634c Swamp_Move_Tell
+Routine  0x163d8 Swamp_Room_F rarg:rarg
+Routine  0x164b4 Roadblock_F
+Routine  0x164f4 Swamp_Move
+Routine  0x16538 Train_F
+Routine  0x165c4 Forest_F
+Routine  0x16630 Global_Hut_F
+Routine  0x16714 T_Station_F
+Routine  0x1678c Global_Tunnel_F
+Routine  0x16800 Global_Snow_F
+Routine  0x1682c Global_Trees_F
+Routine  0x1687c Global_Border_F
+
+! BYSTANDER.ZIL
+Routine  0x168cc Plat_Fence_F
+Routine  0x1690c Platform_Move_1
+Routine  0x16914 Platform_Move_2
+Routine  0x1691c Platform_Move_3
+Routine  0x16924 Platform_Move_4
+Routine  0x1692c Platform_Move rm:object
+Routine  0x16b40 Platform_Room_F rarg:rarg
+Routine  0x16da0 Plat_Guards_F
+Routine  0x16e5c Plat_People_F
+Routine  0x16efc Global_Contact_F
+Routine  0x16fe4 Global_Compartment_F
+Routine  0x17094 Comp_5_F rarg:rarg
+Routine  0x17220 Comp_Cord_F
+Routine  0x17280 Comp_Rack_F
+Routine  0x172a8 Comp_Seat_F
+Routine  0x174a0 Comp_Window_F
+Routine  0x175a8 Pass_Window_F
+Routine  0x17774 Global_Bad_Spy_F
+Routine  0x1784c Pass_F rarg:rarg bsl
+Routine  0x179bc HstP
+Routine  0x179d8 Comp_5_Enter
+Routine  0x17a14 Comp_Move
+Routine  0x17a5c Lavatory_Move
+Routine  0x17a94 Pass_Move_1
+Routine  0x17a9c Pass_Move_2
+Routine  0x17aa8 Pass_Move_3
+Routine  0x17ab4 Pass_Move_4
+Routine  0x17ac0 Pass_Move_5
+Routine  0x17ac8 Pass_Move_6
+Routine  0x17ad0 Pass_Move whr nfp bsl
+Routine  0x17c9c Doc_Check
+Routine  0x17d5c Hst_Check bsl whr str tmp
+Routine  0x17d90 Lavatory_Exit
+Routine  0x17d9c Comp_Exit door:object pass:object
+Routine  0x17de8 Comp_N_F rarg:rarg
+Routine  0x17e00 Comp_N_Door_F
+Routine  0x17e9c Lavatory_F rarg:rarg
+Routine  0x17f6c Lav_Toilet_F
+Routine  0x180ac I_Shred
+Routine  0x180b4 Down_the_Drain obj:object size:int off:int f n
+Routine  0x18124 Global-Lavatory-F
+Routine  0x181f4 Briefcase_F 
+Routine  0x1821c Camera_F film shot
+Routine  0x18628 Color_Roll_F 
+Routine  0x18660 Phony_Film_F f
+Routine  0x186d4 Generic_Film f
+Routine  0x186e8 Exposed_Roll_F 
+Routine  0x187b4 Rewind_Film 
+Routine  0x187f4 Global_Film_F 
+Routine  0x18814 Toothbrush_F 
+Routine  0x18858 Teeth_F 
+Routine  0x18874 Bystander_Watch_F 
+Routine  0x188e4 Tweezers_F 
+Routine  0x1892c Picture_F 
+Routine  0x1894c Take_A_picture film shot
+Routine  0x18a9c Bystander_Clothes_F 
+Routine  0x18b78 Carnation_F 
+Routine  0x18c3c Bad_Spy_F 
+Routine  0x18df4 I_Bad_Spy sm
+Routine  0x190dc Bad_Interview forcep:bool
+Routine  0x1974c Comp_Blood_Stain_F 
+Routine  0x1986c I_Bad_Waits 
+Routine  0x19954 I_Bad_Lav_Waits 
+Routine  0x199a0 Graffiti_F 
+Routine  0x19a20 Towel_Dispenser_F 
+Routine  0x19bc8 Paper_Towel_F 
+Routine  0x19c38 Lav_Sink_F 
+Routine  0x19d18 Global_Tail_F 
+Routine  0x19d7c Global_Water_F 
+Routine  0x19e88 Lav_Faucet_F 
+Routine  0x19fd0 Document_F 
+Routine  0x1a148 Shred_F 
+Routine  0x1a198 Shreds_F 
+Routine  0x1a244 Lav_Mirror_F 
+Routine  0x1a2d0 Lav_Window_F 
+Routine  0x1a3cc I_Bad_Tunnel 
+Routine  0x1a3e0 I_Bad_Tunnel_End 
+Routine  0x1a490 I_Bad_Border itm tmp
+Routine  0x1abc0 Dont_Confiscate obj:object
+Routine  0x1ac8c Confiscate_Film obj:object
+Routine  0x1ad2c Remove_If_InP obj:object cnt
+Routine  0x1ad34 Camera_Search obj:object
+Routine  0x1aee8 Finding_Nothing obj:object
+Routine  0x1af10 They_Start_With obj:object
+Routine  0x1af58 Bad_Found itm cnt
+Routine  0x1b210 Bad_Search obj:object fnd
+Routine  0x1b23c Remove_To_Bottom obj:object n f
+Routine  0x1b260 By_Gun_F 
+Routine  0x1b294 By_Guards_F 
+Routine  0x1b3fc Say_It_In_Frobnian_F 
+Routine  0x1b40c Passport_F 
+Routine  0x1b440 Ticket_F 
+Routine  0x1b46c Plat_Train_F 
+Routine  0x1b53c I_Gormnash 
+Routine  0x1b614 I_Platform 
+Routine  0x1b7c4 Pick_Wrong_Bumper tmp
+Routine  0x1b7d4 Scene_1_arrest 
+Routine  0x1b8f8 Bumper_F 
+Routine  0x1ba70 Scene_1_finish obj:object photo:^array(object)
+Routine  0x1bb68 Bad_ArrestP 
+Routine  0x1bd1c Fz_Excuses 
+Routine  0x1bd5c Fz_My_Fault 
+Routine  0x1bdb4 Siif ptr len:int flen foff fexp tmp fwrd fwlen
+
+! BAD.ZIL
+Routine  0x1be70 Topaz_Thought cr:bool
+Routine  0x1be88 Bad_Gun_F
+Routine  0x1bf10 Bad_Watch_F
+Routine  0x1bf88 I_Assassination
+Routine  0x1bfb0 I_Festivities str:string fc
+Routine  0x1bfe4 Square_ViewP
+Routine  0x1bff8 Matches_F
+Routine  0x1c0f8 Cigarette_F
+Routine  0x1c1a0 Bb2_Move
+Routine  0x1c1a8 Bb1_Move rm:object
+Routine  0x1c23c Building_F
+Routine  0x1c3a0 Antique_Sign_F
+Routine  0x1c3c8 Antique_Shop_F rarg:rarg
+Routine  0x1c4c4 Crowd_F
+Routine  0x1c578 Antique_Storage_F rarg:rarg
+Routine  0x1c600 Curios_F foo
+Routine  0x1c670 Rare_Books_F
+Routine  0x1c678 Antique_Counter_Door_F
+Routine  0x1c6d0 Antique_Conversation_F
+Routine  0x1c72c Police_F
+Routine  0x1c7c8 Antique_Street_Door_F
+Routine  0x1c83c I_Customer_Leaves
+Routine  0x1c864 Counter_Enter:object
+Routine  0x1cc28 I_Police_Enter
+Routine  0x1cca4 Counter_F
+Routine  0x1ccfc Proprietor_F
+Routine  0x1cdb4 Customer_F
+Routine  0x1cef8 Antique_Enter
+Routine  0x1d078 Global_Window_F
+Routine  0x1d0a8 Global_Bldgs_F
+Routine  0x1d124 Square_Buildings_F
+Routine  0x1d214 Column_F
+Routine  0x1d294 Dais_F
+Routine  0x1d2c4 Huttinger_F
+Routine  0x1d354 Mayor_F
+Routine  0x1d398 Dignitaries_F
+Routine  0x1d44c Apartment_Guards_F
+Routine  0x1d4b4 Directory_F
+Routine  0x1d4c0 Apartment_Lobby_F rarg:rarg
+Routine  0x1d4cc Elevator_F
+Routine  0x1d574 Elevator_Operator_F
+Routine  0x1d620 Waiter_F
+Routine  0x1d6c4 Cafe_Food_F
+Routine  0x1d700 Cafe_Table_F
+Routine  0x1d72c Bldg_2_f rarg:rarg
+Routine  0x1d94c I_Topaz_Spots
+Routine  0x1d970 Alley_Move
+Routine  0x1d994 Alley_1_f rarg:rarg
+Routine  0x1daac Business_Card_F
+Routine  0x1dab8 Can_Be_Found
+Routine  0x1dae4 Start_Chase
+Routine  0x1daf8 I_Topaz_End
+Routine  0x1db28 Topaz_Kills
+Routine  0x1dbe8 I_Topaz l:object tim n
+Routine  0x1e07c Real_Hall rm:object
+Routine  0x1e088 Hall_ObjectP rm:object
+Routine  0x1e094 In_PublicP obj:object l
+Routine  0x1e0b8 Food_F
+Routine  0x1e1b0 Vendor_Stuff_F
+Routine  0x1e2bc Vendor_F
+Routine  0x1e3c8 Vendor_Cart_F
+Routine  0x1e6ac Dynamic_Desc rm:object dir:property str:string
+Routine  0x1e6b8 Alley_23:object
+Routine  0x1e750 Alley_2_f rarg:rarg
+Routine  0x1e854 Alley_3_f rarg:rarg
+Routine  0x1e98c Boxes_F
+Routine  0x1ea3c Trash_Can_F
+Routine  0x1eb84 Fire_Window_F fl
+Routine  0x1ec14 Alley_F
+Routine  0x1ecd8 Fire_Ladder_F
+Routine  0x1ee28 Fire_Ladder_Reach
+Routine  0x1eee0 Fire_1_move
+Routine  0x1eeec Fire_2_move
+Routine  0x1eef8 Fire_3_move
+Routine  0x1ef04 Fire_4_move
+Routine  0x1ef10 Fire_5_move
+Routine  0x1ef1c Fire_Move rm:object str:string
+Routine  0x1efd4 Leave_Hall
+Routine  0x1f000 Elevator_Room_F rarg:rarg
+Routine  0x1f290 Elevator_Sequence ptr
+Routine  0x1f324 I_Elevator_Leaves
+Routine  0x1f338 Elevator_Door_F
+Routine  0x1f35c Elevator_Button_F
+Routine  0x1f39c I_Elevator_Arrives
+Routine  0x1f3c4 Hall_Door_F
+Routine  0x1f774 Check_Password
+Routine  0x1f978 Sniper_SpotsP obj:object off:int f n flg:bool
+Routine  0x1f9a8 Move_All from:object to:object f n
+Routine  0x1f9c0 Sniper_Window_F
+Routine  0x1fa28 Sniper_F weapon:object
+Routine  0x1fe18 Sniper_Rifle_F
+Routine  0x1fea8 Sniper_Room_F rarg:rarg
+Routine  0x20010 Tell_Room_Number tmp
+Routine  0x20054 Fire_Room_F rarg:rarg fl
+Routine  0x200b4 Global_Topaz_F
+Routine  0x20340 Topaz_F
+Routine  0x2090c Remington_F
+Routine  0x20938 Gun_Point
+Routine  0x2095c Topaz_VisibleP tl:object
+Routine  0x209a0 Tell_Topaz_Movement tl:object
+Routine  0x20a0c Topaz_Desc bold:bool
+Routine  0x20c98 Pick_Name tbl ent off dir
+Routine  0x20cd0 Fill_Dir cnt:int tbl
+Routine  0x20ce8 Print_Open_Windows flr:int
+Routine  0x20d4c Pick_Open_Windows flr:int num h
+Routine  0x20da0 Sniper_Init
+Routine  0x20db0 Fill_Vacancies max cnt:int rnd
+Routine  0x20de8 Print_Apt_Dir cnt:int tmp tbl len
+
+! ONCE.ZIL
+Routine  0x20e7c Start_Scenario_1 intp:bool
+Routine  0x2139c Start_Scenario_2 intp:bool
+Routine  0x217f4 Start_Scenario_3 intp:bool
+Routine  0x21da4 Opening_Screen chr:char
+
+
+! ------------------------------- Words --------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

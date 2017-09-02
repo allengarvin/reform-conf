@@ -1,0 +1,990 @@
+! ----------------------------------------------------
+!   Witness_22_840924.reform
+!   ATG Release 2 Serial 070903
+!   Contents:
+!      Header
+!      Globals
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+
+! ------------------------------- Header -------------------------------
+
+MD5  12c8b49eedc41b004b594e3770df249d
+! CodeArea  0x4b26 
+CodeArea  0x4b26 0x97d2
+CodeArea  0xaac4 0x17d5d
+StringArea  0x17d5e  0x198d8
+
+Enum line_type OUTSIDE_LINE_C=4 INSIDE_LINE_C=1 MONICA_LINE_C=3 OFFICE_LINE_C=2
+Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_RELEASE=7 M_EIGHT=8 M_NINE=9 OTHER=100
+
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+! ------------------------------ Globals -------------------------------
+
+Global      159 Cor_16
+Global      118 P_table
+Global       52 AlwaysLit:bool
+Global       86 P_xnam
+Global       87 P_nam
+Global       84 P_xadj
+Global       85 P_adj
+Global       82 P_xadjn
+Global       83 P_adjn
+Global       61 QContext
+Global       89 P_slocbits:int
+Global      104 P_oflag
+Global      103 P_merged
+Global       18 MurderTime:int
+Global       68 Superbrief_on:bool
+Global       67 P_space:bool
+GlobalArray  64 Indents:array(6*string)
+Global       69 Verbose_on:bool
+Global       72 P_moby_found:object
+GlobalArray 156 CharacterTable:array(12*object)
+Global      154 PlayerHiding
+GlobalArray 150 PhonginKitchen:table(string)
+GlobalArray 151 PhongDoing:table(string)
+Global       31 PlayerNearShot
+Global      160 Cor_8
+Global      161 Cor_4
+Global      162 Cor_2
+Global      163 Cor_1
+Global       10 WireMatched:bool
+Global        8 SideFootprintsMatched:bool
+Global      152 PhongAdmittedHelping:bool
+Global      153 PhongHasMotive:object
+Global      146 MonicaHasMotive:object
+Global      164 PlayerPushedButton:bool
+Global      137 LinderSawMedicalReport:bool
+GlobalArray 149 LinderAsked:table(string)
+Global       27 TooLate:bool
+GlobalArray 148 StilesAsked:table(string)
+Global        7 BackFootprintsMatched:bool
+Global      124 Now_second:object
+Global       41 MetDuffy:bool
+Global      135 BuffySawMEdicalReport:bool
+Global       71 DebugOn:bool
+Global      166 ShotFired:bool
+Global      165 ButtonFixed:bool
+Global       43 BuffyWithStiles:bool
+Global       34 LinderFollowsYou:bool
+Global       32 LinderExplained:bool
+Global      144 Monica_tied_to:object
+Global       37 Welcomed:bool
+Global       66 FingerprintingObj:bool
+Global       13 DuffyAtCoroners:bool
+Global      171 FootprintsConfused:bool
+Global       44 GroundMuddy:bool
+Global      108 P_it_object:object
+Global        0 location:object
+Global       40 SeenDuffy:bool
+Global       42 MetStiles:bool
+Global      128 P_win
+Global        1 hours:int
+Global        2 minutes:int
+Global        4 Grandfather_clock_locked:bool
+Global       17 Murder_occurred:bool
+Global       21 Mr_Linder_dead:bool
+Global       49 turns:int
+Global       76 P_matchlen
+Global       79 P_buts
+Global       80 P_prsi
+Global       81 P_prso
+Global       91 P_number:int
+Global       95 P_quote_flag:bool
+Global       94 adverb:dictword
+Global       96 P_ncn:int
+Global       99 P_itbl
+Global      109 P_cont
+Global      110 P_inbuf
+GlobalArray 111 P_lexv:array(~int,~int,119*dictword)
+Global      112 actor:object
+Global      114 P_len
+Global      119 noun:object
+Global      120 second:object
+Global      121 action:action
+Global      129 Clock_wait
+Global      130 C_ints
+Global      132 C_table
+Global      133 Seen_movie:bool
+GlobalArray 141 Monica_reply:table(string)
+Global      143 Monica_tied_with:object
+Global      147 Monica_question_counter:int
+GlobalArray 167 Radio_programs:table(string)
+Global      168 Radio_on:string
+GlobalArray 169 Record_collection:table(string)
+Global      170 Current_record_playing:string
+GlobalArray 172 Prop_to_dir:array(12*(property,string))
+Global      173 Low_direction:int
+Global      174 Ten_thousand_unused:int
+GlobalArray 175 Prepositions:table(dictword,int)
+GlobalArray 176 Actions:array(130*routine)
+GlobalArray 177 Preactions:array(130*routine)
+Global      178 Verbs
+
+LastGlobal  178
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute    8 open
+Attribute   11 vowel_start
+Attribute    4 visited
+Attribute   17 locked
+Attribute    9 container
+Attribute   12 concealed
+Attribute   14 light    
+Attribute   15 dry_land     
+Attribute   16 supporter
+Attribute   19 scenery
+Attribute   21 readable
+Attribute   22 takeable
+Attribute   24 rmungbit
+Attribute   28 door
+Attribute   29 vehicle
+Attribute   30 weapon
+
+! ----------------------------- Properties -----------------------------
+
+Property     3 person_ndx:int
+Property     4 pseudo:pseudo
+Property     5 read_text:thing
+Property     6 living_action:^routine(int,rarg)
+Property     8 room_group_bit:int
+Property     9 adjectives:adjbytes
+Property    11 line:line_type
+Property    12 contains:objbytes
+Property    13 description:string
+Property    14 capacity:int
+Property    15 size:int
+Property    16 initial:string
+Property    17 referred_to:^routine(object,?)
+Property    18 action:^routine(int,rarg)
+Property    19 name:dictwords
+Property    20 out_to:exit
+Property    21 in_to:exit
+Property    22 d_to:exit
+Property    23 u_to:exit
+Property    24 w_to:exit
+Property    25 se_to:exit
+Property    26 nw_to:exit
+Property    27 ne_to:exit
+Property    28 out_to:exit
+Property    29 in_to:exit
+Property    30 s_to:exit
+Property    31 n_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1  unnamed1
+Object 2  unnamed2
+Object 3  midnight
+Object 4  film
+Object 5  house
+Object 6  meal
+Object 7  can_of_worms
+Object 8  water
+Object 9  ticket_stub
+Object 10  search_warrant
+Object 11  today
+Object 12  body_of_Mr_Linder
+Object 13  tumor
+Object 14  number
+Object 15  Linders_will
+Object 16  money
+Object 17  telephone_call
+Object 18  pair_of_muddy_boots
+Object 19  love_affair
+Object 20  white_wire
+Object 21  black_wire
+Object 22  butlers_button
+Object 23  coroner
+Object 24  weather
+Object 25  danger
+Object 26  Pacific_Trade_Associates
+Object 27  other_crime
+Object 28  suicide
+Object 29  murder
+Object 30  fingerprints
+Object 31  handwriting
+Object 32  key
+Object 33  set_of_house_keys
+Object 34  clock_key
+Object 35  autopsy
+Object 36  medical_report
+Object 37  shot
+Object 38  handgun
+Object 39  muddy_handgun
+Object 40  hidden_handgun
+Object 41  broom
+Object 42  threatening_note
+Object 43  cigarette
+Object 44  drink
+Object 45  bottle_of_Bourbon
+Object 46  bottle_of_Scotch
+Object 47  music
+Object 48  Brass_Lantern
+Object 49  floor
+Object 50  ground
+Object 51  pair_of_handcuffs
+Object 52  snub_nosed_Colt
+Object 53  match_book
+Object 54  telegram
+Object 55  gun_receipt
+Object 56  mystery_book
+Object 57  it
+Object 58  not_here_object
+Object 59  pseudo
+Object 60  hint
+Object 61  Sergeant_Duffy
+Object 62  late_Mrs_Linder
+Object 63  Terry
+Object 64  cat
+Object 65  cat_2
+Object 66  Monica
+Object 67  pair_of_Monicas_shoes
+Object 68  Monica_2
+Object 69  pair_of_Stiless_shoes
+Object 70  Mr_Stiles
+Object 71  Mr_Stiles_2
+Object 72  Mr_Linder
+Object 73  pair_of_Linders_shoes
+Object 74  Mr_Linder_2
+Object 75  Mr_Phong
+Object 76  pair_of_Phongs_shoes
+Object 77  Mr_Phong_2
+Object 78  unnamed3
+Object 79  detective
+Object 80  such_things
+Object 81  himself_or_herself
+Object 82  him_or_her
+Object 83  air
+Object 84  wire
+Object 85  green_wire
+Object 86  green_wire_spool
+Object 87  other_wire
+Object 88  shelf
+Object 89  hose
+Object 90  rake
+Object 91  hoe
+Object 92  spade
+Object 93  rope
+Object 94  hammer
+Object 95  saw
+Object 96  workshop
+Object 97  junction_box
+Object 98  workshop_door
+Object 99  car
+Object 100  car_window
+Object 101  red_sport_car
+Object 102  garage
+Object 103  blue_sedan
+Object 104  lounge
+Object 105  butlers_button_2
+Object 106  pair_of_green_wires
+Object 107  sample_of_powder
+Object 108  powder
+Object 109  keyhole
+Object 110  wooden_chair
+Object 111  carved_chair
+Object 112  grandfather_clock
+Object 113  picture
+Object 114  lot_of_business_papers
+Object 115  file_cabinet
+Object 116  chair
+Object 117  newspaper
+Object 118  desk
+Object 119  stuff_on_the_desk
+Object 120  garage_door
+Object 121  office_door
+Object 122  hallway
+Object 123  towel
+Object 124  linens
+Object 125  storage_door
+Object 126  storage_closet
+Object 127  other_shoes
+Object 128  shoe_platform
+Object 129  scroll
+Object 130  entry
+Object 131  flower_arrangement
+Object 132  hallway_2
+Object 133  butlers_bathroom
+Object 134  bathroom_door
+Object 135  butlers_room
+Object 136  end_table
+Object 137  butlers_door
+Object 138  hallway_3
+Object 139  hallway_4
+Object 140  kitchen_door
+Object 141  toaster
+Object 142  mixer
+Object 143  range_hood
+Object 144  range
+Object 145  bunch_of_cold_food
+Object 146  refrigerator
+Object 147  kitchen_clock
+Object 148  bunch_of_canned_food
+Object 149  cupboard
+Object 150  set_of_china
+Object 151  glass_collection
+Object 152  set_of_silverware
+Object 153  kitchen
+Object 154  cabinet
+Object 155  dining_bench
+Object 156  dining_table
+Object 157  swinging_door
+Object 158  dining_room
+Object 159  lamp
+Object 160  double_door
+Object 161  liquor_cabinet
+Object 162  radio
+Object 163  coffee_table
+Object 164  club_chair
+Object 165  davenport
+Object 166  wood_pile
+Object 167  fire
+Object 168  living_room
+Object 169  fieldstone_fireplace
+Object 170  chair_2
+Object 171  bedroom_door
+Object 172  dresser
+Object 173  four_poster_bed
+Object 174  Linders_bedroom
+Object 175  stuff_in_the_room
+Object 176  toilet_room
+Object 177  shower
+Object 178  potted_plants
+Object 179  bathtub
+Object 180  tub_room
+Object 181  cabinet_2
+Object 182  toilet_door
+Object 183  redwood_door
+Object 184  tub_door
+Object 185  bathroom
+Object 186  counter
+Object 187  closet
+Object 188  telephone
+Object 189  mirror
+Object 190  bed
+Object 191  cedar_door
+Object 192  bedroom_door_2
+Object 193  record_collection
+Object 194  book_case
+Object 195  bunch_of_movie_posters
+Object 196  stuff_on_the_table
+Object 197  Monicas_bedroom
+Object 198  dressing_table
+Object 199  rocks
+Object 200  bath_window
+Object 201  Linders_window
+Object 202  back_door
+Object 203  rock_garden
+Object 204  back_door_2
+Object 205  back_yard
+Object 206  chunk_of_putty
+Object 207  office
+Object 208  green_wire_piece
+Object 209  set_of_footprints
+Object 210  pile_of_broken_glass
+Object 211  lawn
+Object 212  office_window
+Object 213  back_door_3
+Object 214  office_porch
+Object 215  cast
+Object 216  back_yard_cast
+Object 217  back_gate
+Object 218  office_path
+Object 219  side_yard
+Object 220  side_yard_cast
+Object 221  limbo
+Object 222  set_of_footprints_2
+Object 223  bamboo_woods
+Object 224  driveway_entrance
+Object 225  driveway
+Object 226  door_bell
+Object 227  driveway_2
+Object 228  front_porch
+Object 229  kitchen_garden
+Object 230  fence
+Object 231  front_door
+Object 232  front_gate
+Object 233  bedroom_window
+Object 234  kitchen_window
+Object 235  French_door
+Object 236  house_2
+Object 237  front_yard
+Object 238  here
+Object 239  X
+Object 240  bathroom_2
+Object 241  back_door_4
+Object 242  bedroom_door_3
+Object 243  bedroom
+Object 244  bathroom_door_2
+Object 245  toilet
+Object 246  sink
+Object 247  local_globals
+Object 248  window
+Object 249  globals
+Object 250  place
+Object 251  Room_Holder
+
+! ------------------------------ Actions -------------------------------
+
+Action   0 Verify
+Action   1 Debug
+Action   2 DebugTa
+Action   3 DebugWh
+Action   4 Accuse
+Action   5 Analyze
+Action   6 AnalyzeOn
+Action   7 Answer
+Action   8 AnswerObj
+Action   9 ApplyTo
+Action  10 Arrest
+Action  11 Question
+Action  12 AskAbout
+Action  13 AskFor
+Action  14 AskPersonAbout
+Action  15 AskPersonFor
+Action  16 Attack
+Action  17 Brief
+Action  18 Clean
+Action  19 Call
+Action  20 Dial
+Action  21 ClimbObj
+Action  22 ClimbDown
+Action  23 EnterObj
+Action  24 Board
+Action  25 ClimbUp
+Action  26 Close
+Action  27 Compare
+Action  28 Confront
+Action  29 Curse
+Action  30 Destroy
+Action  31 Drink
+Action  32 Drop
+Action  33 Eat
+Action  34 Enter
+Action  35 Examine
+Action  36 SwitchOff
+Action  37 SearchFor
+Action  38 Finterprint
+Action  39 Follow
+Action  40 Give
+Action  41 GiveReverse
+Action  42 Goodbye
+Action  43 Handcuff
+Action  44 HandcuffTo
+Action  45 Hello
+Action  46 Help
+Action  47 Hide
+Action  48 HideBehind
+Action  49 PutUnder
+Action  50 Inventory
+Action  51 Kick
+Action  52 Kill
+Action  53 Kiss
+Action  54 Knock
+Action  55 WhatIs
+Action  56 Stand
+Action  57 StandOn
+Action  58 Leave
+Action  59 SwitchOn
+Action  60 Listen
+Action  61 Lock
+Action  62 Look
+Action  63 Read
+Action  64 LookBehind
+Action  65 LookDown
+Action  66 LookIn
+Action  67 LookOn
+Action  68 LookOut
+Action  69 LookUnder
+Action  70 LookUp
+Action  71 Make
+Action  72 Pull
+Action  73 Open
+Action  74 Pick
+Action  75 Take
+Action  76 Play
+Action  77 Press
+Action  78 Quit
+Action  79 Raise
+Action  80 Molest
+Action  81 Restart
+Action  82 Restore
+Action  83 Revive
+Action  84 Ring
+Action  85 Touch
+Action  86 RubOn
+Action  87 Pause
+Action  88 Talk
+Action  89 TalkAbout
+Action  90 Script
+Action  91 Search
+Action  92 SearchObjFor
+Action  93 Shoot
+Action  94 ShootReverse
+Action  95 ShowReverse
+Action  96 Show
+Action  97 SitOn
+Action  98 Hit
+Action  99 Smell
+Action 100 Smoke
+Action 101 Space
+Action 102 Superbrief
+Action 103 TakeObjObj
+Action 104 TakeOut
+Action 105 TellAbout
+Action 106 Thank
+Action 107 ThrowAt
+Action 108 ThrowThrough
+Action 109 Tie
+Action 110 Time
+Action 111 TurnTo
+Action 112 TurnDown
+Action 113 TurnUp
+Action 114 Unlock
+Action 115 Unscript
+Action 116 Unspace
+Action 117 Untie
+Action 118 Use
+Action 119 Verbose
+Action 120 Version
+Action 121 Wait
+Action 122 WaitFor
+Action 123 WaitUntil
+Action 124 Wake
+Action 125 Go
+Action 126 WalkAround
+Action 127 WalkOver
+Action 128 WalkTo
+Action 129 YesNo
+
+
+! ------------------------------ Routines ------------------------------
+
+Routine  0x4b26 Probability chance:int
+Routine  0x4b32 PickOne tbl
+Routine  0x4b42 DescribeLocation dir:property p:property
+Routine  0x4b62 GlobalRoomAction roomsize:int val:int
+Routine  0x4c9e HouseReference:object
+Routine  0x4cac WindowAction rm:object person_count:int
+Routine  0x4e38 GenericWindowAction:object obj:object
+Routine  0x4e6e WindowKnock rm:object
+Routine  0x4e94 WindowInP rm:object
+Routine  0x4eb2 ToiletAction rarg:rarg
+Routine  0x4ee4 GenericBathDoorAction:object obj:object
+Routine  0x4f28 GenericBedroomAction:object obj:object
+Routine  0x4f5e GenericBedroomDoorAction:object obj:object
+Routine  0x4f9e GenericBackDoorAction:object obj:object
+Routine  0x4ff2 ReferredToBathroomAction:object where:object
+Routine  0x5028 NullAction a1 a2
+Routine  0x502e PrintOpenOrClosed prefix:string obj:object suffix:string
+Routine  0x504c OtherSide where:object door:object prop:property addr
+Routine  0x507c FindIn rm:object attr:attribute exclude:object obj:object
+Routine  0x509e GlobalHereAction flag f hr
+Routine  0x5102 LockedAction:object obj
+Routine  0x512c Meta_Loc:object obj:object
+Routine  0x5150 OutsideP where:object
+Routine  0x5160 PhoneInP where:object
+Routine  0x516c WindowRoom:object where:object adjacent_outside_room:object UNUSED1 UNUSED2 UNUSED3
+Routine  0x51c0 GroundSurface:string
+Routine  0x51ec FrontPorchAction rarg:rarg
+Routine  0x520e DoorBellAction
+Routine  0x523e Driveway2Action rarg:rarg
+Routine  0x527c FootprintsAction rarg:rarg
+Routine  0x53ba SideYardCastAction
+Routine  0x53e6 DuffyTakesCast
+Routine  0x544c SideYardAction rarg:rarg
+Routine  0x54c0 SetOfFootprintsAction
+Routine  0x5558 ReferredToFootprints:object
+Routine  0x5586 ReferYard:object
+Routine  0x559c OfficePorchAction rarg:rarg
+Routine  0x5662 OfficeWindowAction
+Routine  0x57be CheckOtherSideOfWindow
+Routine  0x5800 GreenWireAction
+Routine  0x5842 PuttyAction
+Routine  0x5860 BackDoor3Action
+Routine  0x589e LawnAction
+Routine  0x58b6 DressingTableAction
+Routine  0x5934 CanHearRecordPlayer
+Routine  0x5952 RecordCollectionAction record:string
+Routine  0x59da RecordOverTimer UNUSED
+Routine  0x5a7c MonicaBedroomAction
+Routine  0x5b8e CounterAction
+Routine  0x5bb6 ShowerAction
+Routine  0x5c28 DresserAction
+Routine  0x5c94 LindersBedroomAction rarg:rarg
+Routine  0x5d62 CanHearRadio
+Routine  0x5d92 RadioAction UNUSED on_now:string
+Routine  0x5f04 LivingRoomAction rarg:rarg
+Routine  0x6044 ChinaAction
+Routine  0x6096 FoodAction
+Routine  0x60c2 KitchenClockAction
+Routine  0x60fe ApplianceAction
+Routine  0x6172 Hallway4Action rarg:rarg
+Routine  0x61e0 Hallway3Action rarg:rarg
+Routine  0x627a ButlerRoomAction rarg:rarg
+Routine  0x6296 ButlerBathroomAction rarg:rarg
+Routine  0x62b0 FlowersAction
+Routine  0x62f4 ShoePlatformAction
+Routine  0x6340 OtherShoesAction
+Routine  0x6380 EntryAction rarg:rarg
+Routine  0x6392 FrontDoorAction on_way:int
+Routine  0x641c LinensAction
+Routine  0x6458 NewspaperAction
+Routine  0x655a ReferredToChair:object
+Routine  0x65a4 BusinessPapersAction:rarg
+Routine  0x661c OfficeAction rarg:rarg
+Routine  0x6828 DeskAction rarg:rarg
+Routine  0x6944 CarvedChair rarg:rarg
+Routine  0x6a20 WoodenChair rarg:rarg
+Routine  0x6a5a GrandfatherClockAction
+Routine  0x6cf6 KeyholeAction
+Routine  0x6dae PowerAction
+Routine  0x6e0a PairOfGreenWiresAction
+Routine  0x6e46 ButlerButton2Action
+Routine  0x6f0e SportsCarAction UNUSED
+Routine  0x6f9e CarWindowAction
+Routine  0x702e ReferredToCar:object UNUSED
+Routine  0x705e GarageAction rarg:rarg
+Routine  0x715a JunctionBoxAction
+Routine  0x719a ToolAction
+Routine  0x71fe OtherWireAction
+Routine  0x7252 GreenWireSpoolAction
+Routine  0x72ba ReferredToWire:object obj:object
+Routine  0x7312 AirAction
+Routine  0x7396 AnyOpenDoors UNUSED prop:property pen:int paddr door:object
+Routine  0x73e2 Bitwise_calculate who propbit halved roomlist found rvalue
+Routine  0x744e SomeoneNearby roomsnearby who:object cnt:int here_ndx here:object room:object person:object
+Routine  0x7516 Find_room_group where:object place2:object room_group place1 ndx cnt:int bit
+Routine  0x7556 Find_room_array bit:int
+! end of places.zil
+
+Routine  0x7574 HimOrHerselfAction
+Routine  0x7598 PseudoAction
+Routine  0x7650 DetectiveAction
+Routine  0x7730 ActionVerbP
+Routine  0x77ae CanDoAction
+Routine  0x780c PhongAction rarg:rarg itm:object where:object
+Routine  0x8666 PhongFights
+Routine  0x86ae GiveKeysToDetective
+Routine  0x86fc MrLinderAction rarg:rarg itm:object where:object
+Routine  0x8ece MrStilesAction rarg:rarg itm:object where:object
+Routine  0x9724 ShoesAction
+Routine  0x97d2 MonicaAction rarg:rarg obj:object where:object itm linder_loc:object
+Routine  0xbaee print_article obj
+Routine  0xcce0 Queue:^array(bool) rtn:routine ticks:int cint
+Routine  0xccf4 QueueInterrupt:^array(bool) rtn:routine int2flag end c int
+Routine  0xcd34 Clocker c end tick flag
+Routine  0xcdfe CommandLoop icnt ocnt num cnt obj tbl v ptbl obj1 tmp UNUSED
+Routine  0xd3d8 Parser ptr word val vrb len dir nw tmpword num local10 cnt
+Routine  0xd7be Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
+Routine  0xd7e4 Clause ptr val word off num local6 local7 local8 tmpword
+Routine  0xd9d6 ParseNumber ptr len nptr digit num clocknum mult
+Routine  0xdb84 Word_Print cnt:int buf:int
+Routine 43716 routine43716
+Routine 43844 routine43844
+Routine 43858 routine43858
+Routine 43960 routine43960
+Routine 44152 routine44152
+Routine 44200 routine44200
+Routine 44234 routine44234
+Routine 46160 routine46160
+Routine 46176 routine46176
+Routine 46450 routine46450
+Routine 46478 routine46478
+Routine 46644 routine46644
+Routine 46674 routine46674
+Routine 46688 routine46688
+Routine 46752 routine46752
+Routine 47214 routine47214
+Routine 47238 routine47238
+Routine 47398 FindNotHere tbl noun_found:bool m_f:int obj:object
+Routine 47696 routine47696
+Routine 47760 routine47760
+Routine 47798 routine47798
+Routine 47904 routine47904
+Routine 47914 routine47914
+Routine 48206 routine48206
+Routine 48330 routine48330
+Routine 48358 routine48358
+Routine 48556 routine48556
+Routine 48736 routine48736
+Routine 48840 routine48840
+Routine 48944 routine48944
+Routine 49010 routine49010
+Routine 49274 routine49274
+Routine 49308 routine49308
+Routine 49602 routine49602
+Routine 49636 routine49636
+Routine 49922 routine49922
+Routine 50060 routine50060
+Routine 50126 routine50126
+Routine 50224 routine50224
+Routine 50290 routine50290
+Routine 50350 routine50350
+Routine 50400 routine50400
+Routine 50436 routine50436
+Routine 50562 routine50562
+Routine 50726 routine50726
+Routine 50860 routine50860
+Routine 50886 routine50886
+Routine 51284 routine51284
+Routine 51516 routine51516
+Routine 51598 routine51598
+Routine 51636 routine51636
+Routine 51970 routine51970
+Routine 52010 routine52010
+Routine 52130 routine52130
+Routine 52250 routine52250
+Routine 52328 routine52328
+Routine 52390 routine52390
+Routine 52426 routine52426
+Routine 52664 routine52664
+Routine 53226 routine53226
+Routine 53320 routine53320
+Routine 53334 routine53334
+Routine 53436 routine53436
+Routine 53922 routine53922
+Routine 53958 routine53958
+Routine 54074 routine54074
+Routine 54086 routine54086
+Routine 54094 routine54094
+Routine 55916 routine55916
+Routine 56164 routine56164
+Routine 56218 routine56218
+Routine 56280 routine56280
+Routine 56356 routine56356
+Routine 56836 routine56836
+Routine 56890 routine56890
+Routine 56982 routine56982
+Routine 57008 routine57008
+Routine 57202 routine57202
+Routine 57246 routine57246
+Routine 57306 routine57306
+Routine 57406 routine57406
+Routine 57440 routine57440
+Routine 57478 routine57478
+Routine 57490 routine57490
+Routine 57608 routine57608
+Routine 57706 routine57706
+Routine 57784 routine57784
+Routine 58086 routine58086
+Routine 58614 routine58614
+Routine 58708 routine58708
+Routine 58826 routine58826
+Routine 59046 routine59046
+Routine 59098 routine59098
+Routine 59198 routine59198
+Routine 59276 routine59276
+Routine 59306 routine59306
+Routine 59334 routine59334
+Routine 59512 routine59512
+Routine 59650 routine59650
+Routine 59690 routine59690
+Routine 59714 routine59714
+Routine 59796 routine59796
+Routine 59844 routine59844
+Routine 59892 routine59892
+Routine 59906 routine59906
+Routine 59954 routine59954
+Routine 60702 routine60702
+Routine 61094 routine61094
+Routine 61194 routine61194
+Routine 61432 routine61432
+Routine 61482 routine61482
+Routine 61698 routine61698
+Routine 61752 routine61752
+Routine 62034 routine62034
+Routine 62130 routine62130
+Routine 62370 routine62370
+Routine 62412 routine62412
+Routine 62460 routine62460
+Routine 62488 routine62488
+Routine 62586 routine62586
+Routine 62848 routine62848
+Routine 62868 routine62868
+Routine 62900 routine62900
+Routine 63242 routine63242
+Routine 63332 routine63332
+Routine 63418 routine63418
+Routine 63434 routine63434
+Routine 65114 routine65114
+Routine 66640 routine66640
+Routine 66930 routine66930
+Routine 69054 routine69054
+Routine 70664 routine70664
+Routine 70752 routine70752
+Routine 73544 routine73544
+Routine 73948 routine73948
+Routine 75100 routine75100
+Routine 76154 routine76154
+Routine 76790 routine76790
+
+! ------------------------------- Words --------------------------------
+
+Word  adelin  adeline
+Word  advanc  advance
+Word  agains  against
+Word  ambula  ambulance
+Word  analys  analyse
+Word  analyz  analyze
+Word  applia  appliance
+Word  arrang  arrange
+Word  assaul  assault
+Word  associ  associate
+Word  autops  autopsy
+Word  bathro  bathroom
+Word  bathtu  bathtub
+Word  bedroo  bedroom
+Word  benche  benches
+Word  beneat  beneath
+Word  bentle  bentley
+Word  bookca  bookcase
+Word  bookma  bookman
+Word  boulde  boulder
+Word  bourbo  bourbon
+Word  breakf  breakfst
+Word  briefl  briefly
+Word  busine  business
+Word  cabine  cabinet
+Word  callig  calligraphy
+Word  carcin  carcinagenic
+Word  carefu  carefully
+Word  carryi  carrying
+Word  chandl  chandler
+Word  cigare  cigarette
+Word  climat  climate
+Word  closel  closely
+Word  clothe  clothes
+Word  cockta  cocktail
+Word  compan  company
+Word  compar  compart
+Word  confro  confront
+Word  consol  console
+Word  conspi  conspicious
+Word  consum  consume
+Word  conver  conversation
+Word  corone  coroner
+Word  counte  counted
+Word  cupboa  cupboard
+Word  danger  dangerous
+Word  davenp  davenport
+Word  descri  describe
+Word  destro  destroy
+Word  doorbe  doorbell
+Word  dresse  dressed
+Word  dressi  dressing
+Word  drivew  driveway
+Word  editio  edition
+Word  electr  electronic
+Word  euthan  euthanize
+Word  examin  examine
+Word  explai  explain
+Word  explos  explosion
+Word  exting  extinguish
+Word  fiftee  fifteen
+Word  firepl  fireplce
+Word  footpr  footprint
+Word  fragme  fragment
+Word  freema  freeman
+Word  glasse  glasses
+Word  grandf  grandfather
+Word  gunpow  gunpowder
+Word  gunsho  gunshot
+Word  handcu  handcuff
+Word  handgu  handgun
+Word  handwr  handwritten
+Word  hersel  herself
+Word  import  importnt
+Word  inquir  inquire
+Word  inspec  inspect
+Word  invent  invention
+Word  juncti  junction
+Word  keyhol  keyhole
+Word  killin  killing
+Word  kitche  kitchen
+Word  lanter  lantern
+Word  linder  linderman
+Word  massiv  massive
+Word  matchb  matchbook
+Word  matche  matches
+Word  medica  medication
+Word  medita  meditate
+Word  midnig  midnight
+Word  myster  mystery
+Word  newspa  newspaper
+Word  orient  oriental
+Word  outsid  outside
+Word  pacifi  pacific
+Word  pictur  picture
+Word  platfo  platform
+Word  proble  problem
+Word  procee  proceed
+Word  progra  program
+Word  pullma  pullman
+Word  questi  question
+Word  quickl  quickly
+Word  quietl  quietly
+Word  receip  receipt
+Word  receiv  receive
+Word  redwoo  redwood
+Word  refrig  refrigerator
+Word  releas  release
+Word  restar  restart
+Word  restau  restaurant
+Word  restor  restore
+Word  revisi  revision
+Word  sergea  sergeant
+Word  servan  servant
+Word  shelve  shelves
+Word  shooti  shooting
+Word  souven  souvenier
+Word  startl  startle
+Word  stomac  stomach
+Word  storag  storage
+Word  strang  strange
+Word  suicid  suicide
+Word  surpri  surprise
+Word  suspen  suspense
+Word  swallo  swallow
+Word  swingi  swinging
+Word  teache  teacher
+Word  telegr  telegraph
+Word  teleph  telephone
+Word  testam  testament
+Word  thicke  thicken
+Word  throug  through
+Word  toaste  toaster
+Word  toothp  toothpaste
+Word  unatta  unattach
+Word  undern  underneath
+Word  unscri  unscript
+Word  unspac  unspace
+Word  vegeta  vegetable
+Word  velvet  velvet
+Word  verbos  verbose
+Word  versio  version
+Word  visito  visitor
+Word  warran  warrant
+Word  weathe  weather
+Word  whiske  whisker
+Word  whisky  whisky
+Word  worksh  workshop
+Word  writin  writing
+Word  writte  written
+Word  yourse  yourself
+Word  zzkjlk  zzkjlk

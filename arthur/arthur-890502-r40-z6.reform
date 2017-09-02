@@ -1,0 +1,729 @@
+! ----------------------------------------------------
+!   arthur-890502-r40-z6.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 8220c093e7e79b08a2b2144a01c5af50
+CodeArea 0x95e8 0x34fd0
+StringArea 0x34fd0 0x39750
+FalseEnd      0xd084  1
+
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 0 attrib0   ! obj262_GO
+Attribute 1 attrib1   ! obj262_GO
+Attribute 2 attrib2   ! obj104_body obj127_legs obj139_shell obj156 obj214_head obj237_mouth obj247_body obj262_GO
+Attribute 3 attrib3   ! obj96_tunic obj104_body obj127_legs obj133_breeches obj139_shell obj156 obj214_head obj237_mouth obj247_body obj262_GO
+Attribute 4 attrib4   ! obj258_glittering_object obj262_GO obj264_counter
+Attribute 5 attrib5   ! obj123_cage obj148_crystal_ball obj217_gate obj262_GO
+Attribute 6 attrib6   ! obj109_sliver_of_crystal obj130_bag obj148_crystal_ball obj262_GO
+Attribute 7 attrib7   ! obj96_tunic obj133_breeches obj212 obj262_GO
+Attribute 8 attrib8   ! obj156 obj262_GO obj263_slean
+Attribute 9 attrib9   ! obj170_wooden_door obj262_GO
+Attribute 10 attrib10  ! obj145_it obj187_ivory_tower obj192_altar obj212 obj262_GO obj269_ivory_key obj271_old_man obj272_armour
+Attribute 11 attrib11  ! obj99_horse obj262_GO
+Attribute 12 attrib12  ! obj112_sprig_of_hawthorn obj213_brass_egg obj249_shield obj262_GO
+Attribute 13 attrib13  ! obj168_beautiful_woman obj262_GO obj267_girl
+Attribute 14 attrib14  ! obj168_beautiful_woman obj254_peasant obj262_GO
+Attribute 15 attrib15  ! obj241_golden_bracelet
+Attribute 16 attrib16  ! obj10_above_bog obj15_above_the_town obj19_above_the_castle obj31_above_the_meadow obj35_above_merlin_s_cave obj37_above_moor obj45_above_forest obj51_above_the_ford obj59_above_edge_of_the_woods obj82_above_the_field obj89_above_the_lake obj262_GO
+Attribute 17 attrib17  ! obj96_tunic obj114_black_armour obj131_medallion obj133_breeches obj262_GO obj281_gold_key
+Attribute 18 attrib18  ! obj114_black_armour obj172_whisky obj183_spice obj190_water obj233_water obj262_GO obj272_armour
+Attribute 19 attrib19  ! obj96_tunic obj108_magic_ring obj114_black_armour obj133_breeches obj204_torque obj241_golden_bracelet obj262_GO obj272_armour
+Attribute 20 attrib20  ! obj4_shallows obj9_lake obj13_lake obj18_lake obj28_river obj43_ford obj58_river obj79_lake obj88_river obj172_whisky obj190_water obj233_water obj262_GO
+Attribute 21 attrib21  ! obj93_bird obj98_cupboard obj123_cage obj160 obj168_beautiful_woman obj243_table obj254_peasant obj262_GO
+Attribute 22 attrib22  ! obj64_north_of_chasm obj99_horse obj118_throne obj121_hearth obj142_throne obj149_wall obj154_armoury_table obj192_altar obj193_pallet obj207_tree obj209_stone_bier obj210_table obj212 obj226 obj243_table obj262_GO obj264_counter obj280_kitchen_table
+Attribute 23 attrib23  ! obj124_cell_door obj146_door obj167_kitchen_door obj170_wooden_door obj217_gate obj238_castle_gate obj240_silver_door obj244_wooden_door obj262_GO
+Attribute 24 attrib24  ! obj124_cell_door obj170_wooden_door obj240_silver_door obj262_GO
+Attribute 25 attrib25  ! obj14_peat_bog obj16_cellar obj56 obj98_cupboard obj124_cell_door obj125_right_manacle obj126_building_stone obj137_manacles obj147_chains obj163_sword obj167_kitchen_door obj170_wooden_door obj189_tapestry obj201_left_manacle obj213_brass_egg obj221_padlock obj235_prisoner obj240_silver_door obj257_demon obj262_GO obj267_girl
+Attribute 26 attrib26  ! obj72_den obj94_whisky_jug obj98_cupboard obj102_behind_the_rock obj107_tankards obj123_cage obj129_behind_the_gravestone obj130_bag obj159_bottle obj162_thatch obj166_hole obj174 obj177_fire obj195_stone obj200_barrel obj204_torque obj212 obj237_mouth obj242_behind_the_door obj255 obj262_GO
+Attribute 27 attrib27  ! obj1_hall obj2_road obj3_east_of_ford obj4_shallows obj5_field_of_honour obj6_castle_kitchen obj7_stairs obj8_armoury obj9_lake obj10_above_bog obj11_cottage obj12_cell obj13_lake obj14_peat_bog obj15_above_the_town obj17_enchanted_forest obj18_lake obj19_above_the_castle obj20_cave obj21_end_of_hall obj22_church obj23_track obj24_foot_of_mountain obj25_trail obj26_landing obj27_fork_in_the_road obj28_river obj29_small_chamber obj30_ice_room obj31_above_the_meadow obj32_ledge obj33_hall obj34_abandoned_room obj35_above_merlin_s_cave obj36_outside_castle_gate obj37_above_moor obj38_meadow obj39_causeway obj40_clearing obj41_underground_chamber obj42_path obj43_ford obj44_thorney_island obj45_above_forest obj46_dark_passage obj47_dark_passage obj48_dark_passage obj49_circular_room obj50_crystal_cave obj51_above_the_ford obj52_path obj53_island obj54_end_of_passage obj55_stairs obj56 obj57_great_hall obj58_river obj59_above_edge_of_the_woods obj60_end_of_causeway obj61_behind_the_throne obj62_edge_of_woods obj63_churchyard obj64_north_of_chasm obj65_south_of_chasm obj66_hot_room obj67_outside_Merlin_s_cave obj68_huge_tree obj69_bottom_of_stairs obj70_tavern obj71_moor obj72_den obj73_parade_area obj74_town_square obj75_smithy obj76_path obj77_village_green obj78_west_of_ford obj79_lake obj80_giant_raven_s_nest obj81_grove obj82_above_the_field obj83_tower_room obj84_edge_of_bog obj85_basilisk_s_lair obj86_glade obj87_outside_town_gate obj88_river obj89_above_the_lake obj90_tavern_kitchen obj91_den obj177_fire obj255 obj262_GO
+Attribute 28 attrib28  ! obj1_hall obj6_castle_kitchen obj7_stairs obj8_armoury obj11_cottage obj12_cell obj16_cellar obj20_cave obj21_end_of_hall obj22_church obj26_landing obj29_small_chamber obj30_ice_room obj33_hall obj34_abandoned_room obj41_underground_chamber obj46_dark_passage obj47_dark_passage obj48_dark_passage obj49_circular_room obj50_crystal_cave obj54_end_of_passage obj55_stairs obj57_great_hall obj61_behind_the_throne obj66_hot_room obj69_bottom_of_stairs obj70_tavern obj83_tower_room obj85_basilisk_s_lair obj90_tavern_kitchen obj91_den obj262_GO
+Attribute 29 attrib29  ! obj107_tankards obj114_black_armour obj115_them obj116 obj127_legs obj133_breeches obj137_manacles obj140_chestnut_trees obj147_chains obj151 obj156 obj172_whisky obj181_farmers obj183_spice obj190_water obj206 obj218_ghosts obj227 obj233_water obj262_GO obj272_armour
+Attribute 30 attrib30  ! obj97_piece_of_cheese obj112_sprig_of_hawthorn obj117_crutch obj134_wooden_key obj136 obj165 obj177_fire obj180_apple obj206 obj212 obj227 obj229_brick_of_peat obj255 obj256_Golden_Fleece obj262_GO obj263_slean obj269_ivory_key
+Attribute 31 attrib31  ! obj134_wooden_key obj197_cell_key obj246_silver_key obj262_GO obj269_ivory_key obj281_gold_key
+Attribute 32 attrib32  ! obj94_whisky_jug obj97_piece_of_cheese obj105_red_lance obj108_magic_ring obj112_sprig_of_hawthorn obj117_crutch obj120_block_of_ice obj126_building_stone obj128_gauntlet obj130_bag obj134_wooden_key obj157_gold_egg obj159_bottle obj163_sword obj165 obj180_apple obj197_cell_key obj204_torque obj206 obj213_brass_egg obj229_brick_of_peat obj246_silver_key obj249_shield obj253_pumice_stone obj256_Golden_Fleece obj262_GO obj263_slean obj265_red_piece_of_glass obj269_ivory_key obj272_armour obj278_green_lance obj281_gold_key
+Attribute 33 attrib33  ! obj163_sword obj186_sword obj262_GO obj263_slean
+Attribute 34 attrib34  ! obj98_cupboard obj123_cage obj124_cell_door obj125_right_manacle obj130_bag obj137_manacles obj146_door obj147_chains obj167_kitchen_door obj170_wooden_door obj201_left_manacle obj217_gate obj221_padlock obj237_mouth obj240_silver_door obj244_wooden_door obj262_GO
+Attribute 35 attrib35  ! obj156 obj262_GO
+Attribute 36 attrib36  ! obj105_red_lance obj156 obj163_sword obj262_GO obj278_green_lance
+Attribute 38 attrib38  ! obj261_yourself obj262_GO
+Attribute 39 attrib39  ! obj261_yourself obj262_GO
+Attribute 40 attrib40  ! obj72_den obj94_whisky_jug obj95_black_knight obj98_cupboard obj99_horse obj100_Merlin obj102_behind_the_rock obj107_tankards obj111_red_knight obj116 obj118_throne obj122_King_Lot obj123_cage obj129_behind_the_gravestone obj130_bag obj132_basilisk obj142_throne obj143_cook obj151 obj154_armoury_table obj155_dragon obj159_bottle obj160 obj161_giant_kraken obj162_thatch obj166_hole obj168_beautiful_woman obj174 obj175_blue_knight obj177_fire obj181_farmers obj192_altar obj193_pallet obj195_stone obj199_guard obj200_barrel obj204_torque obj207_tree obj209_stone_bier obj210_table obj212 obj220_idiot obj226 obj228 obj231_giant_raven obj235_prisoner obj242_behind_the_door obj243_table obj254_peasant obj255 obj257_demon obj261_yourself obj262_GO obj264_counter obj267_girl obj271_old_man obj280_kitchen_table
+Attribute 41 attrib41  ! obj95_black_knight obj100_Merlin obj111_red_knight obj116 obj122_King_Lot obj143_cook obj151 obj155_dragon obj168_beautiful_woman obj175_blue_knight obj181_farmers obj199_guard obj218_ghosts obj220_idiot obj228 obj230_invisible_knight obj235_prisoner obj254_peasant obj257_demon obj261_yourself obj262_GO obj267_girl obj271_old_man
+Attribute 42 attrib42  ! obj72_den obj94_whisky_jug obj95_black_knight obj100_Merlin obj102_behind_the_rock obj107_tankards obj111_red_knight obj116 obj122_King_Lot obj129_behind_the_gravestone obj132_basilisk obj143_cook obj151 obj155_dragon obj159_bottle obj160 obj161_giant_kraken obj162_thatch obj166_hole obj168_beautiful_woman obj174 obj175_blue_knight obj177_fire obj181_farmers obj195_stone obj199_guard obj200_barrel obj204_torque obj212 obj220_idiot obj228 obj231_giant_raven obj235_prisoner obj242_behind_the_door obj254_peasant obj255 obj257_demon obj261_yourself obj262_GO obj267_girl obj271_old_man
+Attribute 43 attrib43  ! obj95_black_knight obj99_horse obj102_behind_the_rock obj107_tankards obj109_sliver_of_crystal obj111_red_knight obj114_black_armour obj118_throne obj121_hearth obj122_King_Lot obj124_cell_door obj125_right_manacle obj126_building_stone obj129_behind_the_gravestone obj131_medallion obj132_basilisk obj137_manacles obj138_pollaxe obj142_throne obj143_cook obj144_ale obj147_chains obj150_tree obj151 obj154_armoury_table obj155_dragon obj161_giant_kraken obj165 obj167_kitchen_door obj169_splint obj174 obj177_fire obj180_apple obj181_farmers obj184_rock obj185_gravestone obj186_sword obj192_altar obj193_pallet obj195_stone obj198 obj200_barrel obj201_left_manacle obj207_tree obj209_stone_bier obj212 obj216_sword obj217_gate obj218_ghosts obj220_idiot obj221_padlock obj222_oak obj224_scroll obj225_horn obj227 obj230_invisible_knight obj231_giant_raven obj235_prisoner obj239_sword obj240_silver_door obj241_golden_bracelet obj242_behind_the_door obj248_nose obj249_shield obj250_tusk obj255 obj256_Golden_Fleece obj257_demon obj258_glittering_object obj261_yourself obj262_GO obj267_girl obj271_old_man obj272_armour obj274_directions obj275_pavilion obj279_dragon_hair obj280_kitchen_table obj281_gold_key
+Attribute 44 attrib44  ! obj93_bird obj95_black_knight obj99_horse obj100_Merlin obj111_red_knight obj116 obj122_King_Lot obj132_basilisk obj136 obj143_cook obj146_door obj151 obj155_dragon obj160 obj161_giant_kraken obj168_beautiful_woman obj175_blue_knight obj181_farmers obj199_guard obj218_ghosts obj220_idiot obj228 obj230_invisible_knight obj231_giant_raven obj235_prisoner obj254_peasant obj257_demon obj261_yourself obj262_GO obj267_girl obj271_old_man
+Attribute 45 attrib45  ! obj96_tunic obj99_horse obj103_bird_dropping obj107_tankards obj109_sliver_of_crystal obj114_black_armour obj121_hearth obj131_medallion obj132_basilisk obj133_breeches obj138_pollaxe obj144_ale obj147_chains obj148_crystal_ball obj158 obj169_splint obj183_spice obj186_sword obj192_altar obj195_stone obj198 obj200_barrel obj212 obj216_sword obj221_padlock obj224_scroll obj225_horn obj227 obj228 obj239_sword obj250_tusk obj262_GO obj274_directions obj279_dragon_hair
+Attribute 46 attrib46  ! obj100_Merlin obj102_behind_the_rock obj115_them obj122_King_Lot obj129_behind_the_gravestone obj135_her obj145_it obj158 obj173_that obj208_him obj219_their_body obj242_behind_the_door obj260_here obj261_yourself obj262_GO obj270_LG
+Attribute 47 attrib47  ! obj56 obj116 obj136 obj151 obj156 obj158 obj160 obj165 obj174 obj191 obj206 obj212 obj219_their_body obj226 obj227 obj228 obj255 obj262_GO
+
+! ----------------------------- Properties -----------------------------
+
+Property 38 prop38:string
+Property 39 prop39:string
+Property 40 prop40:?
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:?
+Property 44 prop44:?
+Property 45 prop45:dictwords
+Property 46 prop46:?
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:dictwords
+Property 52 prop52:?
+Property 53 prop53:?
+Property 54 prop54:?
+Property 55 prop55:?
+Property 56 prop56:?
+Property 57 prop57:?
+Property 58 prop58:?
+Property 59 prop59:?
+Property 60 prop60:?
+Property 61 prop61:?
+Property 62 prop62:?
+Property 63 prop63:?
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_hall
+Object 2 obj2_road
+Object 3 obj3_east_of_ford
+Object 4 obj4_shallows
+Object 5 obj5_field_of_honour
+Object 6 obj6_castle_kitchen
+Object 7 obj7_stairs
+Object 8 obj8_armoury
+Object 9 obj9_lake
+Object 10 obj10_above_bog
+Object 11 obj11_cottage
+Object 12 obj12_cell
+Object 13 obj13_lake
+Object 14 obj14_peat_bog
+Object 15 obj15_above_the_town
+Object 16 obj16_cellar
+Object 17 obj17_enchanted_forest
+Object 18 obj18_lake
+Object 19 obj19_above_the_castle
+Object 20 obj20_cave
+Object 21 obj21_end_of_hall
+Object 22 obj22_church
+Object 23 obj23_track
+Object 24 obj24_foot_of_mountain
+Object 25 obj25_trail
+Object 26 obj26_landing
+Object 27 obj27_fork_in_the_road
+Object 28 obj28_river
+Object 29 obj29_small_chamber
+Object 30 obj30_ice_room
+Object 31 obj31_above_the_meadow
+Object 32 obj32_ledge
+Object 33 obj33_hall
+Object 34 obj34_abandoned_room
+Object 35 obj35_above_merlin_s_cave
+Object 36 obj36_outside_castle_gate
+Object 37 obj37_above_moor
+Object 38 obj38_meadow
+Object 39 obj39_causeway
+Object 40 obj40_clearing
+Object 41 obj41_underground_chamber
+Object 42 obj42_path
+Object 43 obj43_ford
+Object 44 obj44_thorney_island
+Object 45 obj45_above_forest
+Object 46 obj46_dark_passage
+Object 47 obj47_dark_passage
+Object 48 obj48_dark_passage
+Object 49 obj49_circular_room
+Object 50 obj50_crystal_cave
+Object 51 obj51_above_the_ford
+Object 52 obj52_path
+Object 53 obj53_island
+Object 54 obj54_end_of_passage
+Object 55 obj55_stairs
+Object 56 obj56
+Object 57 obj57_great_hall
+Object 58 obj58_river
+Object 59 obj59_above_edge_of_the_woods
+Object 60 obj60_end_of_causeway
+Object 61 obj61_behind_the_throne
+Object 62 obj62_edge_of_woods
+Object 63 obj63_churchyard
+Object 64 obj64_north_of_chasm
+Object 65 obj65_south_of_chasm
+Object 66 obj66_hot_room
+Object 67 obj67_outside_Merlin_s_cave
+Object 68 obj68_huge_tree
+Object 69 obj69_bottom_of_stairs
+Object 70 obj70_tavern
+Object 71 obj71_moor
+Object 72 obj72_den
+Object 73 obj73_parade_area
+Object 74 obj74_town_square
+Object 75 obj75_smithy
+Object 76 obj76_path
+Object 77 obj77_village_green
+Object 78 obj78_west_of_ford
+Object 79 obj79_lake
+Object 80 obj80_giant_raven_s_nest
+Object 81 obj81_grove
+Object 82 obj82_above_the_field
+Object 83 obj83_tower_room
+Object 84 obj84_edge_of_bog
+Object 85 obj85_basilisk_s_lair
+Object 86 obj86_glade
+Object 87 obj87_outside_town_gate
+Object 88 obj88_river
+Object 89 obj89_above_the_lake
+Object 90 obj90_tavern_kitchen
+Object 91 obj91_den
+Object 92 obj92_that
+Object 93 obj93_bird
+Object 94 obj94_whisky_jug
+Object 95 obj95_black_knight
+Object 96 obj96_tunic
+Object 97 obj97_piece_of_cheese
+Object 98 obj98_cupboard
+Object 99 obj99_horse
+Object 100 obj100_Merlin
+Object 101 obj101_name
+Object 102 obj102_behind_the_rock
+Object 103 obj103_bird_dropping
+Object 104 obj104_body
+Object 105 obj105_red_lance
+Object 106 obj106_crack
+Object 107 obj107_tankards
+Object 108 obj108_magic_ring
+Object 109 obj109_sliver_of_crystal
+Object 110 obj110_quotation
+Object 111 obj111_red_knight
+Object 112 obj112_sprig_of_hawthorn
+Object 113 obj113_mother
+Object 114 obj114_black_armour
+Object 115 obj115_them
+Object 116 obj116
+Object 117 obj117_crutch
+Object 118 obj118_throne
+Object 119 obj119_joust
+Object 120 obj120_block_of_ice
+Object 121 obj121_hearth
+Object 122 obj122_King_Lot
+Object 123 obj123_cage
+Object 124 obj124_cell_door
+Object 125 obj125_right_manacle
+Object 126 obj126_building_stone
+Object 127 obj127_legs
+Object 128 obj128_gauntlet
+Object 129 obj129_behind_the_gravestone
+Object 130 obj130_bag
+Object 131 obj131_medallion
+Object 132 obj132_basilisk
+Object 133 obj133_breeches
+Object 134 obj134_wooden_key
+Object 135 obj135_her
+Object 136 obj136
+Object 137 obj137_manacles
+Object 138 obj138_pollaxe
+Object 139 obj139_shell
+Object 140 obj140_chestnut_trees
+Object 141 obj141_bells
+Object 142 obj142_throne
+Object 143 obj143_cook
+Object 144 obj144_ale
+Object 145 obj145_it
+Object 146 obj146_door
+Object 147 obj147_chains
+Object 148 obj148_crystal_ball
+Object 149 obj149_wall
+Object 150 obj150_tree
+Object 151 obj151
+Object 152 obj152_magic
+Object 153 obj153_enchanted_forest
+Object 154 obj154_armoury_table
+Object 155 obj155_dragon
+Object 156 obj156
+Object 157 obj157_gold_egg
+Object 158 obj158
+Object 159 obj159_bottle
+Object 160 obj160
+Object 161 obj161_giant_kraken
+Object 162 obj162_thatch
+Object 163 obj163_sword
+Object 164 obj164
+Object 165 obj165
+Object 166 obj166_hole
+Object 167 obj167_kitchen_door
+Object 168 obj168_beautiful_woman
+Object 169 obj169_splint
+Object 170 obj170_wooden_door
+Object 171 obj171_stairs
+Object 172 obj172_whisky
+Object 173 obj173_that
+Object 174 obj174
+Object 175 obj175_blue_knight
+Object 176 obj176_Sherlock
+Object 177 obj177_fire
+Object 178 obj178_mountain
+Object 179 obj179
+Object 180 obj180_apple
+Object 181 obj181_farmers
+Object 182 obj182_lake
+Object 183 obj183_spice
+Object 184 obj184_rock
+Object 185 obj185_gravestone
+Object 186 obj186_sword
+Object 187 obj187_ivory_tower
+Object 188 obj188_hole
+Object 189 obj189_tapestry
+Object 190 obj190_water
+Object 191 obj191
+Object 192 obj192_altar
+Object 193 obj193_pallet
+Object 194 obj194
+Object 195 obj195_stone
+Object 196 obj196_castle
+Object 197 obj197_cell_key
+Object 198 obj198
+Object 199 obj199_guard
+Object 200 obj200_barrel
+Object 201 obj201_left_manacle
+Object 202 obj202_town_gate
+Object 203 obj203_you
+Object 204 obj204_torque
+Object 205 obj205_time
+Object 206 obj206
+Object 207 obj207_tree
+Object 208 obj208_him
+Object 209 obj209_stone_bier
+Object 210 obj210_table
+Object 211 obj211_rhyme
+Object 212 obj212
+Object 213 obj213_brass_egg
+Object 214 obj214_head
+Object 215 obj215_river
+Object 216 obj216_sword
+Object 217 obj217_gate
+Object 218 obj218_ghosts
+Object 219 obj219_their_body
+Object 220 obj220_idiot
+Object 221 obj221_padlock
+Object 222 obj222_oak
+Object 223 obj223_number
+Object 224 obj224_scroll
+Object 225 obj225_horn
+Object 226 obj226
+Object 227 obj227
+Object 228 obj228
+Object 229 obj229_brick_of_peat
+Object 230 obj230_invisible_knight
+Object 231 obj231_giant_raven
+Object 232 obj232_trees
+Object 233 obj233_water
+Object 234 obj234_tapestry
+Object 235 obj235_prisoner
+Object 236 obj236_password
+Object 237 obj237_mouth
+Object 238 obj238_castle_gate
+Object 239 obj239_sword
+Object 240 obj240_silver_door
+Object 241 obj241_golden_bracelet
+Object 242 obj242_behind_the_door
+Object 243 obj243_table
+Object 244 obj244_wooden_door
+Object 245 obj245_peat
+Object 246 obj246_silver_key
+Object 247 obj247_body
+Object 248 obj248_nose
+Object 249 obj249_shield
+Object 250 obj250_tusk
+Object 251 obj251_prep_phrase
+Object 252 obj252_window
+Object 253 obj253_pumice_stone
+Object 254 obj254_peasant
+Object 255 obj255
+Object 256 obj256_Golden_Fleece
+Object 257 obj257_demon
+Object 258 obj258_glittering_object
+Object 259 obj259_Riothamus
+Object 260 obj260_here
+Object 261 obj261_yourself
+Object 262 obj262_GO
+Object 263 obj263_slean
+Object 264 obj264_counter
+Object 265 obj265_red_piece_of_glass
+Object 266 obj266_chasm
+Object 267 obj267_girl
+Object 268 obj268_town
+Object 269 obj269_ivory_key
+Object 270 obj270_LG
+Object 271 obj271_old_man
+Object 272 obj272_armour
+Object 273 obj273_path
+Object 274 obj274_directions
+Object 275 obj275_pavilion
+Object 276 obj276_adjective
+Object 277 obj277_direction
+Object 278 obj278_green_lance
+Object 279 obj279_dragon_hair
+Object 280 obj280_kitchen_table
+Object 281 obj281_gold_key
+
+! ------------------------------ Actions -------------------------------
+
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word $descr $descr
+Word $fulls $fulls
+Word $inven $inven
+Word $nowin $nowin
+Word $passw $passw
+Word $pictu $pictu
+Word $refre $refre
+Word $score $score
+Word $statu $statu
+Word $steal $steal
+Word $verif $verif
+Word $versi $versi
+Word #command #command
+Word #unrecor #unrecor
+Word (somethi (somethi
+Word abandoned abandoned
+Word apparitio apparitio
+Word beautiful beautiful
+Word blacksmit blacksmit
+Word buildings buildings
+Word challenge challenge
+Word christmas christmas
+Word churchyar churchyar
+Word cocksucke cocksucke
+Word conversat conversat
+Word courtiers courtiers
+Word craftsman craftsman
+Word crumbling crumbling
+Word cyr-jone cyr-jone
+Word direction direction
+Word downstair downstair
+Word eavesdrop eavesdrop
+Word electrocu electrocu
+Word enchanted enchanted
+Word end.of. end.of.
+Word excalibur excalibur
+Word extinguis extinguis
+Word fireplace fireplace
+Word footprint footprint
+Word forbiddin forbiddin
+Word genuflect genuflect
+Word glitterin glitterin
+Word goddamned goddamned
+Word graveston graveston
+Word greetings greetings
+Word guinevere guinevere
+Word hawthorne hawthorne
+Word inventory inventory
+Word invisible invisible
+Word invisiclu invisiclu
+Word launcelot launcelot
+Word leprechau leprechau
+Word medallion medallion
+Word murmuring murmuring
+Word murmurrin murmurrin
+Word nasty-lo nasty-lo
+Word northeast northeast
+Word northwest northwest
+Word passagewa passagewa
+Word passwords passwords
+Word pavillion pavillion
+Word pikestaff pikestaff
+Word riothamus riothamus
+Word rumplesti rumplesti
+Word salamande salamande
+Word seventeen seventeen
+Word shoulders shoulders
+Word southeast southeast
+Word southwest southwest
+Word staircase staircase
+Word stalactit stalactit
+Word stalagmit stalagmit
+Word superbrie superbrie
+Word tasty-lo tasty-lo
+Word tentacles tentacles
+Word thornbush thornbush
+Word tombstone tombstone
+Word undergrou undergrou
+Word undergrow undergrow
+Word underneat underneat
+

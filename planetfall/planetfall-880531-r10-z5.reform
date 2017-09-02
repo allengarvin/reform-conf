@@ -1,0 +1,816 @@
+! ----------------------------------------------------
+!   planetfall-880531-r10-z5.reform
+!   ATG Release 2 Serial 071001
+!   Contents:
+!      Header
+!      Globals
+!      Arrays
+!      Attributes
+!      Properties
+!      Objects
+!      Actions
+!      Routines
+!      Words
+!
+! ------------------------------- Header -------------------------------
+
+MD5 1df938b320af642219bdb0deb99a0902
+CodeArea 0x6f00 0x17fa8
+StringArea 0x17fa8 0x21570
+
+! -- global enums --
+Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
+Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
+Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
+Enum p_p1off P_P1OFF=5
+Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
+Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
+Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
+
+! ------------------------------ Globals -------------------------------
+
+Global 0 global0:?
+Global 1 global1:?
+Global 2 global2:?
+Global 3 global3:?
+Global 4 global4:?
+Global 5 global5:?
+Global 6 global6:?
+Global 7 global7:?
+Global 8 global8:?
+Global 9 global9:?
+Global 10 global10:?
+Global 11 global11:?
+Global 12 global12:?
+Global 13 global13:?
+Global 14 global14:?
+Global 15 global15:?
+Global 16 global16:?
+Global 17 global17:?
+Global 18 global18:?
+Global 19 global19:?
+Global 20 global20:?
+Global 21 global21:?
+Global 22 global22:?
+Global 23 global23:?
+Global 24 global24:?
+Global 25 global25:?
+Global 26 global26:?
+Global 27 global27:?
+Global 28 global28:?
+Global 29 global29:?
+Global 30 global30:?
+Global 31 global31:?
+Global 32 global32:?
+Global 33 global33:?
+Global 34 global34:?
+Global 35 global35:?
+Global 36 global36:?
+Global 37 global37:?
+Global 38 global38:?
+Global 39 global39:?
+Global 40 global40:?
+Global 41 global41:?
+Global 42 global42:?
+Global 43 global43:?
+Global 44 global44:?
+Global 45 global45:?
+Global 46 global46:?
+Global 47 global47:?
+Global 48 global48:?
+Global 49 global49:?
+Global 50 global50:?
+Global 51 global51:?
+Global 52 global52:?
+Global 53 global53:?
+Global 54 global54:?
+Global 55 global55:?
+Global 56 global56:?
+Global 57 global57:?
+Global 58 global58:?
+Global 59 global59:?
+Global 60 global60:?
+Global 61 global61:?
+Global 62 global62:?
+Global 63 global63:?
+Global 64 global64:?
+Global 65 global65:?
+Global 66 global66:?
+Global 67 global67:?
+Global 68 global68:?
+Global 69 global69:?
+Global 70 global70:?
+Global 71 global71:?
+Global 72 global72:?
+Global 73 global73:?
+Global 74 global74:?
+Global 75 global75:?
+Global 76 global76:?
+Global 77 global77:?
+Global 78 global78:?
+Global 79 global79:?
+Global 80 global80:?
+Global 81 global81:?
+Global 82 global82:?
+Global 83 global83:?
+Global 84 global84:?
+Global 85 global85:?
+Global 86 global86:?
+Global 87 global87:?
+Global 88 global88:?
+Global 89 global89:?
+Global 90 global90:?
+Global 91 global91:?
+Global 92 global92:?
+Global 93 global93:?
+Global 94 global94:?
+Global 95 global95:?
+Global 96 global96:?
+Global 97 global97:?
+Global 98 global98:?
+Global 99 global99:?
+Global 100 global100:?
+Global 101 global101:?
+Global 102 global102:?
+Global 103 global103:?
+Global 104 global104:?
+Global 105 global105:?
+Global 106 global106:?
+Global 107 global107:?
+Global 108 global108:?
+Global 109 global109:?
+Global 110 global110:?
+Global 111 global111:?
+Global 112 global112:?
+Global 113 global113:?
+Global 114 global114:?
+Global 115 global115:?
+Global 116 global116:?
+Global 117 global117:?
+Global 118 global118:?
+Global 119 global119:?
+Global 120 global120:?
+Global 121 global121:?
+Global 122 global122:?
+Global 123 global123:?
+Global 124 global124:?
+Global 125 global125:?
+Global 126 global126:?
+Global 127 global127:?
+Global 128 global128:?
+Global 129 global129:?
+Global 130 global130:?
+Global 131 global131:?
+Global 132 global132:?
+Global 133 global133:?
+Global 134 global134:?
+Global 135 global135:?
+Global 136 global136:?
+Global 137 global137:?
+Global 138 global138:?
+Global 139 global139:?
+Global 140 global140:?
+Global 141 global141:?
+Global 142 global142:?
+Global 143 global143:?
+Global 144 global144:?
+Global 145 global145:?
+Global 146 global146:?
+Global 147 global147:?
+Global 148 global148:?
+Global 149 global149:?
+Global 150 global150:?
+Global 151 global151:?
+Global 152 global152:?
+Global 153 global153:?
+Global 154 global154:?
+Global 155 global155:?
+Global 156 global156:?
+Global 157 global157:?
+Global 158 global158:?
+Global 159 global159:?
+Global 160 global160:?
+Global 161 global161:?
+Global 162 global162:?
+Global 163 global163:?
+Global 164 global164:?
+Global 165 global165:?
+Global 166 global166:?
+Global 167 global167:?
+Global 168 global168:?
+Global 169 global169:?
+Global 170 global170:?
+Global 171 global171:?
+Global 172 global172:?
+Global 173 global173:?
+Global 174 global174:?
+Global 175 global175:?
+Global 176 global176:?
+Global 177 global177:?
+Global 178 global178:?
+Global 179 global179:?
+Global 180 global180:?
+Global 181 global181:?
+Global 182 global182:?
+Global 183 global183:?
+Global 184 global184:?
+Global 185 global185:?
+Global 186 global186:?
+Global 187 global187:?
+Global 188 global188:?
+Global 189 global189:?
+Global 190 global190:?
+Global 191 global191:?
+Global 192 global192:?
+Global 193 global193:?
+Global 194 global194:?
+Global 195 global195:?
+Global 196 global196:?
+Global 197 global197:?
+Global 198 global198:?
+Global 199 global199:?
+Global 200 global200:?
+Global 201 global201:?
+Global 202 global202:?
+Global 203 global203:?
+Global 204 global204:?
+Global 205 global205:?
+Global 206 global206:?
+Global 207 global207:?
+Global 208 global208:?
+Global 209 global209:?
+Global 210 global210:?
+Global 211 global211:?
+Global 212 global212:?
+Global 213 global213:?
+Global 214 global214:?
+Global 215 global215:?
+Global 216 global216:?
+Global 217 global217:?
+Global 218 global218:?
+Global 219 global219:?
+Global 220 global220:?
+Global 221 global221:?
+Global 222 global222:?
+Global 223 global223:?
+Global 224 global224:?
+Global 225 global225:?
+Global 226 global226:?
+Global 227 global227:?
+Global 228 global228:?
+Global 229 global229:?
+Global 230 global230:?
+Global 231 global231:?
+Global 232 global232:?
+Global 233 global233:?
+Global 234 global234:?
+Global 235 global235:?
+Global 236 global236:?
+Global 237 global237:?
+Global 238 global238:?
+Global 239 global239:?
+
+! ------------------------------- Arrays -------------------------------
+
+! ----------------------------- Attributes -----------------------------
+
+Attribute 17 attrib17  ! obj1_Dorm_B obj7_Lab_Storage obj13_Course_Control obj17_Plan_Room obj21_Courtyard obj25_SanFac_D obj35_Elevator_Lobby obj37_Dorm_A obj40_Reactor_Control obj59_Small_Office obj66_ProjCon_Office obj70_Corridor_Junction obj85_Storage_East obj87_SanFac_C obj89_Physical_Plant obj97_Rec_Area obj105_Computer_Room obj108_Main_Lab obj115_Repair_Room obj126_Large_Office obj131_Planetary_Defense obj133_Library_Lobby obj148_Mess_Hall obj149_Systems_Monitors obj153_SanFac_B obj155_Fork obj159_Library obj165_SanFac_F obj184_Dorm_D obj192_West_Wing obj198_Physical_Plant obj208_SanFac_A obj220_SanFac_E obj229_Robot_Shop obj230_Escalator obj234_Tool_Room obj237_Dorm_C obj238_Lawanda_Platform obj254_Machine_Shop
+Attribute 18 attrib18  ! obj96_Underwater
+Attribute 19 attrib19  ! obj1_Dorm_B obj3_Miniaturization_Booth obj5_Winding_Stair obj7_Lab_Storage obj8_Rec_Corridor obj9_Mech_Corridor_South obj13_Course_Control obj16_Middle_of_Strip obj17_Plan_Room obj21_Courtyard obj24_Reactor_Lobby obj25_SanFac_D obj26_Systems_Corridor_West obj29_Infirmary obj33_Kalamontee_Platform obj35_Elevator_Lobby obj37_Dorm_A obj38_Kitchen obj39_Balcony obj40_Reactor_Control obj41_Helipad obj45_Mech_Corridor_North obj49_Project_Corridor obj50_Admin_Corridor_South obj56_Deck_Nine obj59_Small_Office obj61_Booth_2 obj63_Crag obj64_Admin_Corridor obj65_Brig obj66_ProjCon_Office obj70_Corridor_Junction obj73_Comm_Room obj77_Shuttle_Car_Betty obj80_Project_Corridor_West obj82_Strip_Near_Station obj85_Storage_East obj87_SanFac_C obj89_Physical_Plant obj90_Reactor_Elevator obj91_Betty_Control_West obj93_Lower_Elevator obj95_Radiation_Lock_West obj96_Underwater obj97_Rec_Area obj103_Alfie_Control_East obj105_Computer_Room obj106_Admin_Corridor_North obj108_Main_Lab obj109_Systems_Corridor obj113_Cryo_Elevator obj114_Waiting_Area obj115_Repair_Room obj116_Bio_Lab obj120_Observation_Deck obj126_Large_Office obj127_Conference_Room obj131_Planetary_Defense obj133_Library_Lobby obj135_Bio_Lock_East obj137_Strip_Near_Relay obj147_Station_384 obj148_Mess_Hall obj149_Systems_Monitors obj153_SanFac_B obj155_Fork obj157_Dorm_Corridor obj159_Library obj165_SanFac_F obj167_Project_Corridor_East obj168_Escape_Pod obj169_Tower_Core obj180_Shuttle_Car_Alfie obj182_Helicopter obj184_Dorm_D obj185_Booth_3 obj188_Storage_West obj190_Systems_Corridor_East obj191_Cryo_Anteroom obj192_West_Wing obj195_Booth_1 obj198_Physical_Plant obj201_Lab_Office obj208_SanFac_A obj210_Deck_Eight obj217_Bio_Lock_West obj218_Mess_Corridor obj220_SanFac_E obj229_Robot_Shop obj230_Escalator obj231_Gangway obj234_Tool_Room obj236_Upper_Elevator obj237_Dorm_C obj238_Lawanda_Platform obj239_Auxiliary_Booth obj240_Alfie_Control_West obj244_Radiation_Lock_East obj245_Radiation_Lab obj248_Plain_Hall obj249_Mech_Corridor obj254_Machine_Shop obj256_Betty_Control_East
+Attribute 20 attrib20  ! obj1_Dorm_B obj3_Miniaturization_Booth obj5_Winding_Stair obj7_Lab_Storage obj8_Rec_Corridor obj9_Mech_Corridor_South obj13_Course_Control obj14_Reactor_Access_Stairs obj16_Middle_of_Strip obj17_Plan_Room obj21_Courtyard obj24_Reactor_Lobby obj25_SanFac_D obj26_Systems_Corridor_West obj29_Infirmary obj33_Kalamontee_Platform obj35_Elevator_Lobby obj37_Dorm_A obj38_Kitchen obj39_Balcony obj40_Reactor_Control obj41_Helipad obj45_Mech_Corridor_North obj49_Project_Corridor obj50_Admin_Corridor_South obj56_Deck_Nine obj59_Small_Office obj61_Booth_2 obj63_Crag obj64_Admin_Corridor obj65_Brig obj66_ProjCon_Office obj70_Corridor_Junction obj72_Transportation_Supply obj73_Comm_Room obj77_Shuttle_Car_Betty obj80_Project_Corridor_West obj82_Strip_Near_Station obj85_Storage_East obj87_SanFac_C obj89_Physical_Plant obj90_Reactor_Elevator obj91_Betty_Control_West obj93_Lower_Elevator obj95_Radiation_Lock_West obj97_Rec_Area obj103_Alfie_Control_East obj105_Computer_Room obj106_Admin_Corridor_North obj108_Main_Lab obj109_Systems_Corridor obj113_Cryo_Elevator obj114_Waiting_Area obj115_Repair_Room obj116_Bio_Lab obj120_Observation_Deck obj126_Large_Office obj127_Conference_Room obj131_Planetary_Defense obj133_Library_Lobby obj135_Bio_Lock_East obj137_Strip_Near_Relay obj147_Station_384 obj148_Mess_Hall obj149_Systems_Monitors obj153_SanFac_B obj155_Fork obj157_Dorm_Corridor obj159_Library obj165_SanFac_F obj167_Project_Corridor_East obj168_Escape_Pod obj169_Tower_Core obj180_Shuttle_Car_Alfie obj182_Helicopter obj184_Dorm_D obj185_Booth_3 obj188_Storage_West obj190_Systems_Corridor_East obj191_Cryo_Anteroom obj192_West_Wing obj195_Booth_1 obj198_Physical_Plant obj201_Lab_Office obj208_SanFac_A obj210_Deck_Eight obj217_Bio_Lock_West obj218_Mess_Corridor obj220_SanFac_E obj229_Robot_Shop obj230_Escalator obj231_Gangway obj234_Tool_Room obj236_Upper_Elevator obj237_Dorm_C obj238_Lawanda_Platform obj239_Auxiliary_Booth obj240_Alfie_Control_West obj244_Radiation_Lock_East obj245_Radiation_Lab obj248_Plain_Hall obj249_Mech_Corridor obj254_Machine_Shop obj256_Betty_Control_East
+Attribute 21 attrib21  ! obj6_oil_can obj55_old_battery obj83_upper_elevator_access_card obj98_Ensign_First_Class obj101_office_door obj102_ID_card obj122_access_panel obj138_alien_ambassador obj146_escape_pod obj183_escape_pod_bulkhead obj246_ocean
+Attribute 22 attrib22  ! obj10_pair_of_hands obj11_brown_button obj15_gray_button obj19_speck obj20_wide_bulkhead obj22_window obj23_tan_button obj34_black_button obj43_light obj46_shiny_seventeen_centimeter_fromitz_board obj48_combination_dial obj51_round_white_button obj52_player obj58_silicon_strip obj68_set_of_controls obj69_large_desk obj74_small_desk obj78_yellow_button obj79_random_object obj81_screen obj86_door obj88_crevice obj99_lab_door obj101_office_door obj107_door obj110_red_door obj112_funnel_shaped_hole obj117_glowing_button obj119_cryo_elevator_door obj122_access_panel obj124_shuttle_car obj125_door obj132_lever obj134_cliff obj136_communications_receive_console obj139_bed obj141_padlock obj142_white_button obj143_square_white_button obj144_little_button obj145_lab_door obj146_escape_pod obj150_black_button obj152_beige_button obj158_rift obj160_piece_of_celery obj161_green_button obj164_laser_setting_dial obj171_shelf obj172_brown_button obj173_blue_button obj176_bio_lock_door obj177_large_metal_cube obj179_slot obj183_escape_pod_bulkhead obj194_stairway obj196_chemical_dispenser obj197_microrelay obj203_floor obj204_desk obj205_red_button obj206_table obj211_narrow_bulkhead obj214_game obj216_sacred_act_of_sleeping obj219_dispenser_unit obj222_radiation_lock_door obj223_miniaturization_access_card obj224_red_button obj225_doorway obj226_blue_door obj227_large_vehicle obj232_safety_web obj235_blue_button obj243_small_doorway obj246_ocean obj247_communication_send_console obj252_red_button obj257_button
+Attribute 23 attrib23  ! obj75_it
+Attribute 24 attrib24  ! obj2_fried_seventeen_centimeter_fromitz_board obj12_key obj18_green_spool obj27_blob_of_brown_goo obj28_gas_mask obj30_new_battery obj42_pile_of_computer_output obj44_blob_of_green_goo obj46_shiny_seventeen_centimeter_fromitz_board obj55_old_battery obj71_fused_ninety_ohm_bedistor obj75_it obj84_good_ninety_ohm_bedistor obj111_K_series_megafuse obj130_B_series_megafuse obj163_red_spool obj174_memo obj178_brown_spool obj181_cracked_seventeen_centimeter_fromitz_board obj209_piece_of_paper obj221_diary obj233_brochure obj251_blob_of_red_goo
+Attribute 25 attrib25  ! obj31_multiple_purpose_robot obj67_laser obj75_it obj189_medicine_bottle obj197_microrelay obj219_dispenser_unit obj221_diary obj243_small_doorway
+Attribute 26 attrib26  ! obj31_multiple_purpose_robot obj53_glass_flask obj60_cardboard_box obj69_large_desk obj74_small_desk obj75_it obj100_canteen obj122_access_panel obj140_lab_uniform obj177_large_metal_cube obj189_medicine_bottle obj204_desk obj215_survival_kit obj219_dispenser_unit obj241_microfilm_reader obj242_Patrol_uniform
+Attribute 27 attrib27  ! obj20_wide_bulkhead obj31_multiple_purpose_robot obj53_glass_flask obj60_cardboard_box obj67_laser obj75_it obj76_door obj211_narrow_bulkhead obj219_dispenser_unit obj241_microfilm_reader obj242_Patrol_uniform
+Attribute 28 attrib28  ! obj4_chronometer obj75_it obj242_Patrol_uniform
+Attribute 29 attrib29  ! obj75_it
+Attribute 30 attrib30  ! obj75_it
+Attribute 31 attrib31  ! obj4_chronometer obj48_combination_dial obj67_laser obj75_it obj141_padlock obj164_laser_setting_dial obj177_large_metal_cube obj196_chemical_dispenser obj219_dispenser_unit
+Attribute 32 attrib32  ! obj12_key obj71_fused_ninety_ohm_bedistor obj75_it obj94_curved_metal_bar obj141_padlock obj199_second_seventeen_centimeter_fromitz_board
+Attribute 33 attrib33  ! obj75_it
+Attribute 34 attrib34  ! obj75_it
+Attribute 35 attrib35  ! obj12_key obj20_wide_bulkhead obj46_shiny_seventeen_centimeter_fromitz_board obj52_player obj75_it obj76_door obj119_cryo_elevator_door obj211_narrow_bulkhead obj223_miniaturization_access_card
+Attribute 36 attrib36  ! obj12_key
+Attribute 37 attrib37  ! obj31_multiple_purpose_robot obj162_terminal obj241_microfilm_reader
+Attribute 38 attrib38  ! obj4_chronometer obj28_gas_mask obj75_it obj140_lab_uniform obj242_Patrol_uniform
+Attribute 39 attrib39  ! obj18_green_spool obj42_pile_of_computer_output obj75_it obj81_screen obj83_upper_elevator_access_card obj102_ID_card obj121_lower_elevator_access_card obj128_teleportation_access_card obj151_towel obj163_red_spool obj174_memo obj178_brown_spool obj189_medicine_bottle obj193_kitchen_access_card obj202_shuttle_access_card obj209_piece_of_paper obj221_diary obj223_miniaturization_access_card obj233_brochure
+Attribute 40 attrib40  ! obj31_multiple_purpose_robot obj53_glass_flask obj60_cardboard_box obj67_laser obj69_large_desk obj74_small_desk obj100_canteen obj122_access_panel obj140_lab_uniform obj177_large_metal_cube obj189_medicine_bottle obj204_desk obj215_survival_kit obj219_dispenser_unit obj241_microfilm_reader obj242_Patrol_uniform obj243_small_doorway
+Attribute 41 attrib41  ! obj2_fried_seventeen_centimeter_fromitz_board obj4_chronometer obj6_oil_can obj12_key obj18_green_spool obj28_gas_mask obj30_new_battery obj42_pile_of_computer_output obj53_glass_flask obj54_medical_robot_breastplate obj55_old_battery obj60_cardboard_box obj67_laser obj71_fused_ninety_ohm_bedistor obj83_upper_elevator_access_card obj84_good_ninety_ohm_bedistor obj94_curved_metal_bar obj100_canteen obj102_ID_card obj104_ladder obj111_K_series_megafuse obj121_lower_elevator_access_card obj123_Patrol_issue_self_contained_multi_purpose_scrub_brush obj128_teleportation_access_card obj129_pair_of_wide_nosed_pliers obj130_B_series_megafuse obj140_lab_uniform obj141_padlock obj151_towel obj163_red_spool obj166_portable_lamp obj174_memo obj178_brown_spool obj181_cracked_seventeen_centimeter_fromitz_board obj189_medicine_bottle obj193_kitchen_access_card obj199_second_seventeen_centimeter_fromitz_board obj200_tin_can obj202_shuttle_access_card obj209_piece_of_paper obj215_survival_kit obj221_diary obj223_miniaturization_access_card obj233_brochure obj242_Patrol_uniform
+Attribute 42 attrib42  ! obj20_wide_bulkhead obj76_door obj86_door obj99_lab_door obj101_office_door obj107_door obj110_red_door obj125_door obj145_lab_door obj176_bio_lock_door obj183_escape_pod_bulkhead obj211_narrow_bulkhead obj222_radiation_lock_door obj226_blue_door obj250_reactor_elevator_door
+Attribute 43 attrib43  ! obj27_blob_of_brown_goo obj44_blob_of_green_goo obj156_quantity_of_medicine obj160_piece_of_celery obj186_quantity_of_protein_rich_liquid obj251_blob_of_red_goo
+Attribute 45 attrib45  ! obj139_bed obj194_stairway obj232_safety_web
+Attribute 46 attrib46  ! obj139_bed obj146_escape_pod obj227_large_vehicle obj232_safety_web
+Attribute 47 attrib47  ! obj32_you obj98_Ensign_First_Class obj138_alien_ambassador obj170_rat_like__ant_like_man_sized_monster obj175_hairy_growling_biped obj187_lurking_fanged_creature obj212_microbe obj228_mobile_man_eating_plant
+
+! ----------------------------- Properties -----------------------------
+
+Property 38 prop38:string
+Property 39 prop39:?
+Property 40 prop40:string
+Property 41 prop41:?
+Property 42 prop42:?
+Property 43 prop43:?
+Property 44 prop44:string
+Property 45 prop45:dictwords
+Property 46 prop46:?
+Property 47 prop47:?
+Property 48 prop48:?
+Property 49 prop49:?
+Property 50 prop50:?
+Property 51 prop51:dictwords
+Property 52 out_to:exit
+Property 53 in_to:exit
+Property 54 d_to:exit
+Property 55 u_to:exit
+Property 56 nw_to:exit
+Property 57 ccw_to:exit
+Property 58 sw_to:exit
+Property 59 aft_to:exit
+Property 60 se_to:exit
+Property 61 cw_to:exit
+Property 62 ne_to:exit
+Property 63 f_to:exit
+
+! ------------------------------ Objects -------------------------------
+
+Object 1 obj1_Dorm_B
+Object 2 obj2_fried_seventeen_centimeter_fromitz_board
+Object 3 obj3_Miniaturization_Booth
+Object 4 obj4_chronometer
+Object 5 obj5_Winding_Stair
+Object 6 obj6_oil_can
+Object 7 obj7_Lab_Storage
+Object 8 obj8_Rec_Corridor
+Object 9 obj9_Mech_Corridor_South
+Object 10 obj10_pair_of_hands
+Object 11 obj11_brown_button
+Object 12 obj12_key
+Object 13 obj13_Course_Control
+Object 14 obj14_Reactor_Access_Stairs
+Object 15 obj15_gray_button
+Object 16 obj16_Middle_of_Strip
+Object 17 obj17_Plan_Room
+Object 18 obj18_green_spool
+Object 19 obj19_speck
+Object 20 obj20_wide_bulkhead
+Object 21 obj21_Courtyard
+Object 22 obj22_window
+Object 23 obj23_tan_button
+Object 24 obj24_Reactor_Lobby
+Object 25 obj25_SanFac_D
+Object 26 obj26_Systems_Corridor_West
+Object 27 obj27_blob_of_brown_goo
+Object 28 obj28_gas_mask
+Object 29 obj29_Infirmary
+Object 30 obj30_new_battery
+Object 31 obj31_multiple_purpose_robot
+Object 32 obj32_you
+Object 33 obj33_Kalamontee_Platform
+Object 34 obj34_black_button
+Object 35 obj35_Elevator_Lobby
+Object 36 obj36_broken_robot
+Object 37 obj37_Dorm_A
+Object 38 obj38_Kitchen
+Object 39 obj39_Balcony
+Object 40 obj40_Reactor_Control
+Object 41 obj41_Helipad
+Object 42 obj42_pile_of_computer_output
+Object 43 obj43_light
+Object 44 obj44_blob_of_green_goo
+Object 45 obj45_Mech_Corridor_North
+Object 46 obj46_shiny_seventeen_centimeter_fromitz_board
+Object 47 obj47_it
+Object 48 obj48_combination_dial
+Object 49 obj49_Project_Corridor
+Object 50 obj50_Admin_Corridor_South
+Object 51 obj51_round_white_button
+Object 52 obj52_player
+Object 53 obj53_glass_flask
+Object 54 obj54_medical_robot_breastplate
+Object 55 obj55_old_battery
+Object 56 obj56_Deck_Nine
+Object 57 obj57_third_seventeen_centimeter_fromitz_board
+Object 58 obj58_silicon_strip
+Object 59 obj59_Small_Office
+Object 60 obj60_cardboard_box
+Object 61 obj61_Booth_2
+Object 62 obj62
+Object 63 obj63_Crag
+Object 64 obj64_Admin_Corridor
+Object 65 obj65_Brig
+Object 66 obj66_ProjCon_Office
+Object 67 obj67_laser
+Object 68 obj68_set_of_controls
+Object 69 obj69_large_desk
+Object 70 obj70_Corridor_Junction
+Object 71 obj71_fused_ninety_ohm_bedistor
+Object 72 obj72_Transportation_Supply
+Object 73 obj73_Comm_Room
+Object 74 obj74_small_desk
+Object 75 obj75_it
+Object 76 obj76_door
+Object 77 obj77_Shuttle_Car_Betty
+Object 78 obj78_yellow_button
+Object 79 obj79_random_object
+Object 80 obj80_Project_Corridor_West
+Object 81 obj81_screen
+Object 82 obj82_Strip_Near_Station
+Object 83 obj83_upper_elevator_access_card
+Object 84 obj84_good_ninety_ohm_bedistor
+Object 85 obj85_Storage_East
+Object 86 obj86_door
+Object 87 obj87_SanFac_C
+Object 88 obj88_crevice
+Object 89 obj89_Physical_Plant
+Object 90 obj90_Reactor_Elevator
+Object 91 obj91_Betty_Control_West
+Object 92 obj92_quantity_of_chemical_fluid
+Object 93 obj93_Lower_Elevator
+Object 94 obj94_curved_metal_bar
+Object 95 obj95_Radiation_Lock_West
+Object 96 obj96_Underwater
+Object 97 obj97_Rec_Area
+Object 98 obj98_Ensign_First_Class
+Object 99 obj99_lab_door
+Object 100 obj100_canteen
+Object 101 obj101_office_door
+Object 102 obj102_ID_card
+Object 103 obj103_Alfie_Control_East
+Object 104 obj104_ladder
+Object 105 obj105_Computer_Room
+Object 106 obj106_Admin_Corridor_North
+Object 107 obj107_door
+Object 108 obj108_Main_Lab
+Object 109 obj109_Systems_Corridor
+Object 110 obj110_red_door
+Object 111 obj111_K_series_megafuse
+Object 112 obj112_funnel_shaped_hole
+Object 113 obj113_Cryo_Elevator
+Object 114 obj114_Waiting_Area
+Object 115 obj115_Repair_Room
+Object 116 obj116_Bio_Lab
+Object 117 obj117_glowing_button
+Object 118 obj118_first_seventeen_centimeter_fromitz_board
+Object 119 obj119_cryo_elevator_door
+Object 120 obj120_Observation_Deck
+Object 121 obj121_lower_elevator_access_card
+Object 122 obj122_access_panel
+Object 123 obj123_Patrol_issue_self_contained_multi_purpose_scrub_brush
+Object 124 obj124_shuttle_car
+Object 125 obj125_door
+Object 126 obj126_Large_Office
+Object 127 obj127_Conference_Room
+Object 128 obj128_teleportation_access_card
+Object 129 obj129_pair_of_wide_nosed_pliers
+Object 130 obj130_B_series_megafuse
+Object 131 obj131_Planetary_Defense
+Object 132 obj132_lever
+Object 133 obj133_Library_Lobby
+Object 134 obj134_cliff
+Object 135 obj135_Bio_Lock_East
+Object 136 obj136_communications_receive_console
+Object 137 obj137_Strip_Near_Relay
+Object 138 obj138_alien_ambassador
+Object 139 obj139_bed
+Object 140 obj140_lab_uniform
+Object 141 obj141_padlock
+Object 142 obj142_white_button
+Object 143 obj143_square_white_button
+Object 144 obj144_little_button
+Object 145 obj145_lab_door
+Object 146 obj146_escape_pod
+Object 147 obj147_Station_384
+Object 148 obj148_Mess_Hall
+Object 149 obj149_Systems_Monitors
+Object 150 obj150_black_button
+Object 151 obj151_towel
+Object 152 obj152_beige_button
+Object 153 obj153_SanFac_B
+Object 154 obj154_mangled_robot
+Object 155 obj155_Fork
+Object 156 obj156_quantity_of_medicine
+Object 157 obj157_Dorm_Corridor
+Object 158 obj158_rift
+Object 159 obj159_Library
+Object 160 obj160_piece_of_celery
+Object 161 obj161_green_button
+Object 162 obj162_terminal
+Object 163 obj163_red_spool
+Object 164 obj164_laser_setting_dial
+Object 165 obj165_SanFac_F
+Object 166 obj166_portable_lamp
+Object 167 obj167_Project_Corridor_East
+Object 168 obj168_Escape_Pod
+Object 169 obj169_Tower_Core
+Object 170 obj170_rat_like__ant_like_man_sized_monster
+Object 171 obj171_shelf
+Object 172 obj172_brown_button
+Object 173 obj173_blue_button
+Object 174 obj174_memo
+Object 175 obj175_hairy_growling_biped
+Object 176 obj176_bio_lock_door
+Object 177 obj177_large_metal_cube
+Object 178 obj178_brown_spool
+Object 179 obj179_slot
+Object 180 obj180_Shuttle_Car_Alfie
+Object 181 obj181_cracked_seventeen_centimeter_fromitz_board
+Object 182 obj182_Helicopter
+Object 183 obj183_escape_pod_bulkhead
+Object 184 obj184_Dorm_D
+Object 185 obj185_Booth_3
+Object 186 obj186_quantity_of_protein_rich_liquid
+Object 187 obj187_lurking_fanged_creature
+Object 188 obj188_Storage_West
+Object 189 obj189_medicine_bottle
+Object 190 obj190_Systems_Corridor_East
+Object 191 obj191_Cryo_Anteroom
+Object 192 obj192_West_Wing
+Object 193 obj193_kitchen_access_card
+Object 194 obj194_stairway
+Object 195 obj195_Booth_1
+Object 196 obj196_chemical_dispenser
+Object 197 obj197_microrelay
+Object 198 obj198_Physical_Plant
+Object 199 obj199_second_seventeen_centimeter_fromitz_board
+Object 200 obj200_tin_can
+Object 201 obj201_Lab_Office
+Object 202 obj202_shuttle_access_card
+Object 203 obj203_floor
+Object 204 obj204_desk
+Object 205 obj205_red_button
+Object 206 obj206_table
+Object 207 obj207_such_thing
+Object 208 obj208_SanFac_A
+Object 209 obj209_piece_of_paper
+Object 210 obj210_Deck_Eight
+Object 211 obj211_narrow_bulkhead
+Object 212 obj212_microbe
+Object 213 obj213_number
+Object 214 obj214_game
+Object 215 obj215_survival_kit
+Object 216 obj216_sacred_act_of_sleeping
+Object 217 obj217_Bio_Lock_West
+Object 218 obj218_Mess_Corridor
+Object 219 obj219_dispenser_unit
+Object 220 obj220_SanFac_E
+Object 221 obj221_diary
+Object 222 obj222_radiation_lock_door
+Object 223 obj223_miniaturization_access_card
+Object 224 obj224_red_button
+Object 225 obj225_doorway
+Object 226 obj226_blue_door
+Object 227 obj227_large_vehicle
+Object 228 obj228_mobile_man_eating_plant
+Object 229 obj229_Robot_Shop
+Object 230 obj230_Escalator
+Object 231 obj231_Gangway
+Object 232 obj232_safety_web
+Object 233 obj233_brochure
+Object 234 obj234_Tool_Room
+Object 235 obj235_blue_button
+Object 236 obj236_Upper_Elevator
+Object 237 obj237_Dorm_C
+Object 238 obj238_Lawanda_Platform
+Object 239 obj239_Auxiliary_Booth
+Object 240 obj240_Alfie_Control_West
+Object 241 obj241_microfilm_reader
+Object 242 obj242_Patrol_uniform
+Object 243 obj243_small_doorway
+Object 244 obj244_Radiation_Lock_East
+Object 245 obj245_Radiation_Lab
+Object 246 obj246_ocean
+Object 247 obj247_communication_send_console
+Object 248 obj248_Plain_Hall
+Object 249 obj249_Mech_Corridor
+Object 250 obj250_reactor_elevator_door
+Object 251 obj251_blob_of_red_goo
+Object 252 obj252_red_button
+Object 253 obj253_fourth_seventeen_centimeter_fromitz_board
+Object 254 obj254_Machine_Shop
+Object 255 obj255_pseudoxyz
+Object 256 obj256_Betty_Control_East
+Object 257 obj257_button
+
+! ------------------------------ Actions -------------------------------
+
+Action 0 Action0  ! 'brief'
+Action 1 Action1  ! 'super'/'superbrie'
+Action 2 Action2  ! 'diagnose'
+Action 3 Action3  ! 'i//'/'inventory'
+Action 4 Action4  ! 'q//'/'quit'
+Action 5 Action5  ! 'restart'
+Action 6 Action6  ! 'restore'
+Action 7 Action7  ! 'save'
+Action 8 Action8  ! 'score'
+Action 9 Action9  ! 'script'
+Action 10 Action10 ! 'unscript'
+Action 11 Action11 ! '$verif' object
+Action 12 Action12 ! '$refre'
+Action 13 Action13 ! 'version'
+Action 14 Action14 ! 'verbose'
+Action 15 Action15 ! '#random' object
+Action 16 Action16 ! '#command'
+Action 17 Action17 ! '#record'
+Action 18 Action18 ! '#unrecor'
+Action 19 Action19 ! 'answer'/'reply'
+Action 20 Action20 ! 'answer'/'reply' object
+Action 21 Action21 ! 'drop'/'release' object(held,many,have) 'into'/'inside'/'in' object
+Action 22 Action22 ! 'strike' attrib47(in_room,on_ground)
+Action 23 Action23 ! 'climb' 'into'/'inside'/'in' attrib45(in_room,on_ground)
+Action 24 Action24 ! 'climb'
+Action 25 Action25 ! 'climb' 'onto'/'on' attrib45(in_room,on_ground)
+Action 26 Action26 ! 'climb' 'to' object
+Action 27 Action27 ! 'climb' 'with'/'using'/'thru'/'through' object
+Action 28 Action28 ! 'climb' 'down'/'d//' attrib45(in_room,on_ground)
+Action 29 Action29 ! 'climb' attrib45(in_room,on_ground)
+Action 30 Action30 ! 'lay'/'lie'/'recline'/'sit'
+Action 31 Action31 ! 'lay'/'lie'/'recline'/'sit' 'down'/'d//' attrib44
+Action 32 Action32 ! 'slide'/'swing' object 'under' object
+Action 33 Action33 ! 'brandish'/'wave' object(take) 'near' object
+Action 34 Action34 ! 'slide'/'swing' object 'across' object
+Action 35 Action35 ! 'stand' 'up'/'u//' attrib44
+Action 36 Action36 ! 'stand' 'onto'/'on' object
+Action 37 Action37 ! 'close'/'collapse'/'fold'/'shorten' object(held,carried,in_room,on_ground)
+Action 38 Action38 ! 'curse'/'damn'/'fuck'/'krip'/'megakrip'/'shit'/'trot'/'trotting'
+Action 39 Action39 ! 'disembark' attrib44(in_room,on_ground)
+Action 40 Action40 ! 'leave' object
+Action 41 Action41 ! 'drop'/'release' object(held,many,have) 'onto'/'on' object
+Action 42 Action42 ! 'drink'/'eat'/'swallow' attrib43(take)
+Action 43 Action43 ! 'drink'/'eat'/'swallow' 'from' object(take)
+Action 44 Action44 ! 'enter'
+Action 45 Action45 ! 'exit' object
+Action 46 Action46 ! 'describe'/'examine'/'what'/'what^s'/'whats'/'x//' object(held,carried,in_room,on_ground,many)
+Action 47 Action47 ! 'describe'/'examine'/'what'/'what^s'/'whats'/'x//' 'onto'/'on' object(held,carried,in_room,on_ground,many)
+Action 48 Action48 ! 'gaze'/'l//'/'look'/'stare' 'for' object
+Action 49 Action49 ! 'blast'/'burn'/'fire'/'shoot'/'zap' object 'with'/'using'/'thru'/'through' object(held)
+Action 50 Action50 ! 'blast'/'burn'/'fire'/'shoot'/'zap' object(held) 'at' object
+Action 51 Action51 ! 'chase'/'follow'/'pursue' attrib47
+Action 52 Action52 ! 'flush' object
+Action 53 Action53 ! 'fly' object
+Action 54 Action54 ! 'donate'/'feed'/'give'/'hand'/'offer' object(held,many,have) 'to' attrib47
+Action 55 Action55 ! 'donate'/'feed'/'give'/'hand'/'offer' attrib47(on_ground) object(held,many,have)
+Action 56 Action56 ! 'hello'/'hi' object
+Action 57 Action57 ! 'clue'/'clues'/'help'/'hint'/'hints'/'invisiclu'
+Action 58 Action58 ! 'clue'/'clues'/'help'/'hint'/'hints'/'invisiclu' 'off' attrib44
+Action 59 Action59 ! 'jump'/'leap' 'off' object
+Action 60 Action60 ! 'kick' object
+Action 61 Action61 ! 'kiss' attrib47(in_room,on_ground)
+Action 62 Action62 ! 'knock'/'rap' 'onto'/'on' object
+Action 63 Action63 ! 'leave'
+Action 64 Action64 ! 'listen' 'to' object
+Action 65 Action65 ! 'lock' object(in_room,on_ground) 'with'/'using'/'thru'/'through' object(held)
+Action 66 Action66 ! 'gaze'/'l//'/'look'/'stare' 'around' attrib44
+Action 67 Action67 ! 'gaze'/'l//'/'look'/'stare' object
+Action 68 Action68 ! 'gaze'/'l//'/'look'/'stare' 'under' object
+Action 69 Action69 ! 'gaze'/'l//'/'look'/'stare' 'behind' object
+Action 70 Action70 ! 'gaze'/'l//'/'look'/'stare' 'down'/'d//' attrib44
+Action 71 Action71 ! 'rummage'/'search'/'sift'/'sort' 'with'/'using'/'thru'/'through' object
+Action 72 Action72 ! 'move' object(in_room,on_ground)
+Action 73 Action73 ! 'press'/'push' 'up'/'u//' object
+Action 74 Action74 ! 'press'/'push' 'down'/'d//' object
+Action 75 Action75 ! 'aim'/'gesture'/'point' object(held,carried,have) 'at' object(in_room,on_ground)
+Action 76 Action76 ! 'pull'/'tug' 'onto'/'on' object
+Action 77 Action77 ! 'remove' object 'with'/'using'/'thru'/'through' object(take)
+Action 78 Action78 ! 'break'/'damage'/'destroy'/'smash' 'down'/'d//' object(held,carried,in_room,on_ground)
+Action 79 Action79 ! 'extend'/'lengthen'/'open'/'unfold' 'up'/'u//' attrib42(held,carried,in_room,on_ground)
+Action 80 Action80 ! 'extend'/'lengthen'/'open'/'unfold' object 'with'/'using'/'thru'/'through' object(have)
+Action 81 Action81 ! 'remove' object 'from' object
+Action 82 Action82 ! 'play' object 'with'/'using'/'thru'/'through' attrib47
+Action 83 Action83 ! 'play' 'with'/'using'/'thru'/'through' attrib47
+Action 84 Action84 ! 'press'/'push' 'against' object
+Action 85 Action85 ! 'wear' object(take,have)
+Action 86 Action86 ! 'slide'/'swing' object(held,carried,have) 'with'/'using'/'thru'/'through' object
+Action 87 Action87 ! 'insert'/'place'/'put'/'stuff' object
+Action 88 Action88 ! 'molest'/'rape' attrib47
+Action 89 Action89 ! 'reach' 'into'/'inside'/'in' attrib40
+Action 90 Action90 ! 'reach' 'for' object
+Action 91 Action91 ! 'read'/'skim' attrib39(take)
+Action 92 Action92 ! 'feel'/'pat'/'pet'/'rub'/'touch' object
+Action 93 Action93 ! 'brush'/'clean'/'mop'/'polish'/'scrub'/'shine'/'swab' object 'with'/'using'/'thru'/'through' object(have)
+Action 94 Action94 ! 'sleep'
+Action 95 Action95 ! 'shake' object
+Action 96 Action96 ! 'shake' object 'with'/'using'/'thru'/'through' attrib47
+Action 97 Action97 ! 'hop'/'skip'
+Action 98 Action98 ! 'smell'/'sniff' object
+Action 99 Action99 ! 'step' 'into'/'inside'/'in' object
+Action 100 Action100 ! 'bathe'/'swim'/'wade' 'into'/'inside'/'in' object
+Action 101 Action101 ! 'bathe'/'swim'/'wade' 'down'/'d//' attrib44
+Action 102 Action102 ! 'bathe'/'swim'/'wade' 'up'/'u//' attrib44
+Action 103 Action103 ! 'carry'/'get'/'hold'/'take' 'off' attrib38(held,carried,many)
+Action 104 Action104 ! 'remove' object
+Action 105 Action105 ! 'ask'/'tell' attrib47(in_room)
+Action 106 Action106 ! 'ask'/'tell' attrib47(in_room) 'for' object
+Action 107 Action107 ! 'grin'/'smile'
+Action 108 Action108 ! 'salute' object
+Action 109 Action109 ! 'say'/'talk' 'to' attrib47(in_room)
+Action 110 Action110 ! 'say'/'talk'
+Action 111 Action111 ! 'chuck'/'hurl'/'throw'/'toss' object(held,carried,have)
+Action 112 Action112 ! 'chuck'/'hurl'/'throw'/'toss' object(held,carried,have) 'over'/'above' object
+Action 113 Action113 ! 'set'/'turn' object(held,carried,in_room,on_ground) 'with'/'using'/'thru'/'through' object(held,carried,in_room,on_ground,have)
+Action 114 Action114 ! 'set'/'turn' 'onto'/'on' attrib37(held,carried,in_room,on_ground)
+Action 115 Action115 ! 'set'/'turn' 'off' attrib37(held,carried,in_room,on_ground)
+Action 116 Action116 ! 'set'/'turn' object(in_room,on_ground)
+Action 117 Action117 ! 'type' 'into'/'inside'/'in' object
+Action 118 Action118 ! 'unlock' object(in_room,on_ground) 'with'/'using'/'thru'/'through' attrib36(held,carried,in_room,on_ground,take)
+Action 119 Action119 ! 'wait'/'z//'
+Action 120 Action120 ! 'awake'/'startle'/'surprise'/'wake' 'up'/'u//' attrib47(in_room,on_ground)
+Action 121 Action121 ! 'go'/'proceed'/'run'/'walk' object
+Action 122 Action122 ! 'go'/'proceed'/'run'/'walk' 'around' object
+Action 123 Action123 ! 'go'/'proceed'/'run'/'walk' 'to' object
+Action 124 Action124 ! 'brandish'/'wave' object(held,carried) 'at' object
+Action 125 Action125 ! 'scream'/'shout'/'yell'
+Action 126 Action126 ! 'scream'/'shout'/'yell' 'at' attrib47
+Action 127 Action127 ! 'sneeze'/'zork'
+Action 128 Action128 ! 'affirmati'/'y//'/'yes' object
+Action 129 Action129 ! 'negative'/'no'
+Action 130 Action130 ! 'dunno'/'maybe'/'possibly'
+Action 131 Action131 ! 'pour'/'spill' object 'into'/'inside'/'in' object
+Action 132 Action132 ! 'empty' object(have) 'into'/'inside'/'in' object
+Action 133 Action133 ! 'fix'/'repair' object
+Action 134 Action134 ! 'lubricate'/'oil' object 'with'/'using'/'thru'/'through' object(have)
+Action 135 Action135 ! 'show' object(have) 'to' attrib47
+Action 136 Action136 ! 'taste' object
+Action 137 Action137 ! 'escape'
+Action 138 Action138 ! 't//'/'time'
+
+! ------------------------------ Routines ------------------------------
+
+
+! ------------------------------- Words --------------------------------
+
+Word $refre $refre
+Word $verif $verif
+Word #command #command
+Word #unrecor #unrecor
+Word affirmati affirmati
+Word ambassado ambassado
+Word ant-like ant-like
+Word b-series b-series
+Word beanstalk beanstalk
+Word bio-lock bio-lock
+Word breastpla breastpla
+Word cardboard cardboard
+Word centimete centimete
+Word chronomet chronomet
+Word combinati combinati
+Word communica communica
+Word companion companion
+Word compartme compartme
+Word conferenc conferenc
+Word cryo-ele cryo-ele
+Word cubbyhole cubbyhole
+Word depressio depressio
+Word dim-witt dim-witt
+Word disembark disembark
+Word dispenser dispenser
+Word emergency emergency
+Word enunciato enunciato
+Word equipment equipment
+Word escalator escalator
+Word experimen experimen
+Word fungicide fungicide
+Word funnel-s funnel-s
+Word heavy-du heavy-du
+Word helicopte helicopte
+Word hider-an hider-an
+Word high-ran high-ran
+Word horseshoe horseshoe
+Word hucka-bu hucka-bu
+Word identific identific
+Word important important
+Word inventory inventory
+Word invisiclu invisiclu
+Word k-series k-series
+Word lubricate lubricate
+Word man-eati man-eati
+Word man-size man-size
+Word microfilm microfilm
+Word microrela microrela
+Word miniaturi miniaturi
+Word multi-pu multi-pu
+Word multi-ti multi-ti
+Word ninety-o ninety-o
+Word octagonal octagonal
+Word partition partition
+Word precipice precipice
+Word protein- protein-
+Word provision provision
+Word radiation radiation
+Word rat-like rat-like
+Word scrubbrus scrubbrus
+Word scrubrush scrubrush
+Word self-con self-con
+Word seventeen seventeen
+Word starboard starboard
+Word structure structure
+Word superbrie superbrie
+Word teleporta teleporta
+Word transluce transluce
+Word wide-nos wide-nos
+Word worn-out worn-out
+Word wristwatc wristwatc
+
