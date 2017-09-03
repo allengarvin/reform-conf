@@ -18,7 +18,7 @@ MD5  71B1BF0BB198D8E7584B95F8527539D9
 CodeArea  0x4b72  0x11ab2
 StringArea  0x11ab2  0x15f38
 
-Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_BEFORE=6
+Enum  rarg  M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_WAKE=4 M_FIGHT=5 M_BEFORE=6
 Enum  player_status  S_NOTHING=0 S_FEEBLE=1 S_FUMBLE=2 S_FEAR=3 S_FILCH=4 S_FREEZE=5 S_FALL=6 S_FERMENT=7 S_FIERCE=8 S_FLOAT=9 S_FIREPROOF=10 S_FENCE=11 S_FANTASIZE=12
 Enum  baseball_ndx  BB_START=1 BB_FIRST=2 BB_SECOND=3 BB_THIRD=4 BB_HOMERUN=5
 
@@ -77,7 +77,7 @@ Global       40 Baseball_ndx:baseball_ndx
 Global       41 Homerun:bool
 GlobalArray  42 Lamp_table:array(3*(int,string))
 Global       43 Match_count:int
-Global       44 Plook_flag:bool
+Global       44 Oakdoor_window_viewed:bool
 Global       45 Oakdoor_unlocked:bool
 Global       46 On_placemat:object
 Global       47 Placemat_flag:bool
@@ -127,7 +127,7 @@ Global       91 Lit:bool
 GlobalArray  92 Hop_msg:table(string)
 GlobalArray  93 Dive_msg:table(string)
 Global       94 Hello_sailor_cnt:int
-Global       95 superbrief:bool
+Global       95 Superbrief:bool
 Global       96 verbose:bool
 Global       97 Always_lit:bool
 Global       98 P_xadjn
@@ -570,7 +570,7 @@ Action 39  Cross
 Action 40  Cut
 Action 41  Curse
 Action 42  Deflate
-Action 43  Poke
+Action 43  Kill
 Action 44  Open
 Action 45  Dig
 Action 46  Disembark
@@ -761,7 +761,7 @@ Routine  0x6ae0 ITake_Check tbl bits ptr obj:object taken:bool
 Routine  0x6b88 Many_Check loss:int tmp word:dictword
 Routine  0x6c12 ZMemQ itm:dictword tbl size:int cnt:int
 Routine  0x6c3a ZMemQB itm:object tbl size cnt
-Routine  0x6c52 LitP:bool room:object
+Routine  0x6c52 LitP:bool room:object loc:object oldroom:object islit:bool
 Routine  0x6cbc Prso_Print ptr:dictword
 Routine  0x6ce4 Prsi_Print ptr:dictword
 Routine  0x6d0c This_It_P obj:object UNUSED syns UNUSED2
@@ -813,7 +813,7 @@ Routine  0x777c DrinkSub
 Routine  0x7784 DrinkFromSub
 Routine  0x7790 PreDropSub
 Routine  0x77a0 DropSub
-Routine  0x77b2 EatSub
+Routine  0x77b2 EatSub can_eat:bool can_drink:bool env:object
 Routine  0x78a2 Hit_Spot
 Routine  0x78e8 EchoSub
 Routine  0x78fe EnchantSub
@@ -941,7 +941,7 @@ Routine  0x9250 UnconditionalQuit
 Routine  0x9258 YesOrNo
 Routine  0x9270 ITake:act_result vb:bool num_items UNUSED weight
 Routine  0x93c2 MoveToPlayer
-Routine  0x9408 CCount
+Routine  0x9408 CCount obj:object cnt:int x
 Routine  0x9420 QueryWeight obj:object cont wt:int
 Routine  0x9450 HoHumMsg preface:string
 Routine  0x947a VehicleNoGo has_vehicle veh
@@ -973,12 +973,12 @@ Routine  0x9dd6 MoveBalloonUp hasplayer:bool nextroom:object
 Routine  0x9eee MoveBalloonDown hasplayer:bool nextroom:object
 Routine  0x9f9e BalloonAction
 Routine  0xa09c WireAction
-Routine  0xa124 BalloonFuelDaemon
+Routine  0xa124 BalloonFuelDaemon obj:object
 Routine  0xa15e DustyAction rarg:rarg
 Routine  0xa206 BoxAction
 Routine  0xa26a BrickAction
 Routine  0xa278 StringAction
-Routine  0xa2aa BombDaemon
+Routine  0xa2aa BombDaemon env:object obj:object
 Routine  0xa37c PostExplosionDaemon
 Routine  0xa3fc LedgeCollapseDaemon room:object
 Routine  0xa492 WideLedgeAction rarg:rarg
@@ -1006,7 +1006,7 @@ Routine  0xb050 BucketAction
 Routine  0xb176 MoveBucket loc:object
 Routine  0xb188 PostsRoomAction rarg:rarg
 Routine  0xb1c4 GreenCakeAction
-Routine  0xb254 CantEatCake cake
+Routine  0xb254 CanEatCake cake
 Routine  0xb28e CakeAction obj:object nextobj:object
 Routine  0xb498 CandyAction
 Routine  0xb562 Etchings2Action
@@ -1082,7 +1082,7 @@ Routine  0xdd38 IceRoomAction rarg:rarg
 Routine  0xdddc DragonAction
 Routine  0xdff2 CheckSpellTalk obj:object
 Routine  0xe01c WhereWent who:object nextprop propaddr propsize:int ptr
-Routine  0xe056 DragonDaemonobj:object
+Routine  0xe056 DragonDaemon obj:object
 Routine  0xe4b8 DragonReturn
 
 Routine  0xe4be Not_Here_Object_F2
