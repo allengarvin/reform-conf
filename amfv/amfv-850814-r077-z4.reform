@@ -33,25 +33,41 @@ Enum act_result A_SUCCESS=1 A_FAILURE=2
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
+GlobalArray 192 Ho_hum:table(string)
+Global       57 Last_abe_time:int
+Global      103 L_Date
+Global      141 Simulating:bool
 Global        1 Report_reviewed_str:string
+Global        4 Waiter_counter:int
 Global        5 Year_is_2071:bool
 Global        8 Month:month_const
 Global       10 Jill_is_gracious_str:string
+Global       12 Tenths_2061:int
+Global       13 Michell_counter:int
 Global       15 P_slocbits:int
 Global       17 Year_is_2081:bool
 Global       23 Clock_wait:bool
+Global       26 Raid_prob:bool
 Global       28 global28:bool
 GlobalArray  30 C_table:array(25*(int,^routine))
+Global       32 P_xnam:dictword
 Global       35 Unable_to_parse_str:string
 Global       39 Go_to_comm_outlet_str:string
+GlobalArray  40 City_noises_2051:table(string)
 Global       41 Real_life_year:int
+Global       42 Jill_counter:int
 Global       44 Contact_ack_str:string
 Global       45 Must_leave_str:string
+Global       48 Seconds_2071:int
 Global       51 No_refer_str:string
 Global       53 No_go_str:string
 Global       54 Mugging_msg_str:string
+Global       55 Yes_no_flag:int
 Global       56 WWN_str:string
+Global       59 Tenths_2051:int
 Global       60 No_exit_str:string
+Global       61 Follow_flag:int
+Global       64 Stime:int
 Global       65 Current_fiscal_year_str:string
 Global       68 Desc_of_view_str:string
 Global       70 No_kill_str:string
@@ -63,19 +79,32 @@ Global       78 Tobacco_str:string
 Global       79 Already_closed_str:string
 Global       80 Stinky_str:string
 Global       86 Restaurant_counter:order_const
+Global       87 Seconds_2081:int
 Global       88 Bartender_angry_str:string
+Global       89 Part_flag:int
 Global       91 noun:object
+GlobalArray  92 City_noises_2061:table(string)
+Global       94 elapsed_time:int
+Global       95 Dorm_raid_flag:bool
+Global       97 Seconds_2041:int
 Global       99 Fountain_str:string
 Global      100 Stools_str:string
 Global      106 Technical_difficulties_str:string
 Global      111 Year_is_2051:bool
 Global      113 Day_number:int
+Global      116 Clerk_waiting:bool
 Global      118 action:action
 Global      119 Already_are_str:string
+Global      120 Tenths_2041:int
+Global      122 Light_level:int
 Global      123 Message_over_line_str:string
 Global      124 Money_in_bank:int
 Global      125 Enter_comm_mode_str:string
+Global      127 Recording_flag:bool
+Global      128 Tenths_2081:int
 Global      129 Day_of_month:int
+Global      130 Joybooth_used:bool
+Global      132 Mitchell_news_flag:bool
 GlobalArray 133 P_inbuf:array(~int,n*~char)
 Global      134 Sports_str:string
 Global      135 Get_more_data_str:string
@@ -83,7 +112,9 @@ Global      136 Not_holding_str:string
 Global      144 location:object
 Global      145 Gates_locked_str:string
 Global      146 Top_stories_str:string
+GlobalArray 148 City_noises_2071:table(string)
 Global      149 Already_open_str:string
+Global      151 Seconds_2051:int
 Global      152 Look_around_str:string
 GlobalArray 153 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
 Global      154 Time_of_day:int
@@ -91,23 +122,39 @@ Global      155 Cannot_execute_str:string
 Global      156 P_quote_flag:bool
 Global      158 Joke_not_funny_str:string
 Global      162 Tubecar_str:string
+Global      166 Bruised:bool
 Global      168 Year_is_2061:bool
 Global      171 Simulation_Year:int
 Global      172 P_oflag:bool
+Global      173 Apartment_raid_flag:bool
+Global      176 winner:object
 Global      177 ALI_building_str:string
 Global      179 Perel_private_str:string
 Global      180 No_ticket_str:string
 Global      181 Baby_to_crub_str:string
+Global      182 Tenths_2071:int
 GlobalArray 183 Tasks_to_record:array(18*string)
 Global      184 Symphony_closed_str:string
+Global      188 Jill_not_spoken_yet:bool
+Global      189 Stoning_flag:bool
+Global      191 P_it_object:object
 Global      193 Active_light_str:string
+Global      195 Hunger_warning:bool
 Global      196 Boarded_over_str:string
+Global      197 Beggar_flag
 Global      199 Dogs_closer_cnt:int
+Global      200 P_prsi:object
 Global      202 Change_agents_str:string
 Global      204 River_desc_str:string
+Global      205 Mugged:bool
+Global      206 Current_mode:object
+GlobalArray 208 City_noises_2041:table(string)
 Global      209 Chun_buld_str:string
+Global      210 Mitchel_raid_flag:bool
 Global      212 Good_score_str:string
 Global      213 Current_directory:object
+Global      215 Seconds_2061:int
+Global      217 Maitre_d_counter:int
 Global      218 Current_file:object
 Global      219 Silicorp_str:string
 Global      220 P_ncn:int
@@ -122,6 +169,12 @@ LastGlobal  228
 
 ! ----------------------------- Attributes -----------------------------
 
+Attribute   11  scenery
+Attribute   12  narticle
+Attribute   13  my_bit
+Attribute   15  invisible
+Attribute   16  touchable
+Attribute   18  buffer
 Attribute   19  worn
 Attribute   20  switchable
 Attribute   21  edible
@@ -130,23 +183,35 @@ Attribute   23  global
 Attribute   24  key
 Attribute   25  door
 Attribute   26  UNUSED
+Attribute   27  bad_area_bit
+Attribute   28  transparent
+Attribute   29  surface
 Attribute   30  open
 Attribute   31  readable
+Attribute   32  park_bit
 Attribute   33  on
 Attribute   34  vowel_start
 Attribute   35  animate
+Attribute   36  container
+Attribute   37  furniture
 Attribute   38  openable
 Attribute   39  vehicle
 Attribute   40  clothing
 Attribute   41  takeable
+Attribute   42  trytakebit
 Attribute   43  plural
+Attribute   44  ndesc_bit
+Attribute   45  narticle_bit
 Attribute   46  outside
+Attribute   47  street
 
 ! ----------------------------- Properties -----------------------------
 
 Property     38 msg_header:array(4*int)
 Property     39 living:routine
 Property     41 capacity:int
+Property     42 scene:int
+Property     44 initial:string
 Property     45 read_text:thing
 Property     46 short_name:string
 Property     48 preaction:routine
@@ -964,10 +1029,10 @@ Action  176 Yes
 
 ! ------------------------------ Routines ------------------------------
 
-Routine 0xcb00 routine51968 local1 local2 local3 local4
-Routine 0xcb28 routine52008 local1 local2
+Routine 0xcb00 QueueInterrupt rtn:routine int2flag int
+Routine 0xcb28 Queue rtn:routine cint
 Routine 0xcb40 routine52032 local1 local2 local3
-Routine 0xcb60 routine52064 local1 local2 local3 local4 local5 local6
+Routine 0xcb60 PickOne local1 local2 local3 local4 local5 local6
 Routine 0xcbb0 PrintNumber num:int
 Routine 0xcbd4 DescribeObject obj:object
 Routine 0xcc38 Main
@@ -975,12 +1040,12 @@ Routine 0xcd1c routine52508 local1
 Routine 0xcd28 routine52520 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12
 Routine 0xcf94 routine53140 local1 local2 local3 local4
 Routine 0xd010 routine53264 local1 local2
-Routine 0xd084 routine53380 local1 local2 local3 local4 local5 local6 local7
+Routine 0xd084 Perform vb:action what:object
 Routine 0xd170 DoAction:thing msg:string act:thing flag:bool rvalue:thing
 Routine 0xd190 Queue:^array(bool) rtn:routine ticks:int cint
 Routine 0xd1a4 QueueInterrupt:^array(bool) rtn:routine end c intr
 Routine 0xd1fc Clocker c end tick rtn:routine flag:bool
-Routine 0xd260 routine53856 local1 local2 local3
+Routine 0xd260 Increment_time tm:int
 Routine 0xd628 routine54824
 Routine 0xd648 ChangeFont msg:string
 Routine 0xd6f4 routine55028
@@ -1026,11 +1091,11 @@ Routine 0xf0a8 routine61608
 Routine 0xf0c4 routine61636 local1 local2 local3 local4 local5
 Routine 0xf208 routine61960 local1 local2 local3
 Routine 0xf298 routine62104 local1 local2 local3
-Routine 0xf2d8 routine62168 local1
+Routine 0xf2d8 I_Perelman
 Routine 0xfc24 Perelman_Movement
-Routine 0xfda0 routine64928 local1
+Routine 0xfda0 I_Jill
 Routine 0x10a14 routine68116
-Routine 0x10ce0 routine68832
+Routine 0x10ce0 I_Apartment
 Routine 0x110b8 routine69816
 Routine 0x11268 routine70248 local1
 Routine 0x115f8 routine71160 local1
@@ -1043,6 +1108,8 @@ Routine 0x12444 routine74820 local1 local2 local3 local4 local5 local6
 Routine 0x12554 routine75092
 Routine 0x12608 routine75272
 Routine 0x1268c routine75404
+
+! -- verbs.zil --
 Routine 0x126ec VerboseSub
 Routine 0x1270c BriefSub
 Routine 0x12724 SuperbriefSub
@@ -1050,8 +1117,8 @@ Routine 0x12740 DiagnoseSub
 Routine 0x12968 InventorySub local1
 Routine 0x129b4 QuitSub
 Routine 0x129dc RestartSub
-Routine 0x12a14 routine76308
-Routine 0x12ad0 routine76496 local1 local2
+Routine 0x12a14 Finish
+Routine 0x12ad0 Yes_p wrd avl
 Routine 0x12b28 RestoreSub
 Routine 0x12b48 SaveSub local1
 Routine 0x12bc8 ScriptSub
@@ -1060,7 +1127,7 @@ Routine 0x12c60 TranscriptHeader msg:string
 Routine 0x12c80 VersionSub offset:int local1 local2
 Routine 0x12d34 VerifySub
 Routine 0x12d9c DEBUG_RefreSub
-Routine 0x12da8 routine77224
+Routine 0x12da8 Refresh_status_line
 Routine 0x12dc4 CommandSub
 Routine 0x12dcc RandomSetSub
 Routine 0x12dec DebugRecordSub
@@ -1069,8 +1136,8 @@ Routine 0x12e00 AbortSub
 Routine 0x12e4c AbortObjectSub
 Routine 0x12e5c AwakenSub
 Routine 0x12e84 AnswerSub
-Routine 0x12ea8 routine77480
-Routine 0x12f44 routine77636
+Routine 0x12ea8 Answer_say_share
+Routine 0x12f44 Next_word_yes
 Routine 0x12f7c AskAboutSub
 Routine 0x12fa8 AskForSub local1
 Routine 0x12fcc AskPersonForSub
@@ -1105,15 +1172,15 @@ Routine 0x13450 DropSub
 Routine 0x13460 EatSub
 Routine 0x13494 EnterSub local1
 Routine 0x134cc ExamineSub
-Routine 0x13568 routine79208
+Routine 0x13568 Unseeable_object
 Routine 0x13584 ExitSub
 Routine 0x135a0 FeedSub
 Routine 0x135c8 FillSub
 Routine 0x135d4 LookForSub local1 local2
-Routine 0x136b4 routine79540
+Routine 0x136b4 FirstLookSub
 Routine 0x136c8 FlushSub
 Routine 0x136d0 FollowSub
-Routine 0x13724 routine79652
+Routine 0x13724 I_Follow
 Routine 0x1372c PreGiveSub
 Routine 0x13738 GiveSub
 Routine 0x13778 HangOnSub
@@ -1188,7 +1255,7 @@ Routine 0x146e4 SitOnSub local1
 Routine 0x14724 SitNextSub
 Routine 0x14748 CavortSub
 Routine 0x14764 SleepSub local1
-Routine 0x149e4 routine84452
+Routine 0x149e4 End_curfew
 Routine 0x14a18 SmellSub
 Routine 0x14b18 SmileSub
 Routine 0x14b24 CoverSub
@@ -1237,45 +1304,49 @@ Routine 0x15438 WhoIsSub
 Routine 0x15454 WNNFSub
 Routine 0x15488 WriteSub
 Routine 0x1549c ScreamSub
-Routine 0x154ac routine87212
+Routine 0x154ac I_yes_no
 Routine 0x154b4 YesSub
-Routine 0x1577c routine87932 local1 local2 local3 local4
-Routine 0x157f8 routine88056
-Routine 0x158a0 routine88224 local1 local2 local3
-Routine 0x158b8 routine88248 local1 local2 local3
-Routine 0x158f8 routine88312 local1 local2 local3 local4
-Routine 0x159a0 routine88480
-Routine 0x15b44 routine88900
-Routine 0x15b4c routine88908 local1
-Routine 0x15b78 routine88952 local1 local2 local3 local4 local5
-Routine 0x15c10 routine89104 local1 local2 local3 local4 local5 local6 local7 local8 local9
-Routine 0x15d1c routine89372 local1 local2 local3 local4 local5 local6
-Routine 0x15d70 routine89456 local1 local2
-Routine 0x15dc8 routine89544
-Routine 0x15df4 routine89588 local1 local2Routine 0x15e40 Terminate_Simulation local1:string local2
-Routine 0x161c0 routine90560
-Routine 0x161d0 routine90576 local1 local2
-Routine 0x16210 routine90640 local1 local2
-Routine 0x16234 routine90676 local1 local2
-Routine 0x16258 routine90712 local1 local2 local3
-Routine 0x16280 routine90752 local1 local2
-Routine 0x162a4 routine90788 local1
-Routine 0x162b4 routine90804 local1 local2 local3
-Routine 0x162d4 routine90836 local1 local2 local3
-Routine 0x162f0 routine90864
-Routine 0x1631c routine90908
-Routine 0x16338 routine90936 local1
-Routine 0x16348 routine90952 local1 local2
-Routine 0x16364 routine90980
-Routine 0x16370 routine90992 local1 local2 local3 local4
-Routine 0x16398 routine91032 wrd:string
+Routine 0x1577c ITake vb:bool cnt obj:object
+Routine 0x157f8 IDrop
+Routine 0x158a0 CCount obj:object cnt:int x
+Routine 0x158b8 Query_weight obj:object cont:object wt:int
+Routine 0x158f8 Describe_Room lookp:bool print_desc:bool str av
+Routine 0x159a0 Crowd_Desc
+Routine 0x15b44 I_Describe_Crowds
+Routine 0x15b4c Describe_objects v:bool
+Routine 0x15b78 Describe_object obj:object v:bool level:int str:string av:object
+Routine 0x15c10 Print_Cont obj:object v:bool level:int y first:bool av str pv_p inv_p
+Routine 0x15d1c Print_Contents obj:object f n first:bool itp:bool two_p:bool
+Routine 0x15d70 Firster obj:object level:int
+Routine 0x15dc8 Describe_vehicle
+Routine 0x15df4 Goto rm:object v:bool
+Routine 0x15e40 JigsUp desc:string x
+Routine 0x161c0 Moby_verb_P
+Routine 0x161d0 Accessible_P obj:object loc:object
+Routine 0x16210 Visible obj:object loc:object
+Routine 0x16234 Meta_Loc obj:object inv
+Routine 0x16258 Other_side door_obj:object p tee
+Routine 0x16280 Held_P obj:object
+Routine 0x162a4 See_inside obj:object
+Routine 0x162b4 Global_in obj1:object obj2:object tee
+Routine 0x162d4 Find_in where:object what:object w:bool
+Routine 0x162f0 Loc_closed
+Routine 0x1631c Right_here
+Routine 0x16338 Do_Walk dir:property
+Routine 0x16348 Change_object old_o:object new_o:object
+Routine 0x16364 Clear_buffer
+Routine 0x16370 Rob who:object where:object n x
+Routine 0x16398 Hack_Hack str:string
 Routine 0x163b0 PrefixWithArticle obj:object definite_obj:bool
-Routine 0x163e4 routine91108 local1
-Routine 0x163f8 it_5_action local1 local2 local3 local4
-Routine 0x165e4 routine91620
-Routine 0x16604 routine91652
+Routine 0x163e4 Plural obj:object
+
+! -- end of verbs.zil --
+
+Routine 0x163f8 Not_Here_Object_F tbl prso_p:bool obj:object x
+Routine 0x165e4 Prso_verb_p
+Routine 0x16604 Prsi_verb_p
 Routine 0x16610 routine91664 local1 local2 local3 local4
-Routine 0x1665c routine91740 local1 local2
+Routine 0x1665c Not_here_print local1 local2
 Routine 0x166ac ground_action
 Routine 0x166d4 wall_action
 Routine 0x16720 ceiling_action
@@ -1319,9 +1390,9 @@ Routine 0x17504 house_room_preaction
 Routine 0x17534 kitchen_preaction
 Routine 0x17538 church_elder_preaction
 Routine 0x17548 Rockvil_action
-Routine 0x175e4 routine95716 local1
-Routine 0x175fc routine95740 local1 local2
-Routine 0x176b4 routine95924 local1
+Routine 0x175e4 Cant_buy obj:object
+Routine 0x175fc Too_poor credits:int obj:object
+Routine 0x176b4 Debit credits:int
 Routine 0x17714 routine96020 local1 local2 local3
 Routine 0x177ac AnnounceClose:bool local1:int wheremsg:string whomsg:string where:object
 Routine 0x17810 routine96272 local1
@@ -1390,6 +1461,8 @@ Routine 0x19ef8 AddressDirectly_msg who:object
 Routine 0x19f1c SpentTooMuchMoney_msg
 Routine 0x19f50 FurnitureRemoved_msg
 Routine 0x19f68 PerelmanArrives_msg
+
+! -- rockvil.zil --
 Routine 0x19fcc Rockvil_Centre_action rarg:rarg
 Routine 0x1a0a4 Rockvil_Centre_se_to:object
 Routine 0x1a1c0 Dunbars_action rarg:rarg
@@ -1425,7 +1498,7 @@ Routine 0x1b25c courthouse_action
 Routine 0x1b2a4 police_station_action
 Routine 0x1b2f0 Police_Station_action rarg:rarg
 Routine 0x1b3f0 police_officer_action
-Routine 0x1b484 routine111748
+Routine 0x1b484 I_Jail
 Routine 0x1b494 blanket_action
 Routine 0x1b4fc Post_Office_action rarg:rarg
 Routine 0x1b6a0 post_office_action
@@ -1491,7 +1564,7 @@ Routine 0x1da4c Joybooth_action rarg:rarg local2
 Routine 0x1db60 Joybooth_out_to:object
 Routine 0x1db88 joybooth_action
 Routine 0x1dc18 red_button_action
-Routine 0x1e020 routine122912
+Routine 0x1e020 I_Joybooth_recharge
 Routine 0x1e024 headset_action
 Routine 0x1e044 Elm_and_River_action rarg:rarg
 Routine 0x1e100 Elm_and_River_nw_to:object
@@ -1510,7 +1583,7 @@ Routine 0x1ea14 Main_and_Church_action rarg:rarg local2
 Routine 0x1ec0c Main_and_Church_southwest_to:object
 Routine 0x1ec1c Main_and_Church_northwest_to:object
 Routine 0x1ec2c Church_Street_Apartments_action rarg:rarg
-Routine 0x1ec48 routine126024
+Routine 0x1ec48 I_Hunger
 Routine 0x1ecac Main_and_Wicker_action rarg:rarg local2
 Routine 0x1ef34 unshaven_man_action
 Routine 0x1ef94 strip_joint_advertisement_action
@@ -1755,15 +1828,18 @@ Routine 0x2a168 routine172392 local1
 Routine 0x2a36c Tube_Station_2_in_to:object
 Routine 0x2a3e4 Tubecar_2_out_to:object
 Routine 0x2a41c routine173084
-Routine 0x2a4a8 routine173224 local1
+Routine 0x2a4a8 I_Mug x
 Routine 0x2a5a0 key_action
 Routine 0x2a5e8 ration_card_action
 Routine 0x2a7bc slot_action
-Routine 0x2abfc unnamed_7_action
+Routine 0x2abfc Spear_carrier_f
+
+! -- end of rockvil.zil --
+
 Routine 0x2af3c routine175932
 Routine 0x2afbc routine176060
 Routine 0x2afec routine176108 local1
-Routine 0x2b028 routine176168 local1
+Routine 0x2b028 I_Message_D
 Routine 0x2b0c8 routine176328
 Routine 0x2b1d0 routine176592
 Routine 0x2b2f8 routine176888
@@ -1774,7 +1850,7 @@ Routine 0x2b3e0 routine177120
 Routine 0x2b3f0 routine177136
 Routine 0x2b404 routine177156
 Routine 0x2b42c record_buffer_action
-Routine 0x2b444 MYSTERIOUS_FUNCT ndx:int local2:int
+Routine 0x2b444 Score ndx:int local2:int
 Routine 0x2b488 enter_library_mode_action rarg:rarg
 Routine 0x2b4d4 play_name
 Routine 0x2b538 routine177464 local1 local2 local3
@@ -1876,7 +1952,9 @@ Routine 0x356b8 routine218808
 Routine 0x35714 routine218900
 Routine 0x35930 routine219440
 Routine 0x35b88 routine220040
-Routine 0x36040 routine221248
+
+! -- apartment.zil --
+Routine 0x36040 In_Apartment
 Routine 0x36050 apartment_action
 Routine 0x360a0 living_room_action
 Routine 0x36140 kitchen_action
@@ -1892,11 +1970,11 @@ Routine 0x36550 Hall_Near_Your_Apartment_action rarg:rarg
 Routine 0x365b4 Hall_Near_Your_Apartment_d_to:object
 Routine 0x365dc door_4_action
 Routine 0x36768 Living_Room_action rarg:rarg
-Routine 0x368a0 routine223392
+Routine 0x368a0 Raid_mess_desc
 Routine 0x368dc Living_Room_out_to:object
 Routine 0x36954 word_processor_action
 Routine 0x369d0 easel_action
-Routine 0x36a0c routine223756 local1
+Routine 0x36a0c Easel_desc x:bool
 Routine 0x36ab4 painting_action
 Routine 0x36c50 partition_action
 Routine 0x36c6c partition_living local1
@@ -1920,14 +1998,14 @@ Routine 0x37680 Bathroom_action rarg:rarg
 Routine 0x376d0 toilet_action
 Routine 0x376f8 shower_stall_action
 Routine 0x37798 Jill_action rarg:rarg
-Routine 0x3827c Jill_living local1
-Routine 0x384a0 routine230560
+Routine 0x3827c Jill_living unused
+Routine 0x384a0 Put_jill_in_the_right_place
 Routine 0x385f0 romance_novel_action
 Routine 0x3868c crib_action
 Routine 0x38698 toy_duck_action
 Routine 0x386d8 baby_action
-Routine 0x38964 routine231780 local1
-Routine 0x38984 routine231812
+Routine 0x38964 No_place_for_baby dest:object
+Routine 0x38984 I_Mitchell_Raid
 Routine 0x38d08 sunroom_action
 Routine 0x38d58 terrace_action
 Routine 0x38d9c Patio_action rarg:rarg
@@ -1941,6 +2019,8 @@ Routine 0x39048 skycab_action
 Routine 0x39060 viewscreen_action
 Routine 0x390ac receiver_station_action
 Routine 0x390d4 Riverside_Cultural_Center_action
+
+! -- end of apartment.zil --
 
 ! ------------------------------- Words --------------------------------
 
