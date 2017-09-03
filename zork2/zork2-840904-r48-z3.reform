@@ -33,8 +33,6 @@ Enum act_result A_SUCCESS=1 A_FAILURE=2
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
-Global      117 P_slocbits:int
-Global      142 P_table
 Global        0 location:object
 Global        1 score:int
 Global        2 turns:int
@@ -79,6 +77,7 @@ Global       40 Baseball_ndx:baseball_ndx
 Global       41 Homerun:bool
 GlobalArray  42 Lamp_table:array(3*(int,string))
 Global       43 Match_count:int
+Global       44 Plook_flag:bool
 Global       45 Oakdoor_unlocked:bool
 Global       46 On_placemat:object
 Global       47 Placemat_flag:bool
@@ -99,21 +98,13 @@ Global       62 End_flag:bool
 Global       63 Crypt_dark:bool
 Global       64 Gnome_nervous:bool
 Global       65 Brick_explosive:string
-Global      112 P_adjn
-Global      126 P_aadj
-Global      102 P_and:bool
-Global      127 P_anam
-GlobalArray 124 P_otbl:array(8*bool)
-Global      128 P_aclause:p_partsofspeech
-Global      113 P_adverb
-Global      129 P_merged:bool
 GlobalArray  66 Balloon_descent:table(object)
 GlobalArray  67 Landing_table:table(object)
 GlobalArray  68 Balloon_ascent:table(object)
 Global       69 Box_blasted:bool
 Global       70 Label_revealed:bool
-Global       71 Balloon_fuel
-Global       72 Tether_obj
+Global       71 Balloon_fuel:object
+Global       72 Tether_obj:object
 Global       73 Exploded_room:object
 GlobalArray  74 Carousel_dirs:array(7*property)
 Global       75 Player_fierce:bool
@@ -122,59 +113,72 @@ GlobalArray  77 Yuks_table:table(string)
 GlobalArray  78 Hello_table:table(string)
 GlobalArray  79 Noswim_table:table(string)
 GlobalArray  80 Ho_hum_table:table(string)
+GlobalArray  81 Indents:array(6*string)
 Global       82 Max_held_mult:int
 Global       83 Maximum_held:int
 Global       84 Goodluck_flag:bool
 Global       85 Deaths:int
 Global       86 Dead:bool
-Global      130 P_oflag:bool
-Global       99 P_xadj
-Global       98 P_xadjn
-Global      100 P_xnam:dictword
-Global      147 P_not_here:int
-Global      148 P_mult:bool
-Global      121 P_quote_flag:bool
 Global       87 Game_finished:bool
 Global       88 Base_score:int
+Global       89 Desc_object:bool
 Global       90 Grue_repellent:bool
 Global       91 Lit:bool
 GlobalArray  92 Hop_msg:table(string)
 GlobalArray  93 Dive_msg:table(string)
+Global       94 Hello_sailor_cnt:int
 Global       95 superbrief:bool
 Global       96 verbose:bool
 Global       97 Always_lit:bool
-Global      139 P_cctbl
-Global      116 P_gwimbit:attribute0
-Global      104 P_csptr
-Global      103 P_ceptr
+Global       98 P_xadjn
+Global       99 P_xadj
+Global      100 P_xnam:dictword
 Global      101 P_object:object
+Global      102 P_and:bool
+Global      103 P_ceptr
+Global      104 P_csptr
 Global      105 P_getflags:int
-Global      115 P_name:dictword
-Global      141 P_oneobj
-Global      114 P_adj
 Global      106 P_matchlen
 GlobalArray 107 P_oclause:array(50*?)
 GlobalArray 108 P_merge:array(50*int)
 GlobalArray 109 P_buts:array(50*?)
 GlobalArray 110 P_prsi:array(50*int)
 GlobalArray 111 P_prso:array(50*int)
+Global      112 P_adjn
+Global      113 P_adverb
+Global      114 P_adj
+Global      115 P_name:dictword
+Global      116 P_gwimbit:attribute0
+Global      117 P_slocbits:int
 Global      119 P_number:int
 Global      120 P_walk_dir:property
+Global      121 P_quote_flag:bool
 Global      122 P_ncn:int
-GlobalArray 125 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
-Global      131 LastNounPlace:object
 GlobalArray 123 P_vtbl:array(4*?)
-Global      132 P_it_objectobject
+GlobalArray 124 P_otbl:array(8*bool)
+GlobalArray 125 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+Global      126 P_aadj
+Global      127 P_anam
+Global      128 P_aclause:p_partsofspeech
+Global      129 P_merged:bool
+Global      130 P_oflag:bool
+Global      131 LastNounPlace:object
+Global      132 P_it_object:object
 Global      133 P_cont
 Global      134 P_inbuf
 GlobalArray 135 P_lexv:array(~int,~int,119*dictword)
 Global      136 player:object
 Global      137 P_dir
 Global      138 P_len
+Global      139 P_cctbl
 Global      140 P_syntax
+Global      141 P_oneobj
+Global      142 P_table
 Global      143 noun:object
 Global      144 second:object
 Global      145 action:action
+Global      147 P_not_here:int
+Global      148 P_mult:bool
 Global      149 prev_second:object
 Global      150 prev_noun:object
 Global      151 prev_verb:action
@@ -236,6 +240,8 @@ Attribute 31 switchable
 Array 11189 verb_table:array(*?)
 ! ------------------------------- Arrays -------------------------------
 
+Property  2 strength:int
+Property  3 contfcn:int
 Property  4 container_action:^routine
 Property  5 vtype:int
 Property  6 inside_description:thing
@@ -671,6 +677,7 @@ Action 146  Zork
 
 ! ------------------------------ Routines ------------------------------
 
+! -- 2dungeon.zil --
 Routine  0x4b72 Main
 Routine  0x4bd2 HedgeAction
 Routine  0x4c22 PseudoCrackAction
@@ -682,11 +689,15 @@ Routine  0x4d58 TeapotAction
 Routine  0x4d6c PerfectRoseAction
 Routine  0x4dae FootpadAction
 Routine  0x4dc2 CompassAction
+
+! -- --
 Routine  0x4dc6 RoseAction
 Routine  0x4eb2 LampDaemon
-Routine  0x4ebe Not_Here_Object_F
-Routine  0x4f34 Find_Not_Here:object rms obj objcnt:int clist
-Routine  0x4fbc NoSeeAny obj
+
+! -- gglobals.zil --
+Routine  0x4ebe Not_Here_Object_F1
+Routine  0x4f34 Find_Not_Here:object rms obj:object objcnt:int clist
+Routine  0x4fbc NoSeeAnyobj:object
 Routine  0x4fe4 Print_no_see obj:object ptr
 Routine  0x5022 Zork1_deletion
 Routine  0x5028 StairsAction
@@ -694,18 +705,26 @@ Routine  0x504c SailorAction
 Routine  0x50a8 GroundAction
 Routine  0x50e0 GrueAction
 Routine  0x5208 YouAction
-Routine  0x52fa PseudoActon
+Routine  0x52fa PseudoAction
 Routine  0x533c ZorkmidAction
+
+! -- gmacros.zil --
 Routine  0x5394 Article obj:object
 Routine  0x539e Probability chance:int
 Routine  0x53b8 PickOne tbl
 Routine  0x53c8 ComplexPickOne tbl len offset ndx choice msg_tbl
+
+! -- gclock.zil --
 Routine  0x5416 Queue_Daemon:^array(bool) rtn:routine ticks:int cint
 Routine  0x542c Queue:^array(bool) rtn:routine ticks:int cint
 Routine  0x5440 QueueInterrupt:^array(bool) rtn:routine int2flag:bool end c int
 Routine  0x547e Clocker c end tick flag:bool
+
+! -- gmail.zil --
 Routine  0x54e4 CommandLoop icnt:bool ocnt:int num cnt:int obj:object tbl v:act_result ptbl:bool obj1:object temp:bool
 Routine  0x5740 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp:action objtmp:object indtmp:object
+
+! -- parser.zil --
 Routine  0x586c Parser:bool ptr:p_lexv word:dictword val vrb:verbnum len:int dir nw:dictword tmpword num UNUSED cnt:int
 Routine  0x5b9a Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
 Routine  0x5bc0 Clause:int ptr val word:dictword off num andflag:bool first:bool nw:dictword tmpword:dictword cnt:int
@@ -715,7 +734,7 @@ Routine  0x5fa0 AClause_Win otbl
 Routine  0x5fca Word_Print cnt:int buf:int
 Routine  0x5fe0 Unknown_Word ptr buf word
 Routine  0x602c Cant_Use ptr buf word:dictword
-Routine  0x6088 Syntax_Check syn:int len:int num:int obj drive1 drive2 prep vrb:verbnum tmp attr lbit
+Routine  0x6088 Syntax_Check syn:int len:int num:int obj:object drive1 drive2 prep vrb:verbnum tmp attr lbit
 Routine  0x623c Cant_Orphan
 Routine  0x625e Orphan d1 d2 cnt:int
 Routine  0x62ba Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool beginning
@@ -728,12 +747,12 @@ Routine  0x640a Prep_Find prep cnt:int len:int
 Routine  0x6430 Syntax_Found syn
 Routine  0x643c GWim:object gbit:attribute lbit:int prep:dictword obj:object
 Routine  0x64b0 Snarf_Objects ptr
-Routine  0x6512 But_Merge tbl len butlen cnt:int matches obj ntbl
+Routine  0x6512 But_Merge tbl len butlen cnt:int matches obj:object ntbl
 Routine  0x6560 Snarfem ptr eptr tbl but UNUSED wv word:dictword nw:dictword 
 Routine  0x66a8 Get_Object tbl:^array(int) vrb:bool bits len:int xbits tlen gcheck:bool tmp UNUSED
 Routine  0x6868 Moby_Find:int list rlist cnt:int
-Routine  0x68ca Which_Print num cnt:int list obj total:int
-Routine  0x693c Global_Check tbl ptr rmg rmg_len cnt obj obits foo
+Routine  0x68ca Which_Print num cnt:int list obj:object total:int
+Routine  0x693c Global_Check tbl ptr rmg rmg_len cnt obj:object obits foo
 Routine  0x6a0a Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
 Routine  0x6a3e Search_List obj:object tbl lvl:p_searchlevels fls nobj:object
 Routine  0x6aa6 Obj_Found obj:object tbl ptr
@@ -746,11 +765,13 @@ Routine  0x6c52 LitP:bool room:object
 Routine  0x6cbc Prso_Print ptr:dictword
 Routine  0x6ce4 Prsi_Print ptr:dictword
 Routine  0x6d0c This_It_P obj:object UNUSED syns UNUSED2
+
+! -- gverbs.zil --
 Routine  0x6d5a VerboseSub
 Routine  0x6d70 BriefSub
 Routine  0x6d86 SuperSub
 Routine  0x6da0 InventorySub
-Routine  0x6dbc QuitSub ask UNUSED
+Routine  0x6dbc QuitSub ask:bool UNUSED
 Routine  0x6dfe RestartSub
 Routine  0x6e42 RestoreSub
 Routine  0x6e58 SaveSub
@@ -777,7 +798,7 @@ Routine  0x7324 VomitSub
 Routine  0x7330 ClimbDownSub
 Routine  0x733a ClimbSub
 Routine  0x7344 SitOnSub
-Routine  0x7364 ClimbUpSub local1 obj
+Routine  0x7364 ClimbUpSub local1 obj:object
 Routine  0x7416 CloseSub
 Routine  0x74ae CommandSub
 Routine  0x74d2 CountSub
@@ -796,8 +817,8 @@ Routine  0x77b2 EatSub
 Routine  0x78a2 Hit_Spot
 Routine  0x78e8 EchoSub
 Routine  0x78fe EnchantSub
-Routine  0x7a8e Remove_Carefully obj oldlit
-Routine  0x7ac0 EnterSub
+Routine  0x7a8e Remove_Carefully obj:object oldlit
+Routine  0x7ac0 EnterSub obj:object
 Routine  0x7ac8 ExamineSub
 Routine  0x7afc ExitSub
 Routine  0x7b10 BanishSub
@@ -869,7 +890,7 @@ Routine  0x86a4 SendForSub
 Routine  0x86ca PreGiveObjObjSub
 Routine  0x86d4 GiveObjObjSub
 Routine  0x86da ShakeSub
-Routine  0x8784 MoveStufftoLocation obj
+Routine  0x8784 MoveStufftoLocation obj:object
 Routine  0x87ac JumpSub
 Routine  0x87b8 SmellSub
 Routine  0x87ca SpinSub
@@ -925,24 +946,26 @@ Routine  0x9420 QueryWeight obj:object cont wt:int
 Routine  0x9450 HoHumMsg preface:string
 Routine  0x947a VehicleNoGo has_vehicle veh
 Routine  0x94aa Goto loc:object check_actor:bool no_land veh type oldlit oldloc
-Routine  0x9638 FindAndGo tbl obj
-Routine  0x964e SearchArray obj tbl cnt len
+Routine  0x9638 FindAndGo tbl obj:object
+Routine  0x964e SearchArray obj:object tbl cnt len
 Routine  0x9676 Do_Walk dir:property
-Routine  0x9684 WordType obj word addr UNUSED
+Routine  0x9684 WordType obj:object word addr UNUSED
 Routine  0x96a6 InRoomContains itm:object room addr
-Routine  0x96c4 FindIn loc:object attr:attribute nextobj
-Routine  0x96e2 FindHere obj
-Routine  0x96f2 ThingInPlayer local1:object
-Routine  0x9702 OtherSideDir obj prop propaddr
+Routine  0x96c4 FindIn loc:object attr:attribute nextobj:object
+Routine  0x96e2 FindHere obj:object
+Routine  0x96f2 ThingInPlayer obj:object
+Routine  0x9702 OtherSideDir obj:object prop propaddr
 Routine  0x9728 MungeRoom obj:object msg:string
 Routine  0x973a SetPronoun it:object
+
+! -- 2actions.zil --
 Routine  0x9746 SwordAction
-Routine  0x975e SwordDaemon q evil_flag hownear:int prop propaddr propsize:int
-Routine  0x9826 AnyoneHere room obj
+Routine  0x975e SwordDaemon q evil_flag:int hownear:int prop propaddr propsize:int
+Routine  0x9826 AnyoneHere room obj:object
 Routine  0x9846 CarouselAction rarg:rarg
 Routine  0x994e ViolinAction
 Routine  0x997a DescribeDoor obj:object close_str:string open_str:string
-Routine  0x99b6 BasketAction rarg:rarg local2 local3 obj
+Routine  0x99b6 BasketAction rarg:rarg local2 local3 obj:object
 Routine  0x9cfe BalloonLaunchDaemon
 Routine  0x9d1e Inflate_balloon
 Routine  0x9db0 LiftOff loc:object msg:string
@@ -984,7 +1007,7 @@ Routine  0xb176 MoveBucket loc:object
 Routine  0xb188 PostsRoomAction rarg:rarg
 Routine  0xb1c4 GreenCakeAction
 Routine  0xb254 CantEatCake cake
-Routine  0xb28e CakeAction obj nextobj
+Routine  0xb28e CakeAction obj:object nextobj:object
 Routine  0xb498 CandyAction
 Routine  0xb562 Etchings2Action
 Routine  0xb5ca Etchings1Action
@@ -1000,19 +1023,19 @@ Routine  0xb8a2 LowRoomGo:object
 Routine  0xb8e6 EButtonAction
 Routine  0xb9a4 RedSphereAction
 Routine  0xba6a GasPoisonDaemon
-Routine  0xba84 CageAction
+Routine  0xba84 CageAction rarg:rarg
 Routine  0xba90 RobotAction
 Routine  0xbd42 BillsAction
 Routine  0xbd76 EBankAction:object to_room:object
 Routine  0xbdb8 WBankAction
 Routine  0xbdc0 DepositAction rarg:rarg
-Routine  0xbdd0 TellerRoomAction
+Routine  0xbdd0 TellerRoomAction rarg:rarg
 Routine  0xbe96 CurtainAction
 Routine  0xbeee WhichAdjacentBankRoom room:object tbl
 Routine  0xbf08 WallAction
 Routine  0xbf2a MoveThroughBank optroom
 Routine  0xbf44 EnterBankWall itm time:int room:object
-Routine  0xbf9e BankTransport time loc
+Routine  0xbf9e BankTransport time:int loc
 Routine  0xbfdc BankAlertDaemon
 Routine  0xc032 BankGnomeDaemon
 Routine  0xc158 BGnomeAction
@@ -1020,25 +1043,25 @@ Routine  0xc34c BGnomeLateDaemon
 Routine  0xc3ae CheckIfBomb obj:object
 Routine  0xc3c8 LookIntoRoom where:object loc:object lit_p:bool vis:bool
 Routine  0xc3fa TinyRoomAction rarg:rarg
-Routine  0xc44c DrearyRoomAction rarg:rarg
-Routine  0xc4c6 PokeKeyhole obj
+Routine  0xc44c DrearyRoomAction rarg:rarg in_keyhole
+Routine  0xc4c6 PokeKeyhole obj:object
 Routine  0xc4fc DescribeOakDoor dir:string lid_ob:object kh_ob:object
 Routine  0xc5e8 WhichLidHere lid1:object lid2:object
 Routine  0xc5f6 OppositeLid:object obj:object flag
 Routine  0xc610 KeyholeAction
 Routine  0xc700 LidAction
-Routine  0xc784 VisibleP obj:object env
-Routine  0xc7a0 SphereAction
-Routine  0xc806 MistRoomAction rarg:rarg obj
-Routine  0xcba4 SphereAction
-Routine  0xcbc6 SphereLook obj:object flag env loc
+Routine  0xc784 VisibleP obj:object env:object
+Routine  0xc7a0 SphereAction1
+Routine  0xc806 MistRoomAction rarg:rarg obj:object
+Routine  0xcba4 SphereAction2
+Routine  0xcbc6 SphereLook obj:object flag:bool env:object loc
 Routine  0xcd3c BarredWindowAction
 Routine  0xcd84 OakDoorAction
 Routine  0xceae KeyAction
 Routine  0xcec8 PlacematAction
 Routine  0xcf50 WishAction
 Routine  0xcfbc WellAction
-Routine  0xd000 MatchAction
+Routine  0xd000 MatchAction cnt:int
 Routine  0xd0d0 MatchDaemon
 Routine  0xd0e8 LampAction
 Routine  0xd1b4 GoDark light_src:object rtn tbl_addr msg_table time_left
@@ -1050,7 +1073,7 @@ Routine  0xd6c4 GoRandom prop propaddr propsize:int stat dir_decision
 Routine  0xd732 Fierce who weap
 Routine  0xd77e DescribeBase
 Routine  0xd7b8 DiamondWindowAction
-Routine  0xd804 OddRoomAction rarg:rarg local2 obj 
+Routine  0xd804 OddRoomAction rarg:rarg local2 obj:object
 Routine  0xd9be LostInMaze
 Routine  0xda2e DogAction
 Routine  0xdcee CollarAction
@@ -1059,17 +1082,18 @@ Routine  0xdd38 IceRoomAction rarg:rarg
 Routine  0xdddc DragonAction
 Routine  0xdff2 CheckSpellTalk obj:object
 Routine  0xe01c WhereWent who:object nextprop propaddr propsize:int ptr
-Routine  0xe056 DragonDaemon obj
+Routine  0xe056 DragonDaemonobj:object
 Routine  0xe4b8 DragonReturn
-Routine  0xe4be Not_Here_Object_F
+
+Routine  0xe4be Not_Here_Object_F2
 Routine  0xe4cc GardenDaemon
 Routine  0xe62e GardenAction rarg:rarg
-Routine  0xe644 UnicornAction
-Routine  0xe6a2 UnicornAction
+Routine  0xe644 UnicornAction1
+Routine  0xe6a2 UnicornAction2
 Routine  0xe7d0 GazeboAction
 Routine  0xe806 ChestAction
 Routine  0xe8ce PrincessAction queue
-Routine  0xea90 PrincessDaemon q env cnt
+Routine  0xea90 PrincessDaemon q env:object cnt
 Routine  0xecac PrincessUnicornDaemon
 Routine  0xee2a MenhirRoomAction rarg:rarg
 Routine  0xef14 MenhirRoomDesc
@@ -1082,16 +1106,16 @@ Routine  0xf74a PseudoMortarAction
 Routine  0xf78a WizardStuffAction
 Routine  0xf7ca StandAction
 Routine  0xf920 MurkyRoomAction rarg:rarg
-Routine  0xf9ec AquariumAction obj
+Routine  0xf9ec AquariumAction obj:object
 Routine  0xfc46 BabySerpentAction
 Routine  0xfcec DeadSerpentAction
 Routine  0xfd1a DemonAction UNUSED1 UNUSED2 tcnt:int
-Routine  0x1059c DemonGoes departmsg
-Routine  0x105c8 TrophyCount obj cnt
+Routine  0x1059c DemonGoes departmsg:bool
+Routine  0x105c8 TrophyCount obj:object cnt
 Routine  0x105e6 PentagramAction
 Routine  0x1083e WizardAction
 Routine  0x10ab2 WizardDaemon chance cnt itm env
-Routine  0x11214 Filch cont:object loc nextobj obj flag
+Routine  0x11214 Filch cont:object loc:object nextobj:object obj:object flag
 Routine  0x11240 Steal obj:object dest:object
 Routine  0x1126c WizTrophyAction
 Routine  0x11310 WandAction
@@ -1110,7 +1134,7 @@ Routine  0x117c4 ScoreSub would:bool
 Routine  0x118ce JigsUp deathmsg:string UNUSED
 Routine  0x119be AfterDeath UNUSED1 obj:object tmpobj UNUSED2
 Routine  0x11a22 StopTimers
-Routine  0x11a72 FindWeapon parent:object obj
+Routine  0x11a72 FindWeapon parent:object obj:object
 Routine  0x11a8a BucketTake
 
 ! ------------------------------- Words --------------------------------
