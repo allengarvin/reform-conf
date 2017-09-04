@@ -33,22 +33,53 @@ Enum act_result A_SUCCESS=1 A_FAILURE=2
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
-GlobalArray 192 Ho_hum:table(string)
-Global       57 Last_abe_time:int
-Global      103 L_Date
-Global      141 Simulating:bool
+Global      121 P_prso
+Global      112 Completed_tasks:int
+Global       43 P_cont
+GlobalArray  36 Oops_table:array
+GlobalArray  49 Again_lexv:array
+Global      164 Oops_inbuf
+Global      142 P_won
+Global       67 Reserve_lexv
+Global       52 Reserve_inbuf
+Global      178 Again_dir
+Global      170 P_number:int
+GlobalArray 203 Sim_level_table:array
+Global      143 Last_sun_time:int
+Global       27 P_itbllen
+Global       37 P_walk_dir:property
+Global       46 P_prsi
+Global       50 Verbosity:int
+Global        7 P_buts
+GlobalArray  84 Red_table:array(5*object)
+Global       96 P_merged
+Global       71 P_len:int
+Global        0 P_end_on_prep:bool
+Global        6 Red_pointer
+Global      201 Reserve_ptr
+GlobalArray  21 Brown_table:array(4*object)
+Global       47 Brown_pointer
 Global        1 Report_reviewed_str:string
-Global        4 Waiter_counter:int
+Global        3 Suffocate_counter:int
+Global        4 Recording:bool
 Global        5 Year_is_2071:bool
 Global        8 Month:month_const
+Global        9 Reviewing_recordings:bool
 Global       10 Jill_is_gracious_str:string
+Global       11 Siege:bool
 Global       12 Tenths_2061:int
 Global       13 Michell_counter:int
 Global       15 P_slocbits:int
 Global       17 Year_is_2081:bool
+Global       18 L_recording:bool
+Global       19 Score_2061
+Global       22 L_here
 Global       23 Clock_wait:bool
+Global       24 L_mode
+Global       25 P_namw
 Global       26 Raid_prob:bool
 Global       28 global28:bool
+Global       29 P_nam:dictword
 GlobalArray  30 C_table:array(25*(int,^routine))
 Global       32 P_xnam:dictword
 Global       35 Unable_to_parse_str:string
@@ -64,11 +95,13 @@ Global       53 No_go_str:string
 Global       54 Mugging_msg_str:string
 Global       55 Yes_no_flag:int
 Global       56 WWN_str:string
+Global       57 Last_abe_time:int
 Global       59 Tenths_2051:int
 Global       60 No_exit_str:string
 Global       61 Follow_flag:int
 Global       64 Stime:int
 Global       65 Current_fiscal_year_str:string
+Global       66 P_adj:dictword
 Global       68 Desc_of_view_str:string
 Global       70 No_kill_str:string
 Global       73 Weather_forecast_str:string
@@ -78,10 +111,13 @@ Global       77 Looks_like_str:string
 Global       78 Tobacco_str:string
 Global       79 Already_closed_str:string
 Global       80 Stinky_str:string
+Global       82 Score_2071
+Global       85 Ryder_counter:int
 Global       86 Restaurant_counter:order_const
 Global       87 Seconds_2081:int
 Global       88 Bartender_angry_str:string
 Global       89 Part_flag:int
+Global       90 Ryder_recorded:int
 Global       91 noun:object
 GlobalArray  92 City_noises_2061:table(string)
 Global       94 elapsed_time:int
@@ -89,7 +125,11 @@ Global       95 Dorm_raid_flag:bool
 Global       97 Seconds_2041:int
 Global       99 Fountain_str:string
 Global      100 Stools_str:string
+Global      103 L_Date
 Global      106 Technical_difficulties_str:string
+Global      107 Perelman_noticed:bool
+Global      108 Month_cnt:int
+Global      110 P_xadj:dictword
 Global      111 Year_is_2051:bool
 Global      113 Day_number:int
 Global      116 Clerk_waiting:bool
@@ -109,6 +149,9 @@ GlobalArray 133 P_inbuf:array(~int,n*~char)
 Global      134 Sports_str:string
 Global      135 Get_more_data_str:string
 Global      136 Not_holding_str:string
+Global      137 Score_2081
+Global      139 Lose_counter:int
+Global      141 Simulating:bool
 Global      144 location:object
 Global      145 Gates_locked_str:string
 Global      146 Top_stories_str:string
@@ -124,9 +167,11 @@ Global      158 Joke_not_funny_str:string
 Global      162 Tubecar_str:string
 Global      166 Bruised:bool
 Global      168 Year_is_2061:bool
+GlobalArray 169 HVAC_status_table:array
 Global      171 Simulation_Year:int
 Global      172 P_oflag:bool
 Global      173 Apartment_raid_flag:bool
+Global      174 Skycab_counter:int
 Global      176 winner:object
 Global      177 ALI_building_str:string
 Global      179 Perel_private_str:string
@@ -135,25 +180,31 @@ Global      181 Baby_to_crub_str:string
 Global      182 Tenths_2071:int
 GlobalArray 183 Tasks_to_record:array(18*string)
 Global      184 Symphony_closed_str:string
+Global      186 Recordings_include_simulation:bool
+Global      187 Message_e_counter:int
 Global      188 Jill_not_spoken_yet:bool
 Global      189 Stoning_flag:bool
+Global      190 Score_2015
 Global      191 P_it_object:object
+GlobalArray 192 Ho_hum:table(string)
 Global      193 Active_light_str:string
 Global      195 Hunger_warning:bool
 Global      196 Boarded_over_str:string
 Global      197 Beggar_flag
 Global      199 Dogs_closer_cnt:int
-Global      200 P_prsi:object
+Global      200 Prsi:object
 Global      202 Change_agents_str:string
 Global      204 River_desc_str:string
 Global      205 Mugged:bool
 Global      206 Current_mode:object
+Global      207 Grimwold_counter:int
 GlobalArray 208 City_noises_2041:table(string)
 Global      209 Chun_buld_str:string
 Global      210 Mitchel_raid_flag:bool
 Global      212 Good_score_str:string
 Global      213 Current_directory:object
 Global      215 Seconds_2061:int
+Global      216 Sabotage_counter:int
 Global      217 Maitre_d_counter:int
 Global      218 Current_file:object
 Global      219 Silicorp_str:string
@@ -365,7 +416,7 @@ Object 130  Dr__Perelmans_Office
 Object 131  auditorium
 Object 132  noon
 Object 133  Patio
-Object 134  unnamed_7
+Object 134  spear_carrier
 Object 135  entertainment_center
 Object 136  Train_Station_room
 Object 137  service_station
@@ -1049,10 +1100,10 @@ Routine 0xd260 Increment_time tm:int
 Routine 0xd628 routine54824
 Routine 0xd648 ChangeFont msg:string
 Routine 0xd6f4 routine55028
-Routine 0xd700 routine55040 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12 local13 local14
+Routine 0xd700 Parser ptr wrd:dictword val:int vrb omerged owinner len dir nw lw cnt:int of_flag:bool
 Routine 0xdd88 routine56712 local1 local2 local3 local4 local5 local6
-Routine 0xdde0 routine56800 local1 local2 local3 local4 local5 local6
-Routine 0xde30 routine56880 local1 local2 local3Routine 0xde48 routine56904 local1 local2 local3 local4 local5 local6 local7
+Routine 0xdde0 Stuff local1 local2 local3 local4 local5 local6
+Routine 0xde30 Inbuff_stuff local1 local2 local3Routine 0xde48 routine56904 local1 local2 local3 local4 local5 local6 local7
 Routine 0xdea8 routine57000 local1 local2 local3 local4 local5
 Routine 0xded0 routine57040 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10
 Routine 0xe0b8 routine57528 local1 local2 local3 local4 local5 local6 local7
@@ -1100,7 +1151,7 @@ Routine 0x110b8 routine69816
 Routine 0x11268 routine70248 local1
 Routine 0x115f8 routine71160 local1
 Routine 0x11b64 routine72548
-Routine 0x11d14 routine72980
+Routine 0x11d14 I_Airconditioning
 Routine 0x11e50 routine73296
 Routine 0x1219c routine74140 local1 local2
 Routine 0x123e8 routine74728 local1 local2
@@ -1373,30 +1424,30 @@ Routine 0x17078 room_action
 Routine 0x17124 alley_action
 Routine 0x17178 road_action
 Routine 0x171d0 people_action
-Routine 0x172dc routine94940
+Routine 0x172dc People_in_bar_desc
 Routine 0x17328 your_parents_action
 Routine 0x17384 mindex_action
-Routine 0x173fc apartment_preaction
-Routine 0x17400 Mitchell_preaction
-Routine 0x1741c books_preaction
-Routine 0x1744c tubecar_preaction
-Routine 0x1746c drink_preaction
-Routine 0x17470 food_preaction
-Routine 0x174c8 scientist_preaction
-Routine 0x174cc papers_preaction
-Routine 0x174d0 duck_pond_preaction
-Routine 0x174d4 BSF_preaction
-Routine 0x17504 house_room_preaction
-Routine 0x17534 kitchen_preaction
-Routine 0x17538 church_elder_preaction
+Routine 0x173fc apartment_preaction:object
+Routine 0x17400 Mitchell_preaction:object
+Routine 0x1741c books_preaction:object
+Routine 0x1744c tubecar_preaction:object
+Routine 0x1746c drink_preaction:object
+Routine 0x17470 food_preaction:object
+Routine 0x174c8 scientist_preaction:object
+Routine 0x174cc papers_preaction:object
+Routine 0x174d0 duck_pond_preaction:object
+Routine 0x174d4 BSF_preaction:object
+Routine 0x17504 house_room_preaction:object
+Routine 0x17534 kitchen_preaction:object
+Routine 0x17538 church_elder_preaction:object
 Routine 0x17548 Rockvil_action
 Routine 0x175e4 Cant_buy obj:object
 Routine 0x175fc Too_poor credits:int obj:object
 Routine 0x176b4 Debit credits:int
-Routine 0x17714 routine96020 local1 local2 local3
+Routine 0x17714 Vending vendor:object item:object amount:int
 Routine 0x177ac AnnounceClose:bool local1:int wheremsg:string whomsg:string where:object
-Routine 0x17810 routine96272 local1
-Routine 0x17870 routine96368 local1
+Routine 0x17810 Curfew_close new_loc:object
+Routine 0x17870 Restaurant_closes new_loc:object
 Routine 0x178d0 BusinessClosing:bool when:int wheremsg:string whomsg:string where:object
 Routine 0x17910 NotOpen wheremsg:string
 Routine 0x17948 Out_of_city_dir
@@ -1440,8 +1491,8 @@ Routine 0x197e0 Many_rooms_dir
 Routine 0x197ec river_action
 Routine 0x19920 routine104736
 Routine 0x19934 restaurant_action
-Routine 0x19a38 routine105016 local1 local2
-Routine 0x19aa4 routine105124 local1 local2
+Routine 0x19a38 Init_status_line n:int
+Routine 0x19aa4 Inverse_line line_number:int center_half
 Routine 0x19ae8 PrintInitialSpaces spaces:int
 Routine 0x19af8 WaitForInputThenReset flag:bool
 Routine 0x19b38 routine105272 local1 local2
@@ -1453,7 +1504,7 @@ Routine 0x19d00 routine105728 local1
 Routine 0x19d38 ErrorMsg err:string flag:bool
 Routine 0x19d54 YouCantSee obj:object local2
 Routine 0x19de8 PRISM_ShutDown
-Routine 0x19e78 routine106104 local1
+Routine 0x19e78 Mile_away obj:object
 Routine 0x19e98 routine106136
 Routine 0x19eb4 HowToDo_msg
 Routine 0x19ed4 IsClosed_msg where:object
@@ -1928,29 +1979,29 @@ Routine 0x32fb8 IRS_Auditing_System_action rarg:rarg
 Routine 0x33170 routine209264
 Routine 0x33378 Simulation_Mode_action
 Routine 0x33450 routine210000 local1 local2 local3 local4 local5
-Routine 0x33538 routine210232 local1
+Routine 0x33538 Simulation_based year:int
 Routine 0x3355c routine210268
-Routine 0x338b0 routine211120
+Routine 0x338b0 Simulations_available
 Routine 0x33934 Dr__Grimwold_living local1
 Routine 0x33940 Dr__Grimwold_action
 Routine 0x33a6c routine211564
-Routine 0x33b0c routine211724 local1 local2
+Routine 0x33b0c Chapter_print n:int
 Routine 0x33ba0 routine211872
-Routine 0x33bf0 routine211952 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10
-Routine 0x34598 routine214424 local1 local2
+Routine 0x33bf0 I_Recordings_viewed a:bool b:bool c:bool d:bool total:int w:bool x:bool y:bool z:bool half_total:int
+Routine 0x34598 Partial scor half_level:int
 Routine 0x34600 routine214528 local1 local2
 Routine 0x3461c routine214556 local1 local2 local3 local4
 Routine 0x346a4 routine214692 local1 local2 local3
 Routine 0x346e0 routine214752
 Routine 0x347f8 routine215032
-Routine 0x34924 routine215332
+Routine 0x34924 I_Sabotage
 Routine 0x34bdc maintenance_workers_action
 Routine 0x34d70 routine216432
 Routine 0x34e24 Senator_Richard_Ryder_action
-Routine 0x35000 routine217088
+Routine 0x35000 I_Ryder
 Routine 0x356b8 routine218808
-Routine 0x35714 routine218900
-Routine 0x35930 routine219440
+Routine 0x35714 I_Win
+Routine 0x35930 I_Lose
 Routine 0x35b88 routine220040
 
 ! -- apartment.zil --
