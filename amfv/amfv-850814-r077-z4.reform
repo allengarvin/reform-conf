@@ -33,7 +33,27 @@ Enum act_result A_SUCCESS=1 A_FAILURE=2
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
+GlobalArray 167 Indents:array(6*string)
+Global      165 Increment_wait:bool
+GLobal      105 P_Syntax
+Global       16 Stop_wait:bool
+GlobalArray  74 Score_table:array
+
+Global      131 Describe_village:bool
+Global      109 Zoo_flag:bool
+GlobalArray 161 Line_table:array
+Global      194 Highlight_count
+GlobalArray 214 Column_table:array
+Global       28 Short_first_simulation:bool
+GlobalArray  33 Jukeboxes:table(string)
+Global      117 Book_purchased:bool
+Global      147 Red_northbound:bool
+Global      163 Brown_northbound:bool
+Global       20 Red_tubecar_in_station:bool
+Global       81 Brown_tubecar_in_station:bool
+Global      114 Number_of_messages:int
 Global      121 P_prso
+Global      198 Low_direction:property
 Global      112 Completed_tasks:int
 Global       43 P_cont
 GlobalArray  36 Oops_table:array
@@ -78,8 +98,15 @@ Global       23 Clock_wait:bool
 Global       24 L_mode
 Global       25 P_namw
 Global       26 Raid_prob:bool
-Global       28 global28:bool
 Global       29 P_nam:dictword
+Global       62 Next_sleep_date:int
+Global      175 Next_sleep_time:int
+GlobalArray  58 WeatherTable:array(9*(string,int,int,int))
+Global       72 Interface_change:object
+Global      102 Interface_warning:bool
+GlobalArray  83 OuterNumbersTable:array(32*int)
+GlobalArray 104 ColorsTable:array(16*string)
+GlobalArray  93 InnerNumbersTable:array(32*int)
 GlobalArray  30 C_table:array(25*(int,^routine))
 Global       32 P_xnam:dictword
 Global       35 Unable_to_parse_str:string
@@ -101,7 +128,9 @@ Global       60 No_exit_str:string
 Global       61 Follow_flag:int
 Global       64 Stime:int
 Global       65 Current_fiscal_year_str:string
-Global       66 P_adj:dictword
+Global       69 P_adj:dictword
+Global      157 P_getflags
+Global       66 P_adjw:dictword
 Global       68 Desc_of_view_str:string
 Global       70 No_kill_str:string
 Global       73 Weather_forecast_str:string
@@ -1088,7 +1117,7 @@ Routine 0xcbb0 PrintNumber num:int
 Routine 0xcbd4 DescribeObject obj:object
 Routine 0xcc38 Main
 Routine 0xcd1c routine52508 local1
-Routine 0xcd28 routine52520 local1 local2 local3 local4 local5 local6 local7 local8 local9 local10 local11 local12
+Routine 0xcd28 MainLoop icnt ocnt num cnt obj:object tbl v ptbl obj1:object tmp not_here
 Routine 0xcf94 routine53140 local1 local2 local3 local4
 Routine 0xd010 routine53264 local1 local2
 Routine 0xd084 Perform vb:action what:object
@@ -1375,8 +1404,8 @@ Routine 0x15e40 JigsUp desc:string x
 Routine 0x161c0 Moby_verb_P
 Routine 0x161d0 Accessible_P obj:object loc:object
 Routine 0x16210 Visible obj:object loc:object
-Routine 0x16234 Meta_Loc obj:object inv
-Routine 0x16258 Other_side door_obj:object p tee
+Routine 0x16234 Meta_Loc:object obj:object inv
+Routine 0x16258 Other_side:object door_obj:object p tee
 Routine 0x16280 Held_P obj:object
 Routine 0x162a4 See_inside obj:object
 Routine 0x162b4 Global_in obj1:object obj2:object tee
@@ -1896,7 +1925,7 @@ Routine 0x2b1d0 routine176592
 Routine 0x2b2f8 routine176888
 Routine 0x2b330 routine176944 local1
 Routine 0x2b380 routine177024 local1
-Routine 0x2b3b0 routine177072 local1
+Routine 0x2b3b0 Name_message obj:object
 Routine 0x2b3e0 routine177120
 Routine 0x2b3f0 routine177136
 Routine 0x2b404 routine177156
