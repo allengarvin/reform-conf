@@ -56,6 +56,7 @@ Global       80 Suspicion:int
 Global       93 Epilogue_ass:string
 GlobalArray  95 Sniper_password_tbl:table(string)
 Global      110 Topaz_thought_str:string
+Global      108 Sniper_floor:int
 GlobalArray 119 Clock_tbl_1:array(routine,int,routine,int,routine,int)
 GlobalArray 163 Clock_tbl_3:array(routine,int,routine,int,routine,int,routine,int,routine,int,routine,int)
 GlobalArray 194 Clock_tbl_2:array(routine,int,routine,int,routine,int,routine,int,routine,int,routine,int,routine,int)
@@ -176,8 +177,8 @@ Global      201 Thirty_timer:int
 Global      207 Reserve_ptr
 
 GlobalArray  13 P_buts:array(50*?)
-GlobalArray  21 global21:table(object)
-GlobalArray  24 global24:table(object)
+GlobalArray  21 Toppled_car_transient:table(object)
+GlobalArray  24 Hall_exit_tbl:table(object)
 GlobalArray  40 P_namw:array(8*thing)
 GlobalArray  42 P_otbl:array(8*bool)
 GlobalArray  48 global48:table(thing)
@@ -186,13 +187,13 @@ GlobalArray  68 global68:array(8*thing)
 GlobalArray  77 global77:array(8*thing)
 GlobalArray  81 P_adjw:array(8*thing)
 GlobalArray  83 global83:array(8*thing)
-GlobalArray  86 global86:array(8*thing)
+GlobalArray  86 Bad_spy_moves:array(8*thing)
 GlobalArray  89 global89:array(8*thing)
 GlobalArray 115 global115:array(8*thing)
 GlobalArray 117 global117:array(8*thing)
 GlobalArray 121 global121:array(8*thing)
 GlobalArray 137 global137:array(8*thing)
-GlobalArray 141 global141:array(8*thing)
+GlobalArray 141 P_inbuf:array(8*thing)
 GlobalArray 145 global145:array(8*thing)
 GlobalArray 149 SL_tbl:table(^array(2*int))
 GlobalArray 152 global152:array(8*thing)
@@ -203,7 +204,7 @@ GlobalArray 176 global176:array(8*thing)
 GlobalArray 179 global179:array(8*thing)
 GlobalArray 193 global193:array(8*thing)
 GlobalArray 210 global210:array(8*thing)
-GlobalArray 212 global212:array(8*thing)
+GlobalArray 212 Fire_window_table:array(8*thing)
 GlobalArray 214 global214:array(8*thing)
 GlobalArray 215 global215:table(^array(^table(dictword),routine))
 GlobalArray 224 global224:array(8*thing)
@@ -211,17 +212,17 @@ GlobalArray 224 global224:array(8*thing)
 
 Global        0 global0
 Global        3 P_end_on_prep:bool
-Global        5 global5
+Global        5 Can_under_ladder:bool
 Global        7 global7
 Global        8 global8
-Global       12 global12
-Global       16 global16
+Global       12 Bad_tunnel:bool
+Global       16 Bad_wait_count:int
 Global       20 global20
 Global       22 global22
-Global       23 global23
+Global       23 Bad_confined:bool
 Global       25 Wood_timer:int
 Global       27 global27
-Global       32 global32
+Global       32 Exposed_roll:object
 Global       34 global34
 Global       36 Sequence_run
 Global       43 P_nam
@@ -237,22 +238,21 @@ Global       67 global67
 Global       70 Minutes_flag:bool
 Global       78 global78
 Global       82 global82
-Global       84 global84
+Global       84 Follow_warning:bool
 Global       85 P_adj
 Global       88 P_len:int
 Global       92 global92
-Global       94 global94
+Global       94 At_station:bool
 Global       97 In_front_flag
-Global       99 global99
+Global       99 Topaz_spot_count:int
 Global      101 global101
 Global      107 P_merged:bool
-Global      108 global108
 Global      109 global109
 Global      112 global112
 Global      113 Been_at_hut:bool
 Global      116 global116
 Global      118 global118
-Global      120 global120
+Global      120 Bad_spy_count:int
 Global      123 global123
 Global      124 global124
 Global      125 global125
@@ -263,7 +263,7 @@ Global      146 global146
 Global      150 global150
 Global      161 global161
 Global      165 global165
-Global      182 global182
+Global      182 Hall_floor
 Global      190 global190
 Global      192 global192
 Global      208 global208
@@ -272,9 +272,9 @@ Global      211 global211
 Global      213 Lost_scent:bool
 Global      217 global217
 Global      225 P_ncn
-Global      226 global226
-Global      228 global228
-Global      229 global229
+Global      226 Bad_distance:int
+Global      228 Bad_spy_seen:bool
+Global      229 Bad_interview_flag:bool
 LastGlobal  234
 
 
@@ -565,7 +565,7 @@ Object  174 shreds
 Object  175 fence_hole
 Object  176 nw_post
 Object  177 Fire_2
-Object  178 Hall_23
+Object  178 Hall_23_b
 Object  179 ripped_clothes
 Object  180 G5
 Object  181 B2
@@ -727,7 +727,7 @@ Object  336 C5
 Object  337 camera_bag
 Object  338 guard_leg
 Object  339 hut_back_door
-Object  340 Hall_23
+Object  340 Hall_23_a
 Object  341 picture
 Object  342 C7
 Object  343 global_bad_spy
@@ -1570,7 +1570,7 @@ Routine  0x1894c Take_A_picture film shot
 Routine  0x18a9c Bystander_Clothes_F 
 Routine  0x18b78 Carnation_F 
 Routine  0x18c3c Bad_Spy_F 
-Routine  0x18df4 I_Bad_Spy sm
+Routine  0x18df4 I_Bad_Spy sm:object
 Routine  0x190dc Bad_Interview forcep:bool
 Routine  0x1974c Comp_Blood_Stain_F 
 Routine  0x1986c I_Bad_Waits 
@@ -1596,7 +1596,7 @@ Routine  0x1ad2c Remove_If_InP obj:object cnt
 Routine  0x1ad34 Camera_Search obj:object
 Routine  0x1aee8 Finding_Nothing obj:object
 Routine  0x1af10 They_Start_With obj:object
-Routine  0x1af58 Bad_Found itm cnt
+Routine  0x1af58 Bad_Found itm cnt:object
 Routine  0x1b210 Bad_Search obj:object fnd
 Routine  0x1b23c Remove_To_Bottom obj:object n f
 Routine  0x1b260 By_Gun_F 
@@ -1663,7 +1663,7 @@ Routine  0x1d6c4 Cafe_Food_F
 Routine  0x1d700 Cafe_Table_F
 Routine  0x1d72c Bldg_2_f rarg:rarg
 Routine  0x1d94c I_Topaz_Spots
-Routine  0x1d970 Alley_Move
+Routine  0x1d970 Alley_Move:object
 Routine  0x1d994 Alley_1_f rarg:rarg
 Routine  0x1daac Business_Card_F
 Routine  0x1dab8 Can_Be_Found
@@ -1687,7 +1687,7 @@ Routine  0x1ea3c Trash_Can_F
 Routine  0x1eb84 Fire_Window_F fl
 Routine  0x1ec14 Alley_F
 Routine  0x1ecd8 Fire_Ladder_F
-Routine  0x1ee28 Fire_Ladder_Reach
+Routine  0x1ee28 Fire_Ladder_Reach:object
 Routine  0x1eee0 Fire_1_move
 Routine  0x1eeec Fire_2_move
 Routine  0x1eef8 Fire_3_move
@@ -1721,7 +1721,7 @@ Routine  0x20a0c Topaz_Desc bold:bool
 Routine  0x20c98 Pick_Name tbl ent off dir
 Routine  0x20cd0 Fill_Dir cnt:int tbl
 Routine  0x20ce8 Print_Open_Windows flr:int
-Routine  0x20d4c Pick_Open_Windows flr:int num h
+Routine  0x20d4c Pick_Open_Windows flr:int num h:object
 Routine  0x20da0 Sniper_Init
 Routine  0x20db0 Fill_Vacancies max cnt:int rnd
 Routine  0x20de8 Print_Apt_Dir cnt:int tmp tbl len
