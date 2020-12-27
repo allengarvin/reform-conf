@@ -21,6 +21,7 @@ StringArea  0x17d5e  0x198d8
 
 Enum line_type OUTSIDE_LINE_C=4 INSIDE_LINE_C=1 MONICA_LINE_C=3 OFFICE_LINE_C=2
 Enum rarg M_END=0 M_HANDLED=1 M_ENTER=2 M_LOOK=3 M_FOUR=4 M_FIVE=5 M_BEFORE=6 M_RELEASE=7 M_EIGHT=8 M_NINE=9 OTHER=100
+Enum difficulty DIFFICULTY_MAX=2
 
 Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
 Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
@@ -33,99 +34,133 @@ Enum act_result A_SUCCESS=1 A_FAILURE=2
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
-Global      159 Cor_16
-Global      118 P_table
-Global       52 AlwaysLit:bool
-Global       86 P_xnam
-Global       87 P_nam
-Global       84 P_xadj
-Global       85 P_adj
-Global       82 P_xadjn
-Global       83 P_adjn
-Global       61 QContext
-Global       89 P_slocbits:int
-Global      104 P_oflag
-Global      103 P_merged
-Global       18 MurderTime:int
-Global       68 Superbrief_on:bool
-Global       67 P_space:bool
-GlobalArray  64 Indents:array(6*string)
-Global       69 Verbose_on:bool
-Global       72 P_moby_found:object
-GlobalArray 156 CharacterTable:array(12*object)
-Global      154 PlayerHiding
-GlobalArray 150 PhonginKitchen:table(string)
-GlobalArray 151 PhongDoing:table(string)
-Global       31 PlayerNearShot
-Global      160 Cor_8
-Global      161 Cor_4
-Global      162 Cor_2
-Global      163 Cor_1
-Global       10 WireMatched:bool
-Global        8 SideFootprintsMatched:bool
-Global      152 PhongAdmittedHelping:bool
-Global      153 PhongHasMotive:object
-Global      146 MonicaHasMotive:object
-Global      164 PlayerPushedButton:bool
-Global      137 LinderSawMedicalReport:bool
-GlobalArray 149 LinderAsked:table(string)
-Global       27 TooLate:bool
-GlobalArray 148 StilesAsked:table(string)
-Global        7 BackFootprintsMatched:bool
-Global      124 Now_second:object
-Global       41 MetDuffy:bool
-Global      135 BuffySawMEdicalReport:bool
-Global       71 DebugOn:bool
-Global      166 ShotFired:bool
-Global      165 ButtonFixed:bool
-Global       43 BuffyWithStiles:bool
-Global       34 LinderFollowsYou:bool
-Global       32 LinderExplained:bool
-Global      144 Monica_tied_to:object
-Global       37 Welcomed:bool
-Global       66 FingerprintingObj:bool
-Global       13 DuffyAtCoroners:bool
-Global      171 FootprintsConfused:bool
-Global       44 GroundMuddy:bool
-Global      108 P_it_object:object
+
 Global        0 location:object
-Global       40 SeenDuffy:bool
-Global       42 MetStiles:bool
-Global      128 P_win
 Global        1 hours:int
 Global        2 minutes:int
 Global        4 Grandfather_clock_locked:bool
+Global        7 BackFootprintsMatched:bool
+Global        8 SideFootprintsMatched:bool
+Global       10 WireMatched:bool
+Global       13 DuffyAtCoroners:bool
 Global       17 Murder_occurred:bool
+Global       18 MurderTime:int
+Global      19 phong_old_loc:object
+Global      20 phone_called:bool
 Global       21 Mr_Linder_dead:bool
+Global       27 TooLate:bool
+Global      30 goal_tables
+Global       31 PlayerNearShot
+Global       32 LinderExplained:bool
+Global       34 LinderFollowsYou:bool
+Global       37 Welcomed:bool
+Global       40 SeenDuffy:bool
+Global       41 MetDuffy:bool
+Global       42 MetStiles:bool
+Global       43 BuffyWithStiles:bool
+Global       44 GroundMuddy:bool
 Global       49 turns:int
+Global       50 sky_desc:string
+Global       51 Who_wait:object
+Global       52 AlwaysLit:bool
+Global       53 Pronoun_she:object
+Global       54 Pronoun_her:object
+Global       55 Pron_he:object
+Global       56 Pron_him:object
+GlobalArray  57 Yuks_table:table(string)
+GlobalArray  58 Yuks2_table:table(string)
+GlobalArray  59 Who_cares:table(string)
+Global       60 QContext_room
+Global       61 QContext
+Global       62 Fumble_prob:int
+Global       63 Fumble_number:int
+GlobalArray  64 Indents:array(6*string)
+GlobalArray  65 Ho_hum_table:table(string)
+Global       66 FingerprintingObj:bool
+Global       67 P_space:bool
+Global       68 Superbrief_on:bool
+Global       69 Verbose_on:bool
+Global       70 Difficulty:difficulty
+Global       71 DebugOn:bool
+Global       72 P_moby_found:object
+Global       75 P_getflags:int
 Global       76 P_matchlen
 Global       79 P_buts
 Global       80 P_prsi
 Global       81 P_prso
+Global       82 P_xadjn
+Global       83 P_adjn
+Global       84 P_xadj
+Global       85 P_adj
+Global       86 P_xnam
+Global       87 P_nam
+Global       88 P_gwimbit:object
+Global       89 P_slocbits:int
+GlobalArray  90 Unknown_msgs:table(string)
 Global       91 P_number:int
-Global       95 P_quote_flag:bool
+Global       92 X_is_listening:object
+Global       93 P_prompt:string
 Global       94 adverb:dictword
+Global       95 P_quote_flag:bool
 Global       96 P_ncn:int
+Global       97 P_otbl
+Global       98 P_otbl
 Global       99 P_itbl
+Global      103 P_merged
+Global      104 P_oflag:bool
+Global      105 P_him_her_loc:object
+Global      106 P_him_her:object
+Global      107 P_it_location:object
+Global      108 P_it_object:object
 Global      109 P_cont
 Global      110 P_inbuf
 GlobalArray 111 P_lexv:array(~int,~int,119*dictword)
 Global      112 actor:object
 Global      114 P_len
+Global 115 P_cctbl
+Global      116 P_syntax
+Global      118 P_table
 Global      119 noun:object
 Global      120 second:object
 Global      121 action:action
+Global      124 Now_second:object
+Global      128 P_win:bool
 Global      129 Clock_wait
 Global      130 C_ints
 Global      132 C_table
 Global      133 Seen_movie:bool
+Global      135 BuffySawMEdicalReport:bool
+Global      137 LinderSawMedicalReport:bool
+Global      138 Guns_matched:bool
+Global      139 Drunk_flag:bool
 GlobalArray 141 Monica_reply:table(string)
 Global      143 Monica_tied_with:object
+Global      144 Monica_tied_to:object
+Global      146 MonicaHasMotive:object
 Global      147 Monica_question_counter:int
+GlobalArray 148 StilesAsked:table(string)
+GlobalArray 149 LinderAsked:table(string)
+GlobalArray 150 PhonginKitchen:table(string)
+GlobalArray 151 PhongDoing:table(string)
+Global      152 PhongAdmittedHelping:bool
+Global      153 PhongHasMotive:object
+Global      154 PlayerHiding
+GlobalArray 156 CharacterTable:array(12*object)
+Global      157 Load_allowed:int
+Global      158 Load_max:int
+Global      159 Cor_16
+Global      160 Cor_8
+Global      161 Cor_4
+Global      162 Cor_2
+Global      163 Cor_1
+Global      164 PlayerPushedButton:bool
+Global      165 ButtonFixed:bool
+Global      166 ShotFired:bool
 GlobalArray 167 Radio_programs:table(string)
 Global      168 Radio_on:string
 GlobalArray 169 Record_collection:table(string)
 Global      170 Current_record_playing:string
+Global      171 FootprintsConfused:bool
 GlobalArray 172 Prop_to_dir:array(12*(property,string))
 Global      173 Low_direction:int
 Global      174 Ten_thousand_unused:int
@@ -133,36 +168,50 @@ GlobalArray 175 Prepositions:table(dictword,int)
 GlobalArray 176 Actions:array(130*routine)
 GlobalArray 177 Preactions:array(130*routine)
 Global      178 Verbs
-
 LastGlobal  178
 
 ! ----------------------------- Attributes -----------------------------
 
-Attribute    8 open
-Attribute   11 vowel_start
 Attribute    4 visited
-Attribute   17 locked
+Attribute    5 female
+Attribute    6 transbit
+Attribute    7 ndescbit
+Attribute    8 open
 Attribute    9 container
+Attribute   10 trytakebit
+Attribute   11 vowel_start
 Attribute   12 concealed
+Attribute   13 visited
 Attribute   14 light    
 Attribute   15 dry_land     
 Attribute   16 supporter
+Attribute   17 locked
+Attribute   18 windowbit
 Attribute   19 scenery
+Attribute   20 enterable
 Attribute   21 readable
 Attribute   22 takeable
+Attribute   23 toolbit
 Attribute   24 rmungbit
+Attribute   25 on
+Attribute   26 edible
+Attribute   27 open
 Attribute   28 door
 Attribute   29 vehicle
 Attribute   30 weapon
+Attribute   31 character
 
 ! ----------------------------- Properties -----------------------------
 
+Property     2 xdesc:string
 Property     3 person_ndx:int
 Property     4 pseudo:pseudo
 Property     5 read_text:thing
 Property     6 living_action:^routine(int,rarg)
 Property     8 room_group_bit:int
+Property     7 contfcn:^routine
 Property     9 adjectives:adjbytes
+Property    10 station:object
 Property    11 line:line_type
 Property    12 contains:objbytes
 Property    13 description:string
@@ -188,7 +237,7 @@ Property    31 n_to:exit
 ! ------------------------------ Objects -------------------------------
 
 Object 1  unnamed1
-Object 2  unnamed2
+Object 2  winner
 Object 3  midnight
 Object 4  film
 Object 5  house
@@ -444,7 +493,7 @@ Object 251  Room_Holder
 Action   0 Verify
 Action   1 Debug
 Action   2 DebugTa
-Action   3 DebugWh
+Action   3 DebugWhere
 Action   4 Accuse
 Action   5 Analyze
 Action   6 AnalyzeOn
@@ -575,6 +624,7 @@ Action 129 YesNo
 
 ! ------------------------------ Routines ------------------------------
 
+Routine 90948 Arrest who:object
 Routine  0x4b26 Probability chance:int
 Routine  0x4b32 PickOne tbl
 Routine  0x4b42 DescribeLocation dir:property p:property
@@ -687,152 +737,328 @@ Routine  0x9724 ShoesAction
 Routine  0x97d2 MonicaAction rarg:rarg obj:object where:object itm linder_loc:object
 Routine  0xbaee print_article obj
 Routine  0xcce0 Queue:^array(bool) rtn:routine ticks:int cint
-Routine  0xccf4 QueueInterrupt:^array(bool) rtn:routine int2flag end c int
+Routine  0xccf4 QueueInterrupt:^array(bool) rtn:routine int2flag:bool end c int
 Routine  0xcd34 Clocker c end tick flag
-Routine  0xcdfe CommandLoop icnt ocnt num cnt obj tbl v ptbl obj1 tmp UNUSED
-Routine  0xd3d8 Parser ptr word val vrb len dir nw tmpword num local10 cnt
+Routine  0xcdfe CommandLoop icnt ocnt num cnt obj tbl v ptbl obj1 tmp tmp2
+Routine  0xd3d8 Parser:bool ptr:p_lexv word:dictword val vrb:verbnum len:int dir nw:dictword tmpword num space cnt:int
 Routine  0xd7be Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
 Routine  0xd7e4 Clause ptr val word off num local6 local7 local8 tmpword
 Routine  0xd9d6 ParseNumber ptr len nptr digit num clocknum mult
 Routine  0xdb84 Word_Print cnt:int buf:int
-Routine 43716 routine43716
-Routine 43844 routine43844
-Routine 43858 routine43858
-Routine 43960 routine43960
-Routine 44152 routine44152
-Routine 44200 routine44200
-Routine 44234 routine44234
-Routine 46160 routine46160
-Routine 46176 routine46176
-Routine 46450 routine46450
-Routine 46478 routine46478
-Routine 46644 routine46644
-Routine 46674 routine46674
-Routine 46688 routine46688
-Routine 46752 routine46752
-Routine 47214 routine47214
-Routine 47238 routine47238
+Routine 43716 Monica_pushes
+Routine 43844 Release_monica
+Routine 43858 Cat_F
+Routine 43960 Global_person
+Routine 44152 Global_mrs_linder_F
+Routine 44200 Hint_F
+Routine 44234 Global_duffy_F
+Routine 46160 CarryCheck person:object
+Routine 46176 Com_check
+Routine 46450 Describe_person person:object str:string
+Routine 46478 Discretion p1:object p2:object p3:object
+Routine 46644 FollowedP person:object loc:object bit:int
+Routine 46674 InhabitedP
+Routine 46688 Population rm:object pr cnt:int obj
+Routine 46752 Random_shoes_F
+Routine 47214 Random_pseudo
+Routine 47238 Not_here_object_F
 Routine 47398 FindNotHere tbl noun_found:bool m_f:int obj:object
-Routine 47696 routine47696
-Routine 47760 routine47760
-Routine 47798 routine47798
-Routine 47904 routine47904
-Routine 47914 routine47914
-Routine 48206 routine48206
-Routine 48330 routine48330
-Routine 48358 routine48358
-Routine 48556 routine48556
-Routine 48736 routine48736
-Routine 48840 routine48840
-Routine 48944 routine48944
-Routine 49010 routine49010
-Routine 49274 routine49274
-Routine 49308 routine49308
-Routine 49602 routine49602
-Routine 49636 routine49636
-Routine 49922 routine49922
-Routine 50060 routine50060
-Routine 50126 routine50126
-Routine 50224 routine50224
-Routine 50290 routine50290
-Routine 50350 routine50350
-Routine 50400 routine50400
-Routine 50436 routine50436
-Routine 50562 routine50562
-Routine 50726 routine50726
-Routine 50860 routine50860
-Routine 50886 routine50886
-Routine 51284 routine51284
-Routine 51516 routine51516
-Routine 51598 routine51598
-Routine 51636 routine51636
-Routine 51970 routine51970
-Routine 52010 routine52010
-Routine 52130 routine52130
-Routine 52250 routine52250
-Routine 52328 routine52328
-Routine 52390 routine52390
-Routine 52426 routine52426
-Routine 52664 routine52664
-Routine 53226 routine53226
-Routine 53320 routine53320
-Routine 53334 routine53334
-Routine 53436 routine53436
-Routine 53922 routine53922
-Routine 53958 routine53958
-Routine 54074 routine54074
-Routine 54086 routine54086
-Routine 54094 routine54094
-Routine 55916 routine55916
-Routine 56164 routine56164
-Routine 56218 routine56218
-Routine 56280 routine56280
-Routine 56356 routine56356
-Routine 56836 routine56836
-Routine 56890 routine56890
-Routine 56982 routine56982
-Routine 57008 routine57008
-Routine 57202 routine57202
-Routine 57246 routine57246
-Routine 57306 routine57306
-Routine 57406 routine57406
-Routine 57440 routine57440
-Routine 57478 routine57478
-Routine 57490 routine57490
-Routine 57608 routine57608
-Routine 57706 routine57706
-Routine 57784 routine57784
-Routine 58086 routine58086
-Routine 58614 routine58614
-Routine 58708 routine58708
-Routine 58826 routine58826
-Routine 59046 routine59046
-Routine 59098 routine59098
-Routine 59198 routine59198
-Routine 59276 routine59276
-Routine 59306 routine59306
-Routine 59334 routine59334
-Routine 59512 routine59512
-Routine 59650 routine59650
-Routine 59690 routine59690
-Routine 59714 routine59714
-Routine 59796 routine59796
-Routine 59844 routine59844
-Routine 59892 routine59892
-Routine 59906 routine59906
-Routine 59954 routine59954
-Routine 60702 routine60702
-Routine 61094 routine61094
-Routine 61194 routine61194
-Routine 61432 routine61432
-Routine 61482 routine61482
-Routine 61698 routine61698
-Routine 61752 routine61752
-Routine 62034 routine62034
-Routine 62130 routine62130
-Routine 62370 routine62370
-Routine 62412 routine62412
-Routine 62460 routine62460
-Routine 62488 routine62488
-Routine 62586 routine62586
-Routine 62848 routine62848
-Routine 62868 routine62868
-Routine 62900 routine62900
-Routine 63242 routine63242
-Routine 63332 routine63332
-Routine 63418 routine63418
-Routine 63434 routine63434
-Routine 65114 routine65114
-Routine 66640 routine66640
-Routine 66930 routine66930
-Routine 69054 routine69054
-Routine 70664 routine70664
-Routine 70752 routine70752
-Routine 73544 routine73544
-Routine 73948 routine73948
-Routine 75100 routine75100
-Routine 76154 routine76154
-Routine 76790 routine76790
+Routine 47696 Not_here_print
+Routine 47760 No_touch
+Routine 47798 It_F
+Routine 47904 ThisIsIt obj:object
+Routine 47914 Recurisve_Gun_P
+Routine 48206 Matches_F
+Routine 48330 Handcuffs_F
+Routine 48358 House_F
+Routine 48556 Fence_F
+Routine 48736 Ground_F
+Routine 48840 Floor_F
+Routine 48944 Music_F
+Routine 49010 Booze_F
+Routine 49274 No_drink
+Routine 49308 Cigarette_F
+Routine 49602 Broken_glass_F
+Routine 49636 Inside_Gun_F
+Routine 49922 Muddy_gun_action_F
+Routine 50060 Muddy_gun_F
+Routine 50126 House_keys_F
+Routine 50224 Keys_F
+Routine 50290 Handwriting_F
+Routine 50350 Fingerprints_F
+Routine 50400 Global_suicide_F
+Routine 50436 Telephone_F
+Routine 50562 Coroner_F
+Routine 50726 Button_F
+Routine 50860 You_rang
+Routine 50886 Black_wire_F
+Routine 51284 Boots_F
+Routine 51516 Bed_F rarg:rarg
+Routine 51598 Walk_around
+Routine 51636 Dead_Linder_F arg present_time:int
+Routine 51970 Global_warrant_F
+Routine 52010 Mirror_F
+Routine 52130 Closet_F
+Routine 52250 Can_worms_F
+Routine 52328 Meal_F
+Routine 52390 House_obj_F
+Routine 52426 Queue_Daemon rtn:routine ticks cint:int
+Routine 52664 Go
+Routine 77030 Queue_Main_Events
+Routine 82970 Start_Movement
+Routine 53226 QContext_Check prso other who n:int
+Routine 53320 Said_to who:object
+Routine 53334 Fake_Orphan
+Routine 53436 Perform:act_result act:action obj:object ind_obj:object v:act_result verbtmp objtmp indtmp
+Routine 53922 DD_Apply str:string obj:object fcn res
+Routine 53958 D_Apply str:string fcn:routine res
+Routine 54074 This_is_s_he who:object
+Routine 54086 I_prompt
+Routine 54094 I_Prompt2
+Routine 55916 Orphan_Merge cnt:int temp verb beg end adj:bool word:dictword UNUSED
+Routine 56164 AClause_Win otbl
+Routine 56218 Unknown_Word ptr buf word
+Routine 56280 Cant_Use ptr buf word
+Routine 56356 Syntax_Check syn:int len:int num:int obj drive1 drive2 prep vrb:verbnum tmp attr lbit
+Routine 56836 Fake_Orphan
+Routine 59796 Vprint tmp tmp2
+Routine 56890 Orphan d1 d2 cnt:int
+Routine 56982 Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool
+Routine 57008 Buffer_Print beg end cp:bool nosp:bool wrd:dictword first:bool not_prefixed:bool pn
+Routine 57202 Capitalize ptr word
+Routine 57246 Prep_Print ndx prep
+Routine 57306 Clause_Copy bptr eptre insrt beg end
+Routine 57406 Clause_Add word len
+Routine 57440 Prep_Find prep cnt:int len:int
+Routine 57478 Syntax_Found
+Routine 57490 GWim:object gbit:attribute lbit:int prep:dictword obj:object
+Routine 57608 Snarf_Objects ptr
+Routine 57706 But_Merge tbl len butlen cnt:int matches obj nbtl
+Routine 57784 Snarfem ptr eptr tbl but UNUSED wv word:dictword nw:dictword lw:dictword
+Routine 58086 Get_Object tbl vrb:bool bits len xbits tlen gcheck tmp other
+Routine 58614 Moby_Find list rlist cnt:int
+Routine 58708 Which_Print num cnt:int list obj:object total:int
+Routine 58826 Global_Check tbl ptr rmg rmg_len cnt obj obits foo
+Routine 59046 Do_SL obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
+Routine 59098 Search_List obj tbl lvl:p_searchlevels
+Routine 59198 This_It_P obj:object UNUSED syns 
+Routine 59276 Obj_Found obj:object tbl ptr
+Routine 59306 Take_Check
+Routine 59334 ITake_Check  tbl bits ptr obj:object taken:bool
+Routine 59512 Many_Check loss tmp word:dictword
+Routine 59650 ZMemQ itm:dictword tbl size:int cnt:int
+Routine 59690 ZMemQB itm tbl size cnt
+Routine 59714 LitP room oldroom:object islit:bool
+Routine 59844 Prso_func
+Routine 59892 The_prso
+Routine 59906 Prsi_print
+Routine 59954 The_prsi_print
+Routine 60702 TimePrint num hr am:bool
+Routine 61094 FirstLook
+Routine 85274 WhereUpdate who:object
+Routine 61194 TandyP
+Routine 61432 Yes_or_no
+Routine 61482 DescribeObject obj:object v:bool level str:string av
+Routine 61698 DescribeObjects v:bool
+Routine 61752 DescribeRoom lookp:bool v:bool f:bool str:string l
+Routine 62034 Firster
+Routine 62130 GoneCrazy
+Routine 95552 CaseOver
+Routine 62370 Goto room:object v:bool lb:bool environment
+Routine 62412 HackHack str:string
+Routine 62460 HeldP obj:object
+Routine 62488 IDrop
+Routine 62586 ITake:act_result vb:bool num_items:int ob:object weight:int
+Routine 62848 CCount who:object
+Routine 62868 Not_here obj:object
+Routine 62900 PrintCont obj:object v level:int itm:object first:bool av:bool environment text pv:bool inv:bool
+Routine 63242 PrintContents obj:object itm firstitm first:bool
+Routine 63332 RoomCheck
+Routine 83314 GrabAttention who:object
+Routine 63418 See_Inside:bool obj:object
+Routine 63434 Weight:int
+Routine 65114 Call_lose
+Routine 66640 PreDrop
+Routine 66930 PreThrough
+Routine 69054 IKill str:string
+Routine 70664 RoomPeek rm:object
+Routine 70752 See_into there:object p l:int tbl o
+Routine 73544 Hold_up
+Routine 73948 ThrowSub
+Routine 75100 Int_wait:act_result n:int tim req val
+Routine 76154 Intro
+Routine 76790 Times_up
+Routine 97398 Too_late
+Routine 0xea40 ScriptSub 
+Routine 0xea72 UnscriptSub 
+Routine 0xeaa6 VerifySub 
+Routine 0xeade DebugTandySub x msg
+Routine 0xeb30 DebugWhereSub cnt:int o l msg
+Routine 0xeb9e DebugSub local1 
+Routine 0xebd4 BriefSub 
+Routine 0xec02 SuperbriefSub 
+Routine 0xec6a VerboseSub 
+Routine 0xec9a SpaceSub 
+Routine 0xecc8 UnspaceSub 
+Routine 0xecf4 InventorySub 
+Routine 0xed10 TimeSub 
+Routine 0xed66 QuitSub restorep:bool UNUSED
+Routine 0xeddc RestartSub 
+Routine 0xee44 RestoreSub 
+Routine 0xeeb8 PauseSub 
+Routine 0xef18 VersionSub local1=17[telephone_call?] 
+Routine 0xf7ee PreAccuseSub 
+Routine 0xf8da AccuseSub 
+Routine 0xf8f0 PreAnalyzeOnSub 
+Routine 0xf8fa AnalyzeOnSub 
+Routine 0xf910 PreAnalyzeSub 
+Routine 0xf968 AnalyzeSub 
+Routine 0xfa50 AnswerSub 
+Routine 0xfa72 AnswerObjSub 
+Routine 0xfaae PreArrestSub 
+Routine 0xfbf0 ArrestSub 
+Routine 0xfca4 AskPersonAboutSub 
+Routine 0xfd26 PreAskAboutSub local1 
+Routine 0xfd58 AskAboutSub 
+Routine 0xfd6e AskPersonForSub 
+Routine 0xfdaa PreAskForSub local1 
+Routine 0xfddc AskForSub 
+Routine 0xfdf2 AttackSub 
+Routine 0xfdfc CleanSub 
+Routine 0xfe6a CallSub local1 local2 
+Routine 0xfeec DialSub local1 
+Routine 0x100ec BoardSub 
+Routine 0x1013e ClimbUpSub prop:property obj:object pnum:int paddr
+Routine 0x101a2 ClimbDownSub 
+Routine 0x101b8 ClimbObjSub 
+Routine 0x101c2 CloseSub 
+Routine 0x10272 PreCompareSub local1 
+Routine 0x102cc CompareSub 
+Routine 0x102f6 ConfrontSub 
+Routine 0x1033a CurseSub 
+Routine 0x10374 DestroySub 
+Routine 0x10448 DrinkSub 
+Routine 0x10464 DropSub 
+Routine 0x1049a EatSub local1 local2 local3 
+Routine 0x10568 EnterSub 
+Routine 0x10580 EnterObjSub local1 local2 local3 
+Routine 0x10674 PreExamineSub val:int
+Routine 0x106b0 ExamineSub local1 
+Routine 0x106e8 PreSearchForSub pron pron1 chr:object tm:int local5 
+Routine 0x108e4 SearchForSub local1 
+Routine 0x109b0 FinterprintSub 
+Routine 0x109dc FollowSub local1 local2 local3 local4 local5 
+Routine 0x10b44 PreGiveSub 
+Routine 0x10b72 GiveSub 
+Routine 0x10bc2 PreGiveReverseSub 
+Routine 0x10bcc GiveReverseSub 
+Routine 0x10be2 GoodbyeSub 
+Routine 0x10bea HandcuffSub 
+Routine 0x10c04 HelloSub local1=1[?] local2 
+Routine 0x10caa HelpSub 
+Routine 0x10cec HideSub 
+Routine 0x10d1a HideBehindSub 
+Routine 0x10d7e KickSub 
+Routine 0x10db4 KillSub 
+Routine 0x10f8c KissSub 
+Routine 0x11006 KnockSub 
+Routine 0x11090 StandOnSub 
+Routine 0x1109c StandSub local1 
+Routine 0x1111e LeaveSub 
+Routine 0x11128 ListenSub 
+Routine 0x11198 LockSub 
+Routine 0x11232 LookSub 
+Routine 0x11244 LookBehindSub 
+Routine 0x11262 LookDownSub 
+Routine 0x112b8 PreLookInSub 
+Routine 0x112c0 LookInSub dir:property rm:object
+Routine 0x114f6 LookOnSub 
+Routine 0x11518 LookOutSub 
+Routine 0x11520 LookUnderSub 
+Routine 0x11588 LookUpSub 
+Routine 0x115fe MakeSub 
+Routine 0x11626 PrePullSub 
+Routine 0x1164a PullSub 
+Routine 0x11678 OpenSub local1 local2 
+Routine 0x11770 PickSub 
+Routine 0x1177c PlaySub 
+Routine 0x117aa PressSub 
+Routine 0x117b4 PutUnderSub 
+Routine 0x117c2 PreApplyToSub 
+Routine 0x117e6 ApplyToSub local1 
+Routine 0x118ba RaiseSub 
+Routine 0x118c4 MolestSub 
+Routine 0x11938 PreReadSub local1 
+Routine 0x119ba ReadSub 
+Routine 0x119d6 ReviveSub 
+Routine 0x119f2 RingSub 
+Routine 0x11a04 TouchSub 
+Routine 0x11a0e PreRubOnSub 
+Routine 0x11a18 RubOnSub 
+Routine 0x11a2a TalkSub local1 
+Routine 0x11a5e PreSearchSub 
+Routine 0x11a66 SearchSub 
+Routine 0x11ab8 PreSearchObjForSub local1 
+Routine 0x11ae8 SearchObjForSub 
+Routine 0x11bfa ShootSub 
+Routine 0x11c22 PreShootReverseSub 
+Routine 0x11c2c ShootReverseSub 
+Routine 0x11c42 ShowReverseSub 
+Routine 0x11c88 PreShowSub 
+Routine 0x11c96 ShowSub 
+Routine 0x11c98 SitOnSub 
+Routine 0x11cd2 HitSub 
+Routine 0x11d1a SmellSub 
+Routine 0x11d5e SmokeSub 
+Routine 0x11d6e PreTakeSub 
+Routine 0x11e62 TakeSub 
+Routine 0x11e82 PreTakeObjObjSub 
+Routine 0x11ee4 TakeObjObjSub 
+Routine 0x11efa TakeOutSub 
+Routine 0x11f5a QuestionSub 
+Routine 0x11fd4 PreTellAboutSub local1 
+Routine 0x1200e TellAboutSub 
+Routine 0x12036 PreTalkAboutSub local1 
+Routine 0x12068 TalkAboutSub 
+Routine 0x1207e ThankSub local1 
+Routine 0x120ec ThrowAtSub 
+Routine 0x1213e ThrowThroughSub 
+Routine 0x12164 PreHandcuffToSub 
+Routine 0x1217e HandcuffToSub 
+Routine 0x12192 PreTieSub 
+Routine 0x121ac TieSub 
+Routine 0x121f6 TurnToSub 
+Routine 0x12202 SwitchOnSub 
+Routine 0x12292 SwitchOffSub 
+Routine 0x122c4 TurnUpSub 
+Routine 0x122cc TurnDownSub 
+Routine 0x122d4 PreLockSub 
+Routine 0x12334 UnlockSub 
+Routine 0x123d6 UntieSub 
+Routine 0x123ec UseSub 
+Routine 0x12408 WaitSub num:int who:object interval:int val:int hr:bool
+Routine 0x12588 WaitForSub who:object
+Routine 0x1261a WaitUntilSub 
+Routine 0x12682 WakeSub 
+Routine 0x126fc GoSub:act_result prop
+Routine 0x1282e WalkAroundSub 
+Routine 0x1284e WalkToSub 
+Routine 0x128d4 WalkOverSub 
+Routine 0x128e4 WhatIsSub 
+Routine 0x12942 YesNoSub 
+Routine 76996 Winner_F
+Routine 80038 Today_F
+Routine 80114 Welcome
+Routine 78538 DoFingerprint
+Routine 78408 I_Meet_Duffy
+! Routine 78538 routine78538
+Routine 78902 Analyze
+Routine 82166 I_Linder_Explain
+Routine 82458 FireShot
+Routine 82928 InMotion who:object
+Routine 83418 Establish_Goal who:object
+Routine 85108 InP obj:object where:object
+Routine 90498 DuffyHint
 
 ! ------------------------------- Words --------------------------------
 
@@ -959,7 +1185,7 @@ Word  storag  storage
 Word  strang  strange
 Word  suicid  suicide
 Word  surpri  surprise
-Word  suspen  suspense
+Word  suspen  suspend
 Word  swallo  swallow
 Word  swingi  swinging
 Word  teache  teacher

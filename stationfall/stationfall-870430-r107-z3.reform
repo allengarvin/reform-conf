@@ -38,6 +38,8 @@ Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
 ! ------------------------------ Globals -------------------------------
 
 Global        0 location:object
+Global      113 Melt_counter:int
+Global      131 P_prsa_word:dictword
 Global        1 score:int
 Global        3 P_end_on_prep:bool
 Global        6 Haveto_msg:string
@@ -128,6 +130,8 @@ Global      118 Air_shaft_position_cnt:int
 Global      119 P_syntax
 Global      121 Floyd_no_have_msg:string
 Global      125 Evil_plato_cnt:int
+Global      161 Evil_plato_cnt2:int
+Global  144 global144:object
 Global      126 You_shot_floyd:bool
 Global      128 Hungriness_cnt:int
 Global      129 Ellipsis_msg:string
@@ -163,8 +167,9 @@ Global      170 P_quote_flag:bool
 Global      171 Soup_hotness_counter:int
 Global      172 P_table                                 ! STANDARDIZED
 Global      174 Day_number:int
-Global      174 P_oflag:bool
+Global      174 P_oflag:int
 Global      175 Form_destruct_msg:string
+Global 178 explosive_connected:bool
 Global      179 P_number:int
 Global      180 Planetfall_msg:string
 GlobalArray 181 Dream_table:table(string)
@@ -176,13 +181,15 @@ Global      188 Floyd_mad_msg:string
 GlobalArray 190 Radio_table:table(string)
 GlobalArray 191 Useless_table:table(string)
 Global      192 Nothing_happens_msg:string
+Global      193 Hanging_floyd:bool
 Global      195 question_cnt:question_ndx
 Global      196 Fromitz_msg:string
-Global      197 P_it_objectobject
+Global      197 P_it_object:object
 Global      199 Have_met_plato:bool
 Global      200 second:object
 Global      203 Some_sort_of_wearing_variable:int
 Global      204 Toolong_wait_msg:string
+Global      205 Floyd_spoke:bool
 Global      206 Blackness_msg:string
 Global      207 Forklift_attack_cnt:int
 Global      208 Already_is_msg:string
@@ -197,6 +204,7 @@ GlobalArray 222 Prepositions:table(dictword,int)
 GlobalArray 223 Actions:array(179*routine)
 GlobalArray 224 Preactions:array(179*routine)
 GlobalArray 225 Verbs:array(2*int)
+Global 151 Internal_moves
 LastGlobal  225
 
 ! ------------------------------- Arrays --------------------------------
@@ -723,7 +731,7 @@ Routine  0x5678 TPrint obj:object
 Routine  0x568c TPrint_Prso
 Routine  0x5694 TPrint_Prsi
 Routine  0x569c ARPrint
-Routine  0x56a8 TRPrint
+Routine  0x56a8 TRPrint obj:object
 Routine  0x56b4 Main
 Routine  0x580c MainLoop res
 Routine  0x5818 Main_Loop_1 icnt:bool ocnt:int num cnt:int obj:object tbl v:act_result ptbl:bool obj1:object temp:bool tmp_obj
@@ -731,7 +739,7 @@ Routine  0x5ac0 Dont_All obj:object env:object
 Routine  0x5b44 Clocker_VerbP
 Routine  0x5b72 Fake_Orphan it_was_used:bool it_was_used:bool compiler_tmp
 Routine  0x5bf4 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp:action objtmp:object indtmp:object
-Routine  0x5d06 D_Apply str_UNUSED fcn:routine rarg:rarg result
+Routine  0x5d06 D_Apply str:string fcn:routine rarg:rarg result
 Routine  0x5d22 Dequeue:bool rtn:^routine
 Routine  0x5d34 QueuedP rtn:routine cnt:int end:int
 Routine  0x5d60 RunningP rtn:routine cnt:int end:int
@@ -741,7 +749,7 @@ Routine  0x5e02 Clocker end tick:int rtn:routine executed_p:bool break_loop:bool
 ! PARSER.ZIL 
 Routine  0x5ea4 This_Is_It obj:object
 Routine  0x5ed0 Parser:int ptr:p_lexv word:dictword val:int vrb:verbnum omerged:bool owinner olen len:int dir nw:dictword lw:dictword cnt:int compiler_tmp1 compiler_tmp2
-Routine  0x6512 Change_Lexv ptr wrd ptrs x y v
+Routine  0x6512 Change_Lexv ptr wrd:dictword ptrs x y v
 Routine  0x656a Stuff dest src max:int ptr:p_lexv ctr:int
 Routine  0x65be Inbuf_Stuff dest src cnt:int
 Routine  0x65d6 Inbuf_Add len beg slot dbg ctr:int tmp compiler_tmp1
@@ -750,7 +758,7 @@ Routine  0x6660 Next_Word ptr
 Routine  0x6670 Clause ptr val wrd off num andflag:bool firstp:bool nw lw
 Routine  0x6876 NumberP:dictword ptr cnt bptr chr sum:int cctr tmp xptr
 Routine  0x69a6 After_Comma_Check ptr cnt bptr cctr chr sum:int
-Routine  0x69fe Orphan_Merge cnt:int temp verbn beg end adj vrb wrd
+Routine  0x69fe Orphan_Merge cnt:int temp verbn beg end adj vrb wrd:dictword
 Routine  0x6c18 Clause_Win adj
 Routine  0x6c62 Word_Print cnt buf
 Routine  0x6c78 Unknown_Word ptr buf compiler_tmp
@@ -759,18 +767,18 @@ Routine  0x6d12 Syntax_Check syn:int len num:int obj drive1:bool drive2:bool pre
 Routine  0x6ee4 Verb_Print tmp compiler_tmp
 Routine  0x6f26 Orphan d1 d2 cnt:int
 Routine  0x6fbe Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool beginning
-Routine  0x6fd8 Buffer_Print beg end cp nosp:bool wrd firstp:bool pn
+Routine  0x6fd8 Buffer_Print beg end cp nosp:bool wrd:dictword firstp:bool pn
 Routine  0x709e NameP wrd:dictword
 Routine  0x70ac Capitalize ptr compiler_tmp
 Routine  0x70e6 Prep_Print ndx:int prep:dictword
 Routine  0x7106 Clause_Copy src dest insrt ocl beg end bb ee obeg cnt b e
-Routine  0x71f4 Clause_Add wrd oclause len
+Routine  0x71f4 Clause_Add wrd:dictword oclause len
 Routine  0x721c Prep_Find prep cnt:int size
 Routine  0x7242 Syntax_Found syn
 Routine  0x724e GWim:object gbit:attribute lbit:int prep:dictword obj:object
 Routine  0x72b6 Snarf_Objects ptr
 Routine  0x731e But_Merge tbl len butlen cnt:int matches obj ntbl
-Routine  0x7366 Snarfem ptr eptr tbl but len wv wrd nw was_all:bool
+Routine  0x7366 Snarfem ptr eptr tbl but len wv wrd:dictword nw was_all:bool
 Routine  0x74e8 Naughty_Word:bool w:dictword
 Routine  0x7550 Adj_Check w:dictword flag:bool UNUSED
 Routine  0x757a Get_Object tbl:^array(int) vrb:bool bits len xbits tlen gcheck:bool olen:int obj
@@ -881,7 +889,7 @@ Routine  0xa118 RepairSub
 Routine  0xa162 FlatterSub
 Routine  0xa166 FollowSub
 Routine  0xa1a6 FootnoteSub
-Routine  0xa70a PreGiveSub
+Routine  0xa70a PreGiveSub dropped:bool
 Routine  0xa728 GetDressedSub
 Routine  0xa75e GetUndressedSub
 Routine  0xa772 GiveSub
@@ -1055,7 +1063,7 @@ Routine  0xd3e8 Wastes
 ! GLOBALS.ZIL 
 Routine  0xd3f4 Intdir_F:act_result 
 Routine  0xd42e Intnum_F:act_result 
-Routine  0xd584 Not_here_object_F:act_result tbl prso_p:bool obj:object x
+Routine  0xd584 Not_here_object_F:act_result tbl prso_p:bool obj:object x:object
 Routine  0xd668 Prso_Moby_VerbP
 Routine  0xd67e Prsi_Moby_VerbP
 Routine  0xd688 Find_Not_Here:object tbl prso_p:bool m_f:int obj:object
@@ -1086,7 +1094,7 @@ Routine  0xe860 I_Fall_Asleep
 Routine  0xe892 Waking_Up UNUSED1 UNUSED2 chance_of_nastiness:int
 Routine  0xef1a I_Hunger_Warnings
 Routine  0xf01c Welder_F:act_result 
-Routine  0xf2b0 TouchingP
+Routine  0xf2b0 TouchingP obj:object
 Routine  0xf31c Cant_See obj:object
 Routine  0xf364 Cant_Verb_a_Prso what:string
 Routine  0xf374 Tell_Hit_Head
@@ -1117,10 +1125,10 @@ Routine  0xf99e Boxed_Forms_F
 Routine  0xf9cc Pallets_F:act_result cnt
 Routine  0xfb0a Robot_Pool_F:act_result rarg:rarg 
 Routine  0xfb8a Bin_F
-Routine  0xfc0e Floyd_F:act_result rarg:rarg x n txt
+Routine  0xfc0e Floyd_F:act_result rarg:rarg x:object n txt
 Routine 0x10b10 Describe_Floyd examined:bool
 Routine 0x10cd2 Floyd_Take_Leash
-Routine 0x10d3a MovE_Floyd_to_Factory
+Routine 0x10d3a Move_Floyd_to_Factory
 Routine 0x10d9c Helen_F:act_result 
 Routine 0x10e5a Rex_F:act_result 
 Routine 0x10ef0 I_Other_Robot
@@ -1241,7 +1249,7 @@ Routine 0x162d8 Twenty_Prong_fromitz_board_F:act_result
 Routine 0x16368 N_prong_board
 Routine 0x1638a Generic_Fromitz_Board_F:object
 Routine 0x16398 Holding_Tank_Level_F:act_result rarg:rarg 
-Routine 0x1644c Plato_F:act_result local1 
+Routine 0x1644c Plato_F:act_result react
 Routine 0x1696e I_Plato not_called_as_int:bool
 Routine 0x16b22 Volume_F:act_result 
 Routine 0x16bca I_Robot_Evilness
@@ -1298,7 +1306,7 @@ Routine 0x19232 Platinum_Detector_F:act_result
 Routine 0x1931a Travel_Agency_Poster_F
 Routine 0x193a4 Warehouse_F:act_result rarg:rarg
 Routine 0x1940e Inner_Airlock_Door_F:act_result 
-Routine 0x1941e Outer_Airlock_Door_F:act_result x n obj_flushed:bool
+Routine 0x1941e Outer_Airlock_Door_F:act_result x:object n obj_flushed:bool
 Routine 0x195d2 Generic_airlock_door:object
 Routine 0x195e4 Airlock_F:act_result rarg:rarg 
 Routine 0x19640 Airlock_Object_F:act_result 
@@ -1480,6 +1488,7 @@ Word villag village
 Word wardro wardrobe
 Word withdr withdraw
 Word wristw wristwatch
+Word nanofi nanofilm
 ! arctur
 ! bedist
 ! bluebe
@@ -1496,5 +1505,5 @@ Word wristw wristwatch
 ! spaceb
 ! spacec
 ! spacet
-! uncrea
-! uncrum
+Word uncrea uncrease
+Word uncrum uncrumple

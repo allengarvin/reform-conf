@@ -19,1085 +19,1309 @@ CodeArea 0x550c 0x1a07c
 StringArea 0x1a07c 0x1f1a8
 FalseEnd        0x82ca  1
 
+! -- Stationfall Specific enums --
+Enum rarg M_END=0 M_ONE=1 M_END=2 M_ENTER=3 M_LEAVE=4 M_LOOK=5 M_SIX=6 M_INITIAL=7 M_EIGHT=8 M_NINE=9
+Enum elevator_level LVL_1=1 LVL_2=2 LVL_3=3 LVL_4=4 LVL_5=5 LVL_6=6 LVL_7=7 LVL_8=8 LVL_9=9
+Enum question_ndx RHETORICAL_QUESTION=1 FLOYD_WANTS_TO_LAUNCH_SHIP=2 FLOYD_WANTS_TO_PLAY_GAME=3 FLOYD_WANTS_TO_PLAY_HUCKA_BUCKA_BEANSTALK=4
+Enum gravndx PLAYER_HAS_NO_GRAV_AND_OTHER_DOES=1 PLAYER_HAS_GRAVITY_AND_OTHER_DOESNT=2
 
-! -- global enums --
+! -- Standard enums --
+Enum vbs SUPERBRIEF=0 BRIEF=1 VERBOSE=2
 Enum p_searchlevels P_SRCTOP=0 P_SRCALL=1 P_SRCBOT=2
 Enum p_searchlevelbits SH=128 SC=64 SIR=32 SOG=16 STAKE=8 SMANY=4 SHAVE=2 1=1
 Enum p_partsofspeech P_VERB=0 P_VERBN=1 P_PREP1=2 P_PREP1N=3 P_PREP2=4 P_PREP2N=5 P_NC1=6 P_NC1L=7 P_NC2=8 P_NC2L=9
 Enum p_p1off P_P1OFF=5
 Enum p_partofspeechbit PS_OBJECT=128 PS_VERB=64 PS_ADJECTIVE=32 PS_DIRECTION=16 PS_PREPOSITION=8 PS_BUZZ_WORD=4
 Enum p_partofspeechrtnval P1_DIRECTION=3 P1_ADJECTIVE=2 P1_VERB=1 P1_OBJECT=0 5=5
-Enum act_result A_SUCCESS=1 A_FAILURE=2
+Enum act_result A_SUCCESS=1 A_FAILURE=8
 Enum p_lexv P_LEXSTART=1 P_LEXELEN=2 P_WORDLEN=4
-
 ! ------------------------------ Globals -------------------------------
 
-Global 0 global0:?
-Global 1 global1:?
-Global 2 global2:?
-Global 3 global3:?
-Global 4 global4:?
-Global 5 global5:?
-Global 6 global6:?
-Global 7 global7:?
-Global 8 global8:?
-Global 9 global9:?
-Global 10 global10:?
-Global 11 global11:?
-Global 12 global12:?
-Global 13 global13:?
-Global 14 global14:?
-Global 15 global15:?
-Global 16 global16:?
-Global 17 global17:?
-Global 18 global18:?
-Global 19 global19:?
-Global 20 global20:?
-Global 21 global21:?
-Global 22 global22:?
-Global 23 global23:?
-Global 24 global24:?
-Global 25 global25:?
-Global 26 global26:?
-Global 27 global27:?
-Global 28 global28:?
-Global 29 global29:?
-Global 30 global30:?
-Global 31 global31:?
-Global 32 global32:?
-Global 33 global33:?
-Global 34 global34:?
-Global 35 global35:?
-Global 36 global36:?
-Global 37 global37:?
-Global 38 global38:?
-Global 39 global39:?
-Global 40 global40:?
-Global 41 global41:?
-Global 42 global42:?
-Global 43 global43:?
-Global 44 global44:?
-Global 45 global45:?
-Global 46 global46:?
-Global 47 global47:?
-Global 48 global48:?
-Global 49 global49:?
-Global 50 global50:?
-Global 51 global51:?
-Global 52 global52:?
-Global 53 global53:?
-Global 54 global54:?
-Global 55 global55:?
-Global 56 global56:?
-Global 57 global57:?
-Global 58 global58:?
-Global 59 global59:?
-Global 60 global60:?
-Global 61 global61:?
-Global 62 global62:?
-Global 63 global63:?
-Global 64 global64:?
-Global 65 global65:?
-Global 66 global66:?
-Global 67 global67:?
-Global 68 global68:?
-Global 69 global69:?
-Global 70 global70:?
-Global 71 global71:?
-Global 72 global72:?
-Global 73 global73:?
-Global 74 global74:?
-Global 75 global75:?
-Global 76 global76:?
-Global 77 global77:?
-Global 78 global78:?
-Global 79 global79:?
-Global 80 global80:?
-Global 81 global81:?
-Global 82 global82:?
-Global 83 global83:?
-Global 84 global84:?
-Global 85 global85:?
-Global 86 global86:?
-Global 87 global87:?
-Global 88 global88:?
-Global 89 global89:?
-Global 90 global90:?
-Global 91 global91:?
-Global 92 global92:?
-Global 93 global93:?
-Global 94 global94:?
-Global 95 global95:?
-Global 96 global96:?
-Global 97 global97:?
-Global 98 global98:?
-Global 99 global99:?
-Global 100 global100:?
-Global 101 global101:?
-Global 102 global102:?
-Global 103 global103:?
-Global 104 global104:?
-Global 105 global105:?
-Global 106 global106:?
-Global 107 global107:?
-Global 108 global108:?
-Global 109 global109:?
-Global 110 global110:?
-Global 111 global111:?
-Global 112 global112:?
-Global 113 global113:?
-Global 114 global114:?
-Global 115 global115:?
-Global 116 global116:?
-Global 117 global117:?
-Global 118 global118:?
-Global 119 global119:?
-Global 120 global120:?
-Global 121 global121:?
-Global 122 global122:?
-Global 123 global123:?
-Global 124 global124:?
-Global 125 global125:?
-Global 126 global126:?
-Global 127 global127:?
-Global 128 global128:?
-Global 129 global129:?
-Global 130 global130:?
-Global 131 global131:?
-Global 132 global132:?
-Global 133 global133:?
-Global 134 global134:?
-Global 135 global135:?
-Global 136 global136:?
-Global 137 global137:?
-Global 138 global138:?
-Global 139 global139:?
-Global 140 global140:?
-Global 141 global141:?
-Global 142 global142:?
-Global 143 global143:?
-Global 144 global144:?
-Global 145 global145:?
-Global 146 global146:?
-Global 147 global147:?
-Global 148 global148:?
-Global 149 global149:?
-Global 150 global150:?
-Global 151 global151:?
-Global 152 global152:?
-Global 153 global153:?
-Global 154 global154:?
-Global 155 global155:?
-Global 156 global156:?
-Global 157 global157:?
-Global 158 global158:?
-Global 159 global159:?
-Global 160 global160:?
-Global 161 global161:?
-Global 162 global162:?
-Global 163 global163:?
-Global 164 global164:?
-Global 165 global165:?
-Global 166 global166:?
-Global 167 global167:?
-Global 168 global168:?
-Global 169 global169:?
-Global 170 global170:?
-Global 171 global171:?
-Global 172 global172:?
-Global 173 global173:?
-Global 174 global174:?
-Global 175 global175:?
-Global 176 global176:?
-Global 177 global177:?
-Global 178 global178:?
-Global 179 global179:?
-Global 180 global180:?
-Global 181 global181:?
-Global 182 global182:?
-Global 183 global183:?
-Global 184 global184:?
-Global 185 global185:?
-Global 186 global186:?
-Global 187 global187:?
-Global 188 global188:?
-Global 189 global189:?
-Global 190 global190:?
-Global 191 global191:?
-Global 192 global192:?
-Global 193 global193:?
-Global 194 global194:?
-Global 195 global195:?
-Global 196 global196:?
-Global 197 global197:?
-Global 198 global198:?
-Global 199 global199:?
-Global 200 global200:?
-Global 201 global201:?
-Global 202 global202:?
-Global 203 global203:?
-Global 204 global204:?
-Global 205 global205:?
-Global 206 global206:?
-Global 207 global207:?
-Global 208 global208:?
-Global 209 global209:?
-Global 210 global210:?
-Global 211 global211:?
-Global 212 global212:?
-Global 213 global213:?
-Global 214 global214:?
-Global 215 global215:?
-Global 216 global216:?
-Global 217 global217:?
-Global 218 global218:?
-Global 219 global219:?
-Global 220 global220:?
-Global 221 global221:?
-Global 222 global222:?
-Global 223 global223:?
-Global 224 global224:?
-Global 225 global225:?
-Global 226 global226:?
-Global 227 global227:?
-Global 228 global228:?
-Global 229 global229:?
-Global 230 global230:?
-Global 231 global231:?
-Global 232 global232:?
-Global 233 global233:?
-Global 234 global234:?
-Global 235 global235:?
-Global 236 global236:?
-Global 237 global237:?
-Global 238 global238:?
-Global 239 global239:?
+Global 146 Internal_moves
+Global 98 debug_state:bool
+Global  140 global140:object
+Global 170 explosive_connected:bool
+Global 99 noun:object
+Global 162 P_quote_flag:bool
+Global      127 P_prsa_word:dictword
+Global 196 Floyd_spoke:bool
+Global 184 Hanging_floyd:bool
+Global      151 P_won:bool
+Global        0 location:object
+Global        1 score:int
+Global        3 P_end_on_prep:bool
+Global        6 Haveto_msg:string
+GlobalArray   7 Floyd_happy_table:table(string)
+Global        8 Bubble_msg:string
+Global        9 Reject_msg:string
+Global       10 Huh_msg:string
+GLobal       11 Footnote_9_displayed:bool
+GlobalArray  12 P_buts:array(50*int)
+Global       13 Welder_cnt:int
+Global       14 Current_rank:int
+Global       15 End_msg:string
+Global       17 LastAnimate:object
+Global      42 Dan_msg:string
+Global       18 Floyd_off_msg:string
+GlobalArray  20 Ho_hum_table:table(string)
+Global       22 Number_msg:string
+Global       23 P_slocbits:int
+Global       24 Zerog_msg:string
+Global       25 P_matchlen:int
+Global       26 P_adverb
+Global       27 Exhaustion_cnt:int
+GlobalArray  29 P_noun_names:array(2*dictword)
+! Global       33 Auth_msg:string
+Global       33 P_nam:dictword
+! Global       36 Bin_msg:string
+! Global       37 Floyd_seen_ostrich:bool
+Global       36 P_xnam:dictword
+Global       39 P_walk_dir:property
+! Global       44 Dan_msg:string
+GlobalArray  43 Space_navy_ranks:array(10*string)
+! Global       47 Assignment_cancelled:bool
+! Global       48 Accuracy_msg:string
+Global       46 Alreadydone_msg:string
+! Global       50 Lt1_msg:string
+Global       49 Gravity_border:gravndx
+! Global       54 Footnote_15_displayed:bool
+Global       51 Request_msg:string
+Global       52 Spore_can_cnt:int
+Global       53 Mirror_broken:bool
+Global       54 P_cont:int
+GlobalArray  55 P_prsi:array(50*int)
+Global       57 Zapgun_setting:int
+Global       58 Verbosity:vbs
+Global       60 Drier_on_for_time:int
+Global       62 Nogo_msg:string
+Global       63 Time_platinum_detector_on:int
+GlobalArray  64 Yuks2_table:table(string)
+Global       65 Nothungry_msg:string
+Global       66 Ostrich_msg:string
+Global       67 Tank_msg:string
+Global       68 Lit:bool
+Global       69 No_noun_msg:string
+Global       71 Hidden_casino_rooms_revealed:bool
+GlobalArray  72 P_vtbl:array(4*?)                       ! STANDARDIZED
+!Global       78 Headlamp_energy:bool
+GlobalArray  79 P_adjectives:array(2*dictword)
+Global       80 P_adj:dictword
+Global       81 P_len
+GlobalArray  84 P_cctbl:array(4*p_partsofspeech)                ! STANDARDIZED
+GlobalArray  85 P_lexv:array(~int,~int,119*dictword)    ! STANDARDIZED
+! GlobalArray  90 Floyd_rude_table:table(string)
+! Global       91 Ladder_up_down_msg:string
+Global       89 Chosen_robot:object
+Global       90 Village_entry_form_validated:bool
+! Global       96 Overload_msg:string
+! Global       97 Frezone_msg:string
+Global       94 Center_msg:string
+! Global       99 Rockets_msg:string
+Global      109 Melt_counter:int
+Global      95 Pyramid_launch_cnt:int
+GlobalArray 96 Bad_things_table:table(string)
+Global      97 Dark_msg:string
+Global      100 Suspended_by_Arcturian:bool
+Global      101 Tape_counter:int
+Global      102 Eternalflame_out_msg:string
+Global      103 P_merged:bool
+Global      105 P_gwimbit:attribute0
+Global      106 P_merged:bool
+Global      107 Dome_msg:string
+Global      108 Youcant_msg:string
+Global      110 Detonator_msg:string
+Global      111 Log_reader_on_cnt:int
 
+Global      112 Failed_msg:string
+GlobalArray 113 Floyd_msg_table:table(string)
+Global      114 Air_shaft_position_cnt:int
+Global      115 P_syntax
+! Global      121 Floyd_no_have_msg:string
+Global      121 Evil_plato_cnt:int
+Global      122 You_shot_floyd:bool
+Global      124 Hungriness_cnt:int
+Global      125 Ellipsis_msg:string
+Global      126 action:action
+Global      128 Can_see_msg:string
+Global      129 Exercise_machine_attack_cnt:int
+Global      130 Floyd_killed_Plato:bool
+Global      131 Space_journey_cnt:int
+Global      132 Safe_scored_flag:bool
+GlobalArray 133 P_prso:array(50*int)
+Global      134 Form_taken_msg:string
+Global      135 ID_card_scrambled:bool
+Global      136 Wlder_msg:string
+Global      137 Not_holding_msg:string
+Global      139 Drill_stopped_working:bool
+Global      141 Elevator_on_floor:elevator_level
+Global      143 Nothing_msg:string
+Global      144 Detonator_attach_msg:string
+! Global      145 Floyd_fun_msg:string
+GlobalArray 147 P_inbuf:array(~char,n*~dictword)
+! Global      153 Floyd_sad_msg:string
+Global      148 Seems_that_msg:string
+! GLobal      155 Footnote_14_displayed:bool
+! GlobalArray 157 P_merge:array(50*int)                   ! STANDARDIZED
+GlobalArray 152 Adventure_msg_table:table(string)
+! GlobalArray 162 P_ovtbl:array(4*?)                      ! STANDARDIZED
+Global      155 Chance_of_meeting_Blather:int
+Global      156 Lookaround_msg:string
+Global      159 Floyd_angry_cnt:int
+GlobalArray 160 P_itbl:array(verbnum,?,?,?,?,?,^array(dictword),?,?,?)
+! Global      170 P_quote_flag:bool
+Global      163 Soup_hotness_counter:int
+Global      164 P_table                                 ! STANDARDIZED
+! Global      174 Day_number:int
+Global      166 P_oflag:bool
+Global      167 Form_destruct_msg:string
+Global      171 P_number:int
+Global      172 Planetfall_msg:string
+! GlobalArray 181 Dream_table:table(string)
+Global      175 player:object
+! Global      184 Presser_turns_evil:bool
+Global      178 Holding_it_msg:string
+! Global      188 Floyd_mad_msg:string
+! GlobalArray 190 Radio_table:table(string)
+GlobalArray 182 Useless_table:table(string)
+Global      183 Nothing_happens_msg:string
+Global      186 question_cnt:question_ndx
+Global      187 Fromitz_msg:string
+Global      188 P_it_object:object
+Global      190 Have_met_plato:bool
+Global 74 P_xadjn
+Global      191 second:object
+! Global      203 Some_sort_of_wearing_variable:int
+Global      195 Toolong_wait_msg:string
+Global      197 Blackness_msg:string
+Global      198 Forklift_attack_cnt:int
+Global      199 Already_is_msg:string
+Global      200 Exercise_msg:string
+Global      203 On_the_floor_msg:string
+Global      206 You_asked_floyd_for_help:bool
+! Global      216 Mode_msg:string
+! Global      217 Okay_msg:string
+! GlobalArray 220 Yuks_table:table(string)
+Global      212 Drilled_hole:object
+! GlobalArray 222 Prepositions:table(dictword,int)
+! GlobalArray 214 Actions:array(179*routine)
+GlobalArray 215 Preactions:array(179*routine)
+GlobalArray 165 Verbs:array(2*int)
+! LastGlobal  225
 ! ------------------------------- Arrays -------------------------------
 
 ! ----------------------------- Attributes -----------------------------
 
-Attribute 3 attrib3   ! obj77_scrap_sculpture
-Attribute 4 attrib4   ! obj6_Rec_Shop obj22_Mayor_s_Office obj30_Loan_Shark obj31_Pet_Store obj44_Grimy_Passage obj52_Elevator obj56_Pawn_Shop obj64_Flophouse obj72_Junk_Yard obj94_Recruitment_Office obj95_Saloon obj97_Field_Office obj109_Missionary obj114_Barbershop obj115_Shady_Dan_s obj116_Air_Shaft obj127_Makeshift_Connector obj134_Trading_Post obj143_Airlock obj146_Opium_Den obj148__Doc__Schuster_s obj171_Fortune_Teller obj174_Grocery obj179_Greasy_Straw obj181_In_Space obj200_Warehouse obj206_Bank obj207_Travel_Agency obj214_Alley obj220_Studio obj223_Main_Street obj231_Casino obj237_Broadway
-Attribute 5 attrib5   ! obj5_Auxiliary_Barracks obj6_Rec_Shop obj11_Paper_Recycling_Plant obj18_Sick_Bay obj19_Officers__Quarters_B obj20_Theatre obj22_Mayor_s_Office obj27_File_Room obj30_Loan_Shark obj32_Docking_Bay__2 obj36_Officers__Quarters_A obj37_Engineering_Office obj39_Scientists__Quarters obj43_Auxiliary_SanFac obj49_Brig obj52_Elevator obj56_Pawn_Shop obj57_it obj64_Flophouse obj71_Astro_Office obj76_Docking_Bay__1 obj93_Male_Barracks obj94_Recruitment_Office obj97_Field_Office obj99_Armory obj100_Chapel obj109_Missionary obj118_Comm_Center obj126_Dome obj143_Airlock obj146_Opium_Den obj148__Doc__Schuster_s obj153_Docking_Bay__4 obj157_Alien_Ship obj167_Female_Barracks obj168_Shipping_Room obj170_Main_Storage obj171_Fortune_Teller obj180_Commander_s_Quarters obj181_In_Space obj192_Holding_Tank_Level obj203_Bio_Office obj212_Docking_Bay__3 obj215_Robot_Shop obj220_Studio obj226_Gym obj229_Spacetruck obj231_Casino obj248_Officers__Quarters_C obj254_Laundry
-Attribute 6 attrib6   ! obj49_Brig obj52_Elevator obj54_Cargo_Bay_Entrance obj57_it obj99_Armory obj106_Robot_Pool obj108_Cargo_Bay obj137_Forms_Storage_Room obj197_Deck_Twelve obj215_Robot_Shop obj229_Spacetruck
-Attribute 7 attrib7   ! obj2_air obj8_your_hand obj26_Floyd obj28_yourself obj40_it obj48_it obj55_Plato_s_volume_of_poetry obj57_it obj58_it obj66_pallets_of_boxes obj74_shrubbery obj88_Oliver obj120_Rex obj129_him obj135_Helen obj142_vacuum_taffy obj182_it obj191_garbage obj194_sleep obj205_reflective_foil obj217_it obj236_blue_soup obj246_Plato obj249_your_tongue
-Attribute 8 attrib8   ! obj50_pilot_seat obj57_it obj90_copilot_seat obj111_exercise_machine obj169_simulation_booth obj222_holding_tank
-Attribute 9 attrib9   ! obj25_pair_of_dice obj57_it obj83_pair_of_magnetic_boots
-Attribute 10 attrib10  ! obj23_counter obj42_system_monitor_board obj46_SB_radio obj50_pilot_seat obj55_Plato_s_volume_of_poetry obj57_it obj60_locker obj68_Food_Processing_and_Dispensing_Unit obj70_pedestal obj74_shrubbery obj75_pattern_of_dots obj90_copilot_seat obj96_pulpit obj110_air_shaft_grating obj131_magazine obj138_seven_pointed_star obj145_nanofilm_reader obj151_keypad obj169_simulation_booth obj199_hole obj204_eternal_flame obj216_roulette_wheel obj217_it obj221_pyramid obj222_holding_tank obj238_leash obj243_storage_bin obj246_Plato
-Attribute 11 attrib11  ! obj57_it obj123_safe obj172_strong_box obj243_storage_bin
-Attribute 12 attrib12  ! obj2_air obj21_auto_door obj34_elevator_shaft obj45_outer_airlock_door obj46_SB_radio obj57_it obj58_it obj78_ID_reader obj79_inner_airlock_door obj81_ID_card obj84_equipment obj88_Oliver obj91_explosive obj102_ostrich obj110_air_shaft_grating obj111_exercise_machine obj158_Arcturian_balloon_creature obj159_instruction_sheet obj173_alien_skeleton obj198_elevator obj204_eternal_flame obj209_Assignment_Completion_Form_QX_17_T obj211_innocuous_machine obj218_M_series_hyperdiode obj224_airlock obj235_everyone obj242_iris_hatch
-Attribute 13 attrib13  ! obj9_cage obj57_it
-Attribute 14 attrib14  ! obj9_cage obj23_counter obj26_Floyd obj29_log_reader obj35_ceiling_panel obj41_detonator obj50_pilot_seat obj57_it obj60_locker obj63_dryer obj69_presser obj70_pedestal obj90_copilot_seat obj96_pulpit obj111_exercise_machine obj119_bed obj123_safe obj133_trash_can obj138_seven_pointed_star obj140_heating_chamber obj145_nanofilm_reader obj154_plastic_bag obj160_Thermos_bottle obj169_simulation_booth obj189_survival_kit obj199_hole obj211_innocuous_machine obj222_holding_tank obj228_Patrol_uniform obj232_jammer obj240_drill obj246_Plato
-Attribute 15 attrib15  ! obj26_Floyd obj29_log_reader obj50_pilot_seat obj57_it obj70_pedestal obj90_copilot_seat obj111_exercise_machine obj119_bed obj140_heating_chamber obj145_nanofilm_reader obj169_simulation_booth obj199_hole obj211_innocuous_machine obj222_holding_tank obj228_Patrol_uniform obj232_jammer obj240_drill obj246_Plato
-Attribute 16 attrib16  ! obj29_log_reader obj57_it obj81_ID_card obj83_pair_of_magnetic_boots obj131_magazine obj138_seven_pointed_star obj172_strong_box obj211_innocuous_machine obj245_medium_drill_bit obj246_Plato
-Attribute 17 attrib17  ! obj23_counter obj57_it obj70_pedestal
-Attribute 18 attrib18  ! obj8_your_hand obj28_yourself obj57_it obj58_it obj102_ostrich obj129_him
-Attribute 19 attrib19  ! obj57_it obj217_it
-Attribute 20 attrib20  ! obj1_chronometer obj16_space_suit obj57_it obj83_pair_of_magnetic_boots obj141_headlamp obj228_Patrol_uniform
-Attribute 21 attrib21  ! obj1_chronometer obj57_it obj228_Patrol_uniform
-Attribute 22 attrib22  ! obj13_mauve_nanofilm_spool obj17_spray_can obj42_system_monitor_board obj55_Plato_s_volume_of_poetry obj66_pallets_of_boxes obj81_ID_card obj91_explosive obj98_Class_Three_Spacecraft_Activation_Form_HB_56_V obj112_puce_nanofilm_spool obj128_piece_of_paper obj131_magazine obj136_crumpled_form obj149_note obj159_instruction_sheet obj161_sign obj166_log_tape obj190_textbook obj202_diary obj208_neatly_ironed_Illegal_Space_Village_Entry_Form_FW_83_Q obj209_Assignment_Completion_Form_QX_17_T obj225_lilac_nanofilm_spool obj239_letter obj243_storage_bin obj247_Robot_Use_Authorization_Form_JZ_59_G obj250_coin
-Attribute 23 attrib23  ! obj1_chronometer obj4_timer obj10_key obj13_mauve_nanofilm_spool obj16_space_suit obj17_spray_can obj25_pair_of_dice obj41_detonator obj62_small_drill_bit obj65_platinum_detector obj81_ID_card obj82_J_series_hyperdiode obj83_pair_of_magnetic_boots obj91_explosive obj98_Class_Three_Spacecraft_Activation_Form_HB_56_V obj103_twenty_ohm_bedistor obj112_puce_nanofilm_spool obj117_cup_of_coffee obj122_twelve_prong_fromitz_board obj128_piece_of_paper obj133_trash_can obj136_crumpled_form obj138_seven_pointed_star obj139_twenty_prong_fromitz_board obj141_headlamp obj142_vacuum_taffy obj149_note obj154_plastic_bag obj155_cup_of_nectar obj159_instruction_sheet obj160_Thermos_bottle obj166_log_tape obj185_large_drill_bit obj189_survival_kit obj190_textbook obj196_crystal_ball obj202_diary obj205_reflective_foil obj208_neatly_ironed_Illegal_Space_Village_Entry_Form_FW_83_Q obj209_Assignment_Completion_Form_QX_17_T obj218_M_series_hyperdiode obj225_lilac_nanofilm_spool obj228_Patrol_uniform obj232_jammer obj233_fusor_beam_zapgun obj234_stick_of_ostrich_nip obj239_letter obj240_drill obj241_validation_stamp obj245_medium_drill_bit obj247_Robot_Use_Authorization_Form_JZ_59_G obj250_coin obj251_blackened_hyperdiode
-Attribute 24 attrib24  ! obj29_log_reader obj46_SB_radio obj57_it obj63_dryer obj65_platinum_detector obj69_presser obj141_headlamp obj145_nanofilm_reader obj204_eternal_flame obj211_innocuous_machine obj232_jammer
-Attribute 25 attrib25  ! obj9_cage obj23_counter obj26_Floyd obj29_log_reader obj35_ceiling_panel obj41_detonator obj50_pilot_seat obj57_it obj60_locker obj63_dryer obj69_presser obj70_pedestal obj90_copilot_seat obj96_pulpit obj111_exercise_machine obj119_bed obj123_safe obj133_trash_can obj138_seven_pointed_star obj140_heating_chamber obj145_nanofilm_reader obj154_plastic_bag obj160_Thermos_bottle obj169_simulation_booth obj189_survival_kit obj199_hole obj211_innocuous_machine obj222_holding_tank obj228_Patrol_uniform obj232_jammer obj240_drill obj243_storage_bin obj246_Plato
-Attribute 26 attrib26  ! obj26_Floyd obj57_it obj204_eternal_flame
-Attribute 27 attrib27  ! obj21_auto_door obj45_outer_airlock_door obj57_it obj79_inner_airlock_door obj107_security_door obj176_spacetruck_hatch obj242_iris_hatch
-Attribute 28 attrib28  ! obj5_Auxiliary_Barracks obj6_Rec_Shop obj7_South_Junction obj11_Paper_Recycling_Plant obj12_Level_Three obj18_Sick_Bay obj19_Officers__Quarters_B obj20_Theatre obj22_Mayor_s_Office obj24_Meeting_Room_2 obj27_File_Room obj30_Loan_Shark obj31_Pet_Store obj32_Docking_Bay__2 obj33_Storage obj36_Officers__Quarters_A obj37_Engineering_Office obj39_Scientists__Quarters obj43_Auxiliary_SanFac obj44_Grimy_Passage obj47_South_Connection obj49_Brig obj51_Level_Five obj52_Elevator obj53_Factory obj54_Cargo_Bay_Entrance obj56_Pawn_Shop obj57_it obj59_Briefing_Room obj64_Flophouse obj67_Station_Control obj71_Astro_Office obj72_Junk_Yard obj76_Docking_Bay__1 obj86_Workshop obj87_Commander_s_Office obj92_Printing_Plant obj93_Male_Barracks obj94_Recruitment_Office obj95_Saloon obj97_Field_Office obj99_Armory obj100_Chapel obj101_Bio_Lab obj104_North_Junction obj106_Robot_Pool obj108_Cargo_Bay obj109_Missionary obj113_Top_of_Air_Shaft obj114_Barbershop obj115_Shady_Dan_s obj116_Air_Shaft obj118_Comm_Center obj124_Mess_Hall obj125_The_PX obj126_Dome obj127_Makeshift_Connector obj130_Library obj134_Trading_Post obj137_Forms_Storage_Room obj143_Airlock obj144_East_Junction obj146_Opium_Den obj148__Doc__Schuster_s obj152_Level_Six obj153_Docking_Bay__4 obj157_Alien_Ship obj162_East_Connection obj163_Computer_Control obj165_Astro_Lab obj167_Female_Barracks obj168_Shipping_Room obj170_Main_Storage obj171_Fortune_Teller obj174_Grocery obj177_Officers_SanFac obj178_Engineering_Lab obj179_Greasy_Straw obj180_Commander_s_Quarters obj181_In_Space obj186_Tube obj192_Holding_Tank_Level obj193_Barracks_SanFac obj197_Deck_Twelve obj200_Warehouse obj203_Bio_Office obj206_Bank obj207_Travel_Agency obj210_Meeting_Room_1 obj212_Docking_Bay__3 obj213_Level_Four obj214_Alley obj215_Robot_Shop obj219_Shaft_at_Level_Nine obj220_Studio obj223_Main_Street obj226_Gym obj229_Spacetruck obj230_North_Connection obj231_Casino obj237_Broadway obj244_End_of_Corridor obj248_Officers__Quarters_C obj252_Bottom_of_Air_Shaft obj254_Laundry
-Attribute 29 attrib29  ! obj50_pilot_seat obj57_it obj90_copilot_seat obj111_exercise_machine obj119_bed obj169_simulation_booth obj222_holding_tank
-Attribute 30 attrib30  ! obj5_Auxiliary_Barracks obj6_Rec_Shop obj7_South_Junction obj11_Paper_Recycling_Plant obj12_Level_Three obj18_Sick_Bay obj19_Officers__Quarters_B obj20_Theatre obj22_Mayor_s_Office obj24_Meeting_Room_2 obj30_Loan_Shark obj31_Pet_Store obj32_Docking_Bay__2 obj36_Officers__Quarters_A obj37_Engineering_Office obj39_Scientists__Quarters obj43_Auxiliary_SanFac obj44_Grimy_Passage obj47_South_Connection obj49_Brig obj51_Level_Five obj52_Elevator obj53_Factory obj54_Cargo_Bay_Entrance obj56_Pawn_Shop obj57_it obj59_Briefing_Room obj64_Flophouse obj67_Station_Control obj71_Astro_Office obj72_Junk_Yard obj76_Docking_Bay__1 obj86_Workshop obj87_Commander_s_Office obj92_Printing_Plant obj93_Male_Barracks obj94_Recruitment_Office obj95_Saloon obj97_Field_Office obj99_Armory obj100_Chapel obj101_Bio_Lab obj104_North_Junction obj106_Robot_Pool obj108_Cargo_Bay obj109_Missionary obj113_Top_of_Air_Shaft obj114_Barbershop obj115_Shady_Dan_s obj116_Air_Shaft obj118_Comm_Center obj124_Mess_Hall obj125_The_PX obj126_Dome obj127_Makeshift_Connector obj130_Library obj134_Trading_Post obj137_Forms_Storage_Room obj143_Airlock obj144_East_Junction obj146_Opium_Den obj148__Doc__Schuster_s obj152_Level_Six obj153_Docking_Bay__4 obj157_Alien_Ship obj162_East_Connection obj163_Computer_Control obj165_Astro_Lab obj167_Female_Barracks obj170_Main_Storage obj171_Fortune_Teller obj174_Grocery obj177_Officers_SanFac obj178_Engineering_Lab obj179_Greasy_Straw obj180_Commander_s_Quarters obj186_Tube obj192_Holding_Tank_Level obj193_Barracks_SanFac obj197_Deck_Twelve obj200_Warehouse obj203_Bio_Office obj204_eternal_flame obj206_Bank obj207_Travel_Agency obj210_Meeting_Room_1 obj212_Docking_Bay__3 obj213_Level_Four obj214_Alley obj215_Robot_Shop obj220_Studio obj223_Main_Street obj226_Gym obj229_Spacetruck obj230_North_Connection obj231_Casino obj237_Broadway obj244_End_of_Corridor obj248_Officers__Quarters_C obj252_Bottom_of_Air_Shaft obj254_Laundry
-Attribute 31 attrib31  ! obj26_Floyd obj57_it obj120_Rex obj135_Helen obj217_it obj246_Plato
+Attribute  4 zero_gee
+Attribute  8 contianer
+Attribute  9 plural
+Attribute 10 treasure
+Attribute 13 transparent
+Attribute 15 open
+Attribute 17 supporter
+Attribute 18 visited
+Attribute 19 concealed
+Attribute 21 worn
+Attribute 22 readable
+Attribute 23 takeable
+Attribute 26 on
+Attribute 29 vehicle
+Attribute 30 light
+Attribute 31 animate
 
+Array 21561 Shipping_Room_pseudo:array(int,2*(dictword,dictword,routine))
+
+Array 21763 Shady_Dans_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21755 Doc_Schusters_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21747 Travel_Agency_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21739 Barber_Shop_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21731 Recruitment_Office_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21723 Computer_Control_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21709 Shipping_Room_pseudo:array(int,2*(dictword,dictword,routine))
+Array 21701 Dome_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21687 Theatre_pseudo:array(int,3*(dictword,dictword,routine))
+Array 21649 South_Connection_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21679 Commanders_Quarters_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21671 Commanders_Office_pseudo:array(int,1*(dictword,dictword,routine))
+Array 21657 Comm_Center_pseudo:array(int,2*(dictword,dictword,routine))
+Array 21635 Brig_pseudo:array(int,2*(dictword,dictword,routine))
+Array 21615 PX_pseudo:array(int,3*(dictword,dictword,routine))
+Array 21601 Space_Truck_pseudo:array(int,2*(dictword,dictword,routine))
+Array 21575 Robot_Pool_pseudo:array(int,4*(dictword,dictword,routine))
+Array 21547 Deck_Twelve_pseudo:array(int,2*(dictword,dictword,routine))
 ! ----------------------------- Properties -----------------------------
 
-Property 3 prop3:?
-Property 4 prop4:?
-Property 5 prop5:?
-Property 6 prop6:?
-Property 7 prop7:?
-Property 8 prop8:?
-Property 9 prop9:?
-Property 10 prop10:?
-Property 11 prop11:?
-Property 12 prop12:?
-Property 13 prop13:?
-Property 14 prop14:?
-Property 15 prop15:?
-Property 16 prop16:?
-Property 17 prop17:?
-Property 18 prop18:?
-Property 19 prop19:dictwords
+Property  3 value:int
+Property  4 Deck_level:int
+Property  6 referred_to:^routine(object)
+Property  7 initial2:^routine(?,rarg)
+Property  8 contains:objbytes
+Property  9 description:string
+Property 11 text_string:thing
+Property 12 size:int
+Property 13 pseudo:^array
+Property 14 initial:string
+Property 15 floyd_reaction:string
+Property 16 plato_reaction:string
+Property 17 action:^routine(int,rarg)
+!Property 17 action:^routine
+Property 18 adjectives:adjbytes
+Property 19 name:dictwords
 Property 20 out_to:exit
 Property 21 in_to:exit
 Property 22 d_to:exit
 Property 23 u_to:exit
-Property 24 northw_to:exit
-Property 25 p_to:exit
-Property 26 southw_to:exit
-Property 27 aft_to:exit
+Property 24 nw_to:exit
+Property 25 w_to:exit
+Property 26 sw_to:exit
+Property 27 s_to:exit
 Property 28 se_to:exit
 Property 29 e_to:exit
 Property 30 ne_to:exit
-Property 31 f_to:exit
+Property 31 n_to:exit
 
 ! ------------------------------ Objects -------------------------------
 
-Object 1 obj1_chronometer
-Object 2 obj2_air
-Object 3 obj3_game
-Object 4 obj4_timer
-Object 5 obj5_Auxiliary_Barracks
-Object 6 obj6_Rec_Shop
-Object 7 obj7_South_Junction
-Object 8 obj8_your_hand
-Object 9 obj9_cage
-Object 10 obj10_key
-Object 11 obj11_Paper_Recycling_Plant
-Object 12 obj12_Level_Three
-Object 13 obj13_mauve_nanofilm_spool
-Object 14 obj14_window
-Object 15 obj15_hull_welder
-Object 16 obj16_space_suit
-Object 17 obj17_spray_can
-Object 18 obj18_Sick_Bay
-Object 19 obj19_Officers__Quarters_B
-Object 20 obj20_Theatre
-Object 21 obj21_auto_door
-Object 22 obj22_Mayor_s_Office
-Object 23 obj23_counter
-Object 24 obj24_Meeting_Room_2
-Object 25 obj25_pair_of_dice
-Object 26 obj26_Floyd
-Object 27 obj27_File_Room
-Object 28 obj28_yourself
-Object 29 obj29_log_reader
-Object 30 obj30_Loan_Shark
-Object 31 obj31_Pet_Store
-Object 32 obj32_Docking_Bay__2
-Object 33 obj33_Storage
-Object 34 obj34_elevator_shaft
-Object 35 obj35_ceiling_panel
-Object 36 obj36_Officers__Quarters_A
-Object 37 obj37_Engineering_Office
-Object 38 obj38_direction
-Object 39 obj39_Scientists__Quarters
-Object 40 obj40_it
-Object 41 obj41_detonator
-Object 42 obj42_system_monitor_board
-Object 43 obj43_Auxiliary_SanFac
-Object 44 obj44_Grimy_Passage
-Object 45 obj45_outer_airlock_door
-Object 46 obj46_SB_radio
-Object 47 obj47_South_Connection
-Object 48 obj48_it
-Object 49 obj49_Brig
-Object 50 obj50_pilot_seat
-Object 51 obj51_Level_Five
-Object 52 obj52_Elevator
-Object 53 obj53_Factory
-Object 54 obj54_Cargo_Bay_Entrance
-Object 55 obj55_Plato_s_volume_of_poetry
-Object 56 obj56_Pawn_Shop
-Object 57 obj57_it
-Object 58 obj58_it
-Object 59 obj59_Briefing_Room
-Object 60 obj60_locker
-Object 61 obj61_wall
-Object 62 obj62_small_drill_bit
-Object 63 obj63_dryer
-Object 64 obj64_Flophouse
-Object 65 obj65_platinum_detector
-Object 66 obj66_pallets_of_boxes
-Object 67 obj67_Station_Control
-Object 68 obj68_Food_Processing_and_Dispensing_Unit
-Object 69 obj69_presser
-Object 70 obj70_pedestal
-Object 71 obj71_Astro_Office
-Object 72 obj72_Junk_Yard
-Object 73 obj73_spacetruck
-Object 74 obj74_shrubbery
-Object 75 obj75_pattern_of_dots
-Object 76 obj76_Docking_Bay__1
-Object 77 obj77_scrap_sculpture
-Object 78 obj78_ID_reader
-Object 79 obj79_inner_airlock_door
-Object 80 obj80_ladder
-Object 81 obj81_ID_card
-Object 82 obj82_J_series_hyperdiode
-Object 83 obj83_pair_of_magnetic_boots
-Object 84 obj84_equipment
-Object 85 obj85_desk
-Object 86 obj86_Workshop
-Object 87 obj87_Commander_s_Office
-Object 88 obj88_Oliver
-Object 89 obj89_hole
-Object 90 obj90_copilot_seat
-Object 91 obj91_explosive
-Object 92 obj92_Printing_Plant
-Object 93 obj93_Male_Barracks
-Object 94 obj94_Recruitment_Office
-Object 95 obj95_Saloon
-Object 96 obj96_pulpit
-Object 97 obj97_Field_Office
-Object 98 obj98_Class_Three_Spacecraft_Activation_Form_HB_56_V
-Object 99 obj99_Armory
-Object 100 obj100_Chapel
-Object 101 obj101_Bio_Lab
-Object 102 obj102_ostrich
-Object 103 obj103_twenty_ohm_bedistor
-Object 104 obj104_North_Junction
-Object 105 obj105_switch
-Object 106 obj106_Robot_Pool
-Object 107 obj107_security_door
-Object 108 obj108_Cargo_Bay
-Object 109 obj109_Missionary
-Object 110 obj110_air_shaft_grating
-Object 111 obj111_exercise_machine
-Object 112 obj112_puce_nanofilm_spool
-Object 113 obj113_Top_of_Air_Shaft
-Object 114 obj114_Barbershop
-Object 115 obj115_Shady_Dan_s
-Object 116 obj116_Air_Shaft
-Object 117 obj117_cup_of_coffee
-Object 118 obj118_Comm_Center
-Object 119 obj119_bed
-Object 120 obj120_Rex
-Object 121 obj121_room
-Object 122 obj122_twelve_prong_fromitz_board
-Object 123 obj123_safe
-Object 124 obj124_Mess_Hall
-Object 125 obj125_The_PX
-Object 126 obj126_Dome
-Object 127 obj127_Makeshift_Connector
-Object 128 obj128_piece_of_paper
-Object 129 obj129_him
-Object 130 obj130_Library
-Object 131 obj131_magazine
-Object 132 obj132_blob_of_orange_goo
-Object 133 obj133_trash_can
-Object 134 obj134_Trading_Post
-Object 135 obj135_Helen
-Object 136 obj136_crumpled_form
-Object 137 obj137_Forms_Storage_Room
-Object 138 obj138_seven_pointed_star
-Object 139 obj139_twenty_prong_fromitz_board
-Object 140 obj140_heating_chamber
-Object 141 obj141_headlamp
-Object 142 obj142_vacuum_taffy
-Object 143 obj143_Airlock
-Object 144 obj144_East_Junction
-Object 145 obj145_nanofilm_reader
-Object 146 obj146_Opium_Den
-Object 147 obj147_button
-Object 148 obj148__Doc__Schuster_s
-Object 149 obj149_note
-Object 150 obj150_stun_ray
-Object 151 obj151_keypad
-Object 152 obj152_Level_Six
-Object 153 obj153_Docking_Bay__4
-Object 154 obj154_plastic_bag
-Object 155 obj155_cup_of_nectar
-Object 156 obj156_sanfac_fixture
-Object 157 obj157_Alien_Ship
-Object 158 obj158_Arcturian_balloon_creature
-Object 159 obj159_instruction_sheet
-Object 160 obj160_Thermos_bottle
-Object 161 obj161_sign
-Object 162 obj162_East_Connection
-Object 163 obj163_Computer_Control
-Object 164 obj164_lurking_grue
-Object 165 obj165_Astro_Lab
-Object 166 obj166_log_tape
-Object 167 obj167_Female_Barracks
-Object 168 obj168_Shipping_Room
-Object 169 obj169_simulation_booth
-Object 170 obj170_Main_Storage
-Object 171 obj171_Fortune_Teller
-Object 172 obj172_strong_box
-Object 173 obj173_alien_skeleton
-Object 174 obj174_Grocery
-Object 175 obj175_floor
-Object 176 obj176_spacetruck_hatch
-Object 177 obj177_Officers_SanFac
-Object 178 obj178_Engineering_Lab
-Object 179 obj179_Greasy_Straw
-Object 180 obj180_Commander_s_Quarters
-Object 181 obj181_In_Space
-Object 182 obj182_it
-Object 183 obj183_wardrobe
-Object 184 obj184_blob_of_gray_goo
-Object 185 obj185_large_drill_bit
-Object 186 obj186_Tube
-Object 187 obj187_forklift
-Object 188 obj188_number
-Object 189 obj189_survival_kit
-Object 190 obj190_textbook
-Object 191 obj191_garbage
-Object 192 obj192_Holding_Tank_Level
-Object 193 obj193_Barracks_SanFac
-Object 194 obj194_sleep
-Object 195 obj195_dispenser
-Object 196 obj196_crystal_ball
-Object 197 obj197_Deck_Twelve
-Object 198 obj198_elevator
-Object 199 obj199_hole
-Object 200 obj200_Warehouse
-Object 201 obj201_ceiling
-Object 202 obj202_diary
-Object 203 obj203_Bio_Office
-Object 204 obj204_eternal_flame
-Object 205 obj205_reflective_foil
-Object 206 obj206_Bank
-Object 207 obj207_Travel_Agency
-Object 208 obj208_neatly_ironed_Illegal_Space_Village_Entry_Form_FW_83_Q
-Object 209 obj209_Assignment_Completion_Form_QX_17_T
-Object 210 obj210_Meeting_Room_1
-Object 211 obj211_innocuous_machine
-Object 212 obj212_Docking_Bay__3
-Object 213 obj213_Level_Four
-Object 214 obj214_Alley
-Object 215 obj215_Robot_Shop
-Object 216 obj216_roulette_wheel
-Object 217 obj217_it
-Object 218 obj218_M_series_hyperdiode
-Object 219 obj219_Shaft_at_Level_Nine
-Object 220 obj220_Studio
-Object 221 obj221_pyramid
-Object 222 obj222_holding_tank
-Object 223 obj223_Main_Street
-Object 224 obj224_airlock
-Object 225 obj225_lilac_nanofilm_spool
-Object 226 obj226_Gym
-Object 227 obj227_cubicle
-Object 228 obj228_Patrol_uniform
-Object 229 obj229_Spacetruck
-Object 230 obj230_North_Connection
-Object 231 obj231_Casino
-Object 232 obj232_jammer
-Object 233 obj233_fusor_beam_zapgun
-Object 234 obj234_stick_of_ostrich_nip
-Object 235 obj235_everyone
-Object 236 obj236_blue_soup
-Object 237 obj237_Broadway
-Object 238 obj238_leash
-Object 239 obj239_letter
-Object 240 obj240_drill
-Object 241 obj241_validation_stamp
-Object 242 obj242_iris_hatch
-Object 243 obj243_storage_bin
-Object 244 obj244_End_of_Corridor
-Object 245 obj245_medium_drill_bit
-Object 246 obj246_Plato
-Object 247 obj247_Robot_Use_Authorization_Form_JZ_59_G
-Object 248 obj248_Officers__Quarters_C
-Object 249 obj249_your_tongue
-Object 250 obj250_coin
-Object 251 obj251_blackened_hyperdiode
-Object 252 obj252_Bottom_of_Air_Shaft
-Object 253 obj253_pseudo
-Object 254 obj254_Laundry
-
+Object   1 chronometer
+Object   2 air
+Object   3 game
+Object   4 timer
+Object   5 Auxiliary_Barracks
+Object   6 Rec_Shop
+Object   7 South_Junction
+Object   8 your_hand
+Object   9 cage
+Object  10 key
+Object  11 Paper_Recycling_Plant
+Object  12 Level_Three
+Object  13 mauve_nanofilm_spool
+Object  14 window
+Object  15 hull_welder
+Object  16 space_suit
+Object  17 spray_can
+Object  18 Sick_Bay
+Object  19 Officers_Quarters_B
+Object  20 Theatre
+Object  21 auto_door
+Object  22 Mayors_Office
+Object  23 counter
+Object  24 Meeting_Room_2
+Object  25 pair_of_dice
+Object  26 Floyd
+Object  27 File_Room
+Object  28 yourself
+Object  29 log_reader
+Object  30 Loan_Shark
+Object  31 Pet_Store
+Object  32 Docking_Bay2
+Object  33 Storage
+Object  34 elevator_shaft
+Object  35 ceiling_panel
+Object  36 Officers_Quarters_A
+Object  37 Engineering_Office
+Object  38 direction
+Object  39 Scientists_Quarters
+Object  40 Room_Holder
+Object  41 detonator
+Object  42 system_monitor_board
+Object  43 Auxiliary_SanFac
+Object  44 Grimy_Passage
+Object  45 outer_door
+Object  46 SB_radio
+Object  47 South_Connection
+Object  48 it4
+Object  49 Brig
+Object  50 pilot_seat
+Object  51 Level_Five
+Object  52 Elevator
+Object  53 Factory
+Object  54 Cargo_Bay_Entrance
+Object  55 Platos_poetry
+Object  56 Pawn_Shop
+Object  57 it5
+Object  58 it6
+Object  59 Briefing_Room
+Object  60 locker
+Object  61 wall
+Object  62 small_drill_bit
+Object  63 dryer
+Object  64 Flophouse
+Object  65 platinum_detector
+Object  66 pallets_of_boxes
+Object  67 Station_Control
+Object  68 Food_Unit
+Object  69 presser
+Object  70 pedestal
+Object  71 Astro_Office
+Object  72 Junk_Yard
+Object  73 spacetruck
+Object  74 shrubbery
+Object  75 pattern_of_dots
+Object  76 Docking_Bay1
+Object  77 scrap_sculpture
+Object  78 ID_reader
+Object  79 inner_door
+Object  80 ladder
+Object  81 ID_card
+Object  82 J_hyperdiode
+Object  83 magnetic_boots
+Object  84 equipment
+Object  85 desk
+Object  86 Workshop
+Object  87 Commanders_Office
+Object  88 Oliver
+Object  89 hole2
+Object  90 copilot_seat
+Object  91 explosive
+Object  92 Printing_Plant
+Object  93 Male_Barracks
+Object  94 Recruitment_Office
+Object  95 Saloon
+Object  96 pulpit
+Object  97 Field_Office
+Object  98 Form_HB_56_V
+Object  99 Armory
+Object 100 Chapel
+Object 101 Bio_Lab
+Object 102 ostrich
+Object 103 twenty_ohm_bedistor
+Object 104 North_Junction
+Object 105 switch
+Object 106 Robot_Pool
+Object 107 security_door
+Object 108 Cargo_Bay
+Object 109 Missionary
+Object 110 air_shaft_grating
+Object 111 exercise_machine
+Object 112 puce_nanofilm_spool
+Object 113 Top_of_Air_Shaft
+Object 114 Barbershop
+Object 115 Shady_Dans
+Object 116 Air_Shaft
+Object 117 cup_of_coffee
+Object 118 Comm_Center
+Object 119 bed
+Object 120 Rex
+Object 121 room
+Object 122 twelve_fromitz_board
+Object 123 safe
+Object 124 Mess_Hall
+Object 125 The_PX
+Object 126 Dome
+Object 127 Makeshift_Connector
+Object 128 piece_of_paper
+Object 129 him
+Object 130 Library
+Object 131 magazine
+Object 132 orange_goo
+Object 133 trash_can
+Object 134 Trading_Post
+Object 135 Helen
+Object 136 crumpled_form
+Object 137 Forms_Storage_Room
+Object 138 seven_pointed_star
+Object 139 twenty_fromitz_board
+Object 140 heating_chamber
+Object 141 headlamp
+Object 142 vacuum_taffy
+Object 143 Airlock_Room
+Object 144 East_Junction
+Object 145 nanofilm_reader
+Object 146 Opium_Den
+Object 147 button
+Object 148 Doc_Schusters
+Object 149 note
+Object 150 stun_ray
+Object 151 keypad
+Object 152 Level_Six
+Object 153 Docking_Bay4
+Object 154 plastic_bag
+Object 155 cup_of_nectar
+Object 156 sanfac_fixture
+Object 157 Alien_Ship
+Object 158 Arcturian_creature
+Object 159 instruction_sheet
+Object 160 Thermos_bottle
+Object 161 sign
+Object 162 East_Connection
+Object 163 Computer_Control
+Object 164 lurking_grue
+Object 165 Astro_Lab
+Object 166 log_tape
+Object 167 Female_Barracks
+Object 168 Shipping_Room
+Object 169 simulation_booth
+Object 170 Main_Storage
+Object 171 Fortune_Teller
+Object 172 strong_box
+Object 173 alien_skeleton
+Object 174 Grocery
+Object 175 floor
+Object 176 spacetruck_hatch
+Object 177 Officers_SanFac
+Object 178 Engineering_Lab
+Object 179 Greasy_Straw
+Object 180 Commanders_Quarters
+Object 181 In_Space
+Object 182 not_here_object
+Object 183 wardrobe
+Object 184 gray_goo
+Object 185 large_drill_bit
+Object 186 Tube
+Object 187 forklift
+Object 188 number
+Object 189 survival_kit
+Object 190 textbook
+Object 191 garbage
+Object 192 Holding_Tank_Level
+Object 193 Barracks_SanFac
+Object 194 sleep
+Object 195 dispenser
+Object 196 crystal_ball
+Object 197 Deck_Twelve
+Object 198 elevator
+Object 199 hole
+Object 200 Warehouse
+Object 201 ceiling
+Object 202 diary
+Object 203 Bio_Office
+Object 204 eternal_flame
+Object 205 reflective_foil
+Object 206 Bank
+Object 207 Travel_Agency
+Object 208 Form_FW_83_Q
+Object 209 Form_QX_17_T
+Object 210 Meeting_Room_1
+Object 211 rank_reprogrammer
+Object 212 Docking_Bay3
+Object 213 Level_Four
+Object 214 Alley
+Object 215 Robot_Shop
+Object 216 roulette_wheel
+Object 217 cretin
+Object 218 M_series_hyperdiode
+Object 219 Shaft_at_Level_Nine
+Object 220 Studio
+Object 221 pyramid
+Object 222 holding_tank
+Object 223 Main_Street
+Object 224 airlock
+Object 225 lilac_nanofilm_spool
+Object 226 Gym
+Object 227 cubicle
+Object 228 Patrol_uniform
+Object 229 Space_Truck
+Object 230 North_Connection
+Object 231 Casino
+Object 232 jammer
+Object 233 fusor_beam_zapgun
+Object 234 stick_of_ostrich_nip
+Object 235 everyone
+Object 236 blue_soup
+Object 237 Broadway
+Object 238 leash
+Object 239 letter
+Object 240 drill
+Object 241 validation_stamp
+Object 242 iris_hatch
+Object 243 storage_bin
+Object 244 End_of_Corridor
+Object 245 medium_drill_bit
+Object 246 Plato
+Object 247 Form_JZ_59_G
+Object 248 Officers_Quarters_C
+Object 249 your_tongue
+Object 250 coin
+Object 251 blackened_hyperdiode
+Object 252 Bottom_of_Air_Shaft
+Object 253 pseudo
+Object 254 Laundry
 ! ------------------------------ Actions -------------------------------
 
-Action 0 Action0  ! 'verbos'
-Action 1 Action1  ! 'brief'
-Action 2 Action2  ! 'super'/'superb'
-Action 3 Action3  ! 'diagno'
-Action 4 Action4  ! 'i//'/'invent'
-Action 5 Action5  ! 'q//'/'quit'
-Action 6 Action6  ! 'restar'
-Action 7 Action7  ! 'restor'
-Action 8 Action8  ! 'rescue'/'save'
-Action 9 Action9  ! 'score'/'status'
-Action 10 Action10 ! 'script'
-Action 11 Action11 ! 'unscri'
-Action 12 Action12 ! 'versio'
-Action 13 Action13 ! '#rand' object
-Action 14 Action14 ! '#comm'
-Action 15 Action15 ! '#reco'
-Action 16 Action16 ! '#unre'
-Action 17 Action17 ! '$ve' object
-Action 18 Action18 ! '$de'
-Action 19 Action19 ! '$st'
-Action 20 Action20 ! '$ke'
-Action 21 Action21 ! 'answer'/'reply'
-Action 22 Action22 ! 'applau'/'clap' object
-Action 23 Action23 ! 'apply' object(held,take)
-Action 24 Action24 ! 'leave' object(held,many) 'onto'/'on' object
-Action 25 Action25 ! 'go' 'toward'/'to' object
-Action 26 Action26 ! 'ask' attrib31 'onto'/'on' object
-Action 27 Action27 ! 'ask' attrib31 'for' object
-Action 28 Action28 ! 'attack'/'fight'/'hit'/'kill'/'slap'/'slay'/'stab'/'strike' attrib31(in_room,on_ground) 'with'/'using' object(held,carried,have)
-Action 29 Action29 ! 'attrac' object 'with'/'using' object(held,carried,have)
-Action 30 Action30 ! 'bite' object
-Action 31 Action31 ! 'close'/'seal'/'shut' 'off' attrib26(take)
-Action 32 Action32 ! 'climb'/'scale' 'thru'/'throug' object
-Action 33 Action33 ! 'burn' 'upstai'/'up'/'u//' object 'with'/'using' object(have)
-Action 34 Action34 ! 'call' 'toward'/'to' object
-Action 35 Action35 ! 'catch'/'trap' object(in_room,on_ground) 'with'/'using' object
-Action 36 Action36 ! 'go' 'around'/'along' attrib28
-Action 37 Action37 ! 'climb'/'scale' 'upstai'/'up'/'u//' attrib28(in_room,on_ground)
-Action 38 Action38 ! 'climb'/'scale' 'onto'/'on' attrib29(in_room,on_ground)
-Action 39 Action39 ! 'climb'/'scale' 'downst'/'down'/'d//' attrib28(in_room,on_ground)
-Action 40 Action40 ! 'climb'/'scale' 'off' attrib29(in_room,on_ground)
-Action 41 Action41 ! 'climb'/'scale' 'undern'/'under'/'beneat'/'below' object
-Action 42 Action42 ! 'close'/'seal'/'shut' attrib27(held,carried,in_room,on_ground)
-Action 43 Action43 ! 'go' 'with'/'using' object
-Action 44 Action44 ! 'comfor' attrib31
-Action 45 Action45 ! 'compar' object 'toward'/'to' object
-Action 46 Action46 ! 'attach'/'connec' object 'toward'/'to' object
-Action 47 Action47 ! 'cover' object 'with'/'using' object(held,many)
-Action 48 Action48 ! 'count' object
-Action 49 Action49 ! 'cross'/'ford' object
-Action 50 Action50 ! 'crumpl' object(held,carried,have)
-Action 51 Action51 ! 'break'/'damage'/'demoli'/'destro'/'pop'/'smash'/'wreck' 'downst'/'down'/'d//' object
-Action 52 Action52 ! 'dig' 'thru'/'throug' object
-Action 53 Action53 ! 'detach'/'discon'/'unplug' object 'from' object
-Action 54 Action54 ! 'dress' object
-Action 55 Action55 ! 'drill' 'thru'/'throug' object 'with'/'using' object
-Action 56 Action56 ! 'drill' object 'into'/'inside'/'in' object
-Action 57 Action57 ! 'drop'/'dump'/'releas' object(held,many,have)
-Action 58 Action58 ! 'leave' object(held,many) 'into'/'inside'/'in' object
-Action 59 Action59 ! 'devour'/'drink'/'eat'/'gobble'/'ingest'/'swallo' object 'from' object
-Action 60 Action60 ! 'devour'/'drink'/'eat'/'gobble'/'ingest'/'swallo' 'from' object
-Action 61 Action61 ! 'empty' object(take,have) 'toward'/'to' object
-Action 62 Action62 ! 'empty' object(take,have) 'thru'/'throug' object
-Action 63 Action63 ! 'enter'
-Action 64 Action64 ! 'descri'/'examin'/'inspec'/'observ'/'study'/'watch' object(held,carried,in_room,on_ground)
-Action 65 Action65 ! 'exerci'
-Action 66 Action66 ! 'depart'/'exit'/'withdr' object
-Action 67 Action67 ! 'feed' attrib31
-Action 68 Action68 ! 'donate'/'give'/'hand'/'offer'/'sell' object(held,many,have) 'back' attrib31(on_ground)
-Action 69 Action69 ! 'donate'/'give'/'hand'/'offer'/'sell' attrib31(on_ground) object(held,many,have)
-Action 70 Action70 ! 'fill' attrib25(held,carried,have) 'with'/'using' object
-Action 71 Action71 ! 'l//'/'look' 'for' object
-Action 72 Action72 ! 'fix'/'repair' object
-Action 73 Action73 ! 'flatte'/'straig'/'uncrum' object
-Action 74 Action74 ! 'footno' object
-Action 75 Action75 ! 'greet' attrib31
-Action 76 Action76 ! 'go' object
-Action 77 Action77 ! 'go' 'behind' object
-Action 78 Action78 ! 'go' 'away' attrib28
-Action 79 Action79 ! 'donate'/'give'/'hand'/'offer'/'sell' 'upstai'/'up'/'u//' attrib28
-Action 80 Action80 ! 'listen' 'toward'/'to' object
-Action 81 Action81 ! 'hello'/'hi' object
-Action 82 Action82 ! 'help'/'hint'/'hints'
-Action 83 Action83 ! 'help'/'hint'/'hints' object
-Action 84 Action84 ! 'hug' attrib31
-Action 85 Action85 ! 'dive'/'jump'/'leap'/'vault' 'toward'/'to' object
-Action 86 Action86 ! 'dive'/'jump'/'leap'/'vault' 'outsid'/'out' object
-Action 87 Action87 ! 'rise'/'stand' 'into'/'inside'/'in' object
-Action 88 Action88 ! 'kick' object
-Action 89 Action89 ! 'kiss' attrib31(in_room,on_ground)
-Action 90 Action90 ! 'tap' 'onto'/'on' object
-Action 91 Action91 ! 'launch' object
-Action 92 Action92 ! 'lie' 'downst'/'down'/'d//' attrib28
-Action 93 Action93 ! 'activa'/'start' object
-Action 94 Action94 ! 'lock' object(in_room,on_ground) 'with'/'using' object
-Action 95 Action95 ! 'l//'/'look' 'around'/'along' attrib28
-Action 96 Action96 ! 'l//'/'look' 'downst'/'down'/'d//' attrib28
-Action 97 Action97 ! 'l//'/'look' 'upstai'/'up'/'u//' attrib28
-Action 98 Action98 ! 'l//'/'look' 'into'/'inside'/'in' object(held,carried,in_room,on_ground)
-Action 99 Action99 ! 'l//'/'look' 'undern'/'under'/'beneat'/'below' object
-Action 100 Action100 ! 'l//'/'look' 'behind' object
-Action 101 Action101 ! 'l//'/'look' 'over'/'across' object
-Action 102 Action102 ! 'l//'/'look' object
-Action 103 Action103 ! 'lower' object
-Action 104 Action104 ! 'maybe'
-Action 105 Action105 ! 'measur' object
-Action 106 Action106 ! 'lead'/'move'/'pull' object 'toward'/'to' object
-Action 107 Action107 ! 'iron'/'press'/'push' object object
-Action 108 Action108 ! 'iron'/'press'/'push' 'upstai'/'up'/'u//' object
-Action 109 Action109 ! 'nah'/'no'/'nope'/'uh-uh'
-Action 110 Action110 ! 'open'/'unseal' attrib27(held,carried,in_room,on_ground) 'with'/'using' object(held,carried,in_room,on_ground,have)
-Action 111 Action111 ! 'pick' object 'with'/'using' object
-Action 112 Action112 ! 'pick' 'upstai'/'up'/'u//' attrib23(on_ground,many)
-Action 113 Action113 ! 'play' 'with'/'using' attrib31
-Action 114 Action114 ! 'play' object 'with'/'using' attrib31
-Action 115 Action115 ! 'aim'/'point'/'shine' object 'into'/'inside'/'in' object
-Action 116 Action116 ! 'pour'/'spill' object(held,carried) 'outsid'/'out' object
-Action 117 Action117 ! 'pray' 'for' object
-Action 118 Action118 ! 'iron'/'press'/'push' object 'toward'/'to' object
-Action 119 Action119 ! 'iron'/'press'/'push' object 'undern'/'under'/'beneat'/'below' object
-Action 120 Action120 ! 'reach' 'upstai'/'up'/'u//' object(in_room,on_ground)
-Action 121 Action121 ! 'browse'/'read'/'skim' attrib22(take) 'with'/'using' object
-Action 122 Action122 ! 'remove' attrib21(many)
-Action 123 Action123 ! 'remove' attrib23(carried,in_room,many) 'from' object
-Action 124 Action124 ! 'roll' object(take)
-Action 125 Action125 ! 'say'
-Action 126 Action126 ! 'scare' attrib31
-Action 127 Action127 ! 'scold' attrib31
-Action 128 Action128 ! 'rummag'/'search' 'thru'/'throug' object
-Action 129 Action129 ! 'shake' object(take)
-Action 130 Action130 ! 'shake' object 'with'/'using' object
-Action 131 Action131 ! 'blast'/'fire'/'shoot'/'zap' object 'with'/'using' object(held,carried)
-Action 132 Action132 ! 'blast'/'fire'/'shoot'/'zap' object(held,carried) 'at' object
-Action 133 Action133 ! 'show' object(held,many) 'toward'/'to' attrib31
-Action 134 Action134 ! 'show' attrib31 object(held,many)
-Action 135 Action135 ! 'sit' 'downst'/'down'/'d//' attrib28(in_room,on_ground)
-Action 136 Action136 ! 'hop'/'skip'
-Action 137 Action137 ! 'doze'/'nap'/'sleep'/'snooze'
-Action 138 Action138 ! 'cut'/'slice' 'thru'/'throug' object 'with'/'using' object(held,carried)
-Action 139 Action139 ! 'smell'/'sniff'/'whiff' object
-Action 140 Action140 ! 'spray' object(take,have) 'into'/'inside'/'in' object
-Action 141 Action141 ! 'spray' object 'with'/'using' object(take,have)
-Action 142 Action142 ! 'rise'/'stand' 'upstai'/'up'/'u//' attrib28
-Action 143 Action143 ! 'wrap' object(held,carried) 'around'/'along' object
-Action 144 Action144 ! 'don'/'wear' attrib20(have)
-Action 145 Action145 ! 'insert'/'place'/'put'/'stick'/'stuff' object 'behind' object
-Action 146 Action146 ! 'swing' object(held,carried,have) 'at' attrib31
-Action 147 Action147 ! 'carry'/'get'/'grab'/'hold'/'take' 'dresse' attrib28
-Action 148 Action148 ! 'carry'/'get'/'grab'/'hold'/'take' 'undres' attrib28
-Action 149 Action149 ! 'carry'/'get'/'grab'/'hold'/'take' object(carried,in_room,many) 'with'/'using' object(have)
-Action 150 Action150 ! 'carry'/'get'/'grab'/'hold'/'take' 'off' attrib28(many)
-Action 151 Action151 ! 'speak'/'talk' 'toward'/'to' attrib31(in_room)
-Action 152 Action152 ! 'tap' object
-Action 153 Action153 ! 'lick'/'nibble'/'taste' object
-Action 154 Action154 ! 'tell' attrib31 'about' object
-Action 155 Action155 ! 'tell' object object
-Action 156 Action156 ! 'thank'/'thanks'
-Action 157 Action157 ! 'hurl'/'throw'/'toss' object(held,carried,take) 'at' object(in_room,on_ground)
-Action 158 Action158 ! 'hurl'/'throw'/'toss' object(held,carried,take) 'toward'/'to' object(in_room,on_ground)
-Action 159 Action159 ! 'hurl'/'throw'/'toss' object(in_room,on_ground) object(held,carried,take)
-Action 160 Action160 ! 'tickle' attrib31
-Action 161 Action161 ! 'tie' object(held) 'around'/'along' object
-Action 162 Action162 ! 't//'/'time'
-Action 163 Action163 ! 'dial'/'flick'/'flip'/'rotate'/'set'/'spin'/'switch'/'tune'/'turn' object object
-Action 164 Action164 ! 'type' object 'onto'/'on' object
-Action 165 Action165 ! 'strip'/'undres' object
-Action 166 Action166 ! 'unlock' object 'with'/'using' object(have)
-Action 167 Action167 ! 'untie' object(held,carried,in_room,on_ground)
-Action 168 Action168 ! 'use' object
-Action 169 Action169 ! 'stamp'/'valida' object 'with'/'using' object(take,have)
-Action 170 Action170 ! 'wait'/'z//'
-Action 171 Action171 ! 'wait'/'z//' 'for' object
-Action 172 Action172 ! 'wait'/'z//' 'until' object
-Action 173 Action173 ! 'awake'/'rouse'/'wake' 'upstai'/'up'/'u//' attrib28
-Action 174 Action174 ! 'procee'/'run'/'sidle'/'step'/'walk' object 'over'/'across' object
-Action 175 Action175 ! 'clean'/'wash'/'wipe' 'off' object
-Action 176 Action176 ! 'what'/'what^'/'whats'/'who'/'whos' object
-Action 177 Action177 ! 'where'/'wheres' object
-Action 178 Action178 ! 'wrap' object 'into'/'inside'/'in' object(held,carried)
-Action 179 Action179 ! 'scream'/'shout'/'yell' 'toward'/'to' object
-Action 180 Action180 ! 'ok'/'okay'/'sure'/'y//'/'yes'/'yup'
-Action 181 Action181 ! 'sneeze'/'zork'
+Action   0 Verbose
+Action   1 Brief
+Action   2 Superbrief
+Action   3 Diagnose
+Action   4 Inventory
+Action   5 Quit
+Action   6 Restart
+Action   7 Restore
+Action   8 Save
+Action   9 Score
+Action  10 Script
+Action  11 Unscript
+Action  12 Version
+Action  13 DebugRandom
+Action  14 DebugComm
+Action  15 DebugReco
+Action  16 DebugUnre
+Action  17 Verify
+Action  18 DebugDe
+Action  19 Debugst
+Action  20 DebugKe
+Action 21 Answer
+Action 22 Applaud
+Action 23 Apply
+Action  24 InsertOn
+Action  25 Approach
+Action  26 AskAbout
+Action  27 AskFor
+Action  28 Attack
+Action  29 Attract
+Action  30 Bite
+Action  31 SwitchOff
+Action  32 EnterObj
+Action  33 Burn
+Action  34 Call
+Action  35 Catch
+Action  36 WalkAround
+Action  37 Climb
+Action  38 ClimbOn
+Action  39 ClimbDown
+Action  40 Disembark
+Action  41 ClimbUnder
+Action  42 Close
+Action  43 Follow
+Action  44 Comfort
+Action  45 Compare
+Action  46 Attach
+Action  47 Cover
+Action  48 Count
+Action  49 Cross
+Action  50 Crumple
+Action  51 Destroy
+Action  52 Dig
+Action  53 Detach
+Action  54 Dress
+Action  55 Drill
+Action  56 DrillReverse
+Action  57 Drop
+Action  58 Insert
+Action  59 Eat
+Action  60 EatFrom
+Action  61 Empty
+Action  62 EmptyFrom
+Action 63 Enter
+Action 64 Examine
+Action 65 Exercise
+Action 66 Depart
+Action 67 Feed
+Action 68 Give
+Action 69 GiveReverse
+Action 70 Fill
+Action 71 Find
+Action 72 Repair
+Action  73 Flatten
+Action  74 Footnote
+Action  75 Greet
+Action  76 Go
+Action  77 Hide
+Action  78 Leave
+Action  79 GiveUp
+Action  80 Listen
+Action  81 Hello
+Action  82 Help
+Action  83 Rescue
+Action  84 Hug
+Action  85 Jump
+Action  86 JumpOut
+Action  87 JumpOn
+Action  88 Kick
+Action  89 Kiss
+Action  90 Knock
+Action  91 Launch
+Action  92 LieOn
+Action  93 SwitchOn
+Action  94 Lock
+Action  95 Look
+Action  96 LookDown
+Action  97 LookUp
+Action  98 LookIn
+Action  99 LookUnder
+Action  100 LookBehind
+Action  101 LookOver
+Action  102 LookObj
+
+Action 103 Lower
+Action 104 Maybe
+Action 105 Measure
+Action 106 Lead
+Action 107 LeadDir
+Action 108 Boost
+Action 109 No
+Action 110 Open
+Action 111 Pick
+Action 112 PickUp
+Action 113 PlayWith
+Action 114 Play
+Action 115 Aim
+Action 116 Pour
+Action 117 Pray
+Action 118 Type
+Action 119 PutUnder
+Action 120 ReachIn
+Action 121 Browse
+Action 122 Remove
+Action 123 Take
+Action 124 Roll
+Action 125 Say
+Action 126 Scare
+Action 127 Scold
+Action 128 Search
+Action 129 Shake
+Action 130 ShakeWith
+Action 131 Blast
+Action 132 BlastReverse
+Action 133 Show
+Action 134 ShowReverse
+Action 135 SitDown
+Action 136 Hop
+Action 137 Doze
+Action 138 Cut
+Action 139 Smell
+Action 140 Spray
+Action 141 SprayReverse
+Action 142 Raise
+Action 143 Wrap
+Action 144 Wear
+Action 145 PutBehind
+Action 146 Swing
+Action 147 GetDressed
+Action 148 GetUndressed
+Action 149 GetWith
+Action 150 GetOff
+Action 151 Tell
+Action 152 Touch
+Action 153 Lick
+Action 154 TellAbout
+Action 155 TellObj
+Action 156 Thank
+Action 157 Throw
+Action 158 ThrowTo
+Action 159 ThrowObjObj
+Action 160 Tickle
+Action 161 Tie
+Action 162 Time
+Action 163 Turn
+Action 164 TypeIn
+Action 165 Undress
+Action 166 Unlock
+Action 167 Untie
+Action 168 Use
+Action 169 Stamp
+Action 170 Wait
+Action 171 WaitFor
+Action 172 WaitUntil
+Action 173 Wake
+Action 174 WalkOver
+Action 175 Clean
+Action 176 What
+Action 177 Where
+Action 178 WrapIn
+Action 179 Yell
+Action 180 Yes
+Action 181 Sneeze
 
 ! ------------------------------ Routines ------------------------------
+Routine 85214 Alien_Ship_F rarg:rarg
+Routine 89510 Holding_Tank_Level_F:act_result rarg:rarg 
+Routine 91006 I_Plato not_called_as_int:bool
+Routine 49890 Global_InP obj:object room:object addr
+Routine 47702 Describe_Room verb_is_look:bool first_visit:bool points:int
+ROutine 98198 Barbershop_F rarg:rarg
+Routine 98402 Mirror_Action_Continued
+Routine 98780 Taffy_F
+Routine 100120 Panel_F
+Routine 100838 Flophouse_F rarg:rarg
+Routine 100988 Greasy_Straw_F rarg:rarg
+Routine 101092 Counter_F
+Routine 106162 Junk_Yard_F rarg:rarg
+Routine 91610 I_Robot_Evilness
 
-Routine 0x542c routine21548:?
+Routine 98092 I_Headlamp
+Routine 87172 Printing_Plant_F rarg:rarg
+Routine 21880 TPrint obj:object
+Routine 94028  I_Announcement
+Routine 94548 I_Exercise_Machine
+Routine 57784 I_Welder
+Routine 86382 Robot_Shop_F rarg:rarg
+Routine 86890 Bit_F rarg:rarg
+Routine 21850 APrint obj:object
+Routine  42950 Sense_Object verb_str:string
+Routine  30360 Put_Adj_Nam
+Routine  58482 Do_First:act_result dowhat:string towhat:object
+Routine 49986 Now_DarkP
+Routine 21908 TPrint_Prsi
+Routine  49684 UntouchableP obj:object
+Routine 50182 YukYuk
+Routine  49644 VisibleP obj:object env:object
+Routine 50194 Impossibles
+Routine  58132 Cant_Verb_a_Prso what:string
+Routine  32818 Corp_Notice what:string
+Routine 32270 Tell_Score
+Routine  49568 AccessibleP obj:object env:object
+Routine  23608 D_Apply str:string fcn:routine rarg:rarg result
+Routine  30378 Moby_Find list objloopcnt:object len foo nam adj
+Routine  30494 Which_Print tlen len tbl obj rlen
+Routine  30700 Global_Check tbl len rmg rmgl cnt:int obj obits foo
+Routine  30922 Do_Sl obj:object bit1:p_searchlevelbits bit2:p_searchlevelbits UNUSED
+Routine  30974 Search_List obj:object tbl lvl:p_searchlevels fls nobj:object
+Routine  31080 Obj_Found obj:object tbl ptr
+Routine  31110 Take_Check
+Routine  31138 ITake_Check tbl bits ptr obj:object taken:bool
+Routine  31448 Many_Check local1:int loss:int tmp word:dictword
+Routine 50154 HackHack
+Routine  31636 ZMemQ itm:dictword tbl size:int cnt:int
+Routine  31676 ZMemQB itm:object tbl size cnt
+Routine  31700 LitP rm:object roombit:bool oldroom:object islit:bool
+Routine  31800 Prso_Print ptr
+Routine  31840 Prsi_Print ptr
+Routine  31880 This_It_P obj:object syns UNUSED
+Routine 72722 I_Timer compiler_tmp
+Routine  23936 Clocker end tick:int rtn:routine executed_p:bool break_loop:bool player_tmp:object
+Routine  23122 Fake_Orphan it_was_used:bool it_was_used:bool compiler_tmp
+Routine 23076 Clocker_VerbP
 
+Routine 26876 After_Comma_Check ptr cnt bptr cctr chr sum:int
+Routine 25860 Inbuf_Stuff dest src cnt:int
+Routine 25776 Stuff dest src max:int ptr:p_lexv ctr:int
+Routine 26022 Next_Word ptr
+Routine 26054 Clause ptr val wrd off num andflag:bool firstp:bool nw lw
+Routine 28754 Clause_Copy src dest insrt ocl beg end bb ee obeg cnt b e
+Routine 29032 Prep_Find prep cnt:int size
+Routine 28992 Clause_Add wrd:dictword oclause len
+Routine 29290 But_Merge tbl len butlen cnt:int matches obj ntbl
+Routine 29362 Snarfem ptr eptr tbl but len wv wrd:dictword nw was_all:bool
+Routine 32222 Continue_Rtn
+Routine 97708 Simulation_Booth_F rarg:rarg
+
+Routine 26572 NumberP:dictword ptr cnt bptr chr sum:int cctr tmp xptr
+Routine 27492 Clause_Win adj
+Routine 27566 Word_Print cnt buf
+Routine 58306 Adj_Used n1:object n2:object
+Routine 73510 Station_Control_F rarg:rarg
+Routine 22296 Main_Loop_1 icnt:bool ocnt:int num cnt:int obj:object tbl v:act_result ptbl:bool obj1:object temp:bool tmp_obj
+Routine 24142 Parser:int ptr:p_lexv word:dictword val:int vrb:verbnum omerged:bool owinner olen len:int dir nw:dictword lw:dictword cnt:int compiler_tmp1 compiler_tmp2
+Routine 22284 MainLoop res
+Routine 50112 Rob who:object dest:object sib:object itm:object
+Routine 47624 CCount obj:object cnt:int x:object
+
+Routine 24098 This_Is_It obj:object
+Routine 97018 Back_Off str:string
+Routine 50102 Clear_itbl:act_result
+Routine 91638 I_Plato_Attack paddr plen:int prop
+Routine 93796 Stun_Gun_F
+
+Routine 93888 I_Lights_Out while_asleep:bool room:object here_islit:bool
+Routine 102748 Vacuum_Storage rarg:rarg
+Routine 49836 Ultimately_InP obj:object cont:object
+Routine 101260 Generic_Food_F:object
+Routine 101648 I_Platinum_Detector w:object
+Routine 101816 Travel_Agency_Poster_F
+
+Routine 58336 Open_Closed obj:object
+Routine 102738 Lost_in_Space
+Routine 100978 Vacuum_Death
+Routine 103184 I_Explosive_Melt
+Routine 102532 Airlock_F rarg:rarg
+Routine 105490 Shady_Dans_F rarg:rarg
+Routine 58184 Remove_Carefully obj:object other:bool
+Routine 21900 TPrint_Prso
+Routine 79886 Chapel_F rarg:rarg
+Routine 86960 Level_Six_F rarg:rarg
+Routine 79524 Press_F rarg:rarg
+Routine 78960 Laundry_F rarg:rarg
+Routine 78278 South_Connection_F rarg:rarg
+Routine 73308 East_Connection_F rarg:rarg
+Routine 104462 Doc_Schusters_F rarg:rarg
+Routine 50206 Wastes Intnum_F:act_result 
+Routine 0x5d10 Queue rtn:routine cnt:int end:int
+Routine 50844 Find_Not_Here:object tbl prso_p:bool m_f:int obj:object
+Routine 21772 ComplexPickOne tbl len offset ndx choice msg_tbl
+Routine 57968 TouchingP obj:object
+Routine 68898 I_Spacetruck
+Routine 54780 I_Sleep_Warnings
+Routine 56890 I_Hunger_Warnings
+Routine 23730 QueuedP
+Routine 46926 ResetQuestion
+Routine 67596 I_Other_Robot
+Routine 64616 I_Floyd
+Routine 25980 Wt ptr bit:p_partofspeechbit category:p_partofspeechrtnval offset:p_p1off type
+Routine 26964 Orphan_Merge cnt:int temp verbn beg end adj vrb wrd:dictword
+Routine 27588 Unknown_Word
+Routine 27660 Cant_Use ptr buf compiler_tmp
+Routine 27742 Syntax_Check syn:int len num:int obj drive1:bool drive2:bool prep vrb:action compiler_tmp1 compiler_tmp2
+Routine 28208 Verb_Print tmp compiler_tmp
+Routine 28274 Orphan d1 d2 cnt:int
+Routine 28426 Clause_Print beg_ptr:p_partsofspeech end_ptr:p_partsofspeech the_p:bool beginning
+Routine 28452 Buffer_Print beg end cp nosp:bool wrd:dictword firstp:bool pn
+Routine 28644 NameP wrd:dictword
+Routine 28664 Capitalize ptr compiler_tmp
+Routine 28722 Prep_Print ndx:int prep:dictword
+Routine 29748 Naughty_Word w:dictword
+Routine 29852 Adj_Check w:dictword flag:bool UNUSED
+Routine 29894 Get_Object tbl:^array(int) vrb:bool bits len xbits tlen gcheck:bool olen:int obj
+Routine 21928 TRPrint obj:object
+Routine 48912 Goto where:object old_location:object
+Routine 50088 Do_Walk dir:property
+Routine 75346 Read_Log
+Routine 23266 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp:action objtmp:object indtmp:object
+Routine 49518 JigsUp deathmsg:string
+Routine 23712 Dequeue:bool rtn:^routine
+Routine 94992 I_Forklift
+Routine  58730 Ant_Litter obj:object
+Routine 100056 Floyd_in_air
+Routine 0x1132e Docking_Bay2_F:act_result rarg:rarg 
+Routine 101954 Warehouse_F rarg:rarg
+Routine 69762 Space_Liquid obj:object
+Routine 0x11380 Level_Five_F:act_result rarg:rarg 
+Routine 0x13028 Describe_Bit_Size bit_size:object
+
+Routine 0x7cf6 BriefSub
+Routine 0x7d10 SuperbriefSub
+Routine 0x825e Do_You_Wish what:string
+Routine 0x8284 YesP
+Routine 0x82ca Finish pscore:bool wordcnt:int
+Routine 0x83ea ScoreSub
+Routine 0x8572 DebugCommSub
+Routine 0x8578 DebugRandomSub
+Routine 0x858c DebugRecoSub
+Routine 0x8592 DebugUnreSub
+Routine 0x8598 VerifySub
+Routine 0x86c4 ApplaudSub
+Routine 0x86de ApplySub
+Routine 0x8712 AskAboutSub
+Routine 0x874c AskForSub
+Routine 0x8766 AttractSub
+Routine 0x877e BurnSub
+Routine 0x87bc CatchSub
+Routine 0x87d8 LookObjSub
+Routine 0x887a ClimbDownSub
+Routine 0x8898 ClimbOnSub
+Routine 0x88ca ClimbSub
+Routine 0x88e8 CloseSub
+Routine 0x89b4 ComfortSub
+Routine 0x89dc CompareSub
+Routine 0x89fe ClimbUnderSub
+Routine 0x8a22 CutSub
+Routine 0x8a5c DetachSub
+Routine 0x8b02 DressSub
+Routine 0x8b16 PreDrillSub
+Routine 0x8b9c DrillSub
+Routine 0x8c04 DropSub
+Routine 0x8c90 EatSub
+Routine 0x8d08 EatFromSub
+Routine 0x8d40 EmptySub
+Routine 0x8e00 EmptyFromSub
+Routine 0x8e20 PreEnterObjSub
+Routine 0x8e44 EnterObjSub
+Routine 0x9068 Nothing_Special
+Routine 0x90b2 DepartSub
+Routine 0x90ca FeedSub
+Routine 0x90de FillSub
+Routine 0x90f6 FindSub
+Routine 0x920e FlatterSub
+Routine 0x96a4 PreGiveSub
+Routine 0x96be GetDressedSub
+Routine 0x96d0 GetUndressedSub
+Routine 0x96e4 GiveSub
+Routine 0x9720 GiveUpSub
+Routine 0x9732 GreetSub
+Routine 0x974c HelloSub
+Routine 0x98a8 HideSub
+Routine 0x98bc HugSub
+Routine 0x98d8 AttackSub
+Routine 0x9940 KissSub
+Routine 0x9962 KnockSub
+Routine 0x9980 LaunchSub
+Routine 0x9a3a JumpOutSub
+Routine 0x9a50 LeaveSub
+Routine 0x9a76 LieOnSub
+Routine 0x9ada PreBrowseSub
+Routine 0x9afe LookBehindSub
+Routine 0x9b20 LookDownSub
+Routine 0x9c38 LookUpSub
+Routine 0x9c66 MeasureSub
+Routine 0x9cdc PreDestroySub
+Routine 0x9cfe DestroySub
+Routine 0x9d5c SwitchOffSub
+Routine 0x9d96 SwitchOnSub
+Routine 0x9de2 OpenSub
+Routine 0x9e7c PlayWithSub
+Routine 0x9e8e AimSub
+Routine 0x9e9e PourSub
+Routine 0x9ef6 PraySub
+Routine 0x9f46 LeadDirSub
+Routine 0x9f58 PreInsertSub
+Routine 0xa01a InsertSub
+Routine 0xa10e InsertOnSub
+Routine 0xa152 ReachInSub
+Routine 0xa1a2 BrowseSub
+Routine 0xa1b8 RemoveSub
+Routine 0xa1d8 WalkOverSub
+Routine 0xa1dc RescueSub
+Routine 0xa26a ScareSub
+Routine 0xa296 ScoldSub
+Routine 0xa29a SearchSub
+Routine 0xa2e0 TurnSub
+Routine 0xa314 ShakeSub
+Routine 0xa334 ShakeWithSub
+Routine 0xa40c BlastSub
+Routine 0xa5ba ShowSub
+Routine 0xa5d6 SitDownSub
+Routine 0xa67e PreSmellSub
+Routine 0xa6c4 SmellSub
+Routine 0xa7f8 SpraySub
+Routine 0xa890 SwingSub
+Routine 0xa9d6 GetOffSub
+Routine 0xaa4a GetWithSub
+Routine 0xaa6e LickSub
+Routine 0xaa8c TellSub
+Routine 0xab14 TellAboutSub
+Routine 0xab3c ThankSub
+Routine 0xab72 ThrowSub
+Routine 0xabc2 ThrowToSub
+Routine 0xabda TickleSub
+Routine 0xabea TieSub
+Routine 0xabf8 TimeSub local1:bool
+Routine 0xacb6 TypeInSub
+Routine 0xad66 Robot_Type
+Routine 0xae42 Spacetruck_Type
+Routine 0xaf66 Elevator_Type
+Routine 0xb0ca Dispenser_Type
+Routine 0xb148 Recording str:string
+Routine 0xb1a2 UndressSub
+Routine 0xb1b6 UnlockSub
+Routine 0xb248 UseSub
+Routine 0xb2a4 StampSub
+Routine 0xb2bc GoSub
+Routine 0xb4ce Describe_Auto_Door
+Routine 0xb654 ApproachSub
+Routine 0xb682 WaitSub turns:int
+Routine 0xb6d0 WaitUntilSub
+Routine 0xb6d4 WearSub
+Routine 0xb70c WhatSub
+Routine 0xb82c SneezeSub
+Routine 0xb838 ITake:act_result vb:bool itm:object weight:int
+Routine 0xb924 Score_Obj val:int
+Routine 0xb946 IDrop
+Routine 0xbece Describe_Vehicle
+Routine 0xc268 Meta_Loc obj:object
+Routine 0xc286 Other_Side door_obj:object prop:property addr
+Routine 0xc42a Intdir_F:act_result 
+Routine 0xc598 Not_here_object_F:act_result tbl prso_p:bool obj:object x:object
+Routine 100164 Twelve_prong_fromitz_board_F:act_result 
+Routine 98966 Balloon_F:act_result 
+Routine 0xc67c Prso_Moby_VerbP
+Routine 0xc692 Prsi_Moby_VerbP
+Routine 0xc768 Ground_F:act_result 
+Routine 0xc7a6 Walls_F:act_result 
+Routine 0xc7b4 Ceiling_F:act_result 
+Routine 0xc832 Global_Room_F:act_result 
+Routine 0xc8fc Window_F:act_result 
+Routine 0xcab8 Sign_F:act_result 
+Routine 0xcea8 Equipment_F:act_result 
+Routine 0xcf30 fixtures_F:act_result 
+Routine 0xcf68 Hole_F:act_result 
+Routine 0xcf9a Ladder_F:act_result 
+Routine 0xd046 Me_F:act_result 
+Routine 0xd13c Grue_F:act_result 
+Routine 0xd258 Form_slot_F
+Routine 0xd40a Both_Seats_not_Occupied
+Routine 0xd41c Keypad_F:act_result 
+Routine 0xd5ee Sleep_F:act_result 
+Routine 0xd7d8 I_Fall_Asleep
+Routine 0xd80a Waking_Up UNUSED1 UNUSED2 chance_of_nastiness:int
+Routine 0xdf2c Welder_F:act_result 
+Routine 0xe2dc Cant_See obj:object
+Routine 0xe324 Tell_Hit_Head
+Routine 0xe412 Cant_Reach obj:object
+Routine 0xe492 Doesnt_Fit what:string
+Routine 0xe4b4 Not_In
+Routine 0xe500 Recognize
+Routine 0xe522 Pronoun_rtn
+Routine 0xe544 Referring him_her:bool
+Routine 0xe5c8 Fake_Door_F
+Routine 0xe5e0 Form_F:act_result 
+Routine 0xe654 Chronometer_F:act_result 
+Routine 0xe704 Patrol_uniform_F:act_result 
+Routine 0xe808 I_Blather
+Routine 0xe8c4 Pallets_F:act_result cnt
+Routine 0xfa3e Describe_Floyd examined:bool
+Routine 0x10986 Spacetruck_Object_F:act_result 
+Routine 0x10b1a Spacetruck_exit_dir:object
+Routine 0x10b68 Pilot_Seat_F:act_result local1 
+Routine 0x10be8 Generic_Seat_F:object
+Routine 0x10bfe Radio_F:act_result 
+Routine 0x11034 Foot_Kit_F:act_result compiler_tmp
+Routine 0x11074 In_vacuumP:bool
+Routine 0x110d2 Space_Food
+Routine 0x110fe Thermos_F:act_result 
+Routine 0x111d2 I_Thermos
+Routine 0x1124c Describe_Soup_Temperature
+Routine 0x113fc Jammer_F:act_result 
+Routine 0x1160e Dispenser_F:act_result 
+Routine 0x11792 Coin_Slot_F
+Routine 0x117c4 Dispenser_screen_F
+Routine 0x11916 Dispenser_hole_F
+Routine 0x11a22 Ostrich_into_Dispenser
+Routine 0x11a78 Timer_F:act_result 
+Routine 0x11df0 Cell_F
+Routine 0x11e2e Brig_Lock_F
+Routine 0x11fa0 System_Monitors_F:act_result 
+Routine 0x124e6 Log_reader_F:act_result 
+Routine 0x12608 Log_reader_button_F
+Routine 0x12f6e Safe_F:act_result 
+Routine 0x13028 Describe_Bit_Size bit_size:object
+Routine 0x1305c Drilled_Hole_F:act_result hole_in_what:object
+Routine 0x131a0 Stamp_F:act_result 
+Routine 0x13528 Dryer_F:act_result 
+Routine 0x1376c Describe_Presser
+Routine 0x137a8 I_Presser
+Routine 0x139de Eternal_flame_F:act_result 
+Routine 0x13af6 Pulpit_F:act_result 
+Routine 0x13b96 Switch_F:act_result 
+Routine 0x13bfe Theater_seat_F
+Routine 0x13cd4 FPU_F:act_result 
+Routine 0x13ea6 Coffee_F:act_result local1 
+Routine 0x13f9c Detonator_F:act_result 
+Routine 0x14184 Blackened_Diode_F:act_result 
+Routine 0x14234 Magazine_F:act_result 
+Routine 0x142e0 Nanofilm_Reader_F:act_result local1 
+Routine 0x1466e Dome_objecT_F
+Routine 0x14684 Dome_F:act_result local1 
+Routine 0x147a0 Shrubbery_F:act_result 
+Routine 0x14892 Housing_F:act_result 
+Routine 0x14c64 Alien_ship_pseudo_F
+Routine 0x14e50 Pattern_of_dots_F:act_result 
+Routine 0x1507e Pedestal_F:act_result 
+Routine 0x15106 Skeleton_F:act_result 
+Routine 0x1525c Heating_chamber_F:act_result 
+Routine 0x15382 Oliver_F:act_result 
+Routine 0x15562 Trash_can_F:act_result 
+Routine 0x1558e Village_Form_F:act_result 
+Routine 89358 Twenty_Prong_fromitz_board_F
+Routine 0x15632 Below_Deck_Noises
+Routine 0x15748 Drill_F:act_result 
+Routine 89690 Plato_F:act_result react
+Routine 0x15810 Elevator_F:act_result  rarg:rarg
+Routine 95234 Factory_F rarg:rarg
+Routine 94468 Bottom_Air_Shaft_exit_F
+Routine 0x158fc Elevator_Exit_F:object
+Routine 0x15924 Enter_Elevator_F:object top_of_elevator:int
+Routine 0x15ae8 Call_Button_F:act_result local1 
+Routine 0x15b68 Auto_door_F:act_result 
+Routine 0x15bac Security_door_F:act_result 
+Routine 0x15c1a I_Security_Door
+Routine 0x15c46 ID_reader_F:act_result 
+Routine 0x15cf4 Diary_F:act_result 
+Routine 0x15d72 N_prong_board
+Routine 0x15d98 Generic_Fromitz_Board_F:object
+Routine 0x16532 Volume_F:act_result 
+Routine 0x16e3c Youre_Stunned movewhat:string
+Routine 0x17008 I_Launch
+Routine 0x170e2 Air_Shaft_Movement_F
+Routine 0x1710e Computer_F
+Routine 0x17292 Forklift_F:act_result local1 
+Routine 0x173ca Computer_Control_exit:object
+Routine 0x1758e I_Factory
+Routine 0x175a2 Pyramid_F:act_result 
+Routine 0x17b2a Village_Boundary_F:object dest:object
+Routine 0x17c08 Iris_hatch_F:act_result 
+Routine 0x17c8e Crystal_ball_F:act_result 
+Routine 0x17d2a Recruitment_Posters_pseudo_action
+Routine 0x17e7e Headlamp_F:act_result 
+Routine 0x18158 Foil_F:act_result 
+Routine 0x181f4 Cage_F:act_result 
+Routine 0x18434 Leash_F:act_result 
+Routine 0x1872c Ostrich_nip_F:act_result 
+Routine 0x18774 Studio_F:act_result local1 
+Routine 0x187f0 Diode_J_F:act_result 
+Routine 0x18832 Sculpture_F:act_result 
+Routine 0x18870 Casino_F:act_result local1 
+Routine 0x18930 Roulette_Wheel_F:act_result 
+Routine 0x1897e Dice_F:act_result num compiler_tmp
+Routine 0x18a5a Spacesuit_F:act_result 
+Routine 0x18b18 Nectar_F:act_result 
+Routine 0x18ba4 Book_F:act_result 
+Routine 0x18c28 Platinum_Detector_F:act_result 
+Routine 0x18eac Inner_Airlock_Door_F:act_result 
+Routine 0x18ec6 Outer_Airlock_Door_F:act_result x:object n obj_flushed:bool
+Routine 23252 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp:action objtmp:object indtmp:object
+Routine 58276 Noun_Used w:dictword obj:object
+Routine 0x19072 Generic_airlock_door:object
+Routine 0x190de Airlock_Object_F:act_result 
+Routine 0x192a8 Explosives_F:act_result 
+Routine 0x19386 Describe_Explosive
+Routine 0x193ce Spray_can_F:act_result 
+Routine 0x19688 Generic_Can_F:object
+Routine 0x19690 Next_RoomP what:object no_connect:bool dir:property paddr plen:int
+Routine 0x19734 Strong_box_F:act_result 
+Routine 0x1983e Doc_Hole_F
+Routine 0x198f6 Ostrich_F:act_result 
+Routine 0x19c7c ID_Changer_Slot_F
+Routine 0x19caa ID_Changer_F
+Routine 0x19e08 ID_Changer_Type
+Routine 0x19f3a Boots_F:act_result 
+Routine 0x1a00e Garbage_F:act_result 
 ! ------------------------------- Words --------------------------------
 
-Word $de $de
-Word $ke $ke
-Word $st $st
-Word $ve $ve
-Word 12- 12-
-Word 20- 20-
-Word 91st 91st
-Word #comm #comm
-Word #rand #rand
-Word #reco #reco
-Word #unre #unre
-Word across across
-Word activa activa
-Word airloc airloc
-Word all-p all-p
-Word answer answer
-Word applau applau
-Word approa approa
-Word aprico aprico
-Word arctur arctur
-Word around around
-Word asshol asshol
-Word assign assign
-Word attach attach
-Word attack attack
-Word attrac attrac
-Word author author
-Word auto- auto-
-Word balloo balloo
-Word bastar bastar
-Word bathtu bathtu
-Word beauti beauti
-Word bedist bedist
-Word behind behind
-Word beneat beneat
-Word bigger bigger
-Word blacke blacke
-Word blinki blinki
-Word bluebe bluebe
-Word boards boards
-Word booths booths
-Word bottle bottle
-Word browse browse
-Word bushes bushes
-Word button button
-Word carniv carniv
-Word ceilin ceilin
-Word chambe chambe
-Word chrono chrono
-Word circle circle
-Word cocksu cocksu
-Word coffee coffee
-Word comfor comfor
-Word compar compar
-Word comple comple
-Word comput comput
-Word connec connec
-Word copilo copilo
-Word counte counte
-Word creatu creatu
-Word crumpl crumpl
-Word crysta crysta
-Word cubicl cubicl
-Word custar custar
-Word cylind cylind
-Word damage damage
-Word damned damned
-Word deacti deacti
-Word debark debark
-Word demoli demoli
-Word depart depart
-Word descen descen
-Word descri descri
-Word destro destro
-Word detach detach
-Word detect detect
-Word detona detona
-Word devour devour
-Word diagno diagno
-Word diodes diodes
-Word direct direct
-Word discon discon
-Word disemb disemb
-Word dismou dismou
-Word dispen dispen
-Word donate donate
-Word downst downst
-Word dresse dresse
-Word elevat elevat
-Word equipm equipm
-Word eterna eterna
-Word everyb everyb
-Word everyo everyo
-Word everyt everyt
-Word examin examin
-Word except except
-Word exerci exerci
-Word exotic exotic
-Word explos explos
-Word exting exting
-Word eye-c eye-c
-Word fabric fabric
-Word fairly fairly
-Word finger finger
-Word flatte flatte
-Word floati floati
-Word follow follow
-Word footno footno
-Word forkli forkli
-Word freque freque
-Word frezon frezon
-Word fromit fromit
+Word activa activate
+Word airloc airlock
+Word applau applaud
+Word approa approach
+Word aprico apricot
+Word asshol asshole
+Word assign assignment
+Word attrac attract
+Word balloo balloon
+Word bastar bastard
+Word bathtu bathtub
+Word beauti beautiful
+Word beneat beneath
+Word blacke blackened
+Word blinki blinking
+Word carniv carnival
+Word ceilin ceiling
+Word chambe chamber
+Word chrono chronometer
+Word cocksu cocksucker
+Word comfor comfort
+Word compar compare
+Word comple complete
+Word comput computer
+Word connec connect
+Word copilo copilot
+Word counte counter
+Word creatu creature
+Word crumpl crumple
+Word crysta crystal
+Word cubicl cubicle
+Word custar custard
+Word cylind cylinder
+Word deacti deactivate
+Word demoli demolish
+Word descen descend
+Word descri describe
+Word destro destroy
+Word detona detonate
+Word diagno diagnose
+Word discon disconnect
+Word disemb disembark
+Word dismou dismount
+Word dispen dispense
+Word downst downstairs
+Word dresse dressed
+Word elevat elevate
+Word equipm equipment
+Word eterna eternal
+Word everyb everybody
+Word everyo everyone
+Word everyt everythign
+Word examin examine
+Word exerci exercise
+Word explos explosion
+Word exting extinguish
+Word featur feature
+Word flatte flatten
+Word floati floating
+Word footno footnote
+Word forkli forklift
+Word freque frequency
 Word fucked fucked
-Word fuckin fuckin
-Word fw-8 fw-8
-Word galakm galakm
-Word garbag garbag
-Word garden garden
-Word gigant gigant
-Word gobble gobble
-Word gratin gratin
-Word ground ground
-Word hb-5 hb-5
-Word headla headla
-Word heatin heatin
-Word hersel hersel
-Word himsel himsel
-Word holdin holdin
-Word hyperd hyperd
-Word identi identi
-Word illega illega
-Word ingest ingest
-Word innocu innocu
-Word insert insert
-Word inside inside
-Word inspec inspec
-Word instru instru
-Word invent invent
-Word ironed ironed
-Word isolat isolat
-Word j-ser j-ser
-Word jammer jammer
-Word jz-5 jz-5
-Word keypad keypad
-Word ladder ladder
-Word larger larger
-Word launch launch
-Word letter letter
-Word listen listen
-Word little little
-Word locker locker
-Word lukewa lukewa
-Word lurkin lurkin
-Word m-ser m-ser
-Word machin machin
-Word magazi magazi
-Word magnet magnet
-Word massiv massiv
-Word measur measur
-Word medium medium
-Word megakr megakr
-Word metall metall
-Word mighti mighti
-Word mighty mighty
-Word mirror mirror
-Word monito monito
-Word multip multip
-Word myself myself
-Word nanofi nanofi
-Word nautil nautil
-Word neatly neatly
-Word nectar nectar
-Word nibble nibble
-Word northe northe
-Word northw northw
-Word notati notati
-Word notebo notebo
-Word number number
-Word observ observ
-Word office office
-Word oliver oliver
-Word orange orange
-Word ostric ostric
-Word outsid outsid
-Word pallet pallet
-Word patrol patrol
-Word pedest pedest
-Word plants plants
-Word plasti plasti
-Word platin platin
-Word please please
-Word pocket pocket
-Word poetry poetry
-Word pointe pointe
-Word poster poster
-Word presse presse
-Word procee procee
-Word proces proces
-Word projec projec
-Word prongs prongs
-Word protag protag
-Word pulpit pulpit
-Word purpos purpos
-Word pursue pursue
-Word pyrami pyrami
-Word qx-1 qx-1
-Word ramosi ramosi
-Word random random
-Word raygun raygun
-Word reader reader
-Word recent recent
-Word record record
-Word reflec reflec
-Word releas releas
-Word remove remove
-Word repair repair
-Word rescue rescue
-Word restar restar
-Word restor restor
-Word rock- rock-
-Word rotate rotate
-Word roulet roulet
-Word rummag rummag
-Word scratc scratc
-Word scream scream
-Word screen screen
-Word script script
-Word sculpt sculpt
-Word search search
-Word second second
-Word securi securi
-Word series series
-Word shithe shithe
-Word shitty shitty
-Word shower shower
-Word shrubb shrubb
-Word shrubs shrubs
-Word simula simula
-Word skelet skelet
-Word smalle smalle
-Word sneeze sneeze
-Word snooze snooze
-Word socket socket
-Word southe southe
-Word southw southw
-Word spaceb spaceb
-Word spacec spacec
-Word spacet spacet
-Word spindl spindl
-Word stalls stalls
-Word starbo starbo
-Word status status
-Word steami steami
-Word storag storag
-Word straig straig
-Word strike strike
-Word stroke stroke
-Word strong strong
-Word sturdy sturdy
-Word superb superb
-Word surviv surviv
-Word swallo swallo
-Word switch switch
-Word system system
-Word textbo textbo
-Word thanks thanks
-Word thermo thermo
-Word throug throug
-Word tickle tickle
-Word tinier tinier
-Word toilet toilet
-Word tongue tongue
-Word toward toward
-Word toweri toweri
-Word transl transl
-Word transp transp
-Word tremen tremen
-Word trotti trotti
-Word twelve twelve
-Word twenty twenty
-Word uh-uh uh-uh
-Word uncrum uncrum
-Word undern undern
-Word undres undres
-Word unifor unifor
-Word unlock unlock
-Word unplug unplug
-Word unscri unscri
-Word unseal unseal
-Word upstai upstai
-Word useles useles
-Word vacuum vacuum
-Word valida valida
-Word vendin vendin
-Word verbos verbos
-Word versio versio
-Word viciou viciou
-Word viewpo viewpo
-Word villag villag
-Word volume volume
-Word walnut walnut
-Word wardro wardro
-Word welder welder
-Word what' what'
-Word wheres wheres
-Word window window
-Word withdr withdr
-Word wooden wooden
-Word wristw wristw
-Word yellow yellow
-Word yogurt yogurt
-Word zapgun zapgun
-Word zzmgck zzmgck
-
+Word fuckin fucking
+Word garbag garbage
+Word gigant gigantic
+Word gratin grating
+Word headla headlamp
+Word heatin heating
+Word hersel herself
+Word himsel himself
+Word holdin holding
+Word identi identify
+Word illega illegal
+Word innocu innoculate
+Word inspec inspect
+Word instru instrument
+Word intoxi intoxicating
+Word invent inventory
+Word isolat isolated
+Word lukewa lukewarm
+Word lurkin lurking
+Word machin machine
+Word magazi magazine
+Word massiv massive
+Word measur measurement
+Word messag message
+Word metall metallic
+Word monito monitor
+Word multip multiply
+Word northe northeast
+Word northw northwest
+Word notati notation
+Word notebo noteboook
+Word observ observe
+Word ostric ostrich
+Word outsid outside
+Word pedest pedestal
+Word plasti plastic
+Word platin plating
+Word pointe pointer
+Word presse pressed
+Word procee proceed
+Word proces process
+Word projec project
+Word pronge pronged
+Word protag protagonist
+Word purpos purpose
+Word pyrami pyramid
+Word reflec reflection
+Word releas release
+Word restar restart
+Word restor restore
+Word roulet roulette
+Word rummag rummage
+Word scratc scratch
+Word sculpt sculpture
+Word securi security
+Word shithe shither
+Word shrubb shrubbed
+Word simula simulation
+Word skelet skeleton
+Word smalle smaller
+Word southe southeast
+Word southw southwest
+Word spindl spindle
+Word starbo starboard
+Word steami steaming
+Word storag storage
+Word straig straight
+Word superb superbrief
+Word surviv survivor
+Word swallo swallow
+Word textbo textbook
+Word thermo thermos
+Word throug through
+Word toweri towering
+Word transl translate
+Word transp transport
+Word tremen tremendous
+Word trotti trotting
+Word unauth unauthorized
+Word undern underneath
+Word undres undress
+Word unifor uniform
+Word unscri unscript
+Word upstai upstairs
+Word valida validate
+Word vendin vending
+Word verbos verbose
+Word versio version
+Word viciou vicious
+Word viewpo viewport
+Word villag village
+Word wardro wardrobe
+Word withdr withdraw
+Word wristw wristwatch
+Word nanofi nanofilm
+Word uncrea uncrease
+Word uncrum uncrumple
