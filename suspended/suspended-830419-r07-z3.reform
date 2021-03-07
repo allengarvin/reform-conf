@@ -146,7 +146,7 @@ Global      106 P_aclause:p_partsofspeech
 Global      107 P_merged:bool
 Global      108 P_oflag:bool
 Global      109 LastNounPlace:object
-Global      110 P_it_objectobject
+Global      110 P_it_object:object
 Global      111 P_cont
 GlobalArray 112 P_inbuf:array(~int,n*~char)
 GlobalArray 113 P_lexv:array(~int,~int,119*dictword)
@@ -167,9 +167,9 @@ Global      132 prev_second:object
 Global      133 prev_noun:object
 Global      134 prev_verb:action
 GlobalArray 135 Cant_orphan_table:table(string)
-Global      136 Time_till_people_arrive:int
-Global      137 Quake1Countdown
-Global      138 Quake2Countdown
+Global      136 People_appear:int
+Global      137 Acid_kills
+Global      138 RTD_kills
 Global      139 P_won:bool
 Global      140 Clock_wait:bool
 Global      141 C_ints
@@ -874,7 +874,7 @@ Routine 0x6536 Possible_debugging_orphaned_func
 Routine 0x653e FindObjectsNearby cnt:int len where:object
 Routine 0x6562 Perform:int act:action obj:object ind_obj:object v:act_result verbtmp objtmp indtmp
 Routine 0x6670 MetaVerbP v:action
-Routine 0x6686 EmergencyMsg
+Routine 0x6686 Beginning
 Routine 0x677a UpdateAnimateLocations cnt:int
 Routine 0x6796 Parser:bool ptr:p_lexv word:dictword val vrb:verbnum len:int dir nw:dictword tmpword:dictword num spacing_p:bool cnt:int
 Routine 0x6af4 CheckRobotsAddressible_maybe:bool
@@ -1070,7 +1070,7 @@ Routine 0xa428 PlaySub:act_result
 Routine 0xa43c VerifySub:act_result
 Routine 0xa476 StandOnSub:act_result
 Routine 0xa48c FullReportSub:act_result
-Routine 0xa4f6 FullLocationSub:act_result who:object cnt:int obj:object
+Routine 0xa4f6 AllReportLocSub:act_result who:object cnt:int obj:object
 Routine 0xa54c ReportSub:act_result
 Routine 0xa5e4 LocationSub:act_result
 Routine 0xa626 LookWithSub:act_result
@@ -1110,20 +1110,20 @@ Routine 0xb24c Poet1_action:act_result
 Routine 0xb276 Whiz1_action:act_result
 Routine 0xb2ce General_Animate_Action:act_result
 Routine 0xb310 Two_Robots_action:act_result
-Routine 0xb45e Quake1_timer
-Routine 0xb5c0 Quake2_timer
-Routine 0xb688 TowerPressureDaemon least:int
+Routine 0xb45e I_Tremor1
+Routine 0xb5c0 I_Tremor2
+Routine 0xb688 I_Weather least:int
 Routine 0xb712 PressureDifferentials current_pressure:int p_setting:int diff:int
-Routine 0xb74e StormIntensifies
-Routine 0xb760 FoodDaemon production:int
+Routine 0xb74e I_Decay
+Routine 0xb760 I_Food production:int
 Routine 0xb886 WinGame final_recovery:int
-Routine 0xbc50 TallyWeatherCasualties
+Routine 0xbc50 I_Score
 Routine 0xbca4 TallyTrafficCasualties sw1:bool sw2:bool sw3:bool
-Routine 0xbd54 IrisCheckCablesDaemon
+Routine 0xbd54 I_Wire_Message
 Routine 0xbdd2 RobotRepairDaemon who:object ndx:int
-Routine 0xbe4e RobotHealthDaemon cnt:int health:int
-Routine 0xbece Unfixed_Iris_Daemon
-Routine 0xbfaa People_Auda_timer
+Routine 0xbe4e I_Robotkiller cnt:int health:int
+Routine 0xbece I_Iris_hints
+Routine 0xbfaa I_Auda_hints
 Routine 0xbff0 People1_action:act_result
 Routine 0xc106 LoseTheGame
 Routine 0xc1a2 CPU_Room_action local1
@@ -1186,7 +1186,7 @@ Routine 0xd992 DeterminePaths grouping:int
 Routine 0xd9b4 FindAreaByRoomBit bits:groupbits
 Routine 0xd9ea Which_way_did_they_go dir:property cnt:int
 Routine 0xda10 QueryRobotDestination who:object
-Routine 0xda20 Master_person_daemon flag:bool cnt:int status_tbl:^array(?,?,?,?,bool,?,?,routine)
+Routine 0xda20 I_Follow flag:bool cnt:int status_tbl:^array(?,?,?,?,bool,?,?,routine)
 Routine 0xda5a Trigger_person_daemon who_num:int tbl
 Routine 0xda7c Robot_daemon:int robot_num:int explicit_call:bool who:object UNUSED who_am_I_looking_for:object env:object
 Routine 0xdb12 People_daemon UNUSED1 explicit_call:bool UNUSED2
@@ -1197,7 +1197,7 @@ Routine 0xdcfe OnWayToDestinationP who:object tbl env:object
 Routine 0xdd28 PeopleCanBeHeard
 Routine 0xdd40 PrintAudaListening
 Routine 0xdd5c RobotNearPeople r:object
-Routine 0xdd6c People_arrive_timer:int
+Routine 0xdd6c I_People1:int
 Routine 0xddb4 People_enter_complex r:object
 Routine 0xe0c2 People_decide_to_sleep r:object
 Routine 0xe27c People_asleep_daemon
